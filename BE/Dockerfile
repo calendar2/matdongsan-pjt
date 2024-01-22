@@ -1,3 +1,4 @@
 FROM amazoncorretto:17
-ADD ./build/libs/*.jar app.jar
+WORKDIR /app
+ADD ./build/libs/*.jar /app/
 ENTRYPOINT ["java", "-jar", "app.jar"]
