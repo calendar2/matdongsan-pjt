@@ -14,7 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.nio.charset.Charset;
-
+import java.nio.charset.StandardCharsets;
 
 
 @RestController
@@ -22,7 +22,7 @@ import java.nio.charset.Charset;
 
 public class NaverSearchApiController {
     @GetMapping("/naver/search/")
-    @Operation(summary = "네이버 지역 검색 API", description = "관련 음식점 및 장소 20개 반환")
+    @Operation(summary = "네이버 지역 검색 API", description = "관련 음식점 및 장소 5개 반환")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "성공"),
             @ApiResponse(responseCode = "400", description = "실패"),
@@ -38,10 +38,11 @@ public class NaverSearchApiController {
                 .fromUriString("https://openapi.naver.com")
                 .path("/v1/search/local.json")
                 .queryParam("query",query)
-                .queryParam("display",20)
+                .queryParam("display",5)
                 .queryParam("start",1)
                 .queryParam("sort","comment")
-                .encode(Charset.forName("UTF-8"))
+                .encode(StandardCharsets.UTF_8)
+
                 .build()
                 .toUri();
         //Header 설정
