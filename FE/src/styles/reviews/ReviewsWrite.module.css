@@ -1,0 +1,10 @@
+@charset "UTF-8";
+.end {
+  position: fixed;
+  background-color: rgb(255, 255, 255);
+  margin-left: 340px;
+  top: 21.5px;
+  width: 350px;
+  height: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 음영 추가 */
+}/*# sourceMappingURL=ReviewsWrite.module.css.map */
