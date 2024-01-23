@@ -1,31 +1,22 @@
 version: '3'
 services:
-  matdongsan-api:
-    container_name: matdongsan-api
+  spring-app:
+    container_name: spring-app
     build:
       context: ../BE
       dockerfile: ./Dockerfile
     ports:
-      - "8080:8080"
+      - "4000:4000"
     environment:
       MYSQL_HOST : mysql
       MYSQL_USER : root
-      MYSQL_PASSWORD : ${MYSQL_PASSWORD}
+      MYSQL_PASSWORD : ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB}
+    image: junyupk/backend
 
-  mysql:
-    image: mysql:latest
-    container_name: ${NAME}
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_CHARSET: utf8mb4
-      MYSQL_COLLATION: utf8mb4_unicode_ci
-    expose:
-      - 3306
-    command:
-      - --character-set-server=utf8mb4
-      - --collation-server=utf8mb4_unicode_ci
-  redis:
-    image: redis:latest
-    expose:
-      - 6379
-    command: redis-server --save 60 1000 --loglevel notice --requirepass ${REDIS_PASSWORD}
+  react-app:
+    container_name: react-app
+    build:
+      context: ../FE
+      dockerfile: ./Dockerfile
+    image: junyupk/frontend

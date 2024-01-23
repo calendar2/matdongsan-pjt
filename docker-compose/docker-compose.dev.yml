@@ -2,9 +2,12 @@ version: '3'
 services:
   mysql:
     image: mysql:latest
-    container_name: ${NAME}
+    container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_CHARSET: utf8mb4
       MYSQL_COLLATION: utf8mb4_unicode_ci
     expose:
@@ -14,6 +17,7 @@ services:
       - --collation-server=utf8mb4_unicode_ci
   redis:
     image: redis:latest
+    container_name: redis
     expose:
       - 6379
     command: redis-server --save 60 1000 --loglevel notice --requirepass ${REDIS_PASSWORD}
