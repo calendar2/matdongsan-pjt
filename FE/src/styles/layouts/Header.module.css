@@ -1,0 +1,72 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.container .headline {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+.container .headline a {
+  text-decoration: none;
+  color: black;
+}
+.container .headline a h1 {
+  margin-left: 21.44px;
+}
+.container .headline .userInfo {
+  padding-right: 1rem;
+}
+.container .headline .userInfo ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.container .headline .userInfo ul li {
+  display: inline-block;
+  margin-right: 1.5rem;
+}
+.container .headline .userInfo ul li button {
+  margin: 0;
+}
+.container .headline .userInfo ul li .loginBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #b2b2b2;
+  border-radius: 100px;
+}
+.container .headline .userInfo ul li .loginBtn:hover {
+  cursor: pointer;
+}
+.container .headline .userInfo ul li .loginLink {
+  margin-left: 1rem;
+  font-size: 19px;
+  font-weight: bold;
+  color: #b2b2b2;
+}
+.container .headline .searchBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.container .headline .searchBox .searchWrapper {
+  border: 1px solid #b2b2b2;
+  border-radius: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1.5rem;
+  margin-left: 1rem;
+}
+.container .headline .searchBox .searchWrapper input {
+  border: 0px;
+  width: 40rem;
+  font-size: 2rem;
+}
+.container .userRank {
+  margin: auto;
+}/*# sourceMappingURL=Header.module.css.map */

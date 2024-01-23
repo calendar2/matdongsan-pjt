@@ -1,0 +1,88 @@
+$primary-color: #1DB177;
+$secondary-color: #b2b2b2;
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+  .headline {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+
+    a {
+      text-decoration: none;
+      color: black;
+
+      h1 {
+        margin-left: 21.44px;
+      }
+    }
+    
+    .userInfo {
+      padding-right: 1rem;
+
+      ul {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        li {
+          display: inline-block;
+          margin-right: 1.5rem;
+
+          button {
+            margin: 0;
+          }
+
+          .loginBtn {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid $secondary-color;
+            border-radius: 100px;
+            &:hover {
+              cursor: pointer;
+            }
+          }
+
+          .loginLink {
+            margin-left: 1rem;
+            font-size: 19px;
+            font-weight: bold;
+            color: $secondary-color;
+          }
+        }
+      }
+    }
+
+    .searchBox {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .searchWrapper {
+        border: 1px solid $secondary-color;
+        border-radius: 100px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 1.5rem;
+        margin-left: 1rem;
+
+        input {
+          border: 0px;
+          width: 40rem;
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+
+  .userRank {
+    margin: auto;
+  }
+}
