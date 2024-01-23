@@ -16,6 +16,8 @@ services:
 
   react-app:
     container_name: react-app
+    ports:
+      - "3000:3000"
     build:
       context: ../FE
       dockerfile: ./Dockerfile
