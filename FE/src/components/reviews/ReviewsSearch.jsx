@@ -14,10 +14,7 @@ import {
 import { TimeModal, ReviewsSearchTime } from './ReviewSearchTime';
 
 function ReviewsSearch() {
-  const [whoIsTogether, setWhoIs] = useState(false);
-  const [whereIsStore, setWhereIs] = useState(false);
-  const [whereIsLocation, setWhereIsLocation] = useState(false);
-  const [whenTime, setWhenTime] = useState(false);
+  const [whatIsClicked, setClicked] = useState(0);
   return (
     <div style={{ margin: '20px' }}>
       <TextField
@@ -35,6 +32,7 @@ function ReviewsSearch() {
             borderRadius: 30,
             backgroundColor: '#f4f2f2',
             color: '#b9b9b9',
+            marginBottom: '20px',
           },
           '& input::placeholder': {
             textAlign: 'center', // placeholder를 중앙 정렬
@@ -53,25 +51,27 @@ function ReviewsSearch() {
       />
       <br />
       <ReviewsSearchTogether
-        whoIsTogether={whoIsTogether}
-        setWhoIs={setWhoIs}
+        whoIsTogether={whatIsClicked}
+        setWhoIs={setClicked}
       />
       <ReviewsSearchStore
-        whereIsStore={whereIsStore}
-        setWhereIs={setWhereIs}
+        whereIsStore={whatIsClicked}
+        setWhereIs={setClicked}
       />
       <ReviewsSearchLocation
-        whereIsLocation={whereIsLocation}
-        setWhereIsLocation={setWhereIsLocation}
+        whereIsLocation={whatIsClicked}
+        setWhereIsLocation={setClicked}
       />
       <ReviewsSearchTime
-        whenTime={whenTime}
-        setWhenTime={setWhenTime}
+        whenTime={whatIsClicked}
+        setWhenTime={setClicked}
       />
-      {whenTime === true ? <TimeModal /> : null}
-      {whereIsLocation === true ? <LocationModal /> : null}
-      {whereIsStore === true ? <StoreModal /> : null}
-      {whoIsTogether === true ? <TogetherModal /> : null}
+      {whatIsClicked === 1 ? (
+        <TogetherModal whatIsClicked={whatIsClicked} />
+      ) : null}
+      {whatIsClicked === 2 ? <StoreModal /> : null}
+      {whatIsClicked === 3 ? <LocationModal /> : null}
+      {whatIsClicked === 4 ? <TimeModal /> : null}
     </div>
   );
 }

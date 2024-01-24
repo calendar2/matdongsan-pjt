@@ -6,6 +6,7 @@ import FollowerIconOn from '../../assets/images/heartblack.png';
 import FollowerIconOff from '../../assets/images/heartwhite.png';
 
 function SideBar(props) {
+  // eslint-disable-next-line react/prop-types
   const { setCheck } = props;
   const [value, setValue] = useState(0);
 
