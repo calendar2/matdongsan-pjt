@@ -15,10 +15,10 @@ $secondary-color: #b2b2b2;
     a {
       text-decoration: none;
       color: black;
+    }
 
-      h1 {
-        margin-left: 21.44px;
-      }
+    .imgLogo {
+      width: 16rem;
     }
     
     .userInfo {
@@ -44,6 +44,7 @@ $secondary-color: #b2b2b2;
             padding: 1rem;
             border: 1px solid $secondary-color;
             border-radius: 100px;
+            background-color: white;
             &:hover {
               cursor: pointer;
             }

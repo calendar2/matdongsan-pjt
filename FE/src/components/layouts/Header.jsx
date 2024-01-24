@@ -4,17 +4,25 @@ import Avatar from '@mui/material/Avatar';
 import GlobalFilterModal from '../modals/GlobalFilterModal';
 import NotiModal from '../modals/NotiModal';
 import ProfileModal from '../modals/ProfileModal';
+import LoginModal from '../modals/LoginModal';
 import userStore from '../../stores/userStore';
 import header from '../../styles/layouts/Header.module.css';
+import imgLogo from '../../assets/images/logo.png';
 
 function Header() {
-  const { accessToken } = userStore();
+  const { accessToken, setLoginModalOpen } = userStore();
+
+  const modalOpen = () => setLoginModalOpen(true);
 
   return (
     <div className={header.container}>
       <div className={header.headline}>
-        <Link to="/" className={header}>
-          <h1>맛동산</h1>
+        <Link to="/main" className={header}>
+          <img
+            src={imgLogo}
+            alt="mainLogo"
+            className={header.imgLogo}
+          />
         </Link>
         <div className={header.searchBox}>
           <GlobalFilterModal />
@@ -36,12 +44,17 @@ function Header() {
           ) : (
             <ul>
               <li>
-                <div className={header.loginBtn}>
+                <button
+                  type="button"
+                  className={header.loginBtn}
+                  onClick={modalOpen}
+                >
                   <Avatar sx={{ width: 32, height: 32 }} />
-                  <Link to="/login" className={header.loginLink}>
+                  <span className={header.loginLink}>
                     로그인 및 회원가입
-                  </Link>
-                </div>
+                  </span>
+                </button>
+                <LoginModal />
               </li>
             </ul>
           )}
