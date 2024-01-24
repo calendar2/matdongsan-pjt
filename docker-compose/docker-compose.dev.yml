@@ -15,9 +15,19 @@ services:
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql_data:/usr/share/mysql/data
   redis:
     image: redis:latest
     container_name: redis
     ports:
       - "6379:6379"
     command: redis-server --save 60 1000 --loglevel notice --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis_data:/usr/share/redis/data
+
+volumes:
+  redis_data:
+    driver: local
+  mysql_data:
+    driver: local
