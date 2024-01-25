@@ -49,7 +49,7 @@ function Header() {
                   className={header.loginBtn}
                   onClick={modalOpen}
                 >
-                  <Avatar sx={{ width: 32, height: 32 }} />
+                  <Avatar sx={{ width: 28, height: 28 }} />
                   <span className={header.loginLink}>
                     로그인 및 회원가입
                   </span>

@@ -14,7 +14,7 @@
   color: black;
 }
 .container .headline .imgLogo {
-  width: 16rem;
+  width: 10rem;
 }
 .container .headline .userInfo {
   padding-right: 1rem;
@@ -35,7 +35,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 1rem;
+  padding: 0.8rem;
   border: 1px solid #b2b2b2;
   border-radius: 100px;
   background-color: white;
@@ -45,7 +45,7 @@
 }
 .container .headline .userInfo ul li .loginLink {
   margin-left: 1rem;
-  font-size: 19px;
+  font-size: 15px;
   font-weight: bold;
   color: #b2b2b2;
 }
@@ -60,13 +60,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 1.5rem;
+  padding: 1.2rem;
   margin-left: 1rem;
 }
 .container .headline .searchBox .searchWrapper input {
   border: 0px;
-  width: 40rem;
-  font-size: 2rem;
+  width: 30rem;
+  font-size: 1.2rem;
 }
 .container .userRank {
   margin: auto;

@@ -12,7 +12,7 @@ function FoodMapView() {
   return (
     <div>
       <Header />
-      <main className={contents}>
+      <main className={contents.wrapper}>
         <SideBar setCheck={setCheck} />
         {check === 0 ? <Reviews /> : <Subscribe />}
         <FoodMap />
