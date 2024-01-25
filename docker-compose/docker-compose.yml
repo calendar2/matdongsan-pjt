@@ -2,9 +2,6 @@ version: '3'
 services:
   spring-app:
     container_name: spring-app
-    build:
-      context: ../BE
-      dockerfile: ./Dockerfile
     ports:
       - "4000:4000"
     environment:
@@ -13,12 +10,14 @@ services:
       MYSQL_PASSWORD : ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DB}
     image: junyupk/backend
+    env_file:
+      - .env
 
   react-app:
     container_name: react-app
     ports:
-      - "3000:3000"
-    build:
-      context: ../FE
-      dockerfile: ./Dockerfile
+      - "80:80"
+      - "443:80"
     image: junyupk/frontend
+    env_file:
+      - .env
