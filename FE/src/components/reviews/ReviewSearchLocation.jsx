@@ -1,5 +1,4 @@
 import { Button } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styles from '../../styles/reviews/ReviewsSearchLocation.module.css';
 
@@ -32,9 +31,7 @@ function ReviewsSearchLocation(props) {
         }}
       >
         장소
-        <IconButton>
-          <ExpandMoreIcon sx={{ width: '10px' }} />
-        </IconButton>
+        <ExpandMoreIcon sx={{ width: '10px' }} />
       </Button>
     </span>
   );

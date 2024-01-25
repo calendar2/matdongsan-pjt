@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Tabs, Tab } from '@mui/material';
-import MyDongsanIconOn from '../../assets/images/foodwhite.png';
-import MyDongsanIconOff from '../../assets/images/foodblack.png';
-import FollowerIconOn from '../../assets/images/heartblack.png';
-import FollowerIconOff from '../../assets/images/heartwhite.png';
+import MyDongsanIconOn from '../../assets/images/sidebar/foodwhite.png';
+import MyDongsanIconOff from '../../assets/images/sidebar/foodblack.png';
+import FollowerIconOn from '../../assets/images/sidebar/heartblack.png';
+import FollowerIconOff from '../../assets/images/sidebar/heartwhite.png';
 
 function SideBar(props) {
   // eslint-disable-next-line react/prop-types

@@ -1,6 +1,4 @@
 import { Button } from '@mui/material';
-
-import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -36,9 +34,7 @@ function ReviewsSearchTime(props) {
         }}
       >
         날짜
-        <IconButton>
-          <ExpandMoreIcon sx={{ width: '10px' }} />
-        </IconButton>
+        <ExpandMoreIcon sx={{ width: '10px' }} />
       </Button>
     </span>
   );

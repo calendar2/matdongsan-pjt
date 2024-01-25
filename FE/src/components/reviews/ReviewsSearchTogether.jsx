@@ -1,5 +1,4 @@
 import { Button } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -35,9 +34,7 @@ function ReviewsSearchTogether(props) {
         }}
       >
         같이 간 사람
-        <IconButton>
-          <ExpandMoreIcon sx={{ width: '10px' }} />
-        </IconButton>
+        <ExpandMoreIcon sx={{ width: '10px' }} />
       </Button>
     </span>
   );
