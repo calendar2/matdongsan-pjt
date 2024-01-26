@@ -1,0 +1,15 @@
+@charset "UTF-8";
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 1:2비율 */
+  gap: 10px; /* 셀 간격 */
+}
+
+.gridItem {
+  font-size: 13px;
+  line-height: 1.8;
+  padding: 35px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}/*# sourceMappingURL=SignupFirst.module.css.map */
