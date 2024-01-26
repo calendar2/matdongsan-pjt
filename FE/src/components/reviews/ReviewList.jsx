@@ -1,11 +1,12 @@
 import reviewStore from '../../stores/reviewStore';
+import styles from '../../styles/reviews/ReviewsList.module.css';
 
 function ReviewsList() {
   const { reviewStoreList } = reviewStore();
   return (
     <div>
       <div>
-        <article>
+        <article className={styles.reviewsList}>
           {reviewStoreList.map((item, i) => (
             <div key={reviewStoreList[i].가게이름}>
               <div>가게이름: {reviewStoreList[i].가게이름}</div>

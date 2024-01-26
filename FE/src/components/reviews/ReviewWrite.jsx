@@ -90,14 +90,7 @@ function ReviewWrite() {
       />
       <hr />
       <div>
-        <img
-          className={styles.photo}
-          src={photo}
-          alt=""
-          // onClick={() => {
-          //   console.log('사진 첨부 하겠습니다!');
-          // }}
-        />
+        <img className={styles.photo} src={photo} alt="" />
       </div>
       <TextField
         id="outlined-multiline-static"
@@ -206,7 +199,7 @@ function ReviewWriteFriendAdd() {
     임의친구생년수정,
   } = reviewWriteStore();
   return (
-    <div>
+    <div className={styles.div1}>
       <div className={styles.addFriend}>
         <TextField
           id="standard-basic"
@@ -223,20 +216,35 @@ function ReviewWriteFriendAdd() {
           }}
         />
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={['DatePicker']}>
+          <DemoContainer
+            sx={{
+              '&::-webkit-scrollbar': {
+                display: 'none', // 스크롤바를 숨깁니다.
+              },
+            }}
+            components={['DatePicker']}
+          >
             <DatePicker
               views={['year']}
               openTo="year"
               size="small"
               label="생년"
+              sx={{
+                '& .MuiInputBase-root': {
+                  // 입력 텍스트 스타일을 조정하는 부분입니다.
+                  width: '6.5vw', // 입력 텍스트 너비를 조절합니다.
+                },
+                '& .MuiStack-root': {
+                  overflow: 'hidden', // 입력 텍스트 너비를 조절합니다.
+                },
+
+                margin: '10px',
+              }}
               value={임의친구생년}
               onChange={(newValue) => {
                 임의친구생년수정(newValue);
                 if (임의친구생년)
-                  console.log('시작 날짜 변경됨!', 임의친구생년.$d);
-              }}
-              sx={{
-                margin: '10px',
+                  console.log('시작 날짜 변경됨!', 임의친구생년.$y);
               }}
             />
           </DemoContainer>
@@ -244,7 +252,7 @@ function ReviewWriteFriendAdd() {
         <IconButton
           onClick={() => {
             console.log('임의친구추가버튼이 클릭되었습니다!');
-            console.log(임의친구이름, 임의친구생년);
+            console.log(임의친구이름, 임의친구생년.$y);
           }}
           sx={{
             margin: '10px',

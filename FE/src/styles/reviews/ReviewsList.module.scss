@@ -1,0 +1,25 @@
+.reviewsList {
+  height: 50vh;
+  overflow-y: auto;
+}
+
+.reviewsList::-webkit-scrollbar {
+  width: 10px;
+}
+
+.reviewsList::-webkit-scrollbar-thumb {
+  background-color: rgba(29, 177, 119, 0.3);
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 3px solid transparent;
+}
+
+.reviewsList::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(29, 177, 119, 0.5);
+}
+
+.reviewsList::-webkit-scrollbar-track {
+  background-color: rgba(220, 220, 220, 0.7);
+  border-radius: 10px;
+  /* box-shadow: inset 0px 0px 5px white; */
+}
