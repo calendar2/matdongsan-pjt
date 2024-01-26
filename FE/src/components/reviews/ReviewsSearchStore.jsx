@@ -1,6 +1,9 @@
 import { Button } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 import styles from '../../styles/reviews/ReviewsSearchStore.module.css';
+import reviewFilterStore from '../../stores/reviewFilterStore';
 
 function ReviewsSearchStore(props) {
   const { whereIsStore, setWhereIs } = props;
@@ -38,7 +41,27 @@ function ReviewsSearchStore(props) {
 }
 
 function StoreModal() {
-  return <div className={styles.modal}>업종 검색</div>;
+  const { selectedStore, storeCategory, setSelectedStore } =
+    reviewFilterStore();
+  return (
+    <div className={styles.modal}>
+      <Autocomplete
+        disablePortal
+        id="combo-box-demo"
+        options={storeCategory}
+        onChange={(e, name) => {
+          setSelectedStore(name.label);
+          console.log(selectedStore);
+          console.log('업종선택되었습니다');
+        }}
+        sx={{ width: 300 }}
+        renderInput={(params) => (
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          <TextField {...params} label="업종" />
+        )}
+      />
+    </div>
+  );
 }
 
 export { StoreModal, ReviewsSearchStore };

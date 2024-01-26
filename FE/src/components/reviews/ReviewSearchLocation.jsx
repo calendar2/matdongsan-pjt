@@ -1,6 +1,9 @@
 import { Button } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 import styles from '../../styles/reviews/ReviewsSearchLocation.module.css';
+import reviewFilterStore from '../../stores/reviewFilterStore';
 
 function ReviewsSearchLocation(props) {
   const { whereIsLocation, setWhereIsLocation } = props;
@@ -37,6 +40,36 @@ function ReviewsSearchLocation(props) {
   );
 }
 function LocationModal() {
-  return <div className={styles.modal}>장소 검색</div>;
+  const {
+    userLocation,
+    selectedUserLocation,
+    setSelectedUserLocation,
+  } = reviewFilterStore();
+  return (
+    <div className={styles.modal}>
+      <Autocomplete
+        freeSolo
+        id="free-solo-2-demo"
+        disableClearable
+        options={userLocation.map((option) => option.title)}
+        onChange={(e, name) => {
+          setSelectedUserLocation(name);
+          console.log(selectedUserLocation);
+          console.log('장소선택되었습니다!');
+        }}
+        renderInput={(params) => (
+          <TextField
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...params}
+            label="장소 검색"
+            InputProps={{
+              ...params.InputProps,
+              type: 'search',
+            }}
+          />
+        )}
+      />
+    </div>
+  );
 }
 export { ReviewsSearchLocation, LocationModal };

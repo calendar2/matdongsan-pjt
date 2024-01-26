@@ -1,9 +1,37 @@
 .modal {
-  position: fixed;
+  position: absolute;
+  border-radius: 5px;
+  z-index: 1;
   background-color: rgb(255, 255, 255);
-  margin-left: 340px;
-  top: 21.5px;
+  margin-left: 400px;
   width: 350px;
-  height: 100%;
+  height: auto;
+  padding: 30px;
+  margin-top: -645px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 음영 추가 */
+
+  .photo {
+    width: 30px;
+    margin-left: -300px;
+  }
+  .textFieldStyle {
+    width: fill;
+  }
+  .flexBoxFriend {
+    display: flex;
+  }
+}
+
+.addFriend {
+  display: flex;
+  position: absolute;
+  border-radius: 20px;
+  z-index: 1;
+  margin-left: 250px;
+  margin-top: 10px;
+  background-color: rgb(255, 255, 255);
+  width: 500px;
+  height: auto;
+  padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 음영 추가 */
 }
