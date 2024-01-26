@@ -9,6 +9,7 @@ import contents from '../styles/foodmap/FoodMapView.module.css';
 
 function FoodMapView() {
   const [check, setCheck] = useState(0);
+
   return (
     <div>
       <Header />

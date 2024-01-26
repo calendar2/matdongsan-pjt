@@ -1,43 +1,58 @@
 import { useEffect, useRef } from 'react';
-// import mapStore from '../../stores/mapStore';
 import useGeolocation from '../../hooks/useGeolocation';
 import checkForMarkersRendering from '../../util/checkForMarkersRendering';
 import foodmap from '../../styles/foodmap/FoodMap.module.css';
 
 function FoodMap() {
   const mapRef = useRef(null);
-  // const { setMarker } = mapStore();
   const { currentMyLocation } = useGeolocation();
   const { naver } = window;
 
   useEffect(() => {
-    if (currentMyLocation.lat !== 0 && currentMyLocation.lng !== 0) {
-      // 네이버 지도 옵션 선택
-      const mapOptions = {
-        // 지도의 초기 중심 좌표
-        center: new naver.maps.LatLng(
+    const script = document.createElement('script');
+    script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.REACT_APP_NAVER_MAP_API_KEY}`;
+    script.async = true;
+    document.head.appendChild(script);
+
+    return () => {
+      // Clean up the script when the component is unmounted
+      document.head.removeChild(script);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (naver && naver.maps) {
+      if (
+        currentMyLocation.lat !== 0 &&
+        currentMyLocation.lng !== 0
+      ) {
+        // 네이버 지도 옵션 선택
+        const mapOptions = {
+          // 지도의 초기 중심 좌표
+          center: new naver.maps.LatLng(
+            currentMyLocation.lat,
+            currentMyLocation.lng
+          ),
+          logoControl: false, // 네이버 로고 표시 X
+          mapDataControl: false, // 지도 데이터 저작권 컨트롤 표시 X
+          scaleControl: true, // 지도 축척 컨트롤의 표시 여부
+          tileDuration: 200, // 지도 타일을 전환할 때 페이드 인 효과의 지속 시간(밀리초)
+          zoom: 16, // 지도의 초기 줌 레벨
+          zoomControl: true, // 줌 컨트롤 표시
+          zoomControlOptions: { position: 9 }, // 줌 컨트롤 우하단에 배치
+        };
+        mapRef.current = new naver.maps.Map('map', mapOptions);
+      }
+
+      // 지도상에 핀 표시 할 부분
+      new naver.maps.Marker({
+        position: new naver.maps.LatLng(
           currentMyLocation.lat,
           currentMyLocation.lng
         ),
-        logoControl: false, // 네이버 로고 표시 X
-        mapDataControl: false, // 지도 데이터 저작권 컨트롤 표시 X
-        scaleControl: true, // 지도 축척 컨트롤의 표시 여부
-        tileDuration: 200, // 지도 타일을 전환할 때 페이드 인 효과의 지속 시간(밀리초)
-        zoom: 16, // 지도의 초기 줌 레벨
-        zoomControl: true, // 줌 컨트롤 표시
-        zoomControlOptions: { position: 9 }, // 줌 컨트롤 우하단에 배치
-      };
-      mapRef.current = new naver.maps.Map('map', mapOptions);
+        map: mapRef.current,
+      });
     }
-
-    // 지도상에 핀 표시 할 부분
-    new naver.maps.Marker({
-      position: new naver.maps.LatLng(
-        currentMyLocation.lat,
-        currentMyLocation.lng
-      ),
-      map: mapRef.current,
-    });
   }, [currentMyLocation]);
 
   useEffect(() => {

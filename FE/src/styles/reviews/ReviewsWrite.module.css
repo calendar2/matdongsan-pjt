@@ -18,7 +18,7 @@
 .modal .textFieldStyle {
   width: -webkit-fill-available;
   width: -moz-available;
-  width: fill;
+  width: stretch;
 }
 .modal .flexBoxFriend {
   display: flex;
