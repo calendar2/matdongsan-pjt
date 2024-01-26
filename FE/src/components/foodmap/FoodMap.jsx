@@ -9,9 +9,23 @@ function FoodMap() {
   const { naver } = window;
 
   useEffect(() => {
+    console.log(process.env.REACT_APP_NAVER_MAP_API_KEY);
     const script = document.createElement('script');
     script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.REACT_APP_NAVER_MAP_API_KEY}`;
     script.async = true;
+
+    // 스크립트 로딩 완료 이벤트 핸들러
+    script.onload = () => {
+      console.log(
+        '네이버지도 API 스크립트가 성공적으로 로딩되었습니다.'
+      );
+    };
+
+    // 스크립트 로딩 실패 이벤트 핸들러
+    script.onerror = () => {
+      console.error('네이버지도 API 스크립트 로딩에 실패했습니다.');
+    };
+
     document.head.appendChild(script);
 
     return () => {
