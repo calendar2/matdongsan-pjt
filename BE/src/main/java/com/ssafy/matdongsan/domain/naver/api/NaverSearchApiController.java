@@ -1,4 +1,4 @@
-package com.ssafy.matdongsan.contoller;
+package com.ssafy.matdongsan.domain.naver.api;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -13,7 +13,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 
@@ -42,7 +41,6 @@ public class NaverSearchApiController {
                 .queryParam("start",1)
                 .queryParam("sort","comment")
                 .encode(StandardCharsets.UTF_8)
-
                 .build()
                 .toUri();
         //Header 설정
