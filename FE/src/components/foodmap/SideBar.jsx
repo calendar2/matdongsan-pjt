@@ -1,23 +1,70 @@
-import React, { useState } from 'react';
-import { Tabs, Tab } from '@mui/material';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+// import { Tabs, Tab } from '@mui/material';
 import MyDongsanIconOn from '../../assets/images/sidebar/foodwhite.png';
-import MyDongsanIconOff from '../../assets/images/sidebar/foodblack.png';
+// import MyDongsanIconOff from '../../assets/images/sidebar/foodblack.png';
 import FollowerIconOn from '../../assets/images/sidebar/heartblack.png';
-import FollowerIconOff from '../../assets/images/sidebar/heartwhite.png';
+// import FollowerIconOff from '../../assets/images/sidebar/heartwhite.png';
 
-function SideBar(props) {
+function SideBar() {
   // eslint-disable-next-line react/prop-types
-  const { setCheck } = props;
+  // const { setCheck } = props;
   const [value, setValue] = useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-    setCheck(newValue);
+  const reviewChange = () => {
+    setValue(0);
+  };
+
+  const followerChange = () => {
+    setValue(1);
   };
 
   return (
     <div>
-      <Tabs
+      {value === 0 ? (
+        <div>
+          <div>
+            <Link to="reviews" onClick={reviewChange}>
+              <img
+                src={MyDongsanIconOn}
+                alt="My동산 아이콘"
+                width={50}
+              />
+            </Link>
+          </div>
+          <div>
+            <Link to="followers" onClick={followerChange}>
+              <img
+                src={FollowerIconOn}
+                alt="팔로워 아이콘"
+                width={50}
+              />
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div>
+            <Link to="reviews" onClick={reviewChange}>
+              <img
+                src={MyDongsanIconOn}
+                alt="My동산 아이콘"
+                width={50}
+              />
+            </Link>
+          </div>
+          <div>
+            <Link to="followers" onClick={followerChange}>
+              <img
+                src={FollowerIconOn}
+                alt="팔로워 아이콘"
+                width={50}
+              />
+            </Link>
+          </div>
+        </div>
+      )}
+      {/* <Tabs
         value={value}
         onChange={handleChange}
         orientation="vertical"
@@ -65,7 +112,7 @@ function SideBar(props) {
             },
           }}
         />
-      </Tabs>
+      </Tabs> */}
     </div>
   );
 }

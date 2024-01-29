@@ -1,9 +1,1 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,QAAQ,CAAC;EACP,OAAO,EAAE,IAAI;EACb,qBAAqB,EAAE,eAAe;CACvC",
-    "sources": [
-        "FoodMapView.module.scss"
-    ],
-    "names": [],
-    "file": "FoodMapView.module.css"
-}
+{"version":3,"sources":["FoodMapView.module.scss","FoodMapView.module.css"],"names":[],"mappings":"AAIE;EACE,aAAA;EACA,sCAAA;ACHJ","file":"FoodMapView.module.css"}

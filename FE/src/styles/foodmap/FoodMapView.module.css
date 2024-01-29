@@ -1,7 +1,4 @@
-.wrapper {
-  display: -ms-grid;
+.container .wrapper {
   display: grid;
-  -ms-grid-columns: 0.5fr 3fr 8.5fr;
-      grid-template-columns: 0.5fr 3fr 8.5fr;
-}
-/*# sourceMappingURL=FoodMapView.module.css.map */
+  grid-template-columns: 0.5fr 3fr 8.5fr;
+}/*# sourceMappingURL=FoodMapView.module.css.map */

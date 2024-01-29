@@ -1,9 +1,1 @@
-{
-    "version": 3,
-    "mappings": ";AAAA,AAAA,OAAO,CAAC;EACN,UAAU,EAAE,MAAM;EAClB,OAAO,EAAE,IAAI;EACb,MAAM,EAAE,KAAK;EACb,UAAU,EAAE,CAAC,CAAC,CAAC,CAAC,IAAI,CAAC,kBAAkB;EAAE,eAAe;CACzD;;AAED,AAAA,QAAQ,CAAC;EACP,OAAO,EAAE,IAAI;EACb,qBAAqB,EAAE,eAAe;CACvC",
-    "sources": [
-        "ReviewSearch.module.scss"
-    ],
-    "names": [],
-    "file": "ReviewSearch.module.css"
-}
+{"version":3,"sources":["ReviewSearch.module.css","ReviewSearch.module.scss"],"names":[],"mappings":"AAAA,gBAAgB;ACAhB;EACE,kBAAA;EACA,aAAA;EACA,aAAA;EACA,uCAAA,EAAA,UAAA;ADEF;;ACCA;EACE,aAAA;EACA,sCAAA;ADEF","file":"ReviewSearch.module.css"}

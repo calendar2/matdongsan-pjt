@@ -3,15 +3,10 @@
   text-align: center;
   padding: 10px;
   height: 100px;
-  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  /* 음영 추가 */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 음영 추가 */
 }
 
 .wrapper {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 3fr 3fr 3fr 3fr;
-      grid-template-columns: 3fr 3fr 3fr 3fr;
-}
-/*# sourceMappingURL=ReviewSearch.module.css.map */
+  grid-template-columns: 3fr 3fr 3fr 3fr;
+}/*# sourceMappingURL=ReviewSearch.module.css.map */
