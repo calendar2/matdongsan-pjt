@@ -37,16 +37,25 @@ function ReviewsSearch() {
             backgroundColor: '#f4f2f2',
             color: '#b9b9b9',
             marginBottom: '20px',
+            height: '40px',
           },
           '& input::placeholder': {
             textAlign: 'center', // placeholder를 중앙 정렬
             marginRight: '30px',
           },
         }}
+        onChange={(e) => {
+          console.log('검색 키워드 입력중!');
+          console.log(e.target.value);
+        }}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <IconButton>
+              <IconButton
+                onClick={() => {
+                  console.log('검색버튼 클릭함!');
+                }}
+              >
                 <SearchIcon />
               </IconButton>
             </InputAdornment>
