@@ -9,9 +9,9 @@ spring:
         password: aktehdtksghkdlxld
     jpa:
         hibernate:
-            ddl-auto: create
+            ddl-auto: validate
             naming:
-                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+                physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
         show-sql: true
         properties:
             hibernate:
