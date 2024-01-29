@@ -1,5 +1,6 @@
 FROM node:20 as builder
 WORKDIR /app
+ENV REACT_APP_ALLOW ALLOW
 COPY package*.json .
 RUN npm ci
 COPY . .

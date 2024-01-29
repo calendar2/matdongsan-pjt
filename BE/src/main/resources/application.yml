@@ -3,22 +3,20 @@ server:
 
 spring:
     datasource:
-        url: jdbc:h2:tcp://localhost/~/test
-        username: sa
-        password:
-        driver-class-name: org.h2.Driver
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://i10a209.p.ssafy.io:3306/matdongsandb?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+        username: root
+        password: aktehdtksghkdlxld
     jpa:
-        open-in-view: true
         hibernate:
-            ddl-auto: none
+            ddl-auto: create
             naming:
                 physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        use-new-id-generator-mappings: false
         show-sql: true
         properties:
-            hibernate.format_sql: true
-            hibernate.default_batch_fetch_size: 100
-            dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+            hibernate:
+                format_sql: true
+                default_batch_fetch_size: 100
         defer-datasource-initialization: true
     sql:
         init:
@@ -26,4 +24,5 @@ spring:
 
     logging:
         level:
-            org.hibernate.SQL: debug
+            org.hibernate.SQL : debug
+
