@@ -1,6 +1,25 @@
 .reviewsList {
-  height: 50vh;
   overflow-y: auto;
+  height: calc(100vh - 350.58px);
+}
+
+.decorateList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.decorateListItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .reviewsList::-webkit-scrollbar {
@@ -23,3 +42,4 @@
   border-radius: 10px;
   /* box-shadow: inset 0px 0px 5px white; */
 }
+/*# sourceMappingURL=ReviewList.module.css.map */

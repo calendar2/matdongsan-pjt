@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import styles from '../../styles/reviews/ReviewsSearchLocation.module.css';
+import styles from '../../styles/reviews/ReviewSearchLocation.module.css';
 import reviewFilterStore from '../../stores/reviewFilterStore';
 
 function ReviewsSearchLocation(props) {

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": ";AAAA,AAAA,OAAO,CAAC;EACN,UAAU,EAAE,MAAM;EAClB,OAAO,EAAE,IAAI;EACb,KAAK,EAAE,IAAI;EACX,UAAU,EAAE,CAAC,CAAC,CAAC,CAAC,IAAI,CAAC,kBAAkB;EAAE,eAAe;CAIzD;;AARD,AAKE,OALK,CAKL,OAAO,CAAC;EACN,MAAM,EAAE,IAAI;CACb",
+    "sources": [
+        "Review.module.scss"
+    ],
+    "names": [],
+    "file": "Review.module.css"
+}

@@ -1,28 +1,37 @@
 @charset "UTF-8";
+.layout {
+  padding: 10px;
+}
+
 .modal {
   position: absolute;
-  border-radius: 5px;
   z-index: 1;
-  background-color: rgb(255, 255, 255);
-  margin-left: 53vh;
-  margin-top: -81vh;
-  width: 20vw;
-  height: 75vh;
-  padding: 30px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 음영 추가 */
+  margin-left: 25vw;
+  height: calc(100vh - 125.58px);
+  border-radius: 5px;
+  width: 25vw;
+  background-color: white;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* 음영 추가 */
   overflow-y: auto;
   overflow-x: hidden;
 }
+
 .modal .photo {
   width: 30px;
   margin-left: -300px;
 }
+
 .modal .textFieldStyle {
   width: -webkit-fill-available;
   width: -moz-available;
   width: stretch;
 }
+
 .modal .flexBoxFriend {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -48,15 +57,20 @@
 }
 
 .addFriend {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   position: absolute;
   border-radius: 20px;
   z-index: 2;
   margin-left: 0;
   margin-top: 10px;
-  background-color: rgb(255, 255, 255);
+  background-color: white;
   width: 18vw;
   height: auto;
   padding: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 음영 추가 */
-}/*# sourceMappingURL=ReviewsWrite.module.css.map */
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* 음영 추가 */
+}
+/*# sourceMappingURL=ReviewRegistration.module.css.map */

@@ -1,0 +1,17 @@
+@charset "UTF-8";
+.modal {
+  position: absolute;
+  border-radius: 20px;
+  padding: 30px;
+  margin-left: 13vw;
+  margin-top: 1vh;
+  z-index: 1;
+  background-color: white;
+  width: 300px;
+  height: auto;
+  min-height: 70px;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  /* 음영 추가 */
+}
+/*# sourceMappingURL=ReviewSearchLocation.module.css.map */

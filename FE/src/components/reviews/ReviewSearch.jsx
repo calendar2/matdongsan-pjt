@@ -5,18 +5,22 @@ import { useState } from 'react';
 import {
   ReviewsSearchTogether,
   TogetherModal,
-} from './ReviewsSearchTogether';
-import { ReviewsSearchStore, StoreModal } from './ReviewsSearchStore';
+} from './ReviewSearchTogether';
+import {
+  ReviewsSearchBusinessTypes,
+  StoreModal,
+} from './ReviewSearchBusinessTypes';
 import {
   ReviewsSearchLocation,
   LocationModal,
 } from './ReviewSearchLocation';
 import { TimeModal, ReviewsSearchTime } from './ReviewSearchTime';
+import styles from '../../styles/reviews/ReviewSearch.module.css';
 
 function ReviewsSearch() {
   const [whatIsClicked, setClicked] = useState(0);
   return (
-    <div style={{ margin: '20px' }}>
+    <div className={styles.layout}>
       <TextField
         id="outlined-basic"
         variant="outlined"
@@ -50,22 +54,24 @@ function ReviewsSearch() {
         }}
       />
       <br />
-      <ReviewsSearchTogether
-        whoIsTogether={whatIsClicked}
-        setWhoIs={setClicked}
-      />
-      <ReviewsSearchStore
-        whereIsStore={whatIsClicked}
-        setWhereIs={setClicked}
-      />
-      <ReviewsSearchLocation
-        whereIsLocation={whatIsClicked}
-        setWhereIsLocation={setClicked}
-      />
-      <ReviewsSearchTime
-        whenTime={whatIsClicked}
-        setWhenTime={setClicked}
-      />
+      <div className={styles.wrapper}>
+        <ReviewsSearchTogether
+          whoIsTogether={whatIsClicked}
+          setWhoIs={setClicked}
+        />
+        <ReviewsSearchBusinessTypes
+          whatIsBusinessTypes={whatIsClicked}
+          setWhatIs={setClicked}
+        />
+        <ReviewsSearchLocation
+          whereIsLocation={whatIsClicked}
+          setWhereIsLocation={setClicked}
+        />
+        <ReviewsSearchTime
+          whenTime={whatIsClicked}
+          setWhenTime={setClicked}
+        />
+      </div>
       {whatIsClicked === 1 ? (
         <TogetherModal whatIsClicked={whatIsClicked} />
       ) : null}

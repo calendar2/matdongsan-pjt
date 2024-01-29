@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import styles from '../../styles/reviews/ReviewsSearchTogether.module.css';
+import styles from '../../styles/reviews/ReviewSearchTogether.module.css';
 import reviewFilterStore from '../../stores/reviewFilterStore';
 
 function ReviewsSearchTogether(props) {
@@ -33,7 +33,7 @@ function ReviewsSearchTogether(props) {
           marginRight: '3px',
         }}
       >
-        같이 간 사람
+        친구
         <ExpandMoreIcon sx={{ width: '10px' }} />
       </Button>
     </span>

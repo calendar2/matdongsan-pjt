@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Header from '../components/layouts/Header';
 import SideBar from '../components/foodmap/SideBar';
 import FoodMap from '../components/foodmap/FoodMap';
-import Reviews from '../components/reviews/Reviews';
+import Reviews from '../components/reviews/Review';
 import Subscribe from '../components/subscribe/Subscribe';
 import contents from '../styles/foodmap/FoodMapView.module.css';
 

@@ -1,8 +1,17 @@
 .reviewsList {
-  height: 50vh;
   overflow-y: auto;
+  height: calc(100vh - 350.58px);
 }
 
+.decorateList {
+  display: flex;
+  flex-direction: column;
+}
+
+.decorateListItem {
+  display: flex;
+  justify-content: space-between;
+}
 .reviewsList::-webkit-scrollbar {
   width: 10px;
 }
@@ -22,4 +31,4 @@
   background-color: rgba(220, 220, 220, 0.7);
   border-radius: 10px;
   /* box-shadow: inset 0px 0px 5px white; */
-}/*# sourceMappingURL=ReviewsList.module.css.map */
+}

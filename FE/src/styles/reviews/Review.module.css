@@ -1,0 +1,15 @@
+@charset "UTF-8";
+.layout {
+  text-align: center;
+  display: -ms-grid;
+  display: grid;
+  width: 100%;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* 음영 추가 */
+}
+
+.layout .button {
+  height: 50px;
+}
+/*# sourceMappingURL=Review.module.css.map */

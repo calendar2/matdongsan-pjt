@@ -1,15 +1,26 @@
 @charset "UTF-8";
 .gridContainer {
+  display: -ms-grid;
   display: grid;
-  grid-template-columns: 1fr 1fr; /* 1:2비율 */
-  gap: 10px; /* 셀 간격 */
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  /* 1:2비율 */
+  gap: 10px;
+  /* 셀 간격 */
 }
 
 .gridItem {
   font-size: 13px;
   line-height: 1.8;
   padding: 35px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
-}/*# sourceMappingURL=SignupFirst.module.css.map */
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+/*# sourceMappingURL=SignupFirst.module.css.map */

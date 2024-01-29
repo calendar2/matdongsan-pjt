@@ -1,1 +1,9 @@
-{"version":3,"sources":["Signup.module.scss","Signup.module.css"],"names":[],"mappings":"AAAA;EACI,UAAA;EACA,YAAA;EACA,mBAAA;ACCJ","file":"Signup.module.css"}
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,QAAQ,CAAC;EACL,KAAK,EAAE,GAAG;EACV,MAAM,EAAE,IAAI;EACZ,aAAa,EAAE,IAAI;CACtB",
+    "sources": [
+        "Signup.module.scss"
+    ],
+    "names": [],
+    "file": "Signup.module.css"
+}

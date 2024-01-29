@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": ";AAAA,AAAA,MAAM,CAAC;EACL,QAAQ,EAAE,QAAQ;EAClB,aAAa,EAAE,IAAI;EACnB,WAAW,EAAE,GAAG;EAChB,UAAU,EAAE,GAAG;EACf,OAAO,EAAE,IAAI;EACb,OAAO,EAAE,CAAC;EACV,gBAAgB,EAAE,KAAkB;EACpC,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,IAAI;EACZ,UAAU,EAAE,IAAI;EAChB,UAAU,EAAE,CAAC,CAAC,CAAC,CAAC,IAAI,CAAC,kBAAkB;EAAE,eAAe;CACzD",
+    "sources": [
+        "ReviewSearchBusinessTypes.module.scss"
+    ],
+    "names": [],
+    "file": "ReviewSearchBusinessTypes.module.css"
+}

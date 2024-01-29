@@ -2,20 +2,20 @@ import { Button } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import styles from '../../styles/reviews/ReviewsSearchStore.module.css';
+import styles from '../../styles/reviews/ReviewSearchBusinessTypes.module.css';
 import reviewFilterStore from '../../stores/reviewFilterStore';
 
-function ReviewsSearchStore(props) {
-  const { whereIsStore, setWhereIs } = props;
+function ReviewsSearchBusinessTypes(props) {
+  const { whatIsBusinessTypes, setWhatIs } = props;
   return (
     <span>
       <Button
         type="button"
         onClick={() => {
-          if (whereIsStore === 2) {
-            setWhereIs(0);
+          if (whatIsBusinessTypes === 2) {
+            setWhatIs(0);
           } else {
-            setWhereIs(2);
+            setWhatIs(2);
           }
         }}
         size="small"
@@ -23,10 +23,10 @@ function ReviewsSearchStore(props) {
         style={{
           borderRadius: '20px',
           backgroundColor:
-            whereIsStore === 2
+            whatIsBusinessTypes === 2
               ? 'rgba(29, 177, 119, 0.7)'
               : '#ffffff',
-          color: whereIsStore === 2 ? '#FFFFFF' : '#555558',
+          color: whatIsBusinessTypes === 2 ? '#FFFFFF' : '#555558',
           paddingTop: '0px',
           paddingBottom: '0px',
           marginLeft: '3px',
@@ -64,4 +64,4 @@ function StoreModal() {
   );
 }
 
-export { StoreModal, ReviewsSearchStore };
+export { StoreModal, ReviewsSearchBusinessTypes };

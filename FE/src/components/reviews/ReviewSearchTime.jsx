@@ -4,7 +4,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import styles from '../../styles/reviews/ReviewsSearchTime.module.css';
+import styles from '../../styles/reviews/ReviewSearchTime.module.css';
 import reviewFilterStore from '../../stores/reviewFilterStore';
 
 function ReviewsSearchTime(props) {
