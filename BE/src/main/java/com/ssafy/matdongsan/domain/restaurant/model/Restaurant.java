@@ -24,7 +24,7 @@ public class Restaurant {
     private Region region;
 
     @NotEmpty
-    @Column(length = 100)
+    @Column(name= "restaurant_name" ,length = 100)
     private String restaurantName;
 
     private Integer mapx;
@@ -33,7 +33,7 @@ public class Restaurant {
     @Column(length = 100)
     private String address;
 
-    @Column(length = 100)
+    @Column(name = "road_address" ,length = 100)
     private String roadAddress;
 
     @Column(length = 16)
@@ -43,6 +43,7 @@ public class Restaurant {
     private LocalDateTime createdDate;
 
     @LastModifiedDate
+    @Column(name = "modified_date")
     private LocalDateTime modifiedDate;
 
 //    @Builder
