@@ -16,8 +16,9 @@ services:
   react-app:
     container_name: react-app
     ports:
-      - "80:80"
-      - "443:80"
+      - "8081:80"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
     image: junyupk/frontend
     env_file:
       - .env
