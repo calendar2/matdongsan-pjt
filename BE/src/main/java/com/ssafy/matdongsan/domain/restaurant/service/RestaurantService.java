@@ -8,7 +8,6 @@ import com.ssafy.matdongsan.domain.restaurant.repository.RestaurantRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,7 +18,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +33,7 @@ public class RestaurantService {
     @Transactional
     public void save(RestaurantSaveRequestDto requestDto) {
         //음식점이 이미 등록 되어 있는 경우
-        Optional<List<Restaurant>> restaurants =  restaurantRepository.findByRestaurantName(requestDto.getRestaurantName());
+        Optional<List<Restaurant>> restaurants =  restaurantRepository.findByName(requestDto.getName());
         System.out.println("d!!!!!!!!!!!!!!!!!!!!!!!");
 //        if(restaurants.isPresent()) return;
 

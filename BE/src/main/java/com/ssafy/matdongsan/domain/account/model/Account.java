@@ -3,8 +3,12 @@ package com.ssafy.matdongsan.domain.account.model;
 import com.ssafy.matdongsan.domain.*;
 import com.ssafy.matdongsan.domain.comparison.model.Comparison;
 import com.ssafy.matdongsan.domain.food.model.Food;
+import com.ssafy.matdongsan.domain.food.model.FoodCategory;
 import com.ssafy.matdongsan.domain.notice.model.Notice;
+import com.ssafy.matdongsan.domain.restaurant.model.Region;
+import com.ssafy.matdongsan.domain.restaurant.model.Restaurant;
 import com.ssafy.matdongsan.domain.review.model.Review;
+import com.ssafy.matdongsan.domain.subcription.model.Subscription;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -80,7 +84,7 @@ public class Account extends BaseEntity {
             joinColumns = @JoinColumn(name = "account_id"),
             inverseJoinColumns = @JoinColumn(name = "food_category_id")
     )
-    private List<Food> bannedFoodCategories = new ArrayList<>();
+    private List<FoodCategory> bannedFoodCategories = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(

@@ -10,6 +10,4 @@ import java.time.LocalDateTime;
 public class SubscriptionRequestDto {
     private int followerId;
     private int followingId;
-    private LocalDateTime createdTime;
-    private LocalDateTime modifedTime;
 }

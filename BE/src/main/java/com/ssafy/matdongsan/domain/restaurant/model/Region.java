@@ -1,28 +1,26 @@
 package com.ssafy.matdongsan.domain.restaurant.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ssafy.matdongsan.domain.account.model.Account;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "region")
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Region {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "region_id")
     private Short id;
 
-    @NotEmpty
     @Column(length = 8)
     private String code;
 
-    @NotEmpty
     @Column(length = 50)
     private String city;
 
@@ -35,9 +33,11 @@ public class Region {
     private Integer mapx;
     private Integer mapy;
 
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "region")
-//    private List<Restaurant> restaurantList = new ArrayList<>();
+    @ManyToMany
+    private List<Account> accounts = new ArrayList<>();
+
+    @OneToMany
+    private List<Restaurant> restaurants = new ArrayList<>();
 
     @Builder
     public Region(String code, String city, String county, String district, Integer mapx, Integer mapy) {

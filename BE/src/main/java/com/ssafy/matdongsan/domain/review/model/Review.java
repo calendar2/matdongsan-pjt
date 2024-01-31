@@ -2,8 +2,8 @@ package com.ssafy.matdongsan.domain.review.model;
 
 import com.ssafy.matdongsan.domain.BaseEntity;
 import com.ssafy.matdongsan.domain.account.model.PersonTag;
-import com.ssafy.matdongsan.domain.Restaurant;
 import com.ssafy.matdongsan.domain.account.model.Account;
+import com.ssafy.matdongsan.domain.restaurant.model.Restaurant;
 import jakarta.persistence.*;
 import lombok.Getter;
 

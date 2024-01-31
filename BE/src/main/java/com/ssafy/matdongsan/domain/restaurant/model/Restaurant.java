@@ -1,31 +1,36 @@
 package com.ssafy.matdongsan.domain.restaurant.model;
 
+import com.ssafy.matdongsan.domain.account.model.Account;
+import com.ssafy.matdongsan.domain.food.model.FoodCategory;
 import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantSaveRequestDto;
 import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantSaveResponseDto;
+import com.ssafy.matdongsan.domain.review.model.Review;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import static jakarta.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name="restaurant")
 public class Restaurant {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "restaurant_id")
-    private  Integer id;
+    private Integer id;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "region_id")
-    private Region region;
-
-    @NotEmpty
-    @Column(name= "restaurant_name" ,length = 100)
-    private String restaurantName;
+    @Column(name = "restaurant_name", nullable = false, length = 100)
+    private String name;
 
     private Integer mapx;
     private Integer mapy;
@@ -33,40 +38,28 @@ public class Restaurant {
     @Column(length = 100)
     private String address;
 
-    @Column(name = "road_address" ,length = 100)
+    @Column(length = 100)
     private String roadAddress;
 
     @Column(length = 16)
     private String phone;
 
-    @CreatedDate
-    private LocalDateTime createdDate;
+    @OneToMany(mappedBy = "restaurant")
+    private List<Review> reviews = new ArrayList<>();
 
-    @LastModifiedDate
-    @Column(name = "modified_date")
-    private LocalDateTime modifiedDate;
+    @ManyToOne
+    @JoinColumn(name = "region_id")
+    private Region region;
 
-//    @Builder
-//    public Restaurant(String restaurantName, Integer mapx, Integer mapy, String address, String roadAddress, String phone, LocalDateTime createdDate, LocalDateTime modifiedDate) {
-//        this.restaurantName = restaurantName;
-//        this.mapx = mapx;
-//        this.mapy = mapy;
-//        this.address = address;
-//        this.roadAddress = roadAddress;
-//        this.phone = phone;
-//        this.createdDate = createdDate;
-//        this.modifiedDate = modifiedDate;
-//    }
-    @Builder
-    public Restaurant(Region region, String restaurantName, Integer mapx, Integer mapy, String address, String roadAddress, String phone, LocalDateTime createdDate, LocalDateTime modifiedDate) {
-        this.region = region;
-        this.restaurantName = restaurantName;
-        this.mapx = mapx;
-        this.mapy = mapy;
-        this.address = address;
-        this.roadAddress = roadAddress;
-        this.phone = phone;
-        this.createdDate = createdDate;
-        this.modifiedDate = modifiedDate;
-    }
+    @ManyToMany
+    private List<Account> accounts = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "restaurant_food_category",
+            joinColumns = @JoinColumn(name = "restaurant_id"),
+            inverseJoinColumns = @JoinColumn(name = "food_category_id")
+    )
+    List<FoodCategory> restaurantFoodCategories = new ArrayList<>();
+
 }

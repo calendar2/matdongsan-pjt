@@ -15,11 +15,11 @@ public class Comparison extends BaseEntity {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "comparing_account_id")
     private Account comparer;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "compared_account_id")
     private Account compared;
 
     private boolean isHidden = false;

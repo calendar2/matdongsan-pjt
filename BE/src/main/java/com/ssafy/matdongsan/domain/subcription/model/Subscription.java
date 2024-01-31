@@ -1,5 +1,6 @@
 package com.ssafy.matdongsan.domain.subcription.model;
 
+import com.ssafy.matdongsan.domain.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AccessLevel;
@@ -9,23 +10,26 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+
+import com.ssafy.matdongsan.domain.account.model.Account;
+import jakarta.persistence.*;
+import lombok.Getter;
+
 @Entity
-@Table(name = "subscription")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Subscription {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Subscription extends BaseEntity {
 
-    @NotEmpty
-    private int followerId;
-    @NotEmpty
-    private int followingId;
-    private LocalDateTime createdTime;
-    private LocalDateTime modifiedTime;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "subscription_id")
+    private Integer id;
 
-    @Builder
-    public Subscription(int followerId, int followingId){
-        this.followerId = followerId;
-        this.followingId = followingId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "subscriber_id")
+    private Account subscriber;
+
+    @ManyToOne
+    @JoinColumn(name = "subscribed_id")
+    private Account subscribed;
 }
+

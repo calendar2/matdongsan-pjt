@@ -7,12 +7,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RestaurantSaveRequestDto {
-    private String restaurantName;
+
+    private String name;
     private Integer mapx;
     private Integer mapy;
     private String address;
@@ -20,8 +19,8 @@ public class RestaurantSaveRequestDto {
     private String phone;
 
     @Builder
-    public RestaurantSaveRequestDto(String restaurantName, Integer mapx, Integer mapy, String address, String roadAddress, String phone) {
-        this.restaurantName = restaurantName;
+    public RestaurantSaveRequestDto(String name, Integer mapx, Integer mapy, String address, String roadAddress, String phone) {
+        this.name = name;
         this.mapx = mapx;
         this.mapy = mapy;
         this.address = address;
@@ -30,10 +29,10 @@ public class RestaurantSaveRequestDto {
 
     }
 
-    public Restaurant toEntity(Region region){
+    public Restaurant toEntity(Region region) {
         return Restaurant.builder()
                 .region(region)
-                .restaurantName(restaurantName)
+                .name(name)
                 .mapx(mapx)
                 .mapy(mapy)
                 .address(address)

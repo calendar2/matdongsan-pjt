@@ -19,7 +19,7 @@ public class Notice extends BaseEntity {
     private Account sender;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "target_account_id")
     private Account receiver;
 
     private String content;
