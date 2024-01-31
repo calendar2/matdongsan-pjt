@@ -1,6 +1,12 @@
 .reviewsList {
   overflow-y: auto;
-  height: calc(100vh - 350.58px);
+  height: calc(100vh - 370.58px);
+}
+
+.justfyContentBetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .reveiewListSortButton {

@@ -1,0 +1,11 @@
+.modal {
+  position: absolute;
+  z-index: 1;
+  height: calc(100vh - 125.58px);
+  border-radius: 5px;
+  width: 25vw;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 음영 추가 */
+  overflow-y: auto;
+  overflow-x: hidden;
+}

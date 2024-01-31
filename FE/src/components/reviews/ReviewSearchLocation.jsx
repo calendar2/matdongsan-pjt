@@ -6,16 +6,16 @@ import styles from '../../styles/reviews/ReviewSearchLocation.module.css';
 import reviewFilterStore from '../../stores/reviewFilterStore';
 
 function ReviewsSearchLocation(props) {
-  const { whereIsLocation, setWhereIsLocation } = props;
+  const { whatIsClicked, setClicked } = props;
   return (
     <span>
       <Button
         type="button"
         onClick={() => {
-          if (whereIsLocation === 3) {
-            setWhereIsLocation(0);
+          if (whatIsClicked === 3) {
+            setClicked(0);
           } else {
-            setWhereIsLocation(3);
+            setClicked(3);
           }
         }}
         size="small"
@@ -23,10 +23,10 @@ function ReviewsSearchLocation(props) {
         style={{
           borderRadius: '20px',
           backgroundColor:
-            whereIsLocation === 3
+            whatIsClicked === 3
               ? 'rgba(29, 177, 119, 0.7)'
               : '#ffffff',
-          color: whereIsLocation === 3 ? '#FFFFFF' : '#555558',
+          color: whatIsClicked === 3 ? '#FFFFFF' : '#555558',
           paddingTop: '0px',
           paddingBottom: '0px',
           marginLeft: '3px',
@@ -56,6 +56,18 @@ function LocationModal() {
           setSelectedUserLocation(name);
           console.log(selectedUserLocation);
           console.log('장소선택되었습니다!');
+        }}
+        sx={{
+          width: 300,
+          height: 50,
+          '& .MuiOutlinedInput-root': {
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'green', // 클릭되었을 때 테두리 색상
+            },
+          },
+          '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
+            color: 'green', // 텍스트가 상단으로 이동할 때의 색상
+          },
         }}
         renderInput={(params) => (
           <TextField

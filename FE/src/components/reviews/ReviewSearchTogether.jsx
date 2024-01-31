@@ -6,16 +6,16 @@ import styles from '../../styles/reviews/ReviewSearchTogether.module.css';
 import reviewFilterStore from '../../stores/reviewFilterStore';
 
 function ReviewsSearchTogether(props) {
-  const { setWhoIs, whoIsTogether } = props;
+  const { setClicked, whatIsClicked } = props;
   return (
     <span>
       <Button
         type="button"
         onClick={() => {
-          if (whoIsTogether === 1) {
-            setWhoIs(0);
+          if (whatIsClicked === 1) {
+            setClicked(0);
           } else {
-            setWhoIs(1);
+            setClicked(1);
           }
         }}
         size="small"
@@ -23,10 +23,10 @@ function ReviewsSearchTogether(props) {
         style={{
           borderRadius: '20px',
           backgroundColor:
-            whoIsTogether === 1
+            whatIsClicked === 1
               ? 'rgba(29, 177, 119, 0.7)'
               : '#ffffff',
-          color: whoIsTogether === 1 ? '#FFFFFF' : '#555558',
+          color: whatIsClicked === 1 ? '#FFFFFF' : '#555558',
           paddingTop: '0px',
           paddingBottom: '0px',
           marginLeft: '3px',
@@ -59,20 +59,14 @@ function TogetherModal() {
         filterSelectedOptions
         onChange={handleAutocompleteChange}
         sx={{
+          width: 300,
           '& .MuiOutlinedInput-root': {
-            borderRadius: '20px',
-            backgroundColor: '#ffffff',
-            color: '#555558',
-            paddingTop: '0px',
-            paddingBottom: '0px',
-            marginLeft: '0px',
-            marginRight: '3px',
-            marginTop: '-10px',
-            width: '300px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            position: 'relative',
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'green', // 클릭되었을 때 테두리 색상
+            },
+          },
+          '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
+            color: 'green', // 텍스트가 상단으로 이동할 때의 색상
           },
         }}
         renderInput={(params) => (

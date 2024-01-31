@@ -1,27 +1,26 @@
-import { Button } from '@mui/material';
+import { IconButton } from '@mui/material';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import EditIcon from '@mui/icons-material/Edit';
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import styles from '../../styles/reviews/Review.module.css';
 import ReviewsList from './ReviewList';
 import ReviewsSearch from './ReviewSearch';
-import ReviewRegistration from './ReviewRegistration';
 
 function Reviews() {
-  const [writeClick, setWriteClick] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className={styles.layout}>
       <div>
         <ReviewsSearch className={styles.reviewsearch} />
         <ReviewsList className={styles.reviewlist} />
-        <Button
+        <IconButton
           type="button"
           variant="contained"
           onClick={() => {
-            setWriteClick(!writeClick);
+            navigate('write');
           }}
-          startIcon={<EditIcon />}
           style={{
             backgroundColor: 'rgba(29, 177, 119, 0.7)', // 버튼의 배경색을 1db177로 설정
             color: '#ffffff', // 버튼의 글자색을 흰색으로 설정
@@ -31,10 +30,10 @@ function Reviews() {
           }}
           className={styles.button}
         >
+          <EditIcon />
           기록하기
-        </Button>
+        </IconButton>
       </div>
-      {writeClick === true ? <ReviewRegistration /> : null}
     </div>
   );
 }

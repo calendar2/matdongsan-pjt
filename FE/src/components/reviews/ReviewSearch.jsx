@@ -16,9 +16,32 @@ import {
 } from './ReviewSearchLocation';
 import { TimeModal, ReviewsSearchTime } from './ReviewSearchTime';
 import styles from '../../styles/reviews/ReviewSearch.module.css';
+import reviewFilterStore from '../../stores/reviewFilterStore';
 
 function ReviewsSearch() {
   const [whatIsClicked, setClicked] = useState(0);
+  const {
+    selectedFriend,
+    selectedStartDate,
+    selectedEndDate,
+    selectedBusinessTypes,
+    selectedUserLocation,
+    setSearchKeyWord,
+    searchKeyWord,
+  } = reviewFilterStore();
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      console.log('엔터버튼 눌렀음!');
+      console.log(
+        selectedFriend,
+        selectedStartDate,
+        selectedEndDate,
+        selectedBusinessTypes,
+        selectedUserLocation,
+        searchKeyWord
+      );
+    }
+  };
   return (
     <div className={styles.layout}>
       <TextField
@@ -26,12 +49,6 @@ function ReviewsSearch() {
         variant="outlined"
         placeholder="검색"
         sx={{
-          '& .Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'black ',
-          },
-          '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'transparent', // 테두리를 투명하게 설정
-          },
           '& .MuiOutlinedInput-root': {
             borderRadius: 30,
             backgroundColor: '#f4f2f2',
@@ -40,13 +57,15 @@ function ReviewsSearch() {
             height: '40px',
           },
           '& input::placeholder': {
-            textAlign: 'center', // placeholder를 중앙 정렬
+            textAlign: 'center',
             marginRight: '30px',
           },
         }}
+        color="success"
+        onKeyPress={handleKeyPress}
         onChange={(e) => {
-          console.log('검색 키워드 입력중!');
-          console.log(e.target.value);
+          console.log(searchKeyWord);
+          setSearchKeyWord(e.target.value);
         }}
         InputProps={{
           startAdornment: (
@@ -54,6 +73,19 @@ function ReviewsSearch() {
               <IconButton
                 onClick={() => {
                   console.log('검색버튼 클릭함!');
+                  // 검색할때 사용할 내용들
+                  // selectedFriend
+                  // selectedStartDate
+                  // selectedEndDate
+                  // selectedStore
+                  // selectedUserLocation
+                  console.log(
+                    selectedFriend,
+                    selectedStartDate,
+                    selectedEndDate,
+                    selectedBusinessTypes,
+                    selectedUserLocation
+                  );
                 }}
               >
                 <SearchIcon />
@@ -65,20 +97,20 @@ function ReviewsSearch() {
       <br />
       <div className={styles.wrapper}>
         <ReviewsSearchTogether
-          whoIsTogether={whatIsClicked}
-          setWhoIs={setClicked}
+          whatIsClicked={whatIsClicked}
+          setClicked={setClicked}
         />
         <ReviewsSearchBusinessTypes
-          whatIsBusinessTypes={whatIsClicked}
-          setWhatIs={setClicked}
+          whatIsClicked={whatIsClicked}
+          setClicked={setClicked}
         />
         <ReviewsSearchLocation
-          whereIsLocation={whatIsClicked}
-          setWhereIsLocation={setClicked}
+          whatIsClicked={whatIsClicked}
+          setClicked={setClicked}
         />
         <ReviewsSearchTime
-          whenTime={whatIsClicked}
-          setWhenTime={setClicked}
+          whatIsClicked={whatIsClicked}
+          setClicked={setClicked}
         />
       </div>
       {whatIsClicked === 1 ? (

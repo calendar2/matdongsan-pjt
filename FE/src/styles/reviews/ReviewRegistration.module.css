@@ -1,12 +1,15 @@
 @charset "UTF-8";
-.layout {
+.header {
   padding: 10px;
+}
+
+.box {
+  padding: 20px;
 }
 
 .modal {
   position: absolute;
   z-index: 1;
-  margin-left: 25vw;
   height: calc(100vh - 125.58px);
   border-radius: 5px;
   width: 25vw;
@@ -14,6 +17,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 음영 추가 */
   overflow-y: auto;
   overflow-x: hidden;
+  text-align: center;
 }
 .modal .photo {
   width: 30px;
@@ -26,6 +30,11 @@
 }
 .modal .flexBoxFriend {
   display: flex;
+}
+
+.box1 {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .modal::-webkit-scrollbar {
@@ -61,4 +70,8 @@
   height: auto;
   padding: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 음영 추가 */
+}
+
+.underline {
+  border-bottom: yellow;
 }/*# sourceMappingURL=ReviewRegistration.module.css.map */

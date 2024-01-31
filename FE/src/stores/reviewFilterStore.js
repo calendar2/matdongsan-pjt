@@ -2,6 +2,8 @@ import { create } from 'zustand';
 import dayjs from 'dayjs';
 
 const reviewFilterStore = create((set) => ({
+  searchKeyWord: '',
+  setSearchKeyWord: (value) => set({ searchKeyWord: value }),
   userFriend: [
     { title: '다은' },
     { title: '민재' },
@@ -17,7 +19,7 @@ const reviewFilterStore = create((set) => ({
   setSelectedStartDate: (value) => set({ selectedStartDate: value }),
   selectedEndDate: dayjs('2024-01-01'),
   setSelectedEndDate: (value) => set({ selectedEndDate: value }),
-  storeCategory: [
+  businessTypesCategory: [
     { label: '족발 / 보쌈' },
     { label: '돈까스 / 회 / 일식' },
     { label: '양식' },
@@ -33,9 +35,11 @@ const reviewFilterStore = create((set) => ({
     { label: '분식' },
   ],
   setStoreCategory: (value) => set({ storeCategory: value }),
-  selectedStore: '',
-  setSelectedStore: (value) => set({ selectedStore: value }),
+  selectedBusinessTypes: '',
+  setSelectedBusinessTypes: (value) =>
+    set({ selectedBusinessTypes: value }),
   userLocation: [
+    // 이거 장소 api 다 받아와서 여기에 넣어야될거같은데 ?
     { title: '서울 강남구 언주로93길 22-3 지상 1층' },
     { title: '서울 강남구 언주로94길 9-5 1층' },
     {

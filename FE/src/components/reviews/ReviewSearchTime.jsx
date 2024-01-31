@@ -8,16 +8,16 @@ import styles from '../../styles/reviews/ReviewSearchTime.module.css';
 import reviewFilterStore from '../../stores/reviewFilterStore';
 
 function ReviewsSearchTime(props) {
-  const { whenTime, setWhenTime } = props;
+  const { whatIsClicked, setClicked } = props;
   return (
     <span>
       <Button
         type="button"
         onClick={() => {
-          if (whenTime === 4) {
-            setWhenTime(0);
+          if (whatIsClicked === 4) {
+            setClicked(0);
           } else {
-            setWhenTime(4);
+            setClicked(4);
           }
         }}
         size="small"
@@ -25,8 +25,10 @@ function ReviewsSearchTime(props) {
         style={{
           borderRadius: '20px',
           backgroundColor:
-            whenTime === 4 ? 'rgba(29, 177, 119, 0.7)' : '#ffffff',
-          color: whenTime === 4 ? '#FFFFFF' : '#555558',
+            whatIsClicked === 4
+              ? 'rgba(29, 177, 119, 0.7)'
+              : '#ffffff',
+          color: whatIsClicked === 4 ? '#FFFFFF' : '#555558',
           paddingTop: '0px',
           paddingBottom: '0px',
           marginLeft: '3px',
@@ -57,6 +59,16 @@ function TimeModal() {
               setSelectedStartDate(newValue);
               console.log('시작 날짜 변경됨!', selectedStartDate.$d);
             }}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'green', // 클릭되었을 때 테두리 색상
+                },
+              },
+              '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
+                color: 'green', // 텍스트가 상단으로 이동할 때의 색상
+              },
+            }}
           />
           <DatePicker
             label="종료 날짜"
@@ -64,6 +76,16 @@ function TimeModal() {
             onChange={(newValue) => {
               setSelectedEndDate(newValue);
               console.log('종료 날짜 변경됨!', selectedEndDate.$d);
+            }}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'green', // 클릭되었을 때 테두리 색상
+                },
+              },
+              '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
+                color: 'green', // 텍스트가 상단으로 이동할 때의 색상
+              },
             }}
           />
         </DemoContainer>

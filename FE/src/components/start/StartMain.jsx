@@ -64,7 +64,7 @@ function StartMain() {
         </Button>
         <LoginModal />
         {/* </Link> */}
-        <Link to="/main/reviews">
+        <Link to="/main/restaurants">
           <Button
             sx={{
               width: '180px',
