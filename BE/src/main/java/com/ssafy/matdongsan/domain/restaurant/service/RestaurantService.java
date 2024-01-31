@@ -89,12 +89,18 @@ public class RestaurantService {
             String area1 = regionObject.getJSONObject("area1").getString("name");
             String area2 = regionObject.getJSONObject("area2").getString("name");
             String area3 = regionObject.getJSONObject("area3").getString("name");
-//            System.out.println("code:"+code+ " area1: "+area1+" area1Alias: "+area1Alias+" area2: "+area2+" area3: "+area3);
+            JSONObject coordsObject = regionObject.getJSONObject("area3").getJSONObject("coords").getJSONObject("center");
+            Integer mapx = Integer.parseInt(String.format("%.7f", coordsObject.getDouble("x")).replaceAll("\\.",""));
+            Integer mapy = Integer.parseInt(String.format("%.7f", coordsObject.getDouble("y")).replaceAll("\\.",""));
+            System.out.println("mapx:"+mapx+"mapy:"+mapy);
+            //            System.out.println("code:"+code+ " area1: "+area1+" area1Alias: "+area1Alias+" area2: "+area2+" area3: "+area3);
 
-            Region newRegion = new Region(finalCode, area1,area2,area3);
-            //없으면 등록 및 아이디값 가져옴
+            Region newRegion = new Region(finalCode, area1,area2,area3,mapx,mapy);
+//            //없으면 등록 및 아이디값 가져옴
             regionRepository.save(newRegion);
             return newRegion;
+
+//            return null;
 
         });
 
