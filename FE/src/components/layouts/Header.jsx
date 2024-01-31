@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import Avatar from '@mui/material/Avatar';
 import GlobalFilterModal from '../modals/GlobalFilterModal';
@@ -11,13 +12,29 @@ import imgLogo from '../../assets/images/logo.png';
 
 function Header() {
   const { accessToken, setLoginModalOpen } = userStore();
+  const [searchValue, setSearchValue] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const modalOpen = () => setLoginModalOpen(true);
+
+  const searchBtnClick = () => {
+    navigate({
+      pathname: location.pathname,
+      search: `?query=${searchValue}`,
+    });
+  };
+
+  const activeEnter = (e) => {
+    if (e.key === 'Enter') {
+      searchBtnClick();
+    }
+  };
 
   return (
     <div className={header.container}>
       <div className={header.headline}>
-        <Link to="/main" className={header}>
+        <Link to="/main/reviews" className={header}>
           <img
             src={imgLogo}
             alt="mainLogo"
@@ -27,8 +44,19 @@ function Header() {
         <div className={header.searchBox}>
           <GlobalFilterModal />
           <div className={header.searchWrapper}>
-            <SearchTwoToneIcon fontSize="large" color="disabled" />
-            <input type="text" placeholder="사용자명, 음식점명" />
+            <SearchTwoToneIcon
+              className={header.searchIcon}
+              fontSize="large"
+              color="disabled"
+              onClick={searchBtnClick}
+            />
+            <input
+              type="text"
+              placeholder="사용자명, 음식점명"
+              onKeyDown={(e) => activeEnter(e)}
+              onChange={(e) => setSearchValue(e.target.value)}
+              value={searchValue}
+            />
           </div>
         </div>
         <div className={header.userInfo}>

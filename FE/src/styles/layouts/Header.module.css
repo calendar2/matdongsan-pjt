@@ -63,6 +63,9 @@
   padding: 1.2rem;
   margin-left: 1rem;
 }
+.container .headline .searchBox .searchWrapper .searchIcon:hover {
+  cursor: pointer;
+}
 .container .headline .searchBox .searchWrapper input {
   border: 0px;
   width: 30rem;

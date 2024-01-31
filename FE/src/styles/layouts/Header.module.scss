@@ -74,6 +74,10 @@ $secondary-color: #b2b2b2;
         padding: 1.2rem;
         margin-left: 1rem;
 
+        .searchIcon:hover {
+          cursor: pointer;
+        }
+
         input {
           border: 0px;
           width: 30rem;
