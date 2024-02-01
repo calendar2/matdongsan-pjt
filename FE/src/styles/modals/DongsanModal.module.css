@@ -1,0 +1,59 @@
+.box {
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+  z-index: 2;
+  border: 2px solid #1DB177;
+  border-radius: 15px;
+  background-color: white;
+  opacity: 0.7;
+  height: 15rem;
+}
+.box .line {
+  background: #1DB177;
+  height: 2px;
+  border: 0;
+}
+.box .title {
+  margin: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.box .title span {
+  color: #1DB177;
+}
+.box .title button {
+  background-color: #1DB177;
+  color: white;
+  border: 0;
+  border-radius: 20px;
+  padding: 0.3rem 1rem;
+}
+.box .title button:hover {
+  cursor: pointer;
+}
+.box .profile {
+  margin: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+.box .profile .avatar {
+  margin-left: 0.6rem;
+  margin-right: 0.3rem;
+}
+.box .profile .colorCheck {
+  width: 12px;
+  height: 12px;
+  background-color: red;
+  border-radius: 12px;
+}
+.box .profile .cancel {
+  margin-left: 1rem;
+}
+.box .profile .cancel:hover {
+  cursor: pointer;
+}
+.box .profile span {
+  margin: 0 0.3rem;
+}/*# sourceMappingURL=DongsanModal.module.css.map */

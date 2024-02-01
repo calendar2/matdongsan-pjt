@@ -25,4 +25,5 @@
 }
 .modalContainer .filterMenu {
   display: flex;
+  align-items: center;
 }/*# sourceMappingURL=GlobalFilter.module.css.map */

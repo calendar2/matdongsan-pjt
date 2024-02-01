@@ -7,6 +7,7 @@ import Subscribe from '../components/subscribe/Subscribe';
 import contents from '../styles/foodmap/FoodMapView.module.css';
 import ReviewRegistration from '../components/reviews/ReviewRegistration';
 import ReviewDetail from '../components/reviews/ReviewDetail';
+import DongsanModal from '../components/modals/DongsanModal';
 
 function FoodMapView() {
   return (
@@ -34,6 +35,7 @@ function FoodMapView() {
             />
           </Routes>
           <FoodMap />
+          <DongsanModal />
         </div>
       </main>
     </div>
