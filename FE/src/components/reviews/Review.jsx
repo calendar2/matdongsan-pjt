@@ -2,7 +2,6 @@ import { IconButton } from '@mui/material';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
-
 import styles from '../../styles/reviews/Review.module.css';
 import ReviewsList from './ReviewList';
 import ReviewsSearch from './ReviewSearch';

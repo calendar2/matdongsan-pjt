@@ -2,6 +2,7 @@ import TextField from '@mui/material/TextField';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import Autocomplete from '@mui/material/Autocomplete';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { useState } from 'react';
 import { Button } from '@mui/material';
 import Chip from '@mui/material/Chip';
@@ -13,9 +14,11 @@ import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
-import photo from '../../assets/images/reviews/photogallery.png';
+// import photo from '../../assets/images/reviews/photogallery.png';
 import reviewWriteStore from '../../stores/reviewWriteStore';
 import styles from '../../styles/reviews/ReviewRegistration.module.css';
+// import employee from '../../assets/images/reviews/accounting.png';
+// import tongue from '../../assets/images/reviews/tongue.png';
 
 function ReviewRegistration() {
   const {
@@ -38,6 +41,7 @@ function ReviewRegistration() {
   } = reviewWriteStore();
   const [클릭버튼, 클릭버튼수정] = useState(false);
   const navigate = useNavigate();
+  // const { restaurantID } = useParams();
   const handleAutocompleteChange = (event, selectedOptions) => {
     // 선택된 항목을 setSelectedFriend 함수의 인자로 전달
     같이간친구수정(selectedOptions.map((option) => option.title));
@@ -74,33 +78,52 @@ function ReviewRegistration() {
                 '&:hover': {
                   cursor: 'pointer',
                 },
-                // marginLeft: '45px',
-                // marginBottom: '5px',
               }}
             />
           </div>
           <hr />
-          <p>항목별평점</p>
-          <Typography component="legend">친절도</Typography>
-          <Rating
-            name="simple-controlled"
-            value={친절도}
-            onChange={(event, newValue) => {
-              친절도수정(Number(newValue));
-              console.log('친절도 선택되었습니다!');
-              console.log(친절도);
-            }}
-          />
-          <Typography component="legend">맛</Typography>
-          <Rating
-            name="simple-controlled"
-            value={맛}
-            onChange={(event, newValue) => {
-              맛수정(Number(newValue));
-              console.log('맛 선택되었습니다!');
-              console.log(맛);
-            }}
-          />
+          <div className={styles.ratingSpaceBetween}>
+            {/* <div>
+              <img src={employee} alt="" width={50} />
+            </div> */}
+            <div>
+              <Typography
+                component="legend"
+                sx={{ color: 'rgba(55,55,55,0.7)' }}
+              >
+                친절
+              </Typography>
+              <Rating
+                name="simple-controlled"
+                value={친절도}
+                onChange={(event, newValue) => {
+                  친절도수정(Number(newValue));
+                  console.log('친절도 선택되었습니다!');
+                  console.log(친절도);
+                }}
+              />
+            </div>
+          </div>
+          <div className={styles.ratingSpaceBetween}>
+            {/* <img src={tongue} alt="" width={50} /> */}
+            <div>
+              <Typography
+                component="legend"
+                sx={{ color: 'rgba(55,55,55,0.7)' }}
+              >
+                맛
+              </Typography>
+              <Rating
+                name="simple-controlled"
+                value={맛}
+                onChange={(event, newValue) => {
+                  맛수정(Number(newValue));
+                  console.log('맛 선택되었습니다!');
+                  console.log(맛);
+                }}
+              />
+            </div>
+          </div>
           <hr />
           <p>업종</p>
           <Autocomplete
@@ -135,7 +158,13 @@ function ReviewRegistration() {
           />
           <hr />
           <div>
-            <img className={styles.photo} src={photo} alt="" />
+            <IconButton
+              onClick={() => {
+                console.log('사진 추가 버튼을 클릭했음!');
+              }}
+            >
+              <AddPhotoAlternateIcon />
+            </IconButton>
           </div>
           <TextField
             id="outlined-multiline-static"

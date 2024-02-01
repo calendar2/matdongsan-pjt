@@ -5,6 +5,10 @@
 .box {
   padding: 20px;
 }
+.ratingSpaceBetween {
+  display: flex;
+  justify-content: center;
+}
 .modal {
   position: absolute;
   z-index: 1;
