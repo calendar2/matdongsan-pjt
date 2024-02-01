@@ -23,14 +23,6 @@ function ReviewListSubItems(props) {
   return (
     <div>
       <div className={styles.center}>
-        {/* <AddCircleOutlineIcon
-          type="submit"
-          onClick={(e) => {
-            e.stopPropagation();
-            navigate('write');
-          }}
-          color="success"
-        /> */}
         <Button
           type="submit"
           variant="text"

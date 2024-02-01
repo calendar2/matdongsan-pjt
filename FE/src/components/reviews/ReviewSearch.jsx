@@ -5,16 +5,19 @@ import { useState } from 'react';
 import {
   ReviewsSearchTogether,
   TogetherModal,
-} from './ReviewSearchTogether';
+} from '../modals/ReviewSearchTogetherModal';
 import {
   ReviewsSearchBusinessTypes,
   StoreModal,
-} from './ReviewSearchBusinessTypes';
+} from '../modals/ReviewSearchBusinessTypesModal';
 import {
   ReviewsSearchLocation,
   LocationModal,
-} from './ReviewSearchLocation';
-import { TimeModal, ReviewsSearchTime } from './ReviewSearchTime';
+} from '../modals/ReviewSearchLocationModal';
+import {
+  TimeModal,
+  ReviewsSearchTime,
+} from '../modals/ReviewSearchTimeModal';
 import styles from '../../styles/reviews/ReviewSearch.module.css';
 import reviewFilterStore from '../../stores/reviewFilterStore';
 

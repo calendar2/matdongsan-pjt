@@ -59,7 +59,6 @@ function TogetherModal() {
         filterSelectedOptions
         onChange={handleAutocompleteChange}
         sx={{
-          width: 300,
           '& .MuiOutlinedInput-root': {
             '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
               borderColor: 'green', // 클릭되었을 때 테두리 색상

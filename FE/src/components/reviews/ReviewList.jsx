@@ -136,7 +136,8 @@ function ReviewsList() {
                         <StarIcon
                           sx={{
                             fontSize: '10px',
-                            color: 'rgba(255, 211, 56, 0.7)',
+
+                            color: 'rgba(29, 177, 119, 0.7)',
                           }}
                         />
                         {reviewStoreList[i].친절도}
@@ -147,7 +148,7 @@ function ReviewsList() {
                         <StarIcon
                           sx={{
                             fontSize: '10px',
-                            color: 'rgba(255, 211, 56, 0.7)',
+                            color: 'rgba(29, 177, 119, 0.7)',
                           }}
                         />
                         {reviewStoreList[i].맛}

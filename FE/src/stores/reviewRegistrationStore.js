@@ -1,15 +1,15 @@
 import { create } from 'zustand';
 import dayjs from 'dayjs';
 
-const reviewWriteStore = create((set) => ({
+const reviewRegistrationStore = create((set) => ({
   가게이름: '',
   가게이름수정: (value) => set({ 가게이름: value }),
   친절도: 0,
   친절도수정: (value) => set({ 친절도: value }),
   맛: 0,
   맛수정: (value) => set({ 맛: value }),
-  업종: '',
-  업종수정: (value) => set({ 업종: value }),
+  // 업종: '', 업종 입력을 안받기로함
+  // 업종수정: (value) => set({ 업종: value }), 업종 입력을 안받기로함
   사진: '',
   사진수정: (value) => set({ 사진: value }),
   내용: '',
@@ -31,22 +31,22 @@ const reviewWriteStore = create((set) => ({
   임의친구생년수정: (value) => set({ 임의친구생년: value }),
   방문날짜: dayjs('2024-01-01'),
   방문날짜수정: (value) => set({ 방문날짜: value }),
-  전체업종: [
-    { label: '족발 / 보쌈' },
-    { label: '돈까스 / 회 / 일식' },
-    { label: '양식' },
-    { label: '중식' },
-    { label: '고기 / 구이' },
-    { label: '아시안' },
-    { label: '백반 / 죽 / 국수' },
-    { label: '버거' },
-    { label: '카페 / 디저트' },
-    { label: '찜 / 탕 / 찌개' },
-    { label: '피자' },
-    { label: '치킨' },
-    { label: '분식' },
-  ],
-  전체업종수정: (value) => set({ 전체업종: value }),
+  // 전체업종: [ 업종 입력을 안받기로함
+  //   { label: '족발 / 보쌈', id: 1 },
+  //   { label: '돈까스 / 회 / 일식', id: 2 },
+  //   { label: '양식', id: 6 },
+  //   { label: '중식', id: 7 },
+  //   { label: '고기 / 구이', id: 3 },
+  //   { label: '아시안', id: 8 },
+  //   { label: '백반 / 죽 / 국수', id: 10 },
+  //   { label: '버거', id: 11 },
+  //   { label: '카페 / 디저트', id: 13 },
+  //   { label: '찜 / 탕 / 찌개', id: 5 },
+  //   { label: '피자', id: 4 },
+  //   { label: '치킨', id: 9 },
+  //   { label: '분식', id: 12 },
+  // ],
+  // 전체업종수정: (value) => set({ 전체업종: value }),
 }));
 
-export default reviewWriteStore;
+export default reviewRegistrationStore;

@@ -7,6 +7,7 @@ import Subscribe from '../components/subscribe/Subscribe';
 import contents from '../styles/foodmap/FoodMapView.module.css';
 import ReviewRegistration from '../components/reviews/ReviewRegistration';
 import ReviewDetail from '../components/reviews/ReviewDetail';
+import ReviewUpdate from '../components/reviews/ReviewUpdate';
 import DongsanModal from '../components/modals/DongsanModal';
 
 function FoodMapView() {
@@ -30,8 +31,12 @@ function FoodMapView() {
               element={<ReviewRegistration />}
             />
             <Route
-              path="/restaurants/:restaurantID/reviews/:id"
+              path="/restaurants/:restaurantID/reviews/:reviewID"
               element={<ReviewDetail />}
+            />
+            <Route
+              path="/restaurants/:restaurantID/reviews/:reviewID/update"
+              element={<ReviewUpdate />}
             />
           </Routes>
           <FoodMap />
