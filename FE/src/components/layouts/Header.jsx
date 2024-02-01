@@ -34,7 +34,7 @@ function Header() {
   return (
     <div className={header.container}>
       <div className={header.headline}>
-        <Link to="/main/reviews" className={header}>
+        <Link to="/main/restaurants" className={header}>
           <img
             src={imgLogo}
             alt="mainLogo"
