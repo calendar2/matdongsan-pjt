@@ -5,7 +5,7 @@ import com.ssafy.matdongsan.domain.account.model.PersonTag;
 import com.ssafy.matdongsan.domain.account.model.Account;
 import com.ssafy.matdongsan.domain.restaurant.model.Restaurant;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,6 +13,8 @@ import java.util.List;
 
 @Entity
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Review extends BaseEntity {
 
     @Id
@@ -45,6 +47,7 @@ public class Review extends BaseEntity {
             name = "review_person_tag",
             joinColumns = @JoinColumn(name = "review_id"),
             inverseJoinColumns = @JoinColumn(name = "person_tag_id")
+
     )
     private List<PersonTag> reviewPersonTags = new ArrayList<>();
 
@@ -55,4 +58,16 @@ public class Review extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "account_id")
     )
     private List<Account> accountReviews = new ArrayList<>();
+
+    @Builder
+    public Review(double kindnessRating, double tasteRating, String content, LocalDateTime visitDate, Restaurant restaurant, Account account, List<PersonTag> reviewPersonTags, List<Account> accountReviews) {
+        this.kindnessRating = kindnessRating;
+        this.tasteRating = tasteRating;
+        this.content = content;
+        this.visitDate = visitDate;
+        this.restaurant = restaurant;
+        this.account = account;
+        this.reviewPersonTags = reviewPersonTags;
+        this.accountReviews = accountReviews;
+    }
 }

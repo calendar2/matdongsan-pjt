@@ -14,7 +14,7 @@ import java.util.List;
 public class RegionApiController {
     private final RegionService regionService;
     @GetMapping("/region")
-    public ResponseEntity<?> getRestaurant(){
+    public ResponseEntity<?> getRegions(){
         List<Region> regions = regionService.getAllRegion();
         return ResponseEntity.ok().body(regions);
     }

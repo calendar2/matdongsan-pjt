@@ -18,15 +18,18 @@ public class RestaurantSaveRequestDto {
     private String roadAddress;
     private String phone;
 
-    @Builder
-    public RestaurantSaveRequestDto(String name, Integer mapx, Integer mapy, String address, String roadAddress, String phone) {
-        this.name = name;
-        this.mapx = mapx;
-        this.mapy = mapy;
-        this.address = address;
-        this.roadAddress = roadAddress;
-        this.phone = phone;
 
+
+    @Override
+    public String toString() {
+        return "RestaurantSaveRequestDto{" +
+                "name='" + name + '\'' +
+                ", mapx=" + mapx +
+                ", mapy=" + mapy +
+                ", address='" + address + '\'' +
+                ", roadAddress='" + roadAddress + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
     }
 
     public Restaurant toEntity(Region region) {

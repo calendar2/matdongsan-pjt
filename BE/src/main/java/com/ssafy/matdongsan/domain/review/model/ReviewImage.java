@@ -3,10 +3,15 @@ package com.ssafy.matdongsan.domain.review.model;
 import com.ssafy.matdongsan.domain.BaseEntity;
 import com.ssafy.matdongsan.domain.review.model.Review;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReviewImage extends BaseEntity {
 
     @Id

@@ -32,10 +32,12 @@ public class RestaurantService {
 
     @Transactional
     public void save(RestaurantSaveRequestDto requestDto) {
+        System.out.println("d!!!!!!!!!!!!!!!!!!!!!!!"+requestDto.toString());
+
+        Optional<Restaurant> restaurants =  restaurantRepository.findByName(requestDto.getName());
         //음식점이 이미 등록 되어 있는 경우
-        Optional<List<Restaurant>> restaurants =  restaurantRepository.findByName(requestDto.getName());
-        System.out.println("d!!!!!!!!!!!!!!!!!!!!!!!");
-//        if(restaurants.isPresent()) return;
+        if(restaurants.isPresent()) return;
+
 
 
         //좌표 Int -> 소수로 변환

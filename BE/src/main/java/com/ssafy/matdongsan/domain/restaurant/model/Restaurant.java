@@ -1,22 +1,18 @@
 package com.ssafy.matdongsan.domain.restaurant.model;
 
+import com.ssafy.matdongsan.domain.BaseEntity;
 import com.ssafy.matdongsan.domain.account.model.Account;
 import com.ssafy.matdongsan.domain.food.model.FoodCategory;
-import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantSaveRequestDto;
-import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantSaveResponseDto;
 import com.ssafy.matdongsan.domain.review.model.Review;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
+
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import static jakarta.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
@@ -25,14 +21,15 @@ import static jakarta.persistence.FetchType.LAZY;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name="restaurant")
 @EntityListeners(AuditingEntityListener.class)
-public class Restaurant {
+
+public class Restaurant extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "restaurant_id")
     private Integer id;
 
-    @Column(name = "restaurant_name", nullable = false, length = 100)
+    @Column(name = "restaurant_name", length = 100)
     private String name;
 
     private Integer mapx;

@@ -49,11 +49,5 @@ public class Region {
         this.mapy = mapy;
     }
 
-    @Builder
-    public Region(String code, String city, String county, String district) {
-        this.code = code;
-        this.city = city;
-        this.county = county;
-        this.district = district;
-    }
+
 }
