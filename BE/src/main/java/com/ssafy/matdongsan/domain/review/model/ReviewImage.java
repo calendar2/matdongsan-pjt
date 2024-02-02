@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import static jakarta.persistence.FetchType.LAZY;
+
+
 @Entity
 @Getter
 @AllArgsConstructor
@@ -19,7 +22,7 @@ public class ReviewImage extends BaseEntity {
     @Column(name = "review_image_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "review_id")
     private Review review;
 

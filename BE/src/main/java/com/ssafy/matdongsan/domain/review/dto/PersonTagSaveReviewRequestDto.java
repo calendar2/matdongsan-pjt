@@ -3,6 +3,8 @@ package com.ssafy.matdongsan.domain.review.dto;
 import com.ssafy.matdongsan.domain.account.model.Account;
 import com.ssafy.matdongsan.domain.account.model.PersonTag;
 import lombok.AccessLevel;
+
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +13,13 @@ import lombok.NoArgsConstructor;
 public class PersonTagSaveReviewRequestDto {
     private String name;
     private int birthYear;
+
+    @Builder
+    public PersonTagSaveReviewRequestDto(String name, int birthYear) {
+        this.name = name;
+        this.birthYear = birthYear;
+    }
+
 
     public PersonTag toEntity(Account account) {
         return PersonTag.builder()

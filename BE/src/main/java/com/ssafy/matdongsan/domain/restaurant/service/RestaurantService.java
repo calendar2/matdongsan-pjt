@@ -32,13 +32,10 @@ public class RestaurantService {
 
     @Transactional
     public void save(RestaurantSaveRequestDto requestDto) {
-        System.out.println("d!!!!!!!!!!!!!!!!!!!!!!!"+requestDto.toString());
 
         Optional<Restaurant> restaurants =  restaurantRepository.findByName(requestDto.getName());
         //음식점이 이미 등록 되어 있는 경우
         if(restaurants.isPresent()) return;
-
-
 
         //좌표 Int -> 소수로 변환
         String coords = String.format("%.7f",requestDto.getMapx() * 0.0000001) +","+  String.format("%.7f",requestDto.getMapy() * 0.0000001);
@@ -95,21 +92,16 @@ public class RestaurantService {
             Integer mapx = Integer.parseInt(String.format("%.7f", coordsObject.getDouble("x")).replaceAll("\\.",""));
             Integer mapy = Integer.parseInt(String.format("%.7f", coordsObject.getDouble("y")).replaceAll("\\.",""));
             System.out.println("mapx:"+mapx+"mapy:"+mapy);
-            //            System.out.println("code:"+code+ " area1: "+area1+" area1Alias: "+area1Alias+" area2: "+area2+" area3: "+area3);
-
             Region newRegion = new Region(finalCode, area1,area2,area3,mapx,mapy);
-//            //없으면 등록 및 아이디값 가져옴
+
+            //없으면 등록 및 아이디값 가져옴
             regionRepository.save(newRegion);
             return newRegion;
-
-//            return null;
 
         });
 
 
         Restaurant restaurant = requestDto.toEntity(region);
-        System.out.println("sdfsdfndaseljioe;daj;aweiofjweio;jfio;");
-        System.out.println(restaurant);
         restaurantRepository.save(restaurant);
 
     }

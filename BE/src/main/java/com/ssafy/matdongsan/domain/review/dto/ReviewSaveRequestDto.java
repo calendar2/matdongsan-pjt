@@ -14,6 +14,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReviewSaveRequestDto {
+
     private double kindnessRating;
     private double tasteRating;
     private String content;
