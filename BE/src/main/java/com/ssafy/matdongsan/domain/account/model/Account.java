@@ -10,12 +10,15 @@ import com.ssafy.matdongsan.domain.restaurant.model.Restaurant;
 import com.ssafy.matdongsan.domain.review.model.Review;
 import com.ssafy.matdongsan.domain.subcription.model.Subscription;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Account extends BaseEntity {
 
