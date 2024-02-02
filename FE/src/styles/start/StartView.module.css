@@ -1,0 +1,118 @@
+.header {
+  /* color: black; */
+  width: 7rem;
+  margin: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.imgLogo {
+  width: 100%;
+
+}
+
+.mainBox {
+  height: 100%;
+}
+
+.buttonBox {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  bottom: 170px;
+  margin-right: 120px;
+}
+
+/* .custom-dots {
+  position: absolute;
+  bottom: 50px;
+} */
+
+.topText {
+  background-color: rgba(29, 177, 119, 0.5);
+  color: white;
+  width: 8rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  box-shadow: 1px 1px 2px 0px gray;
+  margin-left: 1%;
+}
+
+.topBox {
+  overflow-x: auto;
+  white-space: nowrap;
+  display: flex;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.topBox::-webkit-scrollbar {
+  height: 11px;
+}
+
+.topBox::-webkit-scrollbar-thumb {
+  background-color: rgba(29, 177, 119, 0.3);
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 3px solid transparent;
+}
+
+.topBox::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(29, 177, 119, 0.5);
+}
+
+.topBox::-webkit-scrollbar-track {
+  background-color: rgba(220, 220, 220, 0.7);
+  border-radius: 10px;
+  /* box-shadow: inset 0px 0px 5px white; */
+}
+
+.topArticle {
+  width: 300px;
+  height: 80px;
+  /* border: 1px solid black; */
+  flex-shrink: 0;
+  padding: 1%;
+}
+
+.topRank {
+  font-size: 1.1rem;
+}
+
+.topContent {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.loginBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginText {
+  font-size: 1.3rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(29, 177, 119, 0.7);
+  width: 20%;
+}
+
+.loginLogo {
+  margin-top: 20px;
+  width: 120px;
+}
+
+.loginMinitext {
+  font-size: 0.8rem;
+  margin-bottom: 20px;
+}
+
+.kakaoLogo {
+  width: 30px;
+  margin-right: 10px;
+}

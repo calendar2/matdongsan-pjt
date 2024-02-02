@@ -1,0 +1,14 @@
+.container {
+  // display: grid;
+  // grid-template-rows: 0.5fr 9.5fr;
+  
+  .wrapper {
+    display: grid;
+    grid-template-columns: 0.5fr 3fr 8.5fr;
+
+    div {
+      display: 'flex';
+    }
+  }
+}
+

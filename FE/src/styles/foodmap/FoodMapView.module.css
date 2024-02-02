@@ -1,0 +1,7 @@
+.container .wrapper {
+  display: grid;
+  grid-template-columns: 0.5fr 3fr 8.5fr;
+}
+.container .wrapper div {
+  display: "flex";
+}/*# sourceMappingURL=FoodMapView.module.css.map */
