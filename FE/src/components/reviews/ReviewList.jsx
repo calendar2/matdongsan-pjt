@@ -4,19 +4,15 @@ import {
   ListItem,
   ListItemText,
 } from '@mui/material';
-// import VerticalAlignBottomIcon from '@mui/icons-material/VerticalAlignBottom';
-// import VerticalAlignTopIcon from '@mui/icons-material/VerticalAlignTop';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import StarIcon from '@mui/icons-material/Star';
 import Button from '@mui/material/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import reviewStore from '../../stores/reviewStore';
 import styles from '../../styles/reviews/ReviewList.module.css';
 import ReviewsListSubItems from './ReviewListSubItems';
-// 라우터 기능 개발로 임시로 막아둠
-// import reviewWriteStore from '../../stores/reviewWriteStore';
 
 function ReviewsList() {
   // 음식점 ID를 인자로 입력하면 해당 음식점으로 스크롤 이동한다
@@ -26,29 +22,22 @@ function ReviewsList() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
-  // 라우터 기능 개발로 임시로 막아둠
-  // const { reviewStoreList, setreviewStoreListButton } = reviewStore();
-  const { reviewStoreList } = reviewStore();
+  useEffect(() => {
+    console.log('리뷰 목록 마운트 됨!'); // Axios 요청을 보내서 음식점 목록을 갱신할 예정입니다 (useEffect 안에 적는 코드들은 어려운 연산 / 서버에서 데이터 가져오는 작업),
+    // 따라서 Dependency에 []를 넣고 mount 됐을때 한번만 처리할 예정입니다
+  }, []);
+  const {
+    reviewStoreList,
+    sortByVisitCount,
+    sortByRecentVisitDate,
+    sortByAverageTasteAndKindness,
+  } = reviewStore();
   const [reviewListSortButton1, setReviewListSortButton1] =
     useState(true);
   const [reviewListSortButton2, setReviewListSortButton2] =
     useState(false);
   const [reviewListSortButton3, setReviewListSortButton3] =
     useState(false);
-  // 라우터 기능 개발로 임시로 막아둠
-  // const { 가게이름수정 } = reviewWriteStore();
-
-  // 라우터 기능 개발로 임시로 막아둠
-  // const handleClick = (index) => () => {
-  //   console.log(index, '번째 리뷰 하위 항목 확인 버튼 클릭 함.');
-  //   setreviewStoreListButton(index);
-  //   if (!reviewStoreList[index].버튼) {
-  //     가게이름수정(reviewStoreList[index].가게이름);
-  //   } else {
-  //     가게이름수정('');
-  //   }
-  // };
   const navigate = useNavigate();
   return (
     <div>
@@ -60,6 +49,7 @@ function ReviewsList() {
               setReviewListSortButton1(true);
               setReviewListSortButton2(false);
               setReviewListSortButton3(false);
+              sortByRecentVisitDate();
             }}
             sx={{
               color: reviewListSortButton1 ? '#555558' : '#BFBFBF',
@@ -73,12 +63,13 @@ function ReviewsList() {
               setReviewListSortButton1(false);
               setReviewListSortButton2(true);
               setReviewListSortButton3(false);
+              sortByVisitCount();
             }}
             sx={{
               color: reviewListSortButton2 ? '#555558' : '#BFBFBF',
             }}
           >
-            • 별점순
+            • 방문순
           </Button>
           <Button
             variant="text"
@@ -86,12 +77,13 @@ function ReviewsList() {
               setReviewListSortButton1(false);
               setReviewListSortButton2(false);
               setReviewListSortButton3(true);
+              sortByAverageTasteAndKindness();
             }}
             sx={{
               color: reviewListSortButton3 ? '#555558' : '#BFBFBF',
             }}
           >
-            • 오래된순
+            • 별점순
           </Button>
         </div>
         {/* handleScrollToSection, 인자 = 이동하고자하는 음식점 pk) 해당 음식점으로 스크롤 이동) */}
@@ -114,13 +106,11 @@ function ReviewsList() {
           <ListItem
             key={reviewStoreList[i].가게이름}
             onClick={() => {
-              // 라우터 기능 개발로 임시로 막아둠
-              // handleClick(i);
               navigate(`${item.id}`);
             }}
             className={styles.decorateList}
             button
-            id={reviewStoreList[i].id}
+            id={i} // 아티클 문서 목록의 ID를 배열의 인덱스로 설정해서 정렬시에도 ID가 순서대로 나열될 수 있도록 함
           >
             <ListItemText
               primary={null}
@@ -161,7 +151,13 @@ function ReviewsList() {
                       <span>|</span>
                       <span>{reviewStoreList[i].업종}</span>
                     </span>
-                    <span>3번 방문</span>
+                    <span>
+                      <span>
+                        {reviewStoreList[i].방문횟수}번 방문
+                      </span>
+                      <span>|</span>
+                      <span>{reviewStoreList[i].최근방문날짜}</span>
+                    </span>
                   </span>
                 </span>
               }

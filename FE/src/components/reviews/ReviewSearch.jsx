@@ -76,12 +76,6 @@ function ReviewsSearch() {
               <IconButton
                 onClick={() => {
                   console.log('검색버튼 클릭함!');
-                  // 검색할때 사용할 내용들
-                  // selectedFriend
-                  // selectedStartDate
-                  // selectedEndDate
-                  // selectedStore
-                  // selectedUserLocation
                   console.log(
                     selectedFriend,
                     selectedStartDate,

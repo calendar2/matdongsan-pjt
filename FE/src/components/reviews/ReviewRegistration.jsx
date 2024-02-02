@@ -3,7 +3,7 @@ import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import Autocomplete from '@mui/material/Autocomplete';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -13,9 +13,11 @@ import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 import reviewWriteStore from '../../stores/reviewRegistrationStore';
 import reviewStore from '../../stores/reviewStore';
 import styles from '../../styles/reviews/ReviewRegistration.module.css';
+
 // import Slider from '@mui/material/Slider'; 슬라이더로 채택할지 고민해보자
 // import employee from '../../assets/images/reviews/accounting.png'; // 항목별 평점에 사용할 이미지로 가져왔는데 어울리는지 판단하기 위해 일단 보류하기로 함
 // import tongue from '../../assets/images/reviews/tongue.png'; // 항목별 평점에 사용할 이미지로 가져왔는데 어울리는지 판단하기 위해 일단 보류하기로 함
@@ -31,6 +33,8 @@ function ReviewRegistration() {
     전체친구,
     방문날짜,
     같이간친구,
+    임의친구들,
+    임의친구들수정,
     가게이름수정,
     친절도수정,
     맛수정,
@@ -39,6 +43,14 @@ function ReviewRegistration() {
     같이간친구수정,
     방문날짜수정,
   } = reviewWriteStore();
+  useEffect(
+    () => () => {
+      console.log('기록페이지 언마운트 됨!'); // Axios 요청을 보내서 리뷰 리스트를 갱신할 예정입니다 (useEffect 안에 적는 코드들은 어려운 연산 / 서버에서 데이터 가져오는 작업),
+      // 따라서 Dependency에 []를 넣고 unmount 됐을때 한번만 처리할 예정입니다
+      임의친구들수정([]);
+    },
+    []
+  );
   const { reviewStoreList } = reviewStore();
   const { restaurantID } = useParams();
   const [클릭버튼, 클릭버튼수정] = useState(false);
@@ -230,6 +242,9 @@ function ReviewRegistration() {
               </Button>
             </div>
             {클릭버튼 ? <ReviewWriteFriendAdd /> : null}
+            {임의친구들.map((x) => (
+              <div>{x.name}</div>
+            ))}
             <hr />
             <p>방문한 날짜</p>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -269,16 +284,26 @@ function ReviewRegistration() {
               size="large"
               sx={{ width: '100px' }}
               onClick={() => {
-                console.log('저장버튼이 눌렸습니다.');
-                console.log(
-                  가게이름, // 'restaurant_id'
-                  친절도, // 'kindness_rating'
-                  맛, // 'taste_rating'
-                  // 업종 입력을 안받기로 함
-                  내용, // 'content'
-                  전체친구, // 'person_tag_id'
-                  방문날짜 // 'visit_date'
-                );
+                const requestData = {
+                  kindnessRating: 친절도,
+                  tasteRating: 맛,
+                  content: 내용,
+                  visitDate: `${방문날짜.$y}-${방문날짜.$M + 1 > 10 ? 방문날짜.$M + 1 : `0${방문날짜.$M + 1}`}-${방문날짜.$D > 10 ? 방문날짜.$D : `0${방문날짜.$D}`}`,
+                  restaurantId: 1, // 아직 음식점 등록 API 구현이 안돼있어서 1번 음식점의 리뷰만 작성
+                  accountReviews: [],
+                  reviewPersonTags: 임의친구들,
+                };
+                const url = 'https://i10a209.p.ssafy.io/api/review/1'; // 아직 유저 API 구현이 안돼있어서 1번 유저의 리뷰로만 작성
+                axios
+                  .post(url, requestData)
+                  .then((response) => {
+                    console.log('요청 성공:', response.data);
+                    // 성공 시 필요한 작업 수행
+                  })
+                  .catch((error) => {
+                    console.error('요청 실패:', error);
+                    // 실패 시 에러 처리
+                  });
               }}
               style={{
                 backgroundColor: 'rgba(29, 177, 119, 0.7)', // 버튼의 배경색을 1db177로 설정
@@ -303,6 +328,8 @@ function ReviewWriteFriendAdd() {
     임의친구이름,
     임의친구생년,
     임의친구생년수정,
+    임의친구들,
+    임의친구들수정,
   } = reviewWriteStore();
   return (
     <div className={styles.div1}>
@@ -369,6 +396,12 @@ function ReviewWriteFriendAdd() {
             onClick={() => {
               console.log('임의친구추가버튼이 클릭되었습니다!');
               console.log(임의친구이름, 임의친구생년.$y);
+              const copy = [...임의친구들];
+              copy.push({
+                name: 임의친구이름,
+                birthYear: String(임의친구생년.$y),
+              });
+              임의친구들수정(copy);
             }}
             sx={{
               margin: '10px',
