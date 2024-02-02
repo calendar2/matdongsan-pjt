@@ -18,7 +18,9 @@ public class ReviewApiController {
     private final ReviewService reviewService;
 
     @PostMapping("/review/{accountId}")
-    public ResponseEntity<?>  CreateReview(
+
+    public ResponseEntity<?> createReview(
+
             @PathVariable("accountId") Integer accountId,
             @RequestBody @Valid ReviewSaveRequestDto requestDto
     ){
@@ -31,7 +33,7 @@ public class ReviewApiController {
     }
 
     @GetMapping("/review/{accountId}")
-    public ResponseEntity<?> ReadAllReviews(
+    public ResponseEntity<?> readAllReviews(
             @PathVariable("accountId") Integer accountId
     ){
         List<ReviewFindAllResponseDto> responseDtos =  reviewService.findAllByAccount(accountId);
@@ -39,7 +41,7 @@ public class ReviewApiController {
 
     }
     @GetMapping("/review/{accountId}/{reviewId}")
-    public ResponseEntity<?> ReadOneReviews(
+    public ResponseEntity<?> readOneReviews(
             @PathVariable("reviewId") Long reviewId
     ){
 

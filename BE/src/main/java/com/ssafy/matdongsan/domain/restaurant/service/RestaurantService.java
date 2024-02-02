@@ -1,11 +1,13 @@
 package com.ssafy.matdongsan.domain.restaurant.service;
 
+import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantFindAllResponseDto;
 import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantSaveRequestDto;
 import com.ssafy.matdongsan.domain.restaurant.model.Region;
 import com.ssafy.matdongsan.domain.restaurant.model.Restaurant;
 import com.ssafy.matdongsan.domain.restaurant.repository.RegionRepository;
 import com.ssafy.matdongsan.domain.restaurant.repository.RestaurantRepository;
 
+import com.ssafy.matdongsan.domain.review.dto.ReviewFindAllResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
@@ -107,8 +109,24 @@ public class RestaurantService {
     }
 
 
+    public List<RestaurantFindAllResponseDto> findAll() {
+        List<Restaurant> restaurants = restaurantRepository.findAll();
 
+        return restaurants.stream()
+                .map(restaurant -> new RestaurantFindAllResponseDto(
+                         restaurant.getId(),
+                         restaurant.getRegion().getId(),
+                         restaurant.getName(),
+                         restaurant.getMapx(),
+                         restaurant.getMapy(),
+                         restaurant.getAddress(),
+                         restaurant.getRoadAddress(),
+                         restaurant.getPhone()
+
+                ))
+                .toList();
     }
+}
 
 
 //}

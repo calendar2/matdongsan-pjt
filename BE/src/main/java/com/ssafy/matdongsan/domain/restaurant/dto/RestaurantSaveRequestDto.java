@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RestaurantSaveRequestDto {
 
+    private Integer id;
     private String name;
     private Integer mapx;
     private Integer mapy;
