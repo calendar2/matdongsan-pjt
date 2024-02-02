@@ -1,8 +1,10 @@
 import { Button, Modal, Box } from '@mui/material';
+// import { Route, Routes } from 'react-router-dom';
 import styles from '../../styles/start/StartView.module.css';
 import imgLogo from '../../assets/images/logo.png';
 import kakaoLogo from '../../assets/images/login/kakao.png';
 import userStore from '../../stores/userStore';
+// import Redirect from '../accounts/Redirect';
 
 const style = {
   position: 'absolute',
@@ -21,6 +23,14 @@ function LoginModal() {
   const { loginModalOpen, setLoginModalOpen } = userStore();
 
   const handleClose = () => setLoginModalOpen(false);
+  // 카카오 로그인
+  const REST_API_KEY = process.env.REACT_APP_KAKAO_API_KEY;
+  const REDIRECT_URI = 'http://70.12.246.140:3000/oauth2/kakao';
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+  const loginHandler = () => {
+    window.location.href = KAKAO_AUTH_URL;
+  };
 
   return (
     <Modal
@@ -40,6 +50,7 @@ function LoginModal() {
           장소를 소장하다, 나의 맛집 기록
         </div>
         <Button
+          onClick={loginHandler}
           sx={{
             width: '300px',
             height: '50px',
@@ -61,6 +72,9 @@ function LoginModal() {
           카카오 계정으로 로그인하기
         </Button>
       </Box>
+      {/* <Routes>
+        
+      </Routes> */}
     </Modal>
   );
 }
