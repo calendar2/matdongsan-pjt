@@ -71,7 +71,7 @@ function FoodMap() {
             mapDataControl: false, // 지도 데이터 저작권 컨트롤 표시 X
             scaleControl: true, // 지도 축척 컨트롤의 표시 여부
             tileDuration: 200, // 지도 타일을 전환할 때 페이드 인 효과의 지속 시간(밀리초)
-            zoom: 16, // 지도의 초기 줌 레벨
+            zoom: 14, // 지도의 초기 줌 레벨
             zoomControl: true, // 줌 컨트롤 표시
             zoomControlOptions: { position: 9 }, // 줌 컨트롤 우하단에 배치
           };
@@ -84,6 +84,15 @@ function FoodMap() {
                 Number(item.mapy) / tenPowSeven,
                 Number(item.mapx) / tenPowSeven
               ),
+              icon: {
+                content: [
+                  '<div style="padding: 8px; border: 1px solid black; display: block; max-width: none; max-height: none; -webkit-user-select: none; position: absolute; width: 30px; height: 30px; left: 0px; top: 0px; border-radius: 50% 50% 0 50%; transform: rotate(45deg);">',
+                  '  <img src="/test/cat.jpg" alt="프로필 사진" style="margin: 0px; padding: 0px; border: 1px solid black; display: block; max-width: none; max-height: none; -webkit-user-select: none; position: absolute; width: 30px; height: 30px; left: 7px; top: 7px; border-radius: 30px; transform: rotate(-45deg);">',
+                  '</div>',
+                ].join(''),
+                anchor: new naver.maps.Point(20, 50),
+                // size: new naver.maps.Size(22, 35),
+              },
             });
 
             const infoWindow = new naver.maps.InfoWindow({
