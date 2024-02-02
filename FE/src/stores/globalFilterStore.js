@@ -24,9 +24,9 @@ const globalFilterStore = create((set) => ({
   ],
   choisedMenu: [],
   setChoisedMenu: (value) => set({ choisedMenu: value }),
-  location: '',
+  location: [],
   setLocation: (value) => set({ location: value }),
-  API_URL: '//i10a209.p.ssafy.io:4000/naver/search',
+  API_URL: 'https://i10a209.p.ssafy.io/api',
 }));
 
 export default globalFilterStore;

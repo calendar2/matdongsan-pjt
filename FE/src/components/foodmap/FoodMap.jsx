@@ -51,7 +51,7 @@ function FoodMap() {
           query !== null
         ) {
           const response = await axios.get(
-            `${API_URL}/?query=${query}`
+            `${API_URL}/naver/search/?query=${query}`
           );
           console.log('글로벌 검색 수행 완료!', response);
           const searchList = response.data.items;

@@ -3,8 +3,11 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import StartView from './views/StartView';
 import FoodMapView from './views/FoodMapView';
 import SignupView from './views/SignupView';
+import useGetRegion from './hooks/useGetRegion';
 
 function App() {
+  useGetRegion();
+
   return (
     <div>
       <Routes>

@@ -2,12 +2,13 @@ import { useState } from 'react';
 import TuneTwoToneIcon from '@mui/icons-material/TuneTwoTone';
 import Menu from '@mui/material/Menu';
 import Fade from '@mui/material/Fade';
-import TextField from '@mui/material/TextField';
+// import TextField from '@mui/material/TextField';
 import UserSortSelect from '../select/UserSortSelect';
 import UserAgeSelect from '../select/UserAgeSelect';
 import LocationSortSelect from '../select/LocationSortSelect';
 import LocationMenuSelect from '../select/LocationMenuSelect';
-import globalFilterStore from '../../stores/globalFilterStore';
+import LocationSelect from '../select/LocationSelect';
+// import globalFilterStore from '../../stores/globalFilterStore';
 import globalFilter from '../../styles/modals/GlobalFilter.module.css';
 
 function GlobalFilterModal() {
@@ -29,7 +30,7 @@ function GlobalFilterModal() {
   };
 
   // 필터 조건
-  const { location, setLocation } = globalFilterStore();
+  // const { location, setLocation } = globalFilterStore();
 
   return (
     <div>
@@ -97,13 +98,14 @@ function GlobalFilterModal() {
             <div className={globalFilter.filterMenu}>
               <LocationSortSelect />
               <LocationMenuSelect />
-              <TextField
+              {/* <TextField
                 id="standard-basic"
                 label="장소"
                 variant="standard"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-              />
+              /> */}
+              <LocationSelect />
             </div>
           </div>
         )}
