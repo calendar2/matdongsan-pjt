@@ -54,6 +54,6 @@ public class OAuthUserServiceImpl extends DefaultOAuth2UserService {
 
         log.info("Successfully pulled user info email {}", email);
         // 변경 부분
-        return new ApplicationOAuth2User(userEntity.getNickname(), oAuth2User.getAttributes());
+        return new ApplicationOAuth2User(userEntity.getEmail(), oAuth2User.getAttributes());
     }
 }
