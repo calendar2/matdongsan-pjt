@@ -19,9 +19,11 @@ import tomatoImg from '../../assets/images/signup/allergy/tomato.png';
 import wheatImg from '../../assets/images/signup/allergy/wheat.png';
 import buckwheatImg from '../../assets/images/signup/allergy/buckwheat.png';
 import wineImg from '../../assets/images/signup/allergy/wine.png';
+import signupStore from '../../stores/signupStore';
 
 function ChooseAllergy() {
   const [selectedButtons, setSelectedButtons] = useState([]);
+  const { allergy, setAllergy } = signupStore();
 
   const handleButtonClick = (buttonValue) => {
     if (selectedButtons.includes(buttonValue)) {
@@ -33,6 +35,8 @@ function ChooseAllergy() {
       // 선택되지 않은 버튼일 경우, 선택 추가
       setSelectedButtons([...selectedButtons, buttonValue]);
     }
+    setAllergy(selectedButtons.join(', '));
+    console.log('알레르기:', allergy);
   };
   return (
     <div className={styles.Box}>

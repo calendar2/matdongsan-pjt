@@ -1,4 +1,4 @@
-import { Link, Routes, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import { Button } from '@mui/material';
 import 'slick-carousel/slick/slick.css';
@@ -9,7 +9,6 @@ import imgIntro2 from '../../assets/images/intro/intro_2.png';
 import imgIntro3 from '../../assets/images/intro/intro_3.png';
 import styles from '../../styles/start/StartView.module.css';
 import userStore from '../../stores/userStore';
-import Redirect from '../accounts/Redirect';
 
 function StartMain() {
   const settings = {
@@ -64,9 +63,6 @@ function StartMain() {
           맛동산 시작하기
         </Button>
         <LoginModal />
-        <Routes>
-          <Route path="/oauth2/kakao" element={<Redirect />} />
-        </Routes>
         {/* </Link> */}
         <Link to="/main/restaurants">
           <Button

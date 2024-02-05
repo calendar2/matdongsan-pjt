@@ -24,9 +24,10 @@ function LoginModal() {
 
   const handleClose = () => setLoginModalOpen(false);
   // 카카오 로그인
-  const REST_API_KEY = process.env.REACT_APP_KAKAO_API_KEY;
-  const REDIRECT_URI = 'https://i10a209.p.ssafy.io:3000/oauth2/kakao';
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  // const REST_API_KEY = process.env.REACT_APP_KAKAO_API_KEY;
+  // const REDIRECT_URI = 'http://localhost:3000/oauth2/kakao';
+  const frontendUrl = `${window.location.protocol}//${window.location.host}`;
+  const KAKAO_AUTH_URL = `https://i10a209.p.ssafy.io:4000/auth/authorize/kakao?redirect_url=${frontendUrl}`;
 
   const loginHandler = () => {
     window.location.href = KAKAO_AUTH_URL;

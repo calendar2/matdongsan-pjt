@@ -9,6 +9,8 @@ const signupStore = create((set) => ({
   setRegionInterest: (value) => set({ regionInterest: value }),
   spicyLevel: '',
   setSpicyLevel: (value) => set({ spicyLevel: value }),
+  allergy: '',
+  setAllergy: (value) => set({ allergy: value }),
   regionTotal: [
     {
       regionName: '서울특별시 강남구 역삼동',

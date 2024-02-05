@@ -11,7 +11,7 @@ function SignupSecond() {
   const handleButtonClick = (buttonValue) => {
     setSelectedButton(buttonValue);
     setSpicyLevel(buttonValue);
-    console.log(spicyLevel);
+    console.log('매운 맛:', spicyLevel);
   };
 
   return (
