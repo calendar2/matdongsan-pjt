@@ -18,7 +18,7 @@ $secondary-color: #b2b2b2;
     }
 
     .imgLogo {
-      width: 10rem;
+      width: 7rem;
     }
     
     .userInfo {
@@ -28,6 +28,7 @@ $secondary-color: #b2b2b2;
         display: flex;
         flex-direction: row;
         align-items: center;
+        margin: 0;
 
         li {
           display: inline-block;
@@ -41,7 +42,7 @@ $secondary-color: #b2b2b2;
             display: flex;
             flex-direction: row;
             align-items: center;
-            padding: 0.8rem;
+            padding: 0.4rem 0.8rem;
             border: 1px solid $secondary-color;
             border-radius: 100px;
             background-color: white;
@@ -52,7 +53,7 @@ $secondary-color: #b2b2b2;
 
           .loginLink {
             margin-left: 1rem;
-            font-size: 15px;
+            font-size: 13px;
             font-weight: bold;
             color: $secondary-color;
           }
@@ -71,7 +72,7 @@ $secondary-color: #b2b2b2;
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding: 1.2rem;
+        padding: 0.5rem 1rem;
         margin-left: 1rem;
 
         .searchIcon:hover {
@@ -81,7 +82,7 @@ $secondary-color: #b2b2b2;
         input {
           border: 0px;
           width: 30rem;
-          font-size: 1.2rem;
+          font-size: 1rem;
         }
       }
     }
