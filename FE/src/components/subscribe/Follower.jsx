@@ -15,7 +15,7 @@ function Follower() {
         </div>
       </div>
       <AddCircleIcon
-        sx={{ fontSize: '2.5rem' }}
+        sx={{ fontSize: '2.5rem', color: '#1DB177' }}
         className={user.addBtn}
       />
     </div>

@@ -9,6 +9,8 @@ import ReviewRegistration from '../components/reviews/ReviewRegistration';
 import ReviewDetail from '../components/reviews/ReviewDetail';
 import ReviewUpdate from '../components/reviews/ReviewUpdate';
 import DongsanModal from '../components/modals/DongsanModal';
+import Following from '../components/subscribe/Following';
+import Follower from '../components/subscribe/Follower';
 
 function FoodMapView() {
   return (
@@ -18,7 +20,11 @@ function FoodMapView() {
         <SideBar />
         <Routes>
           <Route path="/restaurants/*" element={<Reviews />} />
-          <Route path="/subscribe/*" element={<Subscribe />} />
+          <Route path="/subscribe" element={<Subscribe />}>
+            <Route index element={<Following />} />
+            <Route path="followings" element={<Following />} />
+            <Route path="followers" element={<Follower />} />
+          </Route>
         </Routes>
         <div>
           <Routes>
