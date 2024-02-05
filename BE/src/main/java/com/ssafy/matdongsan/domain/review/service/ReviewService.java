@@ -15,8 +15,6 @@ import com.ssafy.matdongsan.domain.review.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +36,7 @@ public class ReviewService {
     private final RestaurantRepository restaurantRepository;
     private final AccountRepository accountRepository;
     private final PersonTagRepository personTagRepository;
-    private final ModelMapper modelMapper;
+
 
 
     //파일 업로드 연결 필요
@@ -46,7 +44,6 @@ public class ReviewService {
     public void save(ReviewSaveRequestDto requestDto, Integer accountId) throws Exception {
 
         // 문자열 -> LocalDateTime
-
         LocalDateTime visitDate = stringToLocalDateTime(requestDto.getVisitDate());
 
         //예외 발생시키기 수정 필요
@@ -55,28 +52,12 @@ public class ReviewService {
         //예외 발생시키기 수정 필요
         Account myAccount = accountRepository.findById(accountId).orElseThrow();
 
-
         List<PersonTagSaveReviewRequestDto> reviewPersonTags = requestDto.getReviewPersonTags();
         List<AccountSaveReviewRequestDto> accountReviews = requestDto.getAccountReviews();
 
-        //태그된 친구 목록이 있을때: PersonTagSaveReviewRequestDto -> PersonTag
-        List<PersonTag> newRivewPersonTags = new ArrayList<>();
-        if(!reviewPersonTags.isEmpty()){
-            for(PersonTagSaveReviewRequestDto pd: reviewPersonTags){
-                PersonTag personTag = extractedPersonTag(pd,myAccount); //없다면 등록
-                newRivewPersonTags.add(personTag);
-            }
-        }
-        //계정이 있는 친구 목록이 있을때: AccountSaveReviewRequestDto -> Account
-        List<Account> newAccountReviews = new ArrayList<>();
-        if(!accountReviews.isEmpty()){
-            for(AccountSaveReviewRequestDto acc: accountReviews){
-                Account findedAccount = accountRepository.findById(acc.getId()).get();
-                newAccountReviews.add(findedAccount);
-            }
-        }
+        FriendsLists friendsLists = extractedFriends(reviewPersonTags, myAccount, accountReviews);
 
-        Review newReview = requestDto.toEntity(myAccount ,restaurant,visitDate, newRivewPersonTags, newAccountReviews);
+        Review newReview = requestDto.toEntity(myAccount ,restaurant,visitDate, friendsLists.newRivewPersonTags, friendsLists.newAccountReviews);
         reviewRepository.save(newReview);
 
     }
@@ -151,4 +132,60 @@ public class ReviewService {
         );
     }
 
+    @Transactional
+    public void delete(Long reviewId) {
+        reviewRepository.deleteById(reviewId);
+    }
+
+    @Transactional
+    public void update(Integer accountId, Long reviewId, ReviewUpdateRequestDto requestDto) {
+        Review review = reviewRepository.findById(reviewId).orElseThrow();
+        //예외 발생시키기 수정 필요
+        Account myAccount = accountRepository.findById(accountId).orElseThrow();
+        // 문자열 -> LocalDateTime
+        LocalDateTime visitDate = stringToLocalDateTime(requestDto.getVisitDate());
+
+        List<PersonTagSaveReviewRequestDto> reviewPersonTags = requestDto.getReviewPersonTags();
+        List<AccountSaveReviewRequestDto> accountReviews = requestDto.getAccountReviews();
+
+        FriendsLists friendsLists = extractedFriends(reviewPersonTags, myAccount, accountReviews);
+
+        review.update(requestDto.getKindnessRating(),requestDto.getTasteRating(),requestDto.getContent(),visitDate,friendsLists.newAccountReviews,friendsLists.newRivewPersonTags);
+
+    }
+
+    private FriendsLists extractedFriends(List<PersonTagSaveReviewRequestDto> reviewPersonTags, Account myAccount, List<AccountSaveReviewRequestDto> accountReviews) {
+        //태그된 친구 목록이 있을때: PersonTagSaveReviewRequestDto -> PersonTag
+        List<PersonTag> newRivewPersonTags = new ArrayList<>();
+        if(!reviewPersonTags.isEmpty()){
+            for(PersonTagSaveReviewRequestDto pd: reviewPersonTags){
+                PersonTag personTag = extractedPersonTag(pd, myAccount); //없다면 등록
+                newRivewPersonTags.add(personTag);
+            }
+        }
+        //계정이 있는 친구 목록이 있을때: AccountSaveReviewRequestDto -> Account
+        List<Account> newAccountReviews = new ArrayList<>();
+        if(!accountReviews.isEmpty()){
+            for(AccountSaveReviewRequestDto acc: accountReviews){
+                Account findedAccount = accountRepository.findById(acc.getId()).get();
+                newAccountReviews.add(findedAccount);
+            }
+        }
+        return new FriendsLists(newRivewPersonTags,newAccountReviews);
+
+    }
+    class FriendsLists {
+        private List<PersonTag> newRivewPersonTags;
+        private List<Account> newAccountReviews;
+
+
+        public FriendsLists(List<PersonTag> newRivewPersonTags, List<Account> newAccountReviews) {
+            this.newRivewPersonTags = newRivewPersonTags;
+            this.newAccountReviews = newAccountReviews;
+        }
+
+
+
+
+    }
 }

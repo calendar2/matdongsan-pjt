@@ -9,6 +9,8 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jakarta.persistence.FetchType.LAZY;
+
 @Entity
 @Getter
 @AllArgsConstructor
@@ -25,7 +27,7 @@ public class PersonTag extends BaseEntity {
 
     private int birthYear;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "account_id")
     private Account account;
 

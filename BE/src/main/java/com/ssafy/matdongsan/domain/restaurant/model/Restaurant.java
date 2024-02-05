@@ -7,12 +7,15 @@ import com.ssafy.matdongsan.domain.review.model.Review;
 import jakarta.persistence.*;
 import lombok.*;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static jakarta.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
@@ -47,7 +50,7 @@ public class Restaurant extends BaseEntity {
     @OneToMany(mappedBy = "restaurant")
     private List<Review> reviews = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "region_id")
     private Region region;
 

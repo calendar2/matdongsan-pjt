@@ -72,4 +72,14 @@ public class Review extends BaseEntity {
         this.reviewPersonTags = reviewPersonTags;
         this.accountReviews = accountReviews;
     }
+    
+
+    public void update(double kindnessRating, double tasteRating, String content, LocalDateTime visitDate, List<Account> newAccountReviews, List<PersonTag> newRivewPersonTags) {
+        this.kindnessRating = kindnessRating;
+        this.tasteRating = tasteRating;
+        this.content = content;
+        this.visitDate = visitDate;
+        this.accountReviews = newAccountReviews;
+        this.reviewPersonTags = newRivewPersonTags;
+    }
 }

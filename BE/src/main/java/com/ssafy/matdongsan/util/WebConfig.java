@@ -11,16 +11,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOriginPatterns("*")
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
-                .allowedHeaders("Authorization", "Content-Type")
-                .exposedHeaders("Custom-Header")
-                .allowCredentials(true)
-                .maxAge(3600);
-    }
     // model mapper
     @Bean
     public ModelMapper modelMapper() {

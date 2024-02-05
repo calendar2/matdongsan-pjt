@@ -1,13 +1,18 @@
 package com.ssafy.matdongsan.domain.restaurant.service;
 
+import com.ssafy.matdongsan.domain.account.model.Account;
+import com.ssafy.matdongsan.domain.account.repository.AccountRepository;
+import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantFindAllAccountResponseDto;
 import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantFindAllResponseDto;
+import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantFindOneResponseDto;
 import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantSaveRequestDto;
 import com.ssafy.matdongsan.domain.restaurant.model.Region;
 import com.ssafy.matdongsan.domain.restaurant.model.Restaurant;
 import com.ssafy.matdongsan.domain.restaurant.repository.RegionRepository;
 import com.ssafy.matdongsan.domain.restaurant.repository.RestaurantRepository;
 
-import com.ssafy.matdongsan.domain.review.dto.ReviewFindAllResponseDto;
+import com.ssafy.matdongsan.domain.review.model.Review;
+import com.ssafy.matdongsan.domain.review.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
@@ -31,6 +36,9 @@ import java.util.Optional;
 public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
     private final RegionRepository regionRepository;
+    private final AccountRepository accountRepository;
+    private final ReviewRepository reviewRepository;
+
 
     @Transactional
     public void save(RestaurantSaveRequestDto requestDto) {
@@ -67,7 +75,7 @@ public class RestaurantService {
                 .toEntity(String.class)
                 .block();
 
-        System.out.println(responseEntity.getBody());
+//        System.out.println(responseEntity.getBody());
 //        {"status":{"code":0,"name":"ok","message":"done"},
 //         "results":[{"name":"legalcode","code":{"id":"5115011200","type":"L","mappingId":"01150112"},"region":{"area0":{"name":"kr","coords":{"center":{"crs":"","x":0.0,"y":0.0}}},"area1":{"name":"강원특별자치도","coords":{"center":{"crs":"EPSG:4326","x":128.311526,"y":37.860367}},"alias":"강원"},"area2":{"name":"강릉시","coords":{"center":{"crs":"EPSG:4326","x":128.875836,"y":37.752175}}},"area3":{"name":"초당동","coords":{"center":{"crs":"EPSG:4326","x":128.915963,"y":37.791883}}},"area4":{"name":"","coords":{"center":{"crs":"","x":0.0,"y":0.0}}}}}]}
 
@@ -126,7 +134,64 @@ public class RestaurantService {
                 ))
                 .toList();
     }
+
+    public RestaurantFindOneResponseDto findById(Integer restaurantId) {
+        Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow();
+        return new RestaurantFindOneResponseDto(
+                restaurant.getId(),
+                restaurant.getRegion().getId(),
+                restaurant.getName(),
+                restaurant.getMapx(),
+                restaurant.getMapy(),
+                restaurant.getAddress(),
+                restaurant.getRoadAddress(),
+                restaurant.getPhone()
+        );
+    }
+
+    @Transactional
+    public void accountSave(Integer accountId, Integer restaurantId) {
+        Account account = accountRepository.findById(accountId).orElseThrow();
+        Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow();
+        List<Restaurant> restaurants = account.getRestaurants();
+        if(!restaurants.contains(restaurant)){ //음식점이 이미 있는지 확인하고 없다면 추가
+            restaurants.add(restaurant);
+            account.updateRestaurant(restaurants); //더티체킹
+        }
+    }
+
+
+    public List<RestaurantFindAllAccountResponseDto> findAllAccountRestaurants(Integer accountId) {
+        Account account = accountRepository.findById(accountId).orElseThrow();
+        List<Restaurant> restaurants = account.getRestaurants();
+        return restaurants.stream().map(
+                restaurant -> new RestaurantFindAllAccountResponseDto(
+                        restaurant.getId(),
+                        restaurant.getRegion().getId(),
+                        restaurant.getName(),
+                        restaurant.getMapx(),
+                        restaurant.getMapy(),
+                        restaurant.getAddress(),
+                        restaurant.getRoadAddress(),
+                        restaurant.getPhone())
+        ).toList();
+    }
+
+    @Transactional
+    public void delete(Integer accountId, Integer restaurantId) {
+        Account account = accountRepository.findById(accountId).orElseThrow();
+        Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow();
+        List<Restaurant> restaurants = account.getRestaurants();
+
+        //음식점이 이미 있는지 확인하고 있으면 제거
+        if(restaurants.contains(restaurant)){
+            restaurants.remove(restaurant);
+            account.updateRestaurant(restaurants);
+        }
+        //리뷰 삭제
+        reviewRepository.deleteByAccountAndRestaurant(account,restaurant);
+
+    }
 }
 
 
-//}

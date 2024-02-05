@@ -10,7 +10,9 @@ import com.ssafy.matdongsan.domain.restaurant.model.Restaurant;
 import com.ssafy.matdongsan.domain.review.model.Review;
 import com.ssafy.matdongsan.domain.subcription.model.Subscription;
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicUpdate;
 import lombok.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@DynamicUpdate
 public class Account extends BaseEntity {
 
     @Id
@@ -104,5 +107,10 @@ public class Account extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "restaurant_id")
     )
     private List<Restaurant> restaurants = new ArrayList<>();
+
+    public void updateRestaurant(List<Restaurant> restaurants) {
+        this.restaurants = restaurants;
+    }
+
 
 }
