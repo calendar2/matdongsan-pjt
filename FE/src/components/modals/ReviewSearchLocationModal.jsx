@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import styles from '../../styles/reviews/ReviewSearchLocation.module.css';
+import styles from '../../styles/modals/ReviewSearchLocation.module.css';
 import reviewFilterStore from '../../stores/reviewFilterStore';
 
 function ReviewsSearchLocation(props) {
@@ -46,11 +46,10 @@ function LocationModal() {
     setSelectedUserLocation,
   } = reviewFilterStore();
   return (
-    <div className={styles.modal}>
+    <div className={styles.wrapper}>
       <Autocomplete
-        freeSolo
-        id="free-solo-2-demo"
-        disableClearable
+        disablePortal
+        id="combo-box-demo"
         options={userLocation.map((option) => option.title)}
         onChange={(e, name) => {
           setSelectedUserLocation(name);
@@ -62,25 +61,22 @@ function LocationModal() {
           height: 50,
           '& .MuiOutlinedInput-root': {
             '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-              borderColor: 'green', // 클릭되었을 때 테두리 색상
+              borderColor: 'rgba(29, 177, 119, 0.5)', // 클릭되었을 때 테두리 색상
             },
           },
           '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
-            color: 'green', // 텍스트가 상단으로 이동할 때의 색상
+            color: 'rgba(29, 177, 119, 0.5)', // 텍스트가 상단으로 이동할 때의 색상
           },
         }}
         renderInput={(params) => (
-          <TextField
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...params}
-            label="장소 검색"
-            InputProps={{
-              ...params.InputProps,
-              type: 'search',
-            }}
-          />
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          <TextField {...params} label="장소" />
         )}
       />
+      {selectedUserLocation !== '' &&
+      selectedUserLocation !== null ? (
+        <div className={styles.aside}>{selectedUserLocation}</div>
+      ) : null}
     </div>
   );
 }

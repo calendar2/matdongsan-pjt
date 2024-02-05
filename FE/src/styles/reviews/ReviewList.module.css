@@ -1,15 +1,9 @@
-.reviewsList {
-  overflow-y: auto;
-  height: calc(100vh - 370.58px);
-}
-
-.justfyContentBetween {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
-.reveiewListSortButton {
+.header .sortBtn {
   display: flex;
   justify-content: flex-start;
   color: black;
@@ -17,47 +11,48 @@
   margin-bottom: 0px;
 }
 
-.decorateList {
+.container {
+  overflow-y: auto;
+  height: calc(100vh - 370.58px);
+}
+.container::-webkit-scrollbar {
+  width: 10px;
+}
+.container::-webkit-scrollbar-thumb {
+  background-color: rgba(29, 177, 119, 0.3);
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 3px solid transparent;
+}
+.container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(29, 177, 119, 0.5);
+}
+.container::-webkit-scrollbar-track {
+  background-color: rgba(220, 220, 220, 0.7);
+  border-radius: 10px;
+}
+.container .content {
   display: flex;
   flex-direction: column;
 }
-
-.decorateListItem {
+.container .content .contentList {
   border: 1px solid rgba(29, 177, 119, 0.7);
   border-radius: 10px;
   padding: 10px;
+  box-shadow: 0px 0px 10px rgba(55, 55, 55, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
 }
-
-.listItemTitle {
+.container .content .contentList:hover {
+  box-shadow: 0px 0px 20px rgba(55, 55, 55, 0.3);
+}
+.container .content .contentList .itemInfo {
   width: 20vw;
   display: flex;
   font-size: 12px;
   justify-content: space-between;
   padding: 5px;
 }
-
-.listItemTitleName {
+.container .content .contentList .itemTitle {
   color: black;
   font-size: 14px;
-}
-
-.reviewsList::-webkit-scrollbar {
-  width: 10px;
-}
-
-.reviewsList::-webkit-scrollbar-thumb {
-  background-color: rgba(29, 177, 119, 0.3);
-  border-radius: 10px;
-  background-clip: padding-box;
-  border: 3px solid transparent;
-}
-
-.reviewsList::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(29, 177, 119, 0.5);
-}
-
-.reviewsList::-webkit-scrollbar-track {
-  background-color: rgba(220, 220, 220, 0.7);
-  border-radius: 10px;
-  /* box-shadow: inset 0px 0px 5px white; */
 }/*# sourceMappingURL=ReviewList.module.css.map */

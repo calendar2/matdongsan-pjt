@@ -3,6 +3,10 @@ import {
   List,
   ListItem,
   ListItemText,
+  Avatar,
+  ListItemAvatar,
+  Divider,
+  Typography,
 } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -10,9 +14,11 @@ import StarIcon from '@mui/icons-material/Star';
 import Button from '@mui/material/Button';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+// import axios from 'axios';
 import reviewStore from '../../stores/reviewStore';
 import styles from '../../styles/reviews/ReviewList.module.css';
 import ReviewsListSubItems from './ReviewListSubItems';
+import stewImg from '../../assets/images/reviews/stewImg.jpg';
 
 function ReviewsList() {
   // 음식점 ID를 인자로 입력하면 해당 음식점으로 스크롤 이동한다
@@ -23,6 +29,11 @@ function ReviewsList() {
     }
   };
   useEffect(() => {
+    // axios
+    //   .get('https://i10a209.p.ssafy.io/api/restaurant')
+    //   .then((data) => {
+    //     console.log(data);
+    //   });
     console.log('리뷰 목록 마운트 됨!'); // Axios 요청을 보내서 음식점 목록을 갱신할 예정입니다 (useEffect 안에 적는 코드들은 어려운 연산 / 서버에서 데이터 가져오는 작업),
     // 따라서 Dependency에 []를 넣고 mount 됐을때 한번만 처리할 예정입니다
   }, []);
@@ -41,8 +52,8 @@ function ReviewsList() {
   const navigate = useNavigate();
   return (
     <div>
-      <div className={styles.justfyContentBetween}>
-        <div className={styles.reveiewListSortButton}>
+      <div className={styles.header}>
+        <div className={styles.sortBtn}>
           <Button
             variant="text"
             onClick={() => {
@@ -101,23 +112,27 @@ function ReviewsList() {
         </div>
       </div>
 
-      <List className={styles.reviewsList}>
+      <List className={styles.container}>
         {reviewStoreList.map((item, i) => (
           <ListItem
-            key={reviewStoreList[i].가게이름}
+            key={reviewStoreList[i].id}
             onClick={() => {
               navigate(`${item.id}`);
             }}
-            className={styles.decorateList}
+            className={styles.content}
             button
-            id={i} // 아티클 문서 목록의 ID를 배열의 인덱스로 설정해서 정렬시에도 ID가 순서대로 나열될 수 있도록 함
+            id={i}
           >
             <ListItemText
+              className={styles.contentList}
               primary={null}
               secondary={
-                <span>
-                  <span className={styles.listItemTitle}>
-                    <span className={styles.listItemTitleName}>
+                <Typography component="div">
+                  <ListItemAvatar>
+                    <Avatar alt="사진" src={stewImg} />
+                  </ListItemAvatar>
+                  <span className={styles.itemInfo}>
+                    <span className={styles.itemTitle}>
                       {reviewStoreList[i].가게이름}
                     </span>
                     <span>
@@ -126,7 +141,6 @@ function ReviewsList() {
                         <StarIcon
                           sx={{
                             fontSize: '10px',
-
                             color: 'rgba(29, 177, 119, 0.7)',
                           }}
                         />
@@ -145,7 +159,7 @@ function ReviewsList() {
                       </span>
                     </span>
                   </span>
-                  <span className={styles.listItemTitle}>
+                  <span className={styles.itemInfo}>
                     <span>
                       <span>{reviewStoreList[i].위치}</span>
                       <span>|</span>
@@ -159,13 +173,14 @@ function ReviewsList() {
                       <span>{reviewStoreList[i].최근방문날짜}</span>
                     </span>
                   </span>
-                </span>
+                </Typography>
               }
-              className={styles.decorateListItem}
             />
+            <Divider />
             <Routes>
               <Route
                 path={`${item.id}/*`}
+                key={item.id}
                 element={<ReviewsListSubItems id={item.id} />}
               />
             </Routes>

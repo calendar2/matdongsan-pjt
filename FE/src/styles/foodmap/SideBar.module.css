@@ -7,6 +7,11 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+.box:hover {
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
 }
 
 .box2 {
@@ -19,4 +24,9 @@
   justify-content: center;
   min-height: 90px;
   text-align: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+.box2:hover {
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
 }/*# sourceMappingURL=SideBar.module.css.map */

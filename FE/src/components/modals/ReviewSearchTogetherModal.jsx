@@ -2,8 +2,15 @@ import { Button } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import styles from '../../styles/reviews/ReviewSearchTogether.module.css';
+import Avatar from '@mui/material/Avatar';
+import styles from '../../styles/modals/ReviewSearchTogether.module.css';
 import reviewFilterStore from '../../stores/reviewFilterStore';
+import boy0 from '../../assets/images/reviews/boy0.png';
+import boy1 from '../../assets/images/reviews/boy1.png';
+import boy2 from '../../assets/images/reviews/boy2.png';
+import girl0 from '../../assets/images/reviews/girl0.png';
+import girl1 from '../../assets/images/reviews/girl1.png';
+import girl2 from '../../assets/images/reviews/girl2.png';
 
 function ReviewsSearchTogether(props) {
   const { setClicked, whatIsClicked } = props;
@@ -41,6 +48,7 @@ function ReviewsSearchTogether(props) {
 }
 
 function TogetherModal() {
+  const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
   const { userFriend, setSelectedFriend, selectedFriend } =
     reviewFilterStore();
   const handleAutocompleteChange = (event, selectedOptions) => {
@@ -49,7 +57,7 @@ function TogetherModal() {
     console.log('같이 간 사람을 선택했습니다!', selectedFriend);
   };
   return (
-    <div className={styles.modal}>
+    <div className={styles.wrapper}>
       <Autocomplete
         multiple
         id="tags-outlined"
@@ -61,11 +69,11 @@ function TogetherModal() {
         sx={{
           '& .MuiOutlinedInput-root': {
             '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-              borderColor: 'green', // 클릭되었을 때 테두리 색상
+              borderColor: 'rgba(29, 177, 119, 0.5)', // 클릭되었을 때 테두리 색상
             },
           },
           '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
-            color: 'green', // 텍스트가 상단으로 이동할 때의 색상
+            color: 'rgba(29, 177, 119, 0.5)', // 텍스트가 상단으로 이동할 때의 색상
           },
         }}
         renderInput={(params) => (
@@ -81,6 +89,17 @@ function TogetherModal() {
           />
         )}
       />
+      {selectedFriend.map((x, i) => (
+        <div className={styles.content} key={selectedFriend[i]}>
+          <Avatar
+            alt="Remy Sharp"
+            src={icons[i]}
+            sx={{ backgroundColor: 'rgba(29, 177, 119, 0.3)' }}
+          />
+          <p className={styles.item}>{x}</p>
+          <hr />
+        </div>
+      ))}
     </div>
   );
 }

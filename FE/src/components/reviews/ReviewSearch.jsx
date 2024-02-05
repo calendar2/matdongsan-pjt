@@ -37,8 +37,8 @@ function ReviewsSearch() {
       console.log('엔터버튼 눌렀음!');
       console.log(
         selectedFriend,
-        selectedStartDate,
-        selectedEndDate,
+        `${selectedStartDate.$y}-${selectedStartDate.$M + 1 > 10 ? selectedStartDate.$M + 1 : `0${selectedStartDate.$M + 1}`}-${selectedStartDate.$D > 10 ? selectedStartDate.$D : `0${selectedStartDate.$D}`}`, // 시작날짜임
+        `${selectedEndDate.$y}-${selectedEndDate.$M + 1 > 10 ? selectedEndDate.$M + 1 : `0${selectedEndDate.$M + 1}`}-${selectedEndDate.$D > 10 ? selectedEndDate.$D : `0${selectedEndDate.$D}`}`, // 종료날짜임
         selectedBusinessTypes,
         selectedUserLocation,
         searchKeyWord
@@ -46,7 +46,7 @@ function ReviewsSearch() {
     }
   };
   return (
-    <div className={styles.layout}>
+    <div className={styles.wrapper}>
       <TextField
         id="outlined-basic"
         variant="outlined"
@@ -58,19 +58,22 @@ function ReviewsSearch() {
             color: '#b9b9b9',
             marginBottom: '20px',
             height: '40px',
+            '&.Mui-focused fieldset': {
+              borderColor: 'rgba(29, 177, 119, 0.5)',
+            },
           },
           '& input::placeholder': {
             textAlign: 'center',
             marginRight: '30px',
           },
         }}
-        color="success"
         onKeyPress={handleKeyPress}
         onChange={(e) => {
           console.log(searchKeyWord);
           setSearchKeyWord(e.target.value);
         }}
         InputProps={{
+          autoComplete: 'off',
           startAdornment: (
             <InputAdornment position="start">
               <IconButton
@@ -78,8 +81,8 @@ function ReviewsSearch() {
                   console.log('검색버튼 클릭함!');
                   console.log(
                     selectedFriend,
-                    selectedStartDate,
-                    selectedEndDate,
+                    `${selectedStartDate.$y}-${selectedStartDate.$M + 1 > 10 ? selectedStartDate.$M + 1 : `0${selectedStartDate.$M + 1}`}-${selectedStartDate.$D > 10 ? selectedStartDate.$D : `0${selectedStartDate.$D}`}`, // 시작날짜임
+                    `${selectedEndDate.$y}-${selectedEndDate.$M + 1 > 10 ? selectedEndDate.$M + 1 : `0${selectedEndDate.$M + 1}`}-${selectedEndDate.$D > 10 ? selectedEndDate.$D : `0${selectedEndDate.$D}`}`, // 종료날짜임
                     selectedBusinessTypes,
                     selectedUserLocation
                   );
@@ -92,7 +95,7 @@ function ReviewsSearch() {
         }}
       />
       <br />
-      <div className={styles.wrapper}>
+      <div className={styles.footer}>
         <ReviewsSearchTogether
           whatIsClicked={whatIsClicked}
           setClicked={setClicked}

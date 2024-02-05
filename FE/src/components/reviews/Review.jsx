@@ -1,5 +1,4 @@
 import { IconButton } from '@mui/material';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../styles/reviews/Review.module.css';
@@ -11,7 +10,7 @@ import ReviewsSearch from './ReviewSearch';
 function Reviews() {
   const navigate = useNavigate();
   return (
-    <div className={styles.layout}>
+    <div className={styles.wrapper}>
       {/* <Region /> 테스트용 컴포넌트 출력입니다 */}
       {/* <Random /> 테스트용 컴포넌트 출력입니다 */}
       <div>
@@ -30,7 +29,7 @@ function Reviews() {
             padding: '15px 30px', // 버튼의 내부 여백을 조절
             borderRadius: '40px',
           }}
-          className={styles.button}
+          className={styles.footer}
         >
           <EditIcon />
           기록하기

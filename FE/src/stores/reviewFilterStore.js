@@ -15,9 +15,9 @@ const reviewFilterStore = create((set) => ({
   setUserFriend: (value) => set({ userFriend: value }),
   selectedFriend: [],
   setSelectedFriend: (value) => set({ selectedFriend: value }),
-  selectedStartDate: dayjs('2024-01-01'),
+  selectedStartDate: dayjs(dayjs().format('YYYY-MM-DD')),
   setSelectedStartDate: (value) => set({ selectedStartDate: value }),
-  selectedEndDate: dayjs('2024-01-01'),
+  selectedEndDate: dayjs(dayjs().format('YYYY-MM-DD')),
   setSelectedEndDate: (value) => set({ selectedEndDate: value }),
   businessTypesCategory: [
     { label: '족발 / 보쌈' },

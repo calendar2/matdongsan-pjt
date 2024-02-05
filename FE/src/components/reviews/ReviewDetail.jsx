@@ -4,12 +4,19 @@ import Rating from '@mui/material/Rating';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Typography, Button } from '@mui/material';
 import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
-
+import boy0 from '../../assets/images/reviews/boy0.png';
+import boy1 from '../../assets/images/reviews/boy1.png';
+import boy2 from '../../assets/images/reviews/boy2.png';
+import girl0 from '../../assets/images/reviews/girl0.png';
+import girl1 from '../../assets/images/reviews/girl1.png';
+import girl2 from '../../assets/images/reviews/girl2.png';
 import styles from '../../styles/reviews/ReviewDetail.module.css';
 import reviewStore from '../../stores/reviewStore';
 
 function ReviewDetail() {
+  const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
   const { reviewListSubItems } = reviewStore();
   const navigate = useNavigate();
   const { reviewID } = useParams();
@@ -17,9 +24,9 @@ function ReviewDetail() {
     (x) => x.리뷰id === reviewID
   );
   return (
-    <div className={styles.modal}>
-      <div className={styles.box}>
-        <div className={styles.header}>
+    <div className={styles.wrapper} key={reviewID}>
+      <div className={styles.container}>
+        <div>
           <CloseIcon
             onClick={() => {
               navigate('/main/restaurants');
@@ -88,6 +95,7 @@ function ReviewDetail() {
             width: 500,
             maxWidth: '100%',
           }}
+          className={styles.content}
         >
           <TextField
             multiline
@@ -105,7 +113,28 @@ function ReviewDetail() {
         >
           같이 간 친구
         </Typography>
-        <div>{filteredReview.같이간친구}</div>
+        {filteredReview.같이간친구.map((x, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <div className={styles.asideContent} key={i}>
+            <Avatar
+              alt="Remy Sharp"
+              src={icons[i]}
+              sx={{ backgroundColor: 'rgba(29, 177, 119, 0.3)' }}
+            />
+            <p className={styles.asideItem}>{x.name}</p>
+            <hr />
+          </div>
+        ))}
+        <hr />
+        <Typography
+          component="legend"
+          sx={{ color: 'rgba(55,55,55,0.7)' }}
+        >
+          임의 친구들
+        </Typography>
+        {filteredReview.임의친구들.map((x) => (
+          <div key={x.name}>{x.name}</div>
+        ))}
         <hr />
         <Typography
           component="legend"
@@ -115,7 +144,7 @@ function ReviewDetail() {
         </Typography>
         <div>{filteredReview.방문한날짜}</div>
         <hr />
-        <div className={styles.buttonBetween}>
+        <div className={styles.footer}>
           <Button
             type="button"
             variant="contained"

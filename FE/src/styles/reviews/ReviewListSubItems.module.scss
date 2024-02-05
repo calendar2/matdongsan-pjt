@@ -1,29 +1,31 @@
-.decorateList {
-  display: flex;
-  flex-direction: column;
-}
-
-.decorateListItem {
+.container {
   border: 1px solid #bfbfbf;
   border-radius: 10px;
   padding: 10px;
+  margin: 2px;
+  box-shadow: 0px 0px 10px rgba(55, 55, 55, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+  &:hover {
+    box-shadow: 0px 0px 20px rgba(55, 55, 55, 0.3);
+  }
+
+  .content {
+    width: 15vw;
+    display: flex;
+    font-size: 12px;
+    justify-content: space-between;
+    padding: 5px;
+  }
+
+  .info {
+    color: black;
+    font-size: 10px;
+    background-color: rgba(29, 177, 119);
+  }
 }
 
-.listItemTitle {
-  width: 15vw;
-  display: flex;
-  font-size: 12px;
-  justify-content: space-between;
-  padding: 5px;
-}
-
-.listItemContent {
-  color: white;
-  font-size: 10px;
-  background-color: rgba(29, 177, 119, 0.7);
-}
-
-.center {
+.btn {
   display: flex;
   justify-content: center;
+  opacity: 0.5;
 }

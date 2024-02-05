@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import styles from '../../styles/reviews/ReviewSearchBusinessTypes.module.css';
+import styles from '../../styles/modals/ReviewSearchBusinessTypes.module.css';
 import reviewFilterStore from '../../stores/reviewFilterStore';
 
 function ReviewsSearchBusinessTypes(props) {
@@ -47,28 +47,27 @@ function StoreModal() {
     setSelectedBusinessTypes,
   } = reviewFilterStore();
   return (
-    <div className={styles.modal}>
+    <div className={styles.wrapper}>
       <Autocomplete
         disablePortal
         id="combo-box-demo"
-        options={businessTypesCategory}
+        // options={businessTypesCategory}
+        options={businessTypesCategory.map((option) => option.label)}
         onChange={(e, name) => {
-          if (name !== null) {
-            setSelectedBusinessTypes(name.label);
-            console.log(selectedBusinessTypes);
-            console.log('업종선택되었습니다');
-          }
+          setSelectedBusinessTypes(name);
+          console.log(selectedBusinessTypes);
+          console.log('업종선택되었습니다');
         }}
         sx={{
           width: 300,
           height: 50,
           '& .MuiOutlinedInput-root': {
             '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-              borderColor: 'green', // 클릭되었을 때 테두리 색상
+              borderColor: 'rgba(29, 177, 119, 0.5)', // 클릭되었을 때 테두리 색상
             },
           },
           '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
-            color: 'green', // 텍스트가 상단으로 이동할 때의 색상
+            color: 'rgba(29, 177, 119, 0.5)', // 텍스트가 상단으로 이동할 때의 색상
           },
         }}
         renderInput={(params) => (
@@ -76,6 +75,10 @@ function StoreModal() {
           <TextField {...params} label="업종" />
         )}
       />
+      {selectedBusinessTypes !== '' &&
+      selectedBusinessTypes !== null ? (
+        <div className={styles.aside}>{selectedBusinessTypes}</div>
+      ) : null}
     </div>
   );
 }

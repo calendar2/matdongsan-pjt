@@ -1,12 +1,22 @@
-.modal {
+.wrapper {
   position: absolute;
   border-radius: 20px;
-  padding: 30px;
-  margin-left: 13vw;
+  margin-left: 1vw;
   margin-top: 1vh;
+  padding: 30px;
   z-index: 2;
   background-color: rgb(255, 255, 255);
   width: 300px;
   height: auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 음영 추가 */
+
+  .content {
+    display: flex;
+    align-items: center;
+    margin: 5px;
+    border-bottom: 1px #bfbfbf solid;
+    .item {
+      margin-left: 10px;
+    }
+  }
 }
