@@ -5,7 +5,7 @@ import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SignupFirst from './SignupFirst';
 import SignupSecond from './SignupSecond';
 import imgLogo from '../../assets/images/logo.png';
@@ -136,42 +136,14 @@ export default function HorizontalNonLinearStepper() {
               >
                 이전
               </Button> */}
-              {activeStep !== steps.length &&
-                (completed[activeStep] ? (
-                  <Typography
-                    variant="caption"
-                    sx={{ display: 'inline-block' }}
-                  >
-                    {/* Step {activeStep + 1} already completed */}
-                    <Button
-                      sx={{
-                        width: '200px',
-                        height: '38px',
-                        margin: '10px',
-                        boxShadow: '1px 1px 2px 0px gray',
-                        backgroundColor: 'white',
-                        color: 'rgba(29, 177, 119, 0.8)',
-                        ':hover': {
-                          backgroundColor: 'rgba(29, 177, 119, 0.6)',
-                          color: 'white',
-                        },
-                        px: '5vw',
-                      }}
-                      onClick={handleComplete}
-                    >
-                      다음
-                    </Button>
-                  </Typography>
-                ) : (
+
+              {/* 완료일 때 main 페이지로 이동 */}
+              {completedSteps() === totalSteps() - 1 ? (
+                <Link
+                  to="/main/restaurants"
+                  style={{ textDecoration: 'none' }}
+                >
                   <Button
-                    disabled={
-                      (completedSteps() !== totalSteps() - 1 &&
-                        (age === '' ||
-                          gender === '' ||
-                          regionInterest === '')) ||
-                      (completedSteps() === totalSteps() - 1 &&
-                        spicyLevel === '')
-                    }
                     sx={{
                       width: '200px',
                       height: '38px',
@@ -187,11 +159,37 @@ export default function HorizontalNonLinearStepper() {
                     }}
                     onClick={handleComplete}
                   >
-                    {completedSteps() === totalSteps() - 1
-                      ? '완료'
-                      : '다음'}
+                    완료
                   </Button>
-                ))}
+                </Link>
+              ) : (
+                <Button
+                  disabled={
+                    (completedSteps() !== totalSteps() - 1 &&
+                      (age === '' ||
+                        gender === '' ||
+                        regionInterest === '')) ||
+                    (completedSteps() === totalSteps() - 1 &&
+                      spicyLevel === '')
+                  }
+                  sx={{
+                    width: '200px',
+                    height: '38px',
+                    margin: '10px',
+                    boxShadow: '1px 1px 2px 0px gray',
+                    backgroundColor: 'white',
+                    color: 'rgba(29, 177, 119, 0.8)',
+                    ':hover': {
+                      backgroundColor: 'rgba(29, 177, 119, 0.6)',
+                      color: 'white',
+                    },
+                    px: '5vw',
+                  }}
+                  onClick={handleComplete}
+                >
+                  다음
+                </Button>
+              )}
             </Box>
           </>
         )}
