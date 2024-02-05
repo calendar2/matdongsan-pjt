@@ -63,7 +63,7 @@ function ReviewRegistration() {
     },
     []
   );
-  const { reviewStoreList } = reviewStore();
+  const { restaurantStore } = reviewStore();
   const { restaurantID } = useParams();
   const [클릭버튼, 클릭버튼수정] = useState(false);
   const navigate = useNavigate();
@@ -72,7 +72,7 @@ function ReviewRegistration() {
     같이간친구수정(selectedOptions.map((option) => option.title));
     console.log('같이 간 사람을 선택했습니다!', 같이간친구);
   };
-  const filteredShop = reviewStoreList.find(
+  const filteredShop = restaurantStore.find(
     (x) => x.id === String(restaurantID)
   );
 
@@ -387,8 +387,16 @@ function ReviewRegistration() {
                 console.log(requestData);
                 navigate('/main/restaurants');
                 const url = 'https://i10a209.p.ssafy.io/api/review/1'; // 아직 유저 API 구현이 안돼있어서 1번 유저의 리뷰로만 작성
-                axios
-                  .post(url, requestData)
+                axios({
+                  method: 'post',
+                  url,
+                  data: requestData,
+                  withCredentials: true, // allows cookies
+                  // headers: {
+                  //   Authorization: `Bearer ${token}`, // replace 'token' with your actual token
+                  //   // other headers as needed
+                  // },
+                })
                   .then((response) => {
                     console.log('요청 성공:', response.data);
                     // 성공 시 필요한 작업 수행

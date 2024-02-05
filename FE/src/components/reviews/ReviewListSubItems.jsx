@@ -14,12 +14,10 @@ import reviewStore from '../../stores/reviewStore';
 import styles from '../../styles/reviews/ReviewListSubItems.module.css';
 
 function ReviewListSubItems(props) {
-  const { reviewListSubItems } = reviewStore();
+  const { myReviewStore } = reviewStore();
   const { id } = props;
   const navigate = useNavigate();
-  const filteredSubItems = reviewListSubItems.filter(
-    (x) => x.id === id
-  );
+  const filteredSubItems = myReviewStore.filter((x) => x.id === id);
   return (
     <div>
       <div className={styles.btn}>

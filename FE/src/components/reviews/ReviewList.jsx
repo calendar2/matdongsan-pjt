@@ -30,7 +30,7 @@ function ReviewsList() {
   };
   useEffect(() => {
     // axios
-    //   .get('https://i10a209.p.ssafy.io/api/restaurant')
+    //   .get('https://i10a209.p.ssafy.io/api/restaurant/1')
     //   .then((data) => {
     //     console.log(data);
     //   });
@@ -38,7 +38,7 @@ function ReviewsList() {
     // 따라서 Dependency에 []를 넣고 mount 됐을때 한번만 처리할 예정입니다
   }, []);
   const {
-    reviewStoreList,
+    restaurantStore,
     sortByVisitCount,
     sortByRecentVisitDate,
     sortByAverageTasteAndKindness,
@@ -104,7 +104,7 @@ function ReviewsList() {
           </IconButton>
           <IconButton
             onClick={() =>
-              handleScrollToSection(reviewStoreList.length - 1)
+              handleScrollToSection(restaurantStore.length - 1)
             }
           >
             <ArrowDownwardIcon fontSize="small" />
@@ -113,9 +113,9 @@ function ReviewsList() {
       </div>
 
       <List className={styles.container}>
-        {reviewStoreList.map((item, i) => (
+        {restaurantStore.map((item, i) => (
           <ListItem
-            key={reviewStoreList[i].id}
+            key={restaurantStore[i].id}
             onClick={() => {
               navigate(`${item.id}`);
             }}
@@ -133,7 +133,7 @@ function ReviewsList() {
                   </ListItemAvatar>
                   <span className={styles.itemInfo}>
                     <span className={styles.itemTitle}>
-                      {reviewStoreList[i].가게이름}
+                      {restaurantStore[i].가게이름}
                     </span>
                     <span>
                       <span>
@@ -144,7 +144,7 @@ function ReviewsList() {
                             color: 'rgba(29, 177, 119, 0.7)',
                           }}
                         />
-                        {reviewStoreList[i].친절도}
+                        {restaurantStore[i].친절도}
                       </span>
                       <span>|</span>
                       <span>
@@ -155,22 +155,22 @@ function ReviewsList() {
                             color: 'rgba(29, 177, 119, 0.7)',
                           }}
                         />
-                        {reviewStoreList[i].맛}
+                        {restaurantStore[i].맛}
                       </span>
                     </span>
                   </span>
                   <span className={styles.itemInfo}>
                     <span>
-                      <span>{reviewStoreList[i].위치}</span>
+                      <span>{restaurantStore[i].위치}</span>
                       <span>|</span>
-                      <span>{reviewStoreList[i].업종}</span>
+                      <span>{restaurantStore[i].업종}</span>
                     </span>
                     <span>
                       <span>
-                        {reviewStoreList[i].방문횟수}번 방문
+                        {restaurantStore[i].방문횟수}번 방문
                       </span>
                       <span>|</span>
-                      <span>{reviewStoreList[i].최근방문날짜}</span>
+                      <span>{restaurantStore[i].최근방문날짜}</span>
                     </span>
                   </span>
                 </Typography>

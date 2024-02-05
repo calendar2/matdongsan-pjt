@@ -1,10 +1,12 @@
 import { create } from 'zustand';
 
 const reviewStore = create((set) => ({
-  reviewStoreList: [
-    // id = restaurant_id
-    // 가게이름 = restaurant_name
-    // 위치 = region_id
+  restaurantStore: [
+    // id = id
+    // 가게이름 = name
+    // 위치 = regionId
+    // 주소 = address
+    // 도로명주소 = roadAddress
     // 친절도 = (음식점 하위 목록 친절도의 총합 나누기 개수)
     // 맛 = ("친절도)
     // 최근방문날짜 = (하위 리뷰목록 방문 날짜 중 가장 최근으로)
@@ -218,11 +220,11 @@ const reviewStore = create((set) => ({
       // 버튼: false,
     },
   ],
-  setreviewStoreList: (value) => set({ reviewStoreList: value }),
+  setrestaurantStore: (value) => set({ restaurantStore: value }),
   sortByVisitCount: () => {
     set((state) => ({
       // 방문횟수로 정렬
-      reviewStoreList: [...state.reviewStoreList].sort((a, b) => {
+      restaurantStore: [...state.restaurantStore].sort((a, b) => {
         const visitCountA = parseInt(a.방문횟수, 10);
         const visitCountB = parseInt(b.방문횟수, 10);
         return visitCountB - visitCountA;
@@ -232,7 +234,7 @@ const reviewStore = create((set) => ({
   sortByRecentVisitDate: () => {
     set((state) => ({
       // 최근방문날짜로 정렬
-      reviewStoreList: [...state.reviewStoreList].sort((a, b) => {
+      restaurantStore: [...state.restaurantStore].sort((a, b) => {
         const dateA = new Date(a.최근방문날짜);
         const dateB = new Date(b.최근방문날짜);
         return dateB - dateA;
@@ -241,7 +243,7 @@ const reviewStore = create((set) => ({
   },
   sortByAverageTasteAndKindness: () => {
     set((state) => ({
-      reviewStoreList: [...state.reviewStoreList].sort((a, b) => {
+      restaurantStore: [...state.restaurantStore].sort((a, b) => {
         // 맛과 친절도의 평균을 계산
         const avgA =
           (parseInt(a.맛, 10) + parseInt(a.친절도, 10)) / 2;
@@ -252,7 +254,7 @@ const reviewStore = create((set) => ({
       }),
     }));
   },
-  reviewListSubItems: [
+  myReviewStore: [
     {
       // id = restaurant_id
       // 리뷰id = (리뷰 전체 목록 get할때 각 리뷰의 id도 같이 나오게 API 수정 필요)
@@ -425,8 +427,7 @@ const reviewStore = create((set) => ({
       위치: '역삼동',
     },
   ],
-  setreviewListSubItems: (value) =>
-    set({ reviewListSubItems: value }),
+  setmyReviewStore: (value) => set({ myReviewStore: value }),
 }));
 
 export default reviewStore;

@@ -17,10 +17,10 @@ import reviewStore from '../../stores/reviewStore';
 
 function ReviewDetail() {
   const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
-  const { reviewListSubItems } = reviewStore();
+  const { myReviewStore } = reviewStore();
   const navigate = useNavigate();
   const { reviewID } = useParams();
-  const filteredReview = reviewListSubItems.find(
+  const filteredReview = myReviewStore.find(
     (x) => x.리뷰id === reviewID
   );
   return (
