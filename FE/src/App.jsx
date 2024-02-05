@@ -12,8 +12,8 @@ function App() {
       {/* 로그인 했을 때는 이 레이아웃으로 */}
       <Route path="/main/*" element={<FoodMapView />} />
       {/* 로그인 하지않았을 때는 이 레이아웃으로 */}
-      <Route path="/" element={<StartView />} />
-      <Route path="sociallogin" element={<SocialLogin />} />
+      <Route path="*" element={<StartView />} />
+      <Route path="/sociallogin" element={<SocialLogin />} />
       <Route path="/signup" element={<SignupView />} />
       <Route path="/editprofile" element={<EditProfileView />} />
     </Routes>

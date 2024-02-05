@@ -47,7 +47,7 @@ function SideBar() {
             <div>
               <div className={styles.box2}>
                 <Link
-                  to="followers"
+                  to="subscribe"
                   onClick={followerChange}
                   style={{
                     textDecoration: 'none',

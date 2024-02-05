@@ -18,7 +18,7 @@ function FoodMapView() {
         <SideBar />
         <Routes>
           <Route path="/restaurants/*" element={<Reviews />} />
-          <Route path="/followers" element={<Subscribe />} />
+          <Route path="/subscribe/*" element={<Subscribe />} />
         </Routes>
         <div>
           <Routes>

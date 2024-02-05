@@ -1,0 +1,23 @@
+.wrapper {
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .user {
+    display: flex;
+    align-items: center;
+
+    .info {
+      margin-left: 1.5rem;
+
+      h4 {
+        margin: 0;
+      }
+    }
+  }
+
+  .addBtn:hover {
+    cursor: pointer;
+  }
+}

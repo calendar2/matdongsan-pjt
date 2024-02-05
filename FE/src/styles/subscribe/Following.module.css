@@ -1,0 +1,19 @@
+.wrapper {
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.wrapper .user {
+  display: flex;
+  align-items: center;
+}
+.wrapper .user .info {
+  margin-left: 1.5rem;
+}
+.wrapper .user .info h4 {
+  margin: 0;
+}
+.wrapper .addBtn:hover {
+  cursor: pointer;
+}/*# sourceMappingURL=Following.module.css.map */

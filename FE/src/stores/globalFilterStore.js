@@ -27,6 +27,7 @@ const globalFilterStore = create((set) => ({
   location: '',
   setLocation: (value) => set({ location: value }),
   API_URL: 'https://i10a209.p.ssafy.io/api',
+  // API_URL: 'http://70.12.246.119:4000',
 }));
 
 export default globalFilterStore;
