@@ -32,14 +32,8 @@ function ReviewsList() {
     }
   };
 
-  const {
-    setRestaurantStore,
-    setMyReviewStore,
-    registration,
-    update,
-    remove,
-    API_URL,
-  } = reviewStore();
+  const { setRestaurantStore, setMyReviewStore, API_URL } =
+    reviewStore();
   const regions = useGetRegion();
 
   useEffect(() => {
@@ -137,7 +131,7 @@ function ReviewsList() {
 
     fetchData();
     console.log('리뷰 목록 마운트 됨!');
-  }, [registration, update, remove]);
+  });
 
   const {
     restaurantStore,
