@@ -31,6 +31,8 @@ import girl2 from '../../assets/images/reviews/girl2.png';
 // import tongue from '../../assets/images/reviews/tongue.png'; // 항목별 평점에 사용할 이미지로 가져왔는데 어울리는지 판단하기 위해 일단 보류하기로 함
 
 function ReviewRegistration() {
+  // const API_URL = 'http://70.12.246.119:4000';
+  const API_URL = 'https://i10a209.p.ssafy.io/api/';
   const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
   const [가게이름, 가게이름수정] = useState('');
   const [친절도, 친절도수정] = useState(0);
@@ -55,6 +57,7 @@ function ReviewRegistration() {
     { title: '자영' },
     { title: '용수' },
   ]);
+  const { setRegistration, registration } = reviewStore();
   useEffect(
     () => () => {
       console.log('기록페이지 언마운트 됨!'); // Axios 요청을 보내서 리뷰 리스트를 갱신할 예정입니다 (useEffect 안에 적는 코드들은 어려운 연산 / 서버에서 데이터 가져오는 작업),
@@ -73,7 +76,7 @@ function ReviewRegistration() {
     console.log('같이 간 사람을 선택했습니다!', 같이간친구);
   };
   const filteredShop = restaurantStore.find(
-    (x) => x.id === String(restaurantID)
+    (x) => x.id === Number(restaurantID)
   );
 
   return (
@@ -103,7 +106,7 @@ function ReviewRegistration() {
                   }}
                 />
               ) : (
-                <div>{filteredShop.가게이름}</div>
+                <div>{filteredShop?.가게이름}</div>
               )}
 
               <CloseIcon
@@ -380,23 +383,15 @@ function ReviewRegistration() {
                   tasteRating: 맛,
                   content: 내용,
                   visitDate: `${방문날짜.$y}-${방문날짜.$M + 1 >= 10 ? 방문날짜.$M + 1 : `0${방문날짜.$M + 1}`}-${방문날짜.$D >= 10 ? 방문날짜.$D : `0${방문날짜.$D}`}`,
-                  restaurantId: 1, // 아직 음식점 등록 API 구현이 안돼있어서 1번 음식점의 리뷰만 작성
+                  restaurantId: 3, // 아직 음식점 등록 API 구현이 안돼있어서 3번 음식점의 리뷰만 작성
                   accountReviews: [], // 아직 팔로워 API 구현이 안돼있어서 빈 목록으로 전송해야함
                   reviewPersonTags: 임의친구들,
                 };
-                console.log(requestData);
-                navigate('/main/restaurants');
-                const url = 'https://i10a209.p.ssafy.io/api/review/1'; // 아직 유저 API 구현이 안돼있어서 1번 유저의 리뷰로만 작성
-                axios({
-                  method: 'post',
-                  url,
-                  data: requestData,
-                  withCredentials: true, // allows cookies
-                  // headers: {
-                  //   Authorization: `Bearer ${token}`, // replace 'token' with your actual token
-                  //   // other headers as needed
-                  // },
-                })
+                setRegistration(!registration);
+                navigate(`/main/restaurants/${restaurantID}`);
+                const url = `${API_URL}/review/1`; // 아직 유저 API 구현이 안돼있어서 1번 유저의 리뷰로만 작성
+                axios
+                  .post(url, requestData)
                   .then((response) => {
                     console.log('요청 성공:', response.data);
                     // 성공 시 필요한 작업 수행

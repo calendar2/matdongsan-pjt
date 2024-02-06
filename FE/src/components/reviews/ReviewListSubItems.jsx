@@ -17,7 +17,9 @@ function ReviewListSubItems(props) {
   const { myReviewStore } = reviewStore();
   const { id } = props;
   const navigate = useNavigate();
-  const filteredSubItems = myReviewStore.filter((x) => x.id === id);
+  const filteredSubItems = myReviewStore.filter(
+    (x) => x.id === Number(id)
+  );
   return (
     <div>
       <div className={styles.btn}>
@@ -64,7 +66,7 @@ function ReviewListSubItems(props) {
                             ? `${x.내용.substring(0, 10)}...`
                             : x.내용}
                         </span>
-                        <span>{x.방문한날짜}</span>
+                        <span>{x.방문한날짜.split('T')[0]}</span>
                       </span>
                       <span className={styles.info}>
                         {x.같이간친구.map((y) => (

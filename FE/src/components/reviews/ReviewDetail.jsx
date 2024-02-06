@@ -6,6 +6,7 @@ import { Typography, Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
+import axios from 'axios';
 import boy0 from '../../assets/images/reviews/boy0.png';
 import boy1 from '../../assets/images/reviews/boy1.png';
 import boy2 from '../../assets/images/reviews/boy2.png';
@@ -16,12 +17,14 @@ import styles from '../../styles/reviews/ReviewDetail.module.css';
 import reviewStore from '../../stores/reviewStore';
 
 function ReviewDetail() {
+  // const API_URL = 'http://70.12.246.119:4000';
+  const API_URL = 'https://i10a209.p.ssafy.io/api/';
   const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
-  const { myReviewStore } = reviewStore();
+  const { myReviewStore, remove, setRemove } = reviewStore();
   const navigate = useNavigate();
-  const { reviewID } = useParams();
+  const { reviewID, restaurantID } = useParams();
   const filteredReview = myReviewStore.find(
-    (x) => x.리뷰id === reviewID
+    (x) => x.리뷰id === Number(reviewID)
   );
   return (
     <div className={styles.wrapper} key={reviewID}>
@@ -45,13 +48,13 @@ function ReviewDetail() {
             component="legend"
             sx={{ color: 'rgba(55,55,55,0.7)', fontSize: '25px' }}
           >
-            {filteredReview.가게이름}
+            {filteredReview?.가게이름}
           </Typography>
           <Typography
             component="legend"
             sx={{ color: 'rgba(55,55,55,0.7)' }}
           >
-            {filteredReview.업종}
+            {filteredReview?.업종}
           </Typography>
         </div>
         <hr />
@@ -64,7 +67,7 @@ function ReviewDetail() {
           </Typography>
           <Rating
             name="read-only"
-            value={Number(filteredReview.친절도)}
+            value={Number(filteredReview?.친절도)}
             readOnly
             sx={{ color: 'rgba(29, 177, 119, 0.7)' }}
           />
@@ -78,7 +81,7 @@ function ReviewDetail() {
           </Typography>
           <Rating
             name="read-only"
-            value={Number(filteredReview.맛)}
+            value={Number(filteredReview?.맛)}
             readOnly
             sx={{ color: 'rgba(29, 177, 119, 0.7)' }}
           />
@@ -101,7 +104,7 @@ function ReviewDetail() {
             multiline
             fullWidth
             readOnly
-            value={filteredReview.내용}
+            value={filteredReview?.내용}
             color="success"
             underline="none"
           />
@@ -113,7 +116,7 @@ function ReviewDetail() {
         >
           같이 간 친구
         </Typography>
-        {filteredReview.같이간친구.map((x, i) => (
+        {filteredReview?.같이간친구.map((x, i) => (
           // eslint-disable-next-line react/no-array-index-key
           <div className={styles.asideContent} key={i}>
             <Avatar
@@ -132,7 +135,7 @@ function ReviewDetail() {
         >
           임의 친구들
         </Typography>
-        {filteredReview.임의친구들.map((x) => (
+        {filteredReview?.임의친구들.map((x) => (
           <div key={x.name}>{x.name}</div>
         ))}
         <hr />
@@ -142,7 +145,7 @@ function ReviewDetail() {
         >
           방문한 날짜
         </Typography>
-        <div>{filteredReview.방문한날짜}</div>
+        <div>{filteredReview?.방문한날짜.split('T')[0]}</div>
         <hr />
         <div className={styles.footer}>
           <Button
@@ -171,7 +174,19 @@ function ReviewDetail() {
             sx={{ width: '130px' }}
             onClick={() => {
               console.log('삭제하기 버튼이 눌렸어요!.');
-              // navigate('update'); 삭제 요청 엑시오스 보내기
+              navigate(`/main/restaurants/${restaurantID}`);
+              setRemove(!remove);
+              const url = `${API_URL}/review/1/${reviewID}`;
+              axios
+                .delete(url)
+                .then((response) => {
+                  console.log('요청 성공:', response.data);
+                  // 성공 시 필요한 작업 수행
+                })
+                .catch((error) => {
+                  console.error('요청 실패:', error);
+                  // 실패 시 에러 처리
+                });
             }}
             style={{
               backgroundColor: 'rgba(29, 177, 119, 0.7)', // 버튼의 배경색을 1db177로 설정

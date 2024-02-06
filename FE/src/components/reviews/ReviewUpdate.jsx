@@ -27,19 +27,21 @@ import girl1 from '../../assets/images/reviews/girl1.png';
 import girl2 from '../../assets/images/reviews/girl2.png';
 
 function ReviewUpdate() {
-  const { reviewListSubItems } = reviewStore();
+  // const API_URL = 'http://70.12.246.119:4000';
+  const API_URL = 'https://i10a209.p.ssafy.io/api/';
+  const { myReviewStore, setUpdate, update } = reviewStore();
   const { reviewID, restaurantID } = useParams();
   const navigate = useNavigate();
-  const filteredReview = reviewListSubItems.find(
-    (x) => x.리뷰id === reviewID
+  const filteredReview = myReviewStore.find(
+    (x) => x.리뷰id === Number(reviewID)
   );
-  const [가게이름, 가게이름수정] = useState(filteredReview.가게이름);
-  const [친절도, 친절도수정] = useState(filteredReview.친절도);
-  const [맛, 맛수정] = useState(filteredReview.맛);
+  const [가게이름, 가게이름수정] = useState(filteredReview?.가게이름);
+  const [친절도, 친절도수정] = useState(filteredReview?.친절도);
+  const [맛, 맛수정] = useState(filteredReview?.맛);
   // const [사진] = useState(filteredReview.사진);
-  const [내용, 내용수정] = useState(filteredReview.내용);
+  const [내용, 내용수정] = useState(filteredReview?.내용);
   const [같이간친구, 같이간친구수정] = useState(
-    filteredReview.같이간친구.map((x) => x.name)
+    filteredReview?.같이간친구.map((x) => x.name)
   );
   // 버그 난 이유 ? 기존에 같이 간 친구의 형태는 ['이름', '이름2'] 였는데 [{name:'이름', birth:'1995'}] 형태로 바뀜
   const [임의친구이름, 임의친구이름수정] = useState('');
@@ -47,10 +49,10 @@ function ReviewUpdate() {
     dayjs(dayjs().format('YYYY-MM-DD'))
   );
   const [임의친구들, 임의친구들수정] = useState(
-    filteredReview.임의친구들
+    filteredReview?.임의친구들
   );
   const [방문날짜, 방문날짜수정] = useState(
-    dayjs(filteredReview.방문한날짜)
+    dayjs(filteredReview?.방문한날짜)
   );
   const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
   const [전체친구] = useState([
@@ -70,16 +72,12 @@ function ReviewUpdate() {
     },
     []
   );
-  const { reviewStoreList } = reviewStore();
   const [클릭버튼, 클릭버튼수정] = useState(false);
   const handleAutocompleteChange = (event, selectedOptions) => {
     // 선택된 항목을 setSelectedFriend 함수의 인자로 전달
     같이간친구수정(selectedOptions.map((option) => option.title));
     console.log('같이 간 사람을 선택했습니다!', 같이간친구);
   };
-  const filteredShop = reviewStoreList.find(
-    (x) => x.id === String(restaurantID)
-  );
 
   return (
     <div>
@@ -108,7 +106,7 @@ function ReviewUpdate() {
                   }}
                 />
               ) : (
-                <div>{filteredShop.가게이름}</div>
+                <div>{가게이름}</div>
               )}
 
               <CloseIcon
@@ -282,7 +280,7 @@ function ReviewUpdate() {
               </Button>
             </div>
             <div>
-              {같이간친구.map((x, i) => (
+              {같이간친구?.map((x, i) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <div className={styles.content} key={i}>
                   <Avatar
@@ -318,7 +316,7 @@ function ReviewUpdate() {
             </Typography>
 
             <div className={styles.tag}>
-              {임의친구들.map((x, i) => (
+              {임의친구들?.map((x, i) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <div key={i}>
                   <span className={styles.item}>{x.name}</span>
@@ -326,7 +324,7 @@ function ReviewUpdate() {
                   <span>{x.birthYear}</span>
                   <IconButton
                     onClick={() => {
-                      const 수정된임의친구들 = 임의친구들.filter(
+                      const 수정된임의친구들 = 임의친구들?.filter(
                         (y) => y.name !== x.name
                       );
                       임의친구들수정(수정된임의친구들);
@@ -393,11 +391,11 @@ function ReviewUpdate() {
                   accountReviews: [], // 아직 팔로워 API 구현이 안돼있어서 빈 목록으로 전송해야함
                   reviewPersonTags: 임의친구들,
                 };
-                console.log(requestData);
+                setUpdate(!update);
                 navigate(`/main/restaurants/${restaurantID}`);
-                const url = 'https://i10a209.p.ssafy.io/api/review/1'; // 아직 유저 API 구현이 안돼있어서 1번 유저의 리뷰로만 작성
+                const url = `${API_URL}/review/1/${reviewID}`; // 아직 유저 API 구현이 안돼있어서 1번 유저의 리뷰로만 작성/1번 리뷰 수정
                 axios // 여기서 put 요청으로 수정해야함
-                  .post(url, requestData)
+                  .put(url, requestData)
                   .then((response) => {
                     console.log('요청 성공:', response.data);
                     // 성공 시 필요한 작업 수행
