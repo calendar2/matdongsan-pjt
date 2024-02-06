@@ -25,8 +25,6 @@ import useGetRegion from '../../hooks/useGetRegion';
 
 function ReviewsList() {
   // 음식점 ID를 인자로 입력하면 해당 음식점으로 스크롤 이동한다
-  // const API_URL = 'http://70.12.246.119:4000';
-  const API_URL = 'https://i10a209.p.ssafy.io/api/';
   const handleScrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
@@ -40,6 +38,7 @@ function ReviewsList() {
     registration,
     update,
     remove,
+    API_URL,
   } = reviewStore();
   const regions = useGetRegion();
 

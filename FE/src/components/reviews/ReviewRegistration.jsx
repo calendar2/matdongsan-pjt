@@ -31,8 +31,6 @@ import girl2 from '../../assets/images/reviews/girl2.png';
 // import tongue from '../../assets/images/reviews/tongue.png'; // 항목별 평점에 사용할 이미지로 가져왔는데 어울리는지 판단하기 위해 일단 보류하기로 함
 
 function ReviewRegistration() {
-  // const API_URL = 'http://70.12.246.119:4000';
-  const API_URL = 'https://i10a209.p.ssafy.io/api/';
   const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
   const [가게이름, 가게이름수정] = useState('');
   const [친절도, 친절도수정] = useState(0);
@@ -57,7 +55,7 @@ function ReviewRegistration() {
     { title: '자영' },
     { title: '용수' },
   ]);
-  const { setRegistration, registration } = reviewStore();
+  const { setRegistration, registration, API_URL } = reviewStore();
   useEffect(
     () => () => {
       console.log('기록페이지 언마운트 됨!'); // Axios 요청을 보내서 리뷰 리스트를 갱신할 예정입니다 (useEffect 안에 적는 코드들은 어려운 연산 / 서버에서 데이터 가져오는 작업),

@@ -27,9 +27,7 @@ import girl1 from '../../assets/images/reviews/girl1.png';
 import girl2 from '../../assets/images/reviews/girl2.png';
 
 function ReviewUpdate() {
-  // const API_URL = 'http://70.12.246.119:4000';
-  const API_URL = 'https://i10a209.p.ssafy.io/api/';
-  const { myReviewStore, setUpdate, update } = reviewStore();
+  const { myReviewStore, setUpdate, update, API_URL } = reviewStore();
   const { reviewID, restaurantID } = useParams();
   const navigate = useNavigate();
   const filteredReview = myReviewStore.find(

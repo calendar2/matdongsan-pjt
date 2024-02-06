@@ -17,10 +17,8 @@ import styles from '../../styles/reviews/ReviewDetail.module.css';
 import reviewStore from '../../stores/reviewStore';
 
 function ReviewDetail() {
-  // const API_URL = 'http://70.12.246.119:4000';
-  const API_URL = 'https://i10a209.p.ssafy.io/api/';
   const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
-  const { myReviewStore, remove, setRemove } = reviewStore();
+  const { myReviewStore, remove, setRemove, API_URL } = reviewStore();
   const navigate = useNavigate();
   const { reviewID, restaurantID } = useParams();
   const filteredReview = myReviewStore.find(
