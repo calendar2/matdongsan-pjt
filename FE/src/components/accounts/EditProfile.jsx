@@ -5,6 +5,10 @@ function EditProfile() {
   return (
     <div className={styles.profileBox}>
       <img src={imgLogo} alt="mainLogo" className={styles.imgLogo} />
+      <div>
+        <div>닉네임</div>
+        <div>asdf</div>
+      </div>
       <div>asdf</div>
     </div>
   );
