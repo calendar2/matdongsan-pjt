@@ -77,7 +77,7 @@ public class ReviewService {
         //왜 orElse가 안되는지 모르겠음
         //없다면 저장 - concate하면 연계된게 많아서 나중에 안될거 같아서 일일이 저장
 
-        return optionalPersonTag.orElseGet(() -> personTagRepository.save(PersonTagSaveRequestDto.toEntity(account, pd.getName(), pd.getBirthYear())));
+        return optionalPersonTag.orElseGet(() -> personTagRepository.save(pd.toEntity(account)));
     }
 
 

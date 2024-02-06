@@ -9,21 +9,20 @@ import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PersonTagSaveRequestDto {
     private String name;
-    private int birthYear;
-    private Account account;
+    private short birthYear;
 
-
-
-    public static PersonTag toEntity(Account account, String name, int birthYear) {
+    public PersonTag toEntity(Account account) {
         return PersonTag.builder()
+                .name(this.name)
+                .birthYear(this.birthYear)
                 .account(account)
-                .name(name)
-                .birthYear(birthYear)
                 .build();
 
     }

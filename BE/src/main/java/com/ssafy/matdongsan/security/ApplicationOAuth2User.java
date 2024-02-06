@@ -10,12 +10,12 @@ import java.util.Collections;
 import java.util.Map;
 
 public class ApplicationOAuth2User implements OAuth2User {
-    private String id;
+    private String email;
     private Collection<? extends GrantedAuthority> authorities;
     private Map<String, Object> attributes;
 
-    public ApplicationOAuth2User(String id, Map<String, Object> attributes) {
-        this.id = id;
+    public ApplicationOAuth2User(String email, Map<String, Object> attributes) {
+        this.email = email;
         this.authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
         this.attributes = attributes;
     }
@@ -32,6 +32,6 @@ public class ApplicationOAuth2User implements OAuth2User {
 
     @Override
     public String getName() {
-        return this.id;
+        return this.email;
     }
 }

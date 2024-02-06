@@ -18,6 +18,20 @@ public class TokenProvider {
 
     private final static String SECRET_KEY = "p7s6zKhimiDFK7XwYbDwRH+u9rNj36SxdNSPbhLz91W5oA2dM2S5L519ZpX9sT91Gt/YjnyGzLSR6ixJkT5/EQ==";
 
+    public String create(String email) {
+        Date expiryDate = Date.from(
+                Instant.now()
+                        .plus(1, ChronoUnit.DAYS));
+
+        return Jwts.builder()
+                .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+                .setSubject(email)
+                .setIssuer("matdongsan")
+                .setIssuedAt(new Date())
+                .setExpiration(expiryDate)
+                .compact();
+    }
+
     public String create(Account userEntity) {
         Date expiryDate = Date.from(
                 Instant.now()

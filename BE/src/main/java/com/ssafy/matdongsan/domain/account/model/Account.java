@@ -1,6 +1,7 @@
 package com.ssafy.matdongsan.domain.account.model;
 
 import com.ssafy.matdongsan.domain.*;
+import com.ssafy.matdongsan.domain.account.dto.AccountModifyRequestDto;
 import com.ssafy.matdongsan.domain.comparison.model.Comparison;
 import com.ssafy.matdongsan.domain.food.model.Food;
 import com.ssafy.matdongsan.domain.food.model.FoodCategory;
@@ -22,6 +23,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 @DynamicUpdate
 public class Account extends BaseEntity {
 
@@ -107,6 +109,13 @@ public class Account extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "restaurant_id")
     )
     private List<Restaurant> restaurants = new ArrayList<>();
+
+    public void modify(AccountModifyRequestDto dto) {
+            username = dto.getUsername();
+            nickname = dto.getNickname();
+            birthYear = dto.getBirthYear();
+            spicyLevel = dto.getSpicyLevel();
+    }
 
     public void updateRestaurant(List<Restaurant> restaurants) {
         this.restaurants = restaurants;
