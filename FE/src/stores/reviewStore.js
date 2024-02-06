@@ -1,7 +1,8 @@
 import { create } from 'zustand';
 
 const reviewStore = create((set) => ({
-  API_URL: 'http://i10a209.p.ssafy.io/api',
+  API_URL: 'https://i10a209.p.ssafy.io:3000',
+  // API_URL: 'http://i10a209.p.ssafy.io/api',
   // API_URL: 'http://70.12.246.119:4000',
   registration: false,
   setRegistration: (value) => set({ registration: value }),
