@@ -2,6 +2,7 @@ package com.ssafy.matdongsan.domain.account.api;
 
 import com.ssafy.matdongsan.domain.account.dto.AccountModifyRequestDto;
 import com.ssafy.matdongsan.domain.account.dto.AccountSaveRequestDto;
+import com.ssafy.matdongsan.domain.account.dto.AccountSimpleResponseDto;
 import com.ssafy.matdongsan.domain.account.dto.PersonTagSaveRequestDto;
 import com.ssafy.matdongsan.domain.account.model.Account;
 import com.ssafy.matdongsan.domain.account.model.PersonTag;
@@ -54,5 +55,11 @@ public class AccountController {
         log.info("email={}", email);
         log.info("dto={}", dto.toString());
         accountService.savePersonTag(dto, email);
+    }
+
+    @GetMapping("/rank")
+    public ResponseEntity<?> getAccountsTop10() {
+        List<AccountSimpleResponseDto> dtos = accountService.getAccountsTop10();
+        return ResponseEntity.ok().body(dtos);
     }
 }

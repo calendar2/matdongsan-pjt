@@ -3,10 +3,7 @@ package com.ssafy.matdongsan.domain.subcription.model;
 import com.ssafy.matdongsan.domain.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -16,6 +13,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class Subscription extends BaseEntity {
 

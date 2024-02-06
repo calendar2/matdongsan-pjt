@@ -2,7 +2,9 @@ package com.ssafy.matdongsan.domain.account.repository;
 
 import com.ssafy.matdongsan.domain.account.model.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface AccountRepository extends JpaRepository<Account, Integer> {
@@ -11,4 +13,6 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     Account findByEmail(String email);
 
+    @Query("SELECT a FROM Account a ORDER BY a.follower DESC")
+    List<Account> findAllOrderByFollower();
 }

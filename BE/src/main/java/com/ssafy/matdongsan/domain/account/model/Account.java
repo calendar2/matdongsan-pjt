@@ -121,5 +121,12 @@ public class Account extends BaseEntity {
         this.restaurants = restaurants;
     }
 
+    public void increaseFollower() {
+        follower++;
+    }
+
+    public void decreaseFollower() {
+        follower--;
+    }
 
 }
