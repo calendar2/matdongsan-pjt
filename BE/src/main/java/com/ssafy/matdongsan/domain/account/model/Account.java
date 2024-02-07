@@ -65,11 +65,11 @@ public class Account extends BaseEntity {
     @OneToMany(mappedBy = "account")
     private List<PersonTag> personTags = new ArrayList<>();
 
-    @OneToMany(mappedBy = "subscriber")
-    private List<Subscription> subscribing = new ArrayList<>();
-
-    @OneToMany(mappedBy = "subscribed")
-    private List<Subscription> subscribed = new ArrayList<>();
+//    @OneToMany(mappedBy = "subscriber")
+//    private List<Subscription> subscribing = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "subscribed")
+//    private List<Subscription> subscribed = new ArrayList<>();
 
     @OneToMany(mappedBy = "comparer")
     private List<Comparison> comparing = new ArrayList<>();
