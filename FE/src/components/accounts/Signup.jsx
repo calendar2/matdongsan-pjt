@@ -6,16 +6,21 @@ import StepButton from '@mui/material/StepButton';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import SignupFirst from './SignupFirst';
 import SignupSecond from './SignupSecond';
 import imgLogo from '../../assets/images/logo.png';
 import styles from '../../styles/accounts/Signup.module.css';
 import signupStore from '../../stores/signupStore';
+import urlStore from '../../stores/urlStore';
+import userStore from '../../stores/userStore';
 
 const steps = ['', ''];
 
 export default function HorizontalNonLinearStepper() {
   const { age, gender, regionInterest, spicyLevel } = signupStore();
+  const { API_URL } = urlStore();
+  const { accessToken } = userStore();
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
   console.log(age, gender, regionInterest);
@@ -60,6 +65,34 @@ export default function HorizontalNonLinearStepper() {
 
   const stepCheck = (check) =>
     check === 0 ? <SignupFirst /> : <SignupSecond />;
+
+  const signupStep1Data = () => {
+    console.log(accessToken, '액세스토큰임!');
+    const requestData = {
+      gender: 'F',
+      birth_year: 1997,
+      region_name: '역삼동',
+    };
+    const url = `${API_URL}/account/step1`;
+    axios({
+      method: 'put',
+      url,
+      data: requestData,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        console.log('요청 성공:', response.data);
+        // 성공 시 필요한 작업 수행
+      })
+      .catch((error) => {
+        console.error('요청 실패:', error);
+        console.log(accessToken);
+        // 실패 시 에러 처리
+      });
+  };
 
   return (
     <Box
@@ -185,7 +218,10 @@ export default function HorizontalNonLinearStepper() {
                     },
                     px: '5vw',
                   }}
-                  onClick={handleComplete}
+                  onClick={() => {
+                    handleComplete();
+                    signupStep1Data();
+                  }}
                 >
                   다음
                 </Button>

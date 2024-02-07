@@ -13,6 +13,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import styles from '../../styles/accounts/SignupFirst.module.css';
 import signupStore from '../../stores/signupStore';
+import useGetRegion from '../../hooks/useGetRegion';
 
 const years = Array.from({ length: 125 }, (_, index) => 2024 - index);
 const MenuProps = {
@@ -28,7 +29,6 @@ function SignupFirst() {
   // const [gender, setGender] = useState('');
   // const [age, setAge] = useState('');
   const {
-    regionTotal,
     setRegionInterest,
     regionInterest,
     age,
@@ -38,6 +38,20 @@ function SignupFirst() {
   const handleChange = (event) => {
     setAge(event.target.value);
   };
+
+  const getRegion = useGetRegion();
+  console.log(getRegion?.data);
+
+  const defaultProps = {
+    options: getRegion?.data,
+    getOptionLabel: (option) => option.district,
+  };
+
+  const handleAutocompleteChange = (e) => {
+    setRegionInterest(e.target.outerText);
+    console.log('로케이션', regionInterest);
+  };
+
   return (
     <div className={styles.main}>
       <div
@@ -60,7 +74,7 @@ function SignupFirst() {
                 name="row-radio-buttons-group"
               >
                 <FormControlLabel
-                  value="male"
+                  value="M"
                   control={
                     <Radio
                       sx={{
@@ -74,11 +88,11 @@ function SignupFirst() {
                       }}
                     />
                   }
-                  onClick={() => setGender('male')}
+                  onClick={() => setGender('M')}
                   label={<span style={{ fontSize: '14px' }}>남</span>}
                 />
                 <FormControlLabel
-                  value="female"
+                  value="F"
                   control={
                     <Radio
                       sx={{
@@ -92,7 +106,7 @@ function SignupFirst() {
                       }}
                     />
                   }
-                  onClick={() => setGender('female')}
+                  onClick={() => setGender('F')}
                   label={<span style={{ fontSize: '14px' }}>여</span>}
                 />
               </RadioGroup>
@@ -164,17 +178,21 @@ function SignupFirst() {
         </div>
         <div className={styles.gridItem}>
           <Autocomplete
-            id="free-solo-demo"
+            id="free-solo-2-demo"
             freeSolo
+            includeInputInList
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...defaultProps}
+            onChange={handleAutocompleteChange}
             sx={{
-              width: '270px',
-              '& .MuiOutlinedInput-root': {
+              width: '150px',
+              '& .MuiInputBase-root': {
                 padding: '1px',
                 paddingTop: '4px',
-                borderBottom: '1px solid rgba(0, 0, 0, 0.4)',
+                // borderBottom: '1px solid rgba(0, 0, 0, 0.4)',
                 borderRadius: '0',
                 '&:hover': {
-                  borderBottom: '2px solid rgba(0, 0, 0, 0.5)',
+                  // borderBottom: '1px solid rgba(0, 0, 0, 0.5)',
                 },
                 fontSize: '14px',
                 color: 'rgba(29, 177, 119)',
@@ -183,19 +201,17 @@ function SignupFirst() {
               '& .MuiOutlinedInput-notchedOutline': {
                 border: 'none',
               },
+              '& .MuiInput-root::after': {
+                borderBottom: '2px solid rgba(29, 177, 119, 0.5)',
+              },
             }}
             // disableClearable
-            options={regionTotal.map((option) => option.regionName)}
-            onChange={(e, name) => {
-              setRegionInterest(name);
-              console.log(regionInterest);
-              console.log('장소선택되었습니다!');
-            }}
             renderInput={(params) => (
               <TextField
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...params}
                 label="읍/면/동으로 검색해주세요"
+                variant="standard"
                 InputProps={{
                   ...params.InputProps,
                   startAdornment: (
@@ -208,7 +224,7 @@ function SignupFirst() {
                 }}
                 InputLabelProps={{
                   style: {
-                    fontSize: '15px',
+                    fontSize: '14px',
                     color: 'rgba(217, 217, 217)',
                     paddingLeft: '0px',
                   },
