@@ -9,5 +9,6 @@ import java.util.List;
 public class AccountModifyStep1RequestDto {
     char gender;
     short birthYear;
-    List<String> regionNames;
+    String regionName;
+//    List<String> regionNames;
 }
