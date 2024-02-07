@@ -4,7 +4,9 @@ import axios from 'axios';
 import useGeolocation from '../../hooks/useGeolocation';
 import checkForMarkersRendering from '../../util/checkForMarkersRendering';
 import globalFilterStore from '../../stores/globalFilterStore';
+// import InfoWindow from './InfoWindow';
 import foodmap from '../../styles/foodmap/FoodMap.module.css';
+import mapwindow from '../../styles/mapcontents/infowindow.module.css';
 
 function FoodMap() {
   const mapRef = useRef(null);
@@ -14,7 +16,9 @@ function FoodMap() {
   const queryParams = new URLSearchParams(location.search);
   const query = queryParams.get('query');
   const { API_URL } = globalFilterStore();
+  // let saveBtn = null;
 
+  // 최초 렌더링 및 이용자의 현재 위치가 변할 때 지도 제작 코드
   useEffect(() => {
     if (naver && naver.maps) {
       if (
@@ -41,6 +45,7 @@ function FoodMap() {
     }
   }, [currentMyLocation]);
 
+  // GNB 검색창을 통해 검색할 때 지도 생성 후 마커 생성하는 코드
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -91,17 +96,25 @@ function FoodMap() {
                   '</div>',
                 ].join(''),
                 anchor: new naver.maps.Point(20, 50),
-                // size: new naver.maps.Size(22, 35),
               },
             });
 
+            const infoWindowContent = `
+              <div class=${mapwindow.container}>
+                <div class=${mapwindow.wrapper}>
+                  <div class=${mapwindow.title} id="restaurantName">${item.title}</div>
+                  <button type="button" class=${mapwindow.savebtn} id="saveBtn">저장하기</button>
+                </div>
+                <div class=${mapwindow.category} id="restaurantCategory">${item.category}</div>
+                <div class=${mapwindow.address} id="restaurantAddress">${item.address}</div>
+                <div class=${mapwindow.none} id="restaurantMapx">${Number(item.mapx)}</div>
+                <div class=${mapwindow.none} id="restaurantMapy">${Number(item.mapy)}</div>
+                <div class=${mapwindow.none} id="restaurantRoadAddress">${item.roadAddress}</div>
+                <div class=${mapwindow.none} id="restaurantPhone">${item.telephone}</div>
+              </div>`;
+
             const infoWindow = new naver.maps.InfoWindow({
-              content: [
-                '<div style="padding: 10px; box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 16px 0px;">',
-                ` <div style="font-weight: bold; margin-bottom: 5px;">${item.title}</div>`,
-                ` <div style="font-size: 13px;">${item.category}<div>`,
-                '</div>',
-              ].join(''),
+              content: infoWindowContent,
               maxWidth: 300,
               anchorSize: {
                 width: 12,
@@ -124,6 +137,38 @@ function FoodMap() {
               infoWindows[index].close();
             } else if (mapRef.current !== null) {
               infoWindows[index].open(mapRef.current, markers[index]);
+
+              axios({
+                method: 'post',
+                url: `${API_URL}/restaurant/common`,
+                data: {
+                  name: document.querySelector('#restaurantName')
+                    .innerText,
+                  mapx: document.querySelector('#restaurantMapx')
+                    .innerText,
+                  mapy: document.querySelector('#restaurantMapy')
+                    .innerText,
+                  address: document.querySelector(
+                    '#restaurantAddress'
+                  ).innerText,
+                  roadAddress: document.querySelector(
+                    '#restaurantRoadAddress'
+                  ).innerText,
+                  phone: document.querySelector('#restaurantPhone')
+                    .innerText,
+                },
+              })
+                .then((res) => {
+                  console.log('우리 db에 가게 등록하기!', res);
+                })
+                .catch((err) => {
+                  console.error('우리 db에 가게 등록 실패ㅠㅠ', err);
+                });
+
+              const saveBtn = document.querySelector('#saveBtn');
+              saveBtn.addEventListener('click', () => {
+                console.log('클릭한 가게를 저장!');
+              });
             }
           };
 
@@ -161,6 +206,14 @@ function FoodMap() {
               }
             }
           );
+
+          // const saveBtn = document.querySelector('#saveBtn');
+          // // eslint-disable-next-line max-depth
+          // if (saveBtn) {
+          //   saveBtn.addEventListener('click', () => {
+          //     console.log('클릭한 가게를 저장!');
+          //   });
+          // }
         }
       } catch (error) {
         console.error('글로벌 검색 수행 중 오류 발생!', error);
