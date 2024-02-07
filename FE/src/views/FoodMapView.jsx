@@ -11,6 +11,7 @@ import ReviewUpdate from '../components/reviews/ReviewUpdate';
 import DongsanModal from '../components/modals/DongsanModal';
 import Following from '../components/subscribe/Following';
 import Follower from '../components/subscribe/Follower';
+import RestaurantDetail from '../components/restaurants/RestaurantDetail';
 
 function FoodMapView() {
   return (
@@ -28,6 +29,10 @@ function FoodMapView() {
         </Routes>
         <div>
           <Routes>
+            <Route
+              path="/restaurants/:restaurantID"
+              element={<RestaurantDetail />}
+            />
             <Route
               path="/restaurants/write"
               element={<ReviewRegistration />}

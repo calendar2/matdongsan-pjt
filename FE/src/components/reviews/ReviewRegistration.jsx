@@ -18,6 +18,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import Avatar from '@mui/material/Avatar';
 import reviewStore from '../../stores/reviewStore';
 import styles from '../../styles/reviews/ReviewRegistration.module.css';
+import content from '../../styles/foodmap/FoodMapView.module.css';
 import ReviewRegistrationFriendTagModal from '../modals/ReviewRegistrationFriendTagModal';
 import boy0 from '../../assets/images/reviews/boy0.png';
 import boy1 from '../../assets/images/reviews/boy1.png';
@@ -84,7 +85,7 @@ function ReviewRegistration() {
   const [selectedRestaurant, setSelectedRestaurant] = useState('');
   return (
     <div>
-      <div className={styles.wrapper}>
+      <div className={content.hiddenSpace}>
         <div className={styles.container}>
           <div>
             <div className={styles.header}>

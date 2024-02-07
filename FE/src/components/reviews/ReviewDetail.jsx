@@ -16,6 +16,7 @@ import girl2 from '../../assets/images/reviews/girl2.png';
 import styles from '../../styles/reviews/ReviewDetail.module.css';
 import reviewStore from '../../stores/reviewStore';
 import urlStore from '../../stores/urlStore';
+import content from '../../styles/foodmap/FoodMapView.module.css';
 
 function ReviewDetail() {
   const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
@@ -27,7 +28,7 @@ function ReviewDetail() {
     (x) => x.리뷰id === Number(reviewID)
   );
   return (
-    <div className={styles.wrapper} key={reviewID}>
+    <div className={content.hiddenSpace} key={reviewID}>
       <div className={styles.container}>
         <div>
           <CloseIcon

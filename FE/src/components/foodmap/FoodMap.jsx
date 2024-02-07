@@ -15,7 +15,6 @@ function FoodMap() {
   const queryParams = new URLSearchParams(location.search);
   const query = queryParams.get('query');
   const { API_URL } = urlStore();
-  // let saveBtn = null;
 
   // 최초 렌더링 및 이용자의 현재 위치가 변할 때 지도 제작 코드
   useEffect(() => {
@@ -135,7 +134,7 @@ function FoodMap() {
             if (infoWindows[index].getMap()) {
               infoWindows[index].close();
             } else if (mapRef.current !== null) {
-              infoWindows[index].open(mapRef.current, markers[index]);
+              let restaurantId = 0;
 
               axios({
                 method: 'post',
@@ -159,14 +158,27 @@ function FoodMap() {
               })
                 .then((res) => {
                   console.log('우리 db에 가게 등록하기!', res);
+                  restaurantId = res.data.id;
                 })
                 .catch((err) => {
                   console.error('우리 db에 가게 등록 실패ㅠㅠ', err);
                 });
 
+              infoWindows[index].open(mapRef.current, markers[index]);
+
               const saveBtn = document.querySelector('#saveBtn');
               saveBtn.addEventListener('click', () => {
-                console.log('클릭한 가게를 저장!');
+                console.log('클릭한 가게를 저장!', restaurantId);
+                axios({
+                  method: 'post',
+                  url: `${API_URL}/restaurant/${1}?restaurantId=${restaurantId}`,
+                })
+                  .then((res) => {
+                    console.log('나의 맛집 등록!', res);
+                  })
+                  .catch((err) => {
+                    console.error('나의 맛집 등록 실패ㅠㅠ', err);
+                  });
               });
             }
           };
@@ -205,14 +217,6 @@ function FoodMap() {
               }
             }
           );
-
-          // const saveBtn = document.querySelector('#saveBtn');
-          // // eslint-disable-next-line max-depth
-          // if (saveBtn) {
-          //   saveBtn.addEventListener('click', () => {
-          //     console.log('클릭한 가게를 저장!');
-          //   });
-          // }
         }
       } catch (error) {
         console.error('글로벌 검색 수행 중 오류 발생!', error);

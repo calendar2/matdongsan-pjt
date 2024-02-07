@@ -18,6 +18,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import Avatar from '@mui/material/Avatar';
 import reviewStore from '../../stores/reviewStore';
 import styles from '../../styles/reviews/ReviewRegistration.module.css';
+import content from '../../styles/foodmap/FoodMapView.module.css';
 import ReviewUpdateFriendAdd from '../modals/ReviewUpdateFriendTagModal';
 import boy0 from '../../assets/images/reviews/boy0.png';
 import boy1 from '../../assets/images/reviews/boy1.png';
@@ -80,342 +81,339 @@ function ReviewUpdate() {
   };
 
   return (
-    <div>
-      <div className={styles.wrapper}>
-        <div className={styles.container}>
-          <div>
-            <div className={styles.header}>
-              {/* 음식점목록을 반영한 autocomplete로 바꿔야함 */}
-              {restaurantID == null ? (
-                <TextField
-                  autoComplete="off"
-                  id="standard-basic"
-                  variant="standard"
-                  onChange={(e) => {
-                    가게이름수정(e.target.value);
-                    console.log('가게이름 입력중입니다');
-                  }}
-                  defaultValue={가게이름}
-                  color="success"
-                  sx={{
-                    '& .MuiOutlinedInput-root': {
-                      '&:after': {
-                        borderColor: 'black',
-                      },
-                    },
-                  }}
-                />
-              ) : (
-                <div>{가게이름}</div>
-              )}
-
-              <CloseIcon
-                onClick={() => {
-                  navigate('/main/restaurants');
+    <div className={content.hiddenSpace}>
+      <div className={styles.container}>
+        <div>
+          <div className={styles.header}>
+            {/* 음식점목록을 반영한 autocomplete로 바꿔야함 */}
+            {restaurantID == null ? (
+              <TextField
+                autoComplete="off"
+                id="standard-basic"
+                variant="standard"
+                onChange={(e) => {
+                  가게이름수정(e.target.value);
+                  console.log('가게이름 입력중입니다');
                 }}
+                defaultValue={가게이름}
+                color="success"
                 sx={{
-                  position: 'absolute',
-                  right: '1vw',
-                  top: '2vh',
-                  width: '18px',
-                  '&:hover': {
-                    cursor: 'pointer',
+                  '& .MuiOutlinedInput-root': {
+                    '&:after': {
+                      borderColor: 'black',
+                    },
                   },
                 }}
               />
-            </div>
-            <hr />
-            <div className={styles.rating}>
-              {/* <div>
-              <img src={employee} alt="" width={50} />
-            </div> */}
-              <div>
-                <Typography
-                  component="legend"
-                  sx={{ color: 'rgba(55,55,55,0.7)' }}
-                >
-                  친절
-                </Typography>
-                <Rating
-                  name="simple-controlled"
-                  value={친절도}
-                  onChange={(event, newValue) => {
-                    친절도수정(Number(newValue));
-                    console.log('친절도 선택되었습니다!');
-                    console.log(친절도);
-                  }}
-                  sx={{ color: 'rgba(29, 177, 119, 0.7)' }}
-                />
-                {/* 슬라이더로 채용할지 고민해보자 */}
-                {/* <Slider
-                defaultValue={50}
-                aria-label="Default"
-                valueLabelDisplay="auto"
+            ) : (
+              <div>{가게이름}</div>
+            )}
+
+            <CloseIcon
+              onClick={() => {
+                navigate('/main/restaurants');
+              }}
+              sx={{
+                position: 'absolute',
+                right: '1vw',
+                top: '2vh',
+                width: '18px',
+                '&:hover': {
+                  cursor: 'pointer',
+                },
+              }}
+            />
+          </div>
+          <hr />
+          <div className={styles.rating}>
+            {/* <div>
+            <img src={employee} alt="" width={50} />
+          </div> */}
+            <div>
+              <Typography
+                component="legend"
+                sx={{ color: 'rgba(55,55,55,0.7)' }}
+              >
+                친절
+              </Typography>
+              <Rating
+                name="simple-controlled"
+                value={친절도}
                 onChange={(event, newValue) => {
                   친절도수정(Number(newValue));
                   console.log('친절도 선택되었습니다!');
                   console.log(친절도);
                 }}
-                style={{ width: '200px' }}
-                color="success"
-              /> */}
-              </div>
-            </div>
-            <div className={styles.rating}>
-              {/* <img src={tongue} alt="" width={50} /> */}
-              <div>
-                <Typography
-                  component="legend"
-                  sx={{ color: 'rgba(55,55,55,0.7)' }}
-                >
-                  맛
-                </Typography>
-                <Rating
-                  name="simple-controlled"
-                  value={맛}
-                  onChange={(event, newValue) => {
-                    맛수정(Number(newValue));
-                    console.log('맛 선택되었습니다!');
-                    console.log(맛);
-                  }}
-                  sx={{ color: 'rgba(29, 177, 119, 0.7)' }}
-                />
-              </div>
-            </div>
-            <hr />
-            <div>
-              <IconButton
-                onClick={() => {
-                  console.log('사진 추가 버튼을 클릭했음!');
-                }}
-              >
-                <AddPhotoAlternateIcon />
-              </IconButton>
-            </div>
-            <TextField
-              id="outlined-multiline-static"
-              label=""
-              multiline
-              rows={20}
-              fullWidth
-              value={내용}
-              className={styles.textFieldStyle}
-              placeholder="당신의 이야기를 남기세요...."
-              onChange={(e) => {
-                내용수정(e.target.value);
-                console.log(내용);
-                console.log('내용 수정 했습니다!');
+                sx={{ color: 'rgba(29, 177, 119, 0.7)' }}
+              />
+              {/* 슬라이더로 채용할지 고민해보자 */}
+              {/* <Slider
+              defaultValue={50}
+              aria-label="Default"
+              valueLabelDisplay="auto"
+              onChange={(event, newValue) => {
+                친절도수정(Number(newValue));
+                console.log('친절도 선택되었습니다!');
+                console.log(친절도);
               }}
+              style={{ width: '200px' }}
+              color="success"
+            /> */}
+            </div>
+          </div>
+          <div className={styles.rating}>
+            {/* <img src={tongue} alt="" width={50} /> */}
+            <div>
+              <Typography
+                component="legend"
+                sx={{ color: 'rgba(55,55,55,0.7)' }}
+              >
+                맛
+              </Typography>
+              <Rating
+                name="simple-controlled"
+                value={맛}
+                onChange={(event, newValue) => {
+                  맛수정(Number(newValue));
+                  console.log('맛 선택되었습니다!');
+                  console.log(맛);
+                }}
+                sx={{ color: 'rgba(29, 177, 119, 0.7)' }}
+              />
+            </div>
+          </div>
+          <hr />
+          <div>
+            <IconButton
+              onClick={() => {
+                console.log('사진 추가 버튼을 클릭했음!');
+              }}
+            >
+              <AddPhotoAlternateIcon />
+            </IconButton>
+          </div>
+          <TextField
+            id="outlined-multiline-static"
+            label=""
+            multiline
+            rows={20}
+            fullWidth
+            value={내용}
+            className={styles.textFieldStyle}
+            placeholder="당신의 이야기를 남기세요...."
+            onChange={(e) => {
+              내용수정(e.target.value);
+              console.log(내용);
+              console.log('내용 수정 했습니다!');
+            }}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '&.Mui-focused fieldset': {
+                  borderColor: 'rgba(29, 177, 119, 0.5)',
+                }, // 텍스트필드 색상 바꾸는 CSS
+              },
+              '& input::placeholder': {
+                textAlign: 'center',
+                marginRight: '30px',
+              },
+            }}
+          />
+          <hr />
+          <Typography
+            component="legend"
+            sx={{ color: 'rgba(55,55,55,0.7)' }}
+          >
+            같이 방문한 친구
+          </Typography>
+          <div className={styles.friend}>
+            <Autocomplete
+              multiple
+              id="tags-outlined"
+              options={전체친구}
+              getOptionLabel={(option) => option.title}
+              size="small"
+              filterSelectedOptions
+              onChange={handleAutocompleteChange}
               sx={{
+                width: 300,
                 '& .MuiOutlinedInput-root': {
-                  '&.Mui-focused fieldset': {
-                    borderColor: 'rgba(29, 177, 119, 0.5)',
-                  }, // 텍스트필드 색상 바꾸는 CSS
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'rgba(29, 177, 119, 0.5)', // 클릭되었을 때 테두리 색상
+                  },
                 },
-                '& input::placeholder': {
-                  textAlign: 'center',
-                  marginRight: '30px',
+                '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
+                  color: 'rgba(29, 177, 119, 0.5)', // 텍스트가 상단으로 이동할 때의 색상
                 },
               }}
+              renderInput={(params) => (
+                <TextField
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...params}
+                  label="검색"
+                  placeholder=""
+                  sx={{
+                    textAlign: 'center',
+                    display: 'block',
+                  }}
+                />
+              )}
             />
-            <hr />
-            <Typography
-              component="legend"
-              sx={{ color: 'rgba(55,55,55,0.7)' }}
-            >
-              같이 방문한 친구
-            </Typography>
-            <div className={styles.friend}>
-              <Autocomplete
-                multiple
-                id="tags-outlined"
-                options={전체친구}
-                getOptionLabel={(option) => option.title}
-                size="small"
-                filterSelectedOptions
-                onChange={handleAutocompleteChange}
-                sx={{
-                  width: 300,
-                  '& .MuiOutlinedInput-root': {
-                    '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                      {
-                        borderColor: 'rgba(29, 177, 119, 0.5)', // 클릭되었을 때 테두리 색상
-                      },
-                  },
-                  '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
-                    color: 'rgba(29, 177, 119, 0.5)', // 텍스트가 상단으로 이동할 때의 색상
-                  },
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    // eslint-disable-next-line react/jsx-props-no-spreading
-                    {...params}
-                    label="검색"
-                    placeholder=""
-                    sx={{
-                      textAlign: 'center',
-                      display: 'block',
-                    }}
-                  />
-                )}
-              />
-              <Button
-                type="button"
-                variant="contained"
-                size="small"
-                sx={{ width: '100px' }}
-                onClick={() => {
-                  클릭버튼수정(!클릭버튼);
-                }}
-                style={{
-                  backgroundColor: 'rgba(29, 177, 119, 0.7)', // 버튼의 배경색을 1db177로 설정
-                  color: '#ffffff', // 버튼의 글자색을 흰색으로 설정
-                  fontSize: '0.5rem', // 버튼의 글자 크기를 조절
-                  borderRadius: '5px',
-                  marginLeft: '30px',
-                  maxHeight: '30px',
-                }}
-              >
-                계정없는친구
-              </Button>
-            </div>
-            <div>
-              {같이간친구?.map((x, i) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <div className={styles.content} key={i}>
-                  <Avatar
-                    alt="Remy Sharp"
-                    src={icons[i]}
-                    sx={{
-                      backgroundColor: 'rgba(29, 177, 119, 0.3)',
-                    }}
-                  />
-                  <p className={styles.item}>{x}</p>
-                  <hr />
-                </div>
-              ))}
-            </div>
-            {클릭버튼 ? (
-              <ReviewUpdateFriendAdd
-                임의친구이름={임의친구이름}
-                임의친구이름수정={임의친구이름수정}
-                임의친구생년={임의친구생년}
-                임의친구생년수정={임의친구생년수정}
-                임의친구들={임의친구들}
-                임의친구들수정={임의친구들수정}
-                클릭버튼={클릭버튼}
-                클릭버튼수정={클릭버튼수정}
-              />
-            ) : null}
-            <hr />
-            <Typography
-              component="legend"
-              sx={{ color: 'rgba(55,55,55,0.7)' }}
-            >
-              계정 없는 친구 태그
-            </Typography>
-
-            <div className={styles.tag}>
-              {임의친구들?.map((x, i) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <div key={i}>
-                  <span className={styles.item}>{x.name}</span>
-                  <span>/</span>
-                  <span>{x.birthYear}</span>
-                  <IconButton
-                    onClick={() => {
-                      const 수정된임의친구들 = 임의친구들?.filter(
-                        (y) => y.name !== x.name
-                      );
-                      임의친구들수정(수정된임의친구들);
-                    }}
-                  >
-                    <ClearIcon />
-                  </IconButton>
-                </div>
-              ))}
-            </div>
-            <hr />
-            <Typography
-              component="legend"
-              sx={{ color: 'rgba(55,55,55,0.7)' }}
-            >
-              방문한 날짜
-            </Typography>
-            <div className={styles.date}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={['DatePicker']}>
-                  <DatePicker
-                    size="small"
-                    label="방문 날짜"
-                    value={방문날짜}
-                    maxDate={dayjs(dayjs().format('YYYY-MM-DD'))}
-                    onChange={(newValue) => {
-                      방문날짜수정(newValue);
-                      console.log('방문 날짜 변경됨!', 방문날짜.$d);
-                    }}
-                    sx={{
-                      margin: '10px',
-                      '& .MuiOutlinedInput-root': {
-                        '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                          {
-                            borderColor: 'rgba(29, 177, 119, 0.5)', // 클릭되었을 때 테두리 색상
-                          },
-                      },
-                      '& .MuiInputLabel-outlined.MuiInputLabel-shrink':
-                        {
-                          color: 'rgba(29, 177, 119, 0.5)', // 텍스트가 상단으로 이동할 때의 색상
-                        },
-                      '& .MuiButtonBase-root-MuiPickersDay-root': {
-                        backgroundColor: 'green', // 선택된 날짜의 동그라미 색상
-                        color: 'white', // 선택된 날짜의 텍스트 색상
-                      },
-                    }}
-                  />
-                </DemoContainer>
-              </LocalizationProvider>
-            </div>
-            <hr />
             <Button
               type="button"
               variant="contained"
-              size="large"
+              size="small"
               sx={{ width: '100px' }}
               onClick={() => {
-                const requestData = {
-                  kindnessRating: 친절도,
-                  tasteRating: 맛,
-                  content: 내용,
-                  visitDate: `${방문날짜.$y}-${방문날짜.$M + 1 >= 10 ? 방문날짜.$M + 1 : `0${방문날짜.$M + 1}`}-${방문날짜.$D >= 10 ? 방문날짜.$D : `0${방문날짜.$D}`}`,
-                  restaurantId: 1, // 아직 음식점 등록 API 구현이 안돼있어서 1번 음식점의 리뷰만 작성
-                  accountReviews: [], // 아직 팔로워 API 구현이 안돼있어서 빈 목록으로 전송해야함
-                  reviewPersonTags: 임의친구들,
-                };
-                setUpdate(!update);
-                navigate(`/main/restaurants/${restaurantID}`);
-                const url = `${API_URL}/review/1/${reviewID}`; // 아직 유저 API 구현이 안돼있어서 1번 유저의 리뷰로만 작성/1번 리뷰 수정
-                axios // 여기서 put 요청으로 수정해야함
-                  .put(url, requestData)
-                  .then((response) => {
-                    console.log('요청 성공:', response.data);
-                    // 성공 시 필요한 작업 수행
-                  })
-                  .catch((error) => {
-                    console.error('요청 실패:', error);
-                    // 실패 시 에러 처리
-                  });
+                클릭버튼수정(!클릭버튼);
               }}
               style={{
                 backgroundColor: 'rgba(29, 177, 119, 0.7)', // 버튼의 배경색을 1db177로 설정
                 color: '#ffffff', // 버튼의 글자색을 흰색으로 설정
-                fontSize: '1rem', // 버튼의 글자 크기를 조절
-                padding: '5px 30px', // 버튼의 내부 여백을 조절
-                borderRadius: '20px',
+                fontSize: '0.5rem', // 버튼의 글자 크기를 조절
+                borderRadius: '5px',
+                marginLeft: '30px',
+                maxHeight: '30px',
               }}
             >
-              저장
+              계정없는친구
             </Button>
           </div>
+          <div>
+            {같이간친구?.map((x, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <div className={styles.content} key={i}>
+                <Avatar
+                  alt="Remy Sharp"
+                  src={icons[i]}
+                  sx={{
+                    backgroundColor: 'rgba(29, 177, 119, 0.3)',
+                  }}
+                />
+                <p className={styles.item}>{x}</p>
+                <hr />
+              </div>
+            ))}
+          </div>
+          {클릭버튼 ? (
+            <ReviewUpdateFriendAdd
+              임의친구이름={임의친구이름}
+              임의친구이름수정={임의친구이름수정}
+              임의친구생년={임의친구생년}
+              임의친구생년수정={임의친구생년수정}
+              임의친구들={임의친구들}
+              임의친구들수정={임의친구들수정}
+              클릭버튼={클릭버튼}
+              클릭버튼수정={클릭버튼수정}
+            />
+          ) : null}
+          <hr />
+          <Typography
+            component="legend"
+            sx={{ color: 'rgba(55,55,55,0.7)' }}
+          >
+            계정 없는 친구 태그
+          </Typography>
+
+          <div className={styles.tag}>
+            {임의친구들?.map((x, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <div key={i}>
+                <span className={styles.item}>{x.name}</span>
+                <span>/</span>
+                <span>{x.birthYear}</span>
+                <IconButton
+                  onClick={() => {
+                    const 수정된임의친구들 = 임의친구들?.filter(
+                      (y) => y.name !== x.name
+                    );
+                    임의친구들수정(수정된임의친구들);
+                  }}
+                >
+                  <ClearIcon />
+                </IconButton>
+              </div>
+            ))}
+          </div>
+          <hr />
+          <Typography
+            component="legend"
+            sx={{ color: 'rgba(55,55,55,0.7)' }}
+          >
+            방문한 날짜
+          </Typography>
+          <div className={styles.date}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={['DatePicker']}>
+                <DatePicker
+                  size="small"
+                  label="방문 날짜"
+                  value={방문날짜}
+                  maxDate={dayjs(dayjs().format('YYYY-MM-DD'))}
+                  onChange={(newValue) => {
+                    방문날짜수정(newValue);
+                    console.log('방문 날짜 변경됨!', 방문날짜.$d);
+                  }}
+                  sx={{
+                    margin: '10px',
+                    '& .MuiOutlinedInput-root': {
+                      '&.Mui-focused .MuiOutlinedInput-notchedOutline':
+                        {
+                          borderColor: 'rgba(29, 177, 119, 0.5)', // 클릭되었을 때 테두리 색상
+                        },
+                    },
+                    '& .MuiInputLabel-outlined.MuiInputLabel-shrink':
+                      {
+                        color: 'rgba(29, 177, 119, 0.5)', // 텍스트가 상단으로 이동할 때의 색상
+                      },
+                    '& .MuiButtonBase-root-MuiPickersDay-root': {
+                      backgroundColor: 'green', // 선택된 날짜의 동그라미 색상
+                      color: 'white', // 선택된 날짜의 텍스트 색상
+                    },
+                  }}
+                />
+              </DemoContainer>
+            </LocalizationProvider>
+          </div>
+          <hr />
+          <Button
+            type="button"
+            variant="contained"
+            size="large"
+            sx={{ width: '100px' }}
+            onClick={() => {
+              const requestData = {
+                kindnessRating: 친절도,
+                tasteRating: 맛,
+                content: 내용,
+                visitDate: `${방문날짜.$y}-${방문날짜.$M + 1 >= 10 ? 방문날짜.$M + 1 : `0${방문날짜.$M + 1}`}-${방문날짜.$D >= 10 ? 방문날짜.$D : `0${방문날짜.$D}`}`,
+                restaurantId: 1, // 아직 음식점 등록 API 구현이 안돼있어서 1번 음식점의 리뷰만 작성
+                accountReviews: [], // 아직 팔로워 API 구현이 안돼있어서 빈 목록으로 전송해야함
+                reviewPersonTags: 임의친구들,
+              };
+              setUpdate(!update);
+              navigate(`/main/restaurants/${restaurantID}`);
+              const url = `${API_URL}/review/1/${reviewID}`; // 아직 유저 API 구현이 안돼있어서 1번 유저의 리뷰로만 작성/1번 리뷰 수정
+              axios // 여기서 put 요청으로 수정해야함
+                .put(url, requestData)
+                .then((response) => {
+                  console.log('요청 성공:', response.data);
+                  // 성공 시 필요한 작업 수행
+                })
+                .catch((error) => {
+                  console.error('요청 실패:', error);
+                  // 실패 시 에러 처리
+                });
+            }}
+            style={{
+              backgroundColor: 'rgba(29, 177, 119, 0.7)', // 버튼의 배경색을 1db177로 설정
+              color: '#ffffff', // 버튼의 글자색을 흰색으로 설정
+              fontSize: '1rem', // 버튼의 글자 크기를 조절
+              padding: '5px 30px', // 버튼의 내부 여백을 조절
+              borderRadius: '20px',
+            }}
+          >
+            저장
+          </Button>
         </div>
       </div>
     </div>

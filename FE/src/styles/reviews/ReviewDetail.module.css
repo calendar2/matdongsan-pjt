@@ -1,49 +1,19 @@
-@charset "UTF-8";
-.wrapper {
-  position: absolute;
-  z-index: 1;
-  height: calc(100vh - 138.58px);
-  border-radius: 5px;
-  width: 25vw;
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 음영 추가 */
-  overflow-y: auto;
-  overflow-x: hidden;
-  text-align: center;
-}
-.wrapper .container {
+.container {
   padding: 30px;
 }
-.wrapper .container .content {
+.container .content {
   margin: auto;
 }
-.wrapper .container .asideContent {
+.container .asideContent {
   display: flex;
   align-items: center;
   margin: 5px;
   border-bottom: 1px #bfbfbf solid;
 }
-.wrapper .container .asideContent .asideItem {
+.container .asideContent .asideItem {
   margin-left: 10px;
 }
-.wrapper .container .footer {
+.container .footer {
   display: flex;
   justify-content: center;
-}
-.wrapper::-webkit-scrollbar {
-  width: 10px;
-}
-.wrapper::-webkit-scrollbar-thumb {
-  background-color: rgba(29, 177, 119, 0.3);
-  border-radius: 10px;
-  background-clip: padding-box;
-  border: 3px solid transparent;
-}
-.wrapper::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(29, 177, 119, 0.5);
-}
-.wrapper::-webkit-scrollbar-track {
-  background-color: rgba(220, 220, 220, 0.7);
-  border-radius: 10px;
-  /* box-shadow: inset 0px 0px 5px white; */
 }/*# sourceMappingURL=ReviewDetail.module.css.map */
