@@ -68,4 +68,18 @@ public class AccountService {
         }
         return ret;
     }
+
+    public List<AccountSearchResponseDto> searchNickname(String query) {
+        List<Account> accounts = accountRepository.findAllByNickname(query);
+
+        return accounts.stream().map(
+                account -> new AccountSearchResponseDto(
+                        account.getId(),
+                        account.getNickname(),
+                        account.getPicture(),
+                        account.getFollower()
+                )
+        ).toList();
+
+    }
 }

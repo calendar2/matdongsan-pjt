@@ -71,9 +71,18 @@ public class AccountController {
         accountService.savePersonTag(dto, email);
     }
 
+
     @GetMapping("/rank")
     public ResponseEntity<?> getAccountsTop10() {
         List<AccountSimpleResponseDto> dtos = accountService.getAccountsTop10();
+        return ResponseEntity.ok().body(dtos);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchNickname(
+            @RequestParam("query") String query
+    ){
+        List<AccountSearchResponseDto> dtos = accountService.searchNickname(query);
         return ResponseEntity.ok().body(dtos);
     }
 }

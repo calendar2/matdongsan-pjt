@@ -15,4 +15,7 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     @Query("SELECT a FROM Account a ORDER BY a.follower DESC")
     List<Account> findAllOrderByFollower();
+
+    @Query("SELECT a FROM Account a WHERE a.nickname LIKE %:query% ")
+    List<Account> findAllByNickname(String query);
 }
