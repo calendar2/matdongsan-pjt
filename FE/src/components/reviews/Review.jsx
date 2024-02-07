@@ -1,6 +1,6 @@
 import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom'; 가게 선택 안하고 기록하기 버튼 막아놓음
 import styles from '../../styles/reviews/Review.module.css';
 import ReviewsList from './ReviewList';
 import ReviewsSearch from './ReviewSearch';
@@ -8,7 +8,7 @@ import ReviewsSearch from './ReviewSearch';
 // import Random from './Random'; // 랜덤 사진 API 호출
 
 function Reviews() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); 가게 선택 안하고 기록하기 버튼 막아놓음
   return (
     <div className={styles.wrapper}>
       {/* <Region /> 테스트용 컴포넌트 출력입니다 */}
@@ -20,7 +20,7 @@ function Reviews() {
           type="button"
           variant="contained"
           onClick={() => {
-            navigate('write');
+            // navigate('write'); //가게 선택 안하고 기록하기 버튼 막아놓음
           }}
           style={{
             backgroundColor: 'rgba(29, 177, 119, 0.7)', // 버튼의 배경색을 1db177로 설정

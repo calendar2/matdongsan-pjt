@@ -3,15 +3,15 @@
   bottom: 3rem;
   right: 3rem;
   z-index: 2;
-  border: 2px solid #1DB177;
+  border: 2px solid #1db177;
   border-radius: 15px;
   background-color: white;
   opacity: 0.7;
   height: 15rem;
 }
 .box .line {
-  background: #1DB177;
-  height: 2px;
+  background: #1db177;
+  height: 0.3px;
   border: 0;
 }
 .box .title {
@@ -21,10 +21,10 @@
   align-items: center;
 }
 .box .title span {
-  color: #1DB177;
+  color: #1db177;
 }
 .box .title button {
-  background-color: #1DB177;
+  background-color: #1db177;
   color: white;
   border: 0;
   border-radius: 20px;
@@ -33,27 +33,47 @@
 .box .title button:hover {
   cursor: pointer;
 }
-.box .profile {
+.box .content {
+  height: 11rem;
+  overflow-y: auto;
+}
+.box .content::-webkit-scrollbar {
+  width: 10px;
+}
+.box .content::-webkit-scrollbar-thumb {
+  background-color: rgba(29, 177, 119, 0.3);
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 3px solid transparent;
+}
+.box .content::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(29, 177, 119, 0.5);
+}
+.box .content::-webkit-scrollbar-track {
+  background-color: rgba(220, 220, 220, 0.7);
+  border-radius: 10px;
+}
+.box .content .profile {
   margin: 0.5rem;
   display: flex;
   align-items: center;
 }
-.box .profile .avatar {
+.box .content .profile .avatar {
   margin-left: 0.6rem;
   margin-right: 0.3rem;
 }
-.box .profile .colorCheck {
+.box .content .profile .colorCheck {
   width: 12px;
   height: 12px;
   background-color: red;
   border-radius: 12px;
 }
-.box .profile .cancel {
+.box .content .profile .cancel {
   margin-left: 1rem;
 }
-.box .profile .cancel:hover {
+.box .content .profile .cancel:hover {
   cursor: pointer;
 }
-.box .profile span {
+.box .content .profile span {
   margin: 0 0.3rem;
 }/*# sourceMappingURL=DongsanModal.module.css.map */

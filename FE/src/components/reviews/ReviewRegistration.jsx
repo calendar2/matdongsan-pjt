@@ -32,7 +32,7 @@ import girl2 from '../../assets/images/reviews/girl2.png';
 
 function ReviewRegistration() {
   const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
-  const [가게이름, 가게이름수정] = useState('');
+  // const [가게이름, 가게이름수정] = useState('');
   const [친절도, 친절도수정] = useState(0);
   const [맛, 맛수정] = useState(0);
   // const [사진, 사진수정] = useState('');
@@ -76,7 +76,10 @@ function ReviewRegistration() {
   const filteredShop = restaurantStore.find(
     (x) => x.id === Number(restaurantID)
   );
-
+  const restaurants = restaurantStore.map((x) => ({
+    label: x.가게이름,
+  }));
+  const [selectedRestaurant, setSelectedRestaurant] = useState('');
   return (
     <div>
       <div className={styles.wrapper}>
@@ -85,23 +88,34 @@ function ReviewRegistration() {
             <div className={styles.header}>
               {/* 음식점목록을 반영한 autocomplete로 바꿔야함 */}
               {restaurantID == null ? (
-                <TextField
-                  autoComplete="off"
-                  id="standard-basic"
-                  variant="standard"
-                  onChange={(e) => {
-                    가게이름수정(e.target.value);
-                    console.log('가게이름 입력중입니다');
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  // options={businessTypesCategory}
+                  options={restaurants.map((option) => option.label)}
+                  onChange={(e, name) => {
+                    setSelectedRestaurant(name);
+                    console.log(selectedRestaurant);
+                    console.log('업종선택되었습니다');
                   }}
-                  defaultValue={가게이름}
-                  color="success"
                   sx={{
+                    width: 300,
+                    height: 50,
                     '& .MuiOutlinedInput-root': {
-                      '&:after': {
-                        borderColor: 'black',
-                      },
+                      '&.Mui-focused .MuiOutlinedInput-notchedOutline':
+                        {
+                          borderColor: 'rgba(29, 177, 119, 0.5)', // 클릭되었을 때 테두리 색상
+                        },
                     },
+                    '& .MuiInputLabel-outlined.MuiInputLabel-shrink':
+                      {
+                        color: 'rgba(29, 177, 119, 0.5)', // 텍스트가 상단으로 이동할 때의 색상
+                      },
                   }}
+                  renderInput={(params) => (
+                    // eslint-disable-next-line react/jsx-props-no-spreading
+                    <TextField {...params} label="가게이름" />
+                  )}
                 />
               ) : (
                 <div>{filteredShop?.가게이름}</div>

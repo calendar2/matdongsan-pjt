@@ -33,7 +33,7 @@ function SideBar() {
                 <img
                   src={MyDongsanIconOn}
                   alt="My동산 아이콘"
-                  width={30}
+                  width={35}
                 />
                 <div
                   style={{
@@ -57,7 +57,7 @@ function SideBar() {
                     <img
                       src={FollowerIconOff}
                       alt="My동산 아이콘"
-                      width={30}
+                      width={35}
                     />
                     <div style={{ color: '#555558' }}>팔로워</div>
                   </div>
@@ -80,7 +80,7 @@ function SideBar() {
                 <img
                   src={MyDongsanIconOff}
                   alt="My동산 아이콘"
-                  width={30}
+                  width={35}
                 />
                 <div style={{ color: '#555558' }}>My동산</div>
               </Link>
@@ -98,7 +98,7 @@ function SideBar() {
                     <img
                       src={FollowerIconOn}
                       alt="My동산 아이콘"
-                      width={30}
+                      width={35}
                     />
                     <div
                       style={{

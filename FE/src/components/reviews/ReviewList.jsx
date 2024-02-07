@@ -21,7 +21,7 @@ import reviewStore from '../../stores/reviewStore';
 import styles from '../../styles/reviews/ReviewList.module.css';
 import ReviewsListSubItems from './ReviewListSubItems';
 import stewImg from '../../assets/images/reviews/stewImg.jpg';
-import useGetRegion from '../../hooks/useGetRegion';
+// import useGetRegion from '../../hooks/useGetRegion';
 
 function ReviewsList() {
   // 음식점 ID를 인자로 입력하면 해당 음식점으로 스크롤 이동한다
@@ -40,15 +40,17 @@ function ReviewsList() {
     remove,
     registration,
   } = reviewStore();
-  const regions = useGetRegion();
+  // const regions = useGetRegion();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [restaurantData, reviewData] = await Promise.all([
-          axios.get(`${API_URL}/restaurant/1`), // 1에 유저 id가 들어가야함
-          axios.get(`${API_URL}/review/1`), // 1에 유저 id가 들어가야함
-        ]);
+        const [restaurantData, reviewData, regions] =
+          await Promise.all([
+            axios.get(`${API_URL}/restaurant/1`), // 1에 유저 id가 들어가야함
+            axios.get(`${API_URL}/review/1`), // 1에 유저 id가 들어가야함
+            axios.get(`${API_URL}/region`),
+          ]);
 
         const restaurantList = restaurantData.data.map(
           (restaurant) => {
@@ -137,7 +139,7 @@ function ReviewsList() {
 
     fetchData();
     console.log('리뷰 목록 마운트 됨!');
-  }, [update, remove, registration]);
+  }, [registration, remove, update]);
 
   const {
     restaurantStore,
