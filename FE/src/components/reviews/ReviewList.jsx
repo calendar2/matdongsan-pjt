@@ -41,7 +41,7 @@ function ReviewsList() {
   } = reviewStore();
 
   const { API_URL } = urlStore();
-
+  console.log('디버그임');
   useEffect(() => {
     const fetchData = async () => {
       try {
