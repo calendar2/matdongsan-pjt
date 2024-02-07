@@ -7,11 +7,8 @@ import com.ssafy.matdongsan.domain.review.model.Review;
 import jakarta.persistence.*;
 import lombok.*;
 
-import org.springframework.context.annotation.Lazy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +43,13 @@ public class Restaurant extends BaseEntity {
 
     @Column(length = 16)
     private String phone;
+
+    @Column(length = 255)
+    private String thum_url;
+
+    @Column(columnDefinition = "TEXT")
+    private String menu_info;
+
 
     @OneToMany(mappedBy = "restaurant")
     private List<Review> reviews = new ArrayList<>();

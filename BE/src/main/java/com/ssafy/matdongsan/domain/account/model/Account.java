@@ -110,12 +110,14 @@ public class Account extends BaseEntity {
     )
     private List<Restaurant> restaurants = new ArrayList<>();
 
+
     public void modify(AccountModifyRequestDto dto) {
             username = dto.getUsername();
             nickname = dto.getNickname();
             birthYear = dto.getBirthYear();
             spicyLevel = dto.getSpicyLevel();
     }
+
 
     public void updateRestaurant(List<Restaurant> restaurants) {
         this.restaurants = restaurants;
@@ -128,5 +130,6 @@ public class Account extends BaseEntity {
     public void decreaseFollower() {
         follower--;
     }
+
 
 }

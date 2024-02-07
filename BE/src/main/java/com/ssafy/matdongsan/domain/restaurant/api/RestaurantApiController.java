@@ -1,10 +1,7 @@
 package com.ssafy.matdongsan.domain.restaurant.api;
 
 
-import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantFindAllAccountResponseDto;
-import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantFindOneResponseDto;
-import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantSaveRequestDto;
-import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantFindAllResponseDto;
+import com.ssafy.matdongsan.domain.restaurant.dto.*;
 import com.ssafy.matdongsan.domain.restaurant.service.RestaurantService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +20,8 @@ public class RestaurantApiController {
 
     @PostMapping("/restaurant/common")
     public ResponseEntity<?> createCommonRestaurant(@RequestBody @Valid RestaurantSaveRequestDto requestDto){
-        restaurantService.save(requestDto);
-        return ResponseEntity.ok(HttpStatus.OK);
+        RestaurantSaveResponseDto restaurantResponse= restaurantService.save(requestDto);
+        return ResponseEntity.ok().body(restaurantResponse);
     }
 
     @GetMapping("/restaurant/common")

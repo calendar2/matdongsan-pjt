@@ -2,16 +2,12 @@ package com.ssafy.matdongsan.domain.restaurant.service;
 
 import com.ssafy.matdongsan.domain.account.model.Account;
 import com.ssafy.matdongsan.domain.account.repository.AccountRepository;
-import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantFindAllAccountResponseDto;
-import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantFindAllResponseDto;
-import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantFindOneResponseDto;
-import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantSaveRequestDto;
+import com.ssafy.matdongsan.domain.restaurant.dto.*;
 import com.ssafy.matdongsan.domain.restaurant.model.Region;
 import com.ssafy.matdongsan.domain.restaurant.model.Restaurant;
 import com.ssafy.matdongsan.domain.restaurant.repository.RegionRepository;
 import com.ssafy.matdongsan.domain.restaurant.repository.RestaurantRepository;
 
-import com.ssafy.matdongsan.domain.review.model.Review;
 import com.ssafy.matdongsan.domain.review.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,11 +37,14 @@ public class RestaurantService {
 
 
     @Transactional
-    public void save(RestaurantSaveRequestDto requestDto) {
+    public RestaurantSaveResponseDto save(RestaurantSaveRequestDto requestDto) {
 
-        Optional<Restaurant> restaurants =  restaurantRepository.findByName(requestDto.getName());
+        Optional<List<Restaurant>> restaurants =  restaurantRepository.findByNameAndMapxAndMapy(requestDto.getName(),requestDto.getMapx(),requestDto.getMapy());
         //음식점이 이미 등록 되어 있는 경우
-        if(restaurants.isPresent()) return;
+        if(!restaurants.get().isEmpty()) {
+            //여러개면 첫Id -> DB중복 삭제 필요
+            return new RestaurantSaveResponseDto(restaurants.get().get(0).getId());
+        }
 
         //좌표 Int -> 소수로 변환
         String coords = String.format("%.7f",requestDto.getMapx() * 0.0000001) +","+  String.format("%.7f",requestDto.getMapy() * 0.0000001);
@@ -112,8 +111,9 @@ public class RestaurantService {
 
 
         Restaurant restaurant = requestDto.toEntity(region);
-        restaurantRepository.save(restaurant);
+        Restaurant saved = restaurantRepository.save(restaurant);
 
+        return new RestaurantSaveResponseDto(saved.getId());
     }
 
 
