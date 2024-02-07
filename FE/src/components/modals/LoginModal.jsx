@@ -24,13 +24,13 @@ function LoginModal() {
 
   const handleClose = () => setLoginModalOpen(false);
   // 카카오 로그인(테스트)
-  const REST_API_KEY = process.env.REACT_APP_KAKAO_API_KEY;
-  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  // const REST_API_KEY = process.env.REACT_APP_KAKAO_API_KEY;
+  // const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
+  // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   // 이게 원래꺼
-  // const frontendUrl = `${window.location.protocol}//${window.location.host}`;
-  // const KAKAO_AUTH_URL = `https://i10a209.p.ssafy.io:4000/auth/authorize/kakao?redirect_url=${frontendUrl}`;
+  const frontendUrl = `${window.location.protocol}//${window.location.host}`;
+  const KAKAO_AUTH_URL = `https://i10a209.p.ssafy.io:4000/auth/authorize/kakao?redirect_url=${frontendUrl}`;
 
   const loginHandler = () => {
     window.location.href = KAKAO_AUTH_URL;
