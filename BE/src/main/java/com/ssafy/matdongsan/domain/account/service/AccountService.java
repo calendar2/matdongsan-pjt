@@ -1,9 +1,6 @@
 package com.ssafy.matdongsan.domain.account.service;
 
-import com.ssafy.matdongsan.domain.account.dto.AccountModifyRequestDto;
-import com.ssafy.matdongsan.domain.account.dto.AccountSaveRequestDto;
-import com.ssafy.matdongsan.domain.account.dto.AccountSimpleResponseDto;
-import com.ssafy.matdongsan.domain.account.dto.PersonTagSaveRequestDto;
+import com.ssafy.matdongsan.domain.account.dto.*;
 import com.ssafy.matdongsan.domain.account.model.Account;
 import com.ssafy.matdongsan.domain.account.model.PersonTag;
 import com.ssafy.matdongsan.domain.account.repository.AccountRepository;
@@ -26,10 +23,22 @@ public class AccountService {
         personTagRepository.save(dto.toEntity(account));
     }
 
-    public void modifyAccount(AccountModifyRequestDto dto, String email) {
+    public Account modifyAccount(AccountModifyRequestDto dto, String email) {
         Account account = accountRepository.findByEmail(email);
         account.modify(dto);
-        accountRepository.save(account);
+        return accountRepository.save(account);
+    }
+
+    public Account modifyAccount(AccountModifyStep1RequestDto dto, String email) {
+        Account account = accountRepository.findByEmail(email);
+        account.modify(dto);
+        return accountRepository.save(account);
+    }
+
+    public Account modifyAccount(AccountModifyStep2RequestDto dto, String email) {
+        Account account = accountRepository.findByEmail(email);
+        account.modify(dto);
+        return accountRepository.save(account);
     }
 
     public Account saveAccount(AccountSaveRequestDto dto) {

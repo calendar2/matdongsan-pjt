@@ -2,6 +2,8 @@ package com.ssafy.matdongsan.domain.account.model;
 
 import com.ssafy.matdongsan.domain.*;
 import com.ssafy.matdongsan.domain.account.dto.AccountModifyRequestDto;
+import com.ssafy.matdongsan.domain.account.dto.AccountModifyStep1RequestDto;
+import com.ssafy.matdongsan.domain.account.dto.AccountModifyStep2RequestDto;
 import com.ssafy.matdongsan.domain.comparison.model.Comparison;
 import com.ssafy.matdongsan.domain.food.model.Food;
 import com.ssafy.matdongsan.domain.food.model.FoodCategory;
@@ -47,7 +49,7 @@ public class Account extends BaseEntity {
     private short birthYear;
     private byte spicyLevel;
     private int follower = 0;
-
+    private char gender;
     @Lob
     private String picture;
 
@@ -112,10 +114,19 @@ public class Account extends BaseEntity {
 
 
     public void modify(AccountModifyRequestDto dto) {
-            username = dto.getUsername();
-            nickname = dto.getNickname();
-            birthYear = dto.getBirthYear();
-            spicyLevel = dto.getSpicyLevel();
+        username = dto.getUsername();
+        nickname = dto.getNickname();
+        birthYear = dto.getBirthYear();
+        spicyLevel = dto.getSpicyLevel();
+    }
+
+    public void modify(AccountModifyStep1RequestDto dto) {
+        gender = dto.getGender();
+        birthYear = dto.getBirthYear();
+    }
+
+    public void modify(AccountModifyStep2RequestDto dto) {
+        spicyLevel = dto.getSpicyLevel();
     }
 
 

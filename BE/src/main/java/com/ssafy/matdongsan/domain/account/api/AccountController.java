@@ -1,9 +1,6 @@
 package com.ssafy.matdongsan.domain.account.api;
 
-import com.ssafy.matdongsan.domain.account.dto.AccountModifyRequestDto;
-import com.ssafy.matdongsan.domain.account.dto.AccountSaveRequestDto;
-import com.ssafy.matdongsan.domain.account.dto.AccountSimpleResponseDto;
-import com.ssafy.matdongsan.domain.account.dto.PersonTagSaveRequestDto;
+import com.ssafy.matdongsan.domain.account.dto.*;
 import com.ssafy.matdongsan.domain.account.model.Account;
 import com.ssafy.matdongsan.domain.account.model.PersonTag;
 import com.ssafy.matdongsan.domain.account.service.AccountService;
@@ -30,11 +27,28 @@ public class AccountController {
         return ResponseEntity.ok().body(account);
     }
 
-    @PutMapping("/modify")
-    public void modifyAccount(@AuthenticationPrincipal String email, @RequestBody AccountModifyRequestDto dto) {
+    @PutMapping
+    public ResponseEntity<?> modifyAccount(@AuthenticationPrincipal String email, @RequestBody AccountModifyRequestDto dto) {
         log.info("email={}", email);
         log.info("dto={}", dto.toString());
-        accountService.modifyAccount(dto, email);
+        Account account = accountService.modifyAccount(dto, email);
+        return ResponseEntity.ok().body(account);
+    }
+
+    @PutMapping("/step1")
+    public ResponseEntity<?> modifyAccount(@AuthenticationPrincipal String email, @RequestBody AccountModifyStep1RequestDto dto) {
+        log.info("email={}", email);
+        log.info("dto={}", dto.toString());
+        Account account = accountService.modifyAccount(dto, email);
+        return ResponseEntity.ok().body(account);
+    }
+
+    @PutMapping("/step2")
+    public ResponseEntity<?> modifyAccount(@AuthenticationPrincipal String email, @RequestBody AccountModifyStep2RequestDto dto) {
+        log.info("email={}", email);
+        log.info("dto={}", dto.toString());
+        Account account = accountService.modifyAccount(dto, email);
+        return ResponseEntity.ok().body(account);
     }
 
     @PostMapping
