@@ -21,7 +21,6 @@ import reviewStore from '../../stores/reviewStore';
 import styles from '../../styles/reviews/ReviewList.module.css';
 import ReviewsListSubItems from './ReviewListSubItems';
 import stewImg from '../../assets/images/reviews/stewImg.jpg';
-// import useGetRegion from '../../hooks/useGetRegion';
 import urlStore from '../../stores/urlStore';
 
 function ReviewsList() {
@@ -40,7 +39,6 @@ function ReviewsList() {
     remove,
     registration,
   } = reviewStore();
-  // const regions = useGetRegion();
 
   const { API_URL } = urlStore();
 
@@ -53,7 +51,9 @@ function ReviewsList() {
             axios.get(`${API_URL}/review/1`), // 1에 유저 id가 들어가야함
             axios.get(`${API_URL}/region`),
           ]);
-
+        console.log('맛집목록 가져왔음!');
+        console.log('리뷰목록 가져왔음!');
+        console.log('지역목록 가져왔음!');
         const restaurantList = restaurantData.data.map(
           (restaurant) => {
             const filteredRegeion = regions.data.find(

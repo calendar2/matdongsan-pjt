@@ -176,7 +176,9 @@ function ReviewDetail() {
             onClick={() => {
               console.log('삭제하기 버튼이 눌렸어요!.');
               navigate(`/main/restaurants/${restaurantID}`);
-              setRemove(!remove);
+              setTimeout(() => {
+                setRemove(!remove);
+              }, 500);
               const url = `${API_URL}/review/1/${reviewID}`;
               axios
                 .delete(url)

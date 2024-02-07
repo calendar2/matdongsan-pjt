@@ -398,11 +398,13 @@ function ReviewRegistration() {
                   tasteRating: 맛,
                   content: 내용,
                   visitDate: `${방문날짜.$y}-${방문날짜.$M + 1 >= 10 ? 방문날짜.$M + 1 : `0${방문날짜.$M + 1}`}-${방문날짜.$D >= 10 ? 방문날짜.$D : `0${방문날짜.$D}`}`,
-                  restaurantId: 3, // 아직 음식점 등록 API 구현이 안돼있어서 3번 음식점의 리뷰만 작성
+                  restaurantId: Number(restaurantID), // 아직 음식점 등록 API 구현이 안돼있어서 3번 음식점의 리뷰만 작성
                   accountReviews: [], // 아직 팔로워 API 구현이 안돼있어서 빈 목록으로 전송해야함
                   reviewPersonTags: 임의친구들,
                 };
-                setRegistration(!registration);
+                setTimeout(() => {
+                  setRegistration(!registration);
+                }, 500);
                 navigate(`/main/restaurants/${restaurantID}`);
                 const url = `${API_URL}/review/1`; // 아직 유저 API 구현이 안돼있어서 1번 유저의 리뷰로만 작성
                 axios

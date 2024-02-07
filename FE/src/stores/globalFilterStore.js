@@ -20,7 +20,7 @@ const globalFilterStore = create((set) => ({
     { title: '백반/죽/국수' },
     { title: '버거' },
     { title: '분식' },
-    { title: '카페/디저트' },
+    { title: '카페/디저트' }, // 더미임
   ],
   choisedMenu: [],
   setChoisedMenu: (value) => set({ choisedMenu: value }),
