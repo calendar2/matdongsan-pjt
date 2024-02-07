@@ -223,7 +223,11 @@ function ReviewsList() {
           <ListItem
             key={restaurantStore[i].id}
             onClick={() => {
-              navigate(`${item.id}`);
+              navigate(`${item.id}`, {
+                state: {
+                  id: item.id,
+                },
+              });
             }}
             className={styles.content}
             button

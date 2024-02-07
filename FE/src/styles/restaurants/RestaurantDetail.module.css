@@ -1,1 +1,13 @@
-/*# sourceMappingURL=RestaurantDetail.module.css.map */
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.container .wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: auto;
+}
+.container .btn:hover {
+  cursor: pointer;
+}/*# sourceMappingURL=RestaurantDetail.module.css.map */

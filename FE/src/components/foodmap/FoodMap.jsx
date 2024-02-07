@@ -134,6 +134,7 @@ function FoodMap() {
             if (infoWindows[index].getMap()) {
               infoWindows[index].close();
             } else if (mapRef.current !== null) {
+              infoWindows[index].open(mapRef.current, markers[index]);
               let restaurantId = 0;
 
               axios({

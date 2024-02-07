@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import Avatar from '@mui/material/Avatar';
 import axios from 'axios';
@@ -19,7 +19,7 @@ function Header() {
   const { accessToken, setLoginModalOpen } = userStore();
   const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
   useEffect(() => {
     axios
       .get(url)
@@ -38,7 +38,8 @@ function Header() {
 
   const searchBtnClick = () => {
     navigate({
-      pathname: location.pathname,
+      // pathname: location.pathname,
+      pathname: '/main/restaurants',
       search: `?query=${searchValue}`,
     });
   };
