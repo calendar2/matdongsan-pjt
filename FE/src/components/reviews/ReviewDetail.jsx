@@ -15,10 +15,12 @@ import girl1 from '../../assets/images/reviews/girl1.png';
 import girl2 from '../../assets/images/reviews/girl2.png';
 import styles from '../../styles/reviews/ReviewDetail.module.css';
 import reviewStore from '../../stores/reviewStore';
+import urlStore from '../../stores/urlStore';
 
 function ReviewDetail() {
   const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
-  const { myReviewStore, remove, setRemove, API_URL } = reviewStore();
+  const { myReviewStore, remove, setRemove } = reviewStore();
+  const { API_URL } = urlStore();
   const navigate = useNavigate();
   const { reviewID, restaurantID } = useParams();
   const filteredReview = myReviewStore.find(

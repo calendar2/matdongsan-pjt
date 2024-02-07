@@ -1,8 +1,6 @@
 import { create } from 'zustand';
 
 const reviewStore = create((set) => ({
-  // API_URL: 'http://70.12.246.119:4000', // 로컬 개발환경
-  API_URL: 'http://i10a209.p.ssafy.io:4000', // 젠킨스 환경
   registration: false,
   setRegistration: (value) => set({ registration: value }),
   update: false,

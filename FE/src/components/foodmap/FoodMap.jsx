@@ -3,8 +3,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import useGeolocation from '../../hooks/useGeolocation';
 import checkForMarkersRendering from '../../util/checkForMarkersRendering';
-import globalFilterStore from '../../stores/globalFilterStore';
-// import InfoWindow from './InfoWindow';
+import urlStore from '../../stores/urlStore';
 import foodmap from '../../styles/foodmap/FoodMap.module.css';
 import mapwindow from '../../styles/mapcontents/infowindow.module.css';
 
@@ -15,7 +14,7 @@ function FoodMap() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const query = queryParams.get('query');
-  const { API_URL } = globalFilterStore();
+  const { API_URL } = urlStore();
   // let saveBtn = null;
 
   // 최초 렌더링 및 이용자의 현재 위치가 변할 때 지도 제작 코드

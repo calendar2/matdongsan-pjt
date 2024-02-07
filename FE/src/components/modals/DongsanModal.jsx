@@ -26,7 +26,7 @@ function DongsanModal() {
       <hr className={dongsan.line} />
       <div className={dongsan.content}>
         {dongsanUsers.map((dongsanUser, index) => (
-          <div>
+          <div key={dongsanUser.nickname}>
             <div className={dongsan.profile}>
               {dongsanUser.filter ? (
                 <VisibilityIcon

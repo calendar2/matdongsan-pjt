@@ -25,9 +25,11 @@ import boy2 from '../../assets/images/reviews/boy2.png';
 import girl0 from '../../assets/images/reviews/girl0.png';
 import girl1 from '../../assets/images/reviews/girl1.png';
 import girl2 from '../../assets/images/reviews/girl2.png';
+import urlStore from '../../stores/urlStore';
 
 function ReviewUpdate() {
-  const { myReviewStore, setUpdate, update, API_URL } = reviewStore();
+  const { myReviewStore, setUpdate, update } = reviewStore();
+  const { API_URL } = urlStore();
   const { reviewID, restaurantID } = useParams();
   const navigate = useNavigate();
   const filteredReview = myReviewStore.find(

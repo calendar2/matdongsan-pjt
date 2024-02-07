@@ -23,7 +23,7 @@ function Following() {
   return (
     <div>
       {dummyFollowings.map((following) => (
-        <div className={user.wrapper}>
+        <div className={user.wrapper} key={following.nickname}>
           <div className={user.content}>
             <div className={user.user}>
               <Avatar sx={{ width: 60, height: 60 }} />

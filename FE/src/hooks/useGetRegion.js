@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import globalFilterStore from '../stores/globalFilterStore';
+import urlStore from '../stores/urlStore';
 
 const useGetRegion = () => {
-  const { API_URL } = globalFilterStore();
+  const { API_URL } = urlStore();
 
   const { data, isError, isFetching } = useQuery('get-region', () =>
     axios.get(`${API_URL}/region`)

@@ -25,6 +25,7 @@ import boy2 from '../../assets/images/reviews/boy2.png';
 import girl0 from '../../assets/images/reviews/girl0.png';
 import girl1 from '../../assets/images/reviews/girl1.png';
 import girl2 from '../../assets/images/reviews/girl2.png';
+import urlStore from '../../stores/urlStore';
 
 // import Slider from '@mui/material/Slider'; 슬라이더로 채택할지 고민해보자
 // import employee from '../../assets/images/reviews/accounting.png'; // 항목별 평점에 사용할 이미지로 가져왔는데 어울리는지 판단하기 위해 일단 보류하기로 함
@@ -55,7 +56,8 @@ function ReviewRegistration() {
     { title: '자영' },
     { title: '용수' },
   ]);
-  const { setRegistration, registration, API_URL } = reviewStore();
+  const { setRegistration, registration } = reviewStore();
+  const { API_URL } = urlStore();
   useEffect(
     () => () => {
       console.log('기록페이지 언마운트 됨!'); // Axios 요청을 보내서 리뷰 리스트를 갱신할 예정입니다 (useEffect 안에 적는 코드들은 어려운 연산 / 서버에서 데이터 가져오는 작업),

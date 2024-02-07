@@ -22,6 +22,7 @@ import styles from '../../styles/reviews/ReviewList.module.css';
 import ReviewsListSubItems from './ReviewListSubItems';
 import stewImg from '../../assets/images/reviews/stewImg.jpg';
 // import useGetRegion from '../../hooks/useGetRegion';
+import urlStore from '../../stores/urlStore';
 
 function ReviewsList() {
   // 음식점 ID를 인자로 입력하면 해당 음식점으로 스크롤 이동한다
@@ -35,12 +36,13 @@ function ReviewsList() {
   const {
     setRestaurantStore,
     setMyReviewStore,
-    API_URL,
     update,
     remove,
     registration,
   } = reviewStore();
   // const regions = useGetRegion();
+
+  const { API_URL } = urlStore();
 
   useEffect(() => {
     const fetchData = async () => {
