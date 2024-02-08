@@ -26,7 +26,7 @@ function RestaurantDetail() {
     })
       .then((res) => {
         console.log('가게 삭제', res);
-        navigate(`/main/restaurants/${restaurantId}`, {
+        navigate(`/main/restaurants/${restaurantId}/detail`, {
           state: {
             id: restaurantId,
           },
@@ -44,7 +44,7 @@ function RestaurantDetail() {
     })
       .then((res) => {
         console.log('내 맛집 등록', res);
-        navigate(`/main/restaurants/${restaurantId}`, {
+        navigate(`/main/restaurants/${restaurantId}/detail`, {
           state: {
             id: restaurantId,
           },
@@ -74,7 +74,7 @@ function RestaurantDetail() {
     // 해당 가게가 내 맛집으로 저장되어있는지?
     axios({
       method: 'get',
-      url: `${API_URL}/restaurant/1/${restaurantId}`,
+      url: `${API_URL}/restaurant/${1}/${restaurantId}`,
     })
       .then((res) => {
         console.log('내 맛집?', res);

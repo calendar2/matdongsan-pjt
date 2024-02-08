@@ -2,22 +2,13 @@
   padding: 10px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 16px 0px;
 }
-.container .wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.container .title {
+  font-weight: bold;
   margin-bottom: 8px;
 }
-.container .wrapper .title {
-  font-weight: bold;
-}
-.container .wrapper .savebtn {
-  border: 1px solid #1DB177;
-  background-color: white;
-  color: #1DB177;
-}
-.container .wrapper .savebtn:hover {
+.container .title:hover {
   cursor: pointer;
+  text-decoration: underline;
 }
 .container .category {
   font-size: 13px;

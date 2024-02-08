@@ -99,7 +99,7 @@ function ReviewsList() {
             return {
               id: restaurant.id,
               가게이름: restaurant.name,
-              위치: filteredRegeion.district,
+              위치: filteredRegeion?.district,
               업종: '한식',
               친절도: Math.round(averageKindnessRating),
               맛: Math.round(averageTasteRating),
@@ -223,7 +223,7 @@ function ReviewsList() {
           <ListItem
             key={restaurantStore[i].id}
             onClick={() => {
-              navigate(`${item.id}`, {
+              navigate(`${item.id}/detail`, {
                 state: {
                   id: item.id,
                 },

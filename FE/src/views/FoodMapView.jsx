@@ -30,7 +30,7 @@ function FoodMapView() {
         <div>
           <Routes>
             <Route
-              path="/restaurants/:restaurantID"
+              path="/restaurants/:restaurantID/detail"
               element={<RestaurantDetail />}
             />
             <Route

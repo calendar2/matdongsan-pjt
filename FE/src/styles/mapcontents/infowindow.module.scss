@@ -5,24 +5,12 @@ $secondary-color: #b2b2b2;
   padding: 10px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 16px 0px;
 
-  .wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .title {
+    font-weight: bold;
     margin-bottom: 8px;
-    
-    .title {
-      font-weight: bold;
-    }
-
-    .savebtn {
-      border: 1px solid $primary-color;
-      background-color: white;
-      color: $primary-color;
-      
-      &:hover {
-        cursor: pointer;
-      }
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
     }
   }
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useGeolocation from '../../hooks/useGeolocation';
 import checkForMarkersRendering from '../../util/checkForMarkersRendering';
@@ -12,6 +12,7 @@ function FoodMap() {
   const { currentMyLocation } = useGeolocation();
   const { naver } = window;
   const location = useLocation();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const query = queryParams.get('query');
   const { API_URL } = urlStore();
@@ -99,10 +100,7 @@ function FoodMap() {
 
             const infoWindowContent = `
               <div class=${mapwindow.container}>
-                <div class=${mapwindow.wrapper}>
-                  <div class=${mapwindow.title} id="restaurantName">${item.title}</div>
-                  <button type="button" class=${mapwindow.savebtn} id="saveBtn">저장하기</button>
-                </div>
+                <div class=${mapwindow.title} id="restaurantName">${item.title}</div>
                 <div class=${mapwindow.category} id="restaurantCategory">${item.category}</div>
                 <div class=${mapwindow.address} id="restaurantAddress">${item.address}</div>
                 <div class=${mapwindow.none} id="restaurantMapx">${Number(item.mapx)}</div>
@@ -165,21 +163,14 @@ function FoodMap() {
                   console.error('우리 db에 가게 등록 실패ㅠㅠ', err);
                 });
 
-              infoWindows[index].open(mapRef.current, markers[index]);
-
-              const saveBtn = document.querySelector('#saveBtn');
-              saveBtn.addEventListener('click', () => {
-                console.log('클릭한 가게를 저장!', restaurantId);
-                axios({
-                  method: 'post',
-                  url: `${API_URL}/restaurant/${1}?restaurantId=${restaurantId}`,
-                })
-                  .then((res) => {
-                    console.log('나의 맛집 등록!', res);
-                  })
-                  .catch((err) => {
-                    console.error('나의 맛집 등록 실패ㅠㅠ', err);
-                  });
+              const restaurantName =
+                document.querySelector('#restaurantName');
+              restaurantName.addEventListener('click', () => {
+                navigate(`/main/restaurants/${restaurantId}/detail`, {
+                  state: {
+                    id: restaurantId,
+                  },
+                });
               });
             }
           };
