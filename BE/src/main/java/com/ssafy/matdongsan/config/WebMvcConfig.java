@@ -21,7 +21,7 @@ public class WebMvcConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of("https://i10a209.p.ssafy.io:3000", "http://70.12.246.131:3000", "http://70.12.246.134:3000", "http://70.12.246.140:3000"));
+        config.setAllowedOrigins(List.of("http://localhost:3000", "https://i10a209.p.ssafy.io:3000"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
 //        config.setExposedHeaders(List.of("*")); todo check
@@ -33,4 +33,6 @@ public class WebMvcConfig {
         return source;
     }
 }
+
+
 

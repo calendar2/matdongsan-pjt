@@ -1,9 +1,31 @@
 .profileBox {
   text-align: center;
+  padding: 0 30vw;
 }
 
 .imgLogo {
   width: 7vw;
   margin: 30px;
   margin-bottom: 15px;
+}
+
+.main {
+  // border: 1px dashed rgba(29, 177, 119, 0.3);
+  border-radius: 10px;
+  margin-top: 15px;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr; /* 1:2비율 */
+  gap: 0px; /* 셀 간격 */
+}
+
+.gridItem {
+  font-size: 15px;
+  line-height: 1.8;
+  padding: 30px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
