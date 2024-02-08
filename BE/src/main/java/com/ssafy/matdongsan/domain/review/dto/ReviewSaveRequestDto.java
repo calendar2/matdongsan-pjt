@@ -6,6 +6,7 @@ import com.ssafy.matdongsan.domain.account.model.PersonTag;
 import com.ssafy.matdongsan.domain.restaurant.model.Restaurant;
 import com.ssafy.matdongsan.domain.review.model.Review;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,22 +14,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class ReviewSaveRequestDto {
 
-    @JsonProperty("kindnessRating")
     private double kindnessRating;
-    @JsonProperty("tasteRating")
     private double tasteRating;
-    @JsonProperty("content")
     private String content;
-    @JsonProperty("visitDate")
     private String visitDate;
-    @JsonProperty("restaurantId")
     private Integer restaurantId;
-    @JsonProperty("accountReviews")
     private List<AccountSaveReviewRequestDto> accountReviews;
-    @JsonProperty("reviewPersonTags")
     private List<PersonTagSaveReviewRequestDto> reviewPersonTags;
 
     public Review toEntity(Account account, Restaurant restaurant, LocalDateTime visitDate, List<PersonTag> reviewPersonTags, List<Account> accountReviews) {
