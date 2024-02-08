@@ -42,7 +42,8 @@ public class OAuthUserServiceImpl extends DefaultOAuth2UserService {
         Map<String, Object> kakao_account = (Map<String, Object>) oAuth2User.getAttributes().get("kakao_account");
         String nickname = (String) properties.get("nickname");
         String email = (String) kakao_account.get("email");
-
+        log.info("n={}", nickname);
+        log.info("e={}", email);
         Account userEntity = null;
         // 유저가 존재하지 않으면 새로 생성한다.
         if(!userRepository.existsByEmail(email)) {

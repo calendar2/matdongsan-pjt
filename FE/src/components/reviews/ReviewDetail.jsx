@@ -108,6 +108,24 @@ function ReviewDetail() {
             value={filteredReview?.내용}
             color="success"
             underline="none"
+            InputProps={{
+              sx: {
+                height: '300px', // 원하는 높이로 설정합니다.
+                display: 'flex', // 내용을 위에서부터 배치하기 위해 flex를 사용합니다.
+                alignItems: 'flex-start', // 내용을 위쪽으로 정렬합니다.
+              },
+            }}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '&.Mui-focused fieldset': {
+                  borderColor: 'rgba(29, 177, 119, 0.5)',
+                }, // 텍스트필드 색상 바꾸는 CSS
+              },
+              '& input::placeholder': {
+                textAlign: 'center',
+                marginRight: '30px',
+              },
+            }}
           />
         </Box>
         <hr />

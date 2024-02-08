@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .header {
   display: flex;
   justify-content: space-between;
@@ -9,6 +10,19 @@
   color: black;
   margin: 10px;
   margin-bottom: 0px;
+}
+
+.selected {
+  border: 0px solid white;
+  background-color: rgba(52, 91, 75, 0.7); /* 원하는 색상으로 변경하세요 */
+  color: white;
+}
+.selected .contentList {
+  border: 1px solid white;
+}
+.selected .contentList .itemTitle {
+  color: white;
+  font-size: 14px;
 }
 
 .container {
@@ -36,7 +50,6 @@
   flex-direction: column;
 }
 .container .content .contentList {
-  border: 1px solid rgba(29, 177, 119, 0.7);
   border-radius: 10px;
   padding: 10px;
   box-shadow: 0px 0px 10px rgba(55, 55, 55, 0.1);

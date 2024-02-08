@@ -20,7 +20,6 @@ import dayjs from 'dayjs';
 import reviewStore from '../../stores/reviewStore';
 import styles from '../../styles/reviews/ReviewList.module.css';
 import ReviewsListSubItems from './ReviewListSubItems';
-import stewImg from '../../assets/images/reviews/stewImg.jpg';
 import urlStore from '../../stores/urlStore';
 
 function ReviewsList() {
@@ -41,7 +40,6 @@ function ReviewsList() {
   } = reviewStore();
 
   const { API_URL } = urlStore();
-  console.log('디버그임');
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -54,18 +52,18 @@ function ReviewsList() {
         console.log('맛집목록 가져왔음!');
         console.log('리뷰목록 가져왔음!');
         console.log('지역목록 가져왔음!');
+        console.log(restaurantData);
         const restaurantList = restaurantData.data.map(
           (restaurant) => {
             const filteredRegeion = regions.data.find(
-              (region) => region.id === restaurant.regionId
+              (region) => region.id === restaurant.region_id
             );
-            console.log(filteredRegeion);
             const filteredReview = reviewData.data.filter(
-              (review) => review.restaurantId === restaurant.id
+              (review) => review.restaurant_id === restaurant.id
             );
-
+            console.log(filteredReview);
             const totalKindnessRating = filteredReview.reduce(
-              (sum, review) => sum + review.kindnessRating,
+              (sum, review) => sum + review.kindness_rating,
               0
             );
 
@@ -74,7 +72,7 @@ function ReviewsList() {
                 ? totalKindnessRating / filteredReview.length
                 : 0;
             const totalTasteRating = filteredReview.reduce(
-              (sum, review) => sum + review.tasteRating,
+              (sum, review) => sum + review.taste_rating,
               0
             );
 
@@ -89,7 +87,7 @@ function ReviewsList() {
                       Math.max.apply(
                         null,
                         filteredReview.map(
-                          (review) => new Date(review.visitDate)
+                          (review) => new Date(review.visit_date)
                         )
                       )
                     ).toISOString()
@@ -111,29 +109,30 @@ function ReviewsList() {
 
         setRestaurantStore(restaurantList);
 
-        const reviewList = reviewData.data.map((review) => {
+        const reviewList = reviewData?.data.map((review) => {
           const filteredRestaurant = restaurantList.find(
-            (x) => Number(x.id) === Number(review.restaurantId)
+            (x) => Number(x.id) === Number(review.restaurant_id)
           );
-          console.log(filteredRestaurant);
+          // console.log(filteredRestaurant);
           return {
-            id: review.restaurantId,
+            id: review.restaurant_id,
             리뷰id: review.id,
             가게이름: filteredRestaurant
               ? filteredRestaurant.가게이름
               : '', // 일치하는 음식점에서 가게 이름 가져오기
-            친절도: review.kindnessRating,
-            맛: review.tasteRating,
+            친절도: review.kindness_rating,
+            맛: review.taste_rating,
             업종: filteredRestaurant ? filteredRestaurant.업종 : '', // 일치하는 음식점에서 업종 가져오기
             내용: review.content,
             사진: '사진',
-            같이간친구: review.accountReviews,
-            임의친구들: review.reviewPersonTags,
-            방문한날짜: review.visitDate,
+            같이간친구: review.account_reviews,
+            임의친구들: review.review_person_tags,
+            방문한날짜: review.visit_date.split('T')[0],
             위치: filteredRestaurant ? filteredRestaurant.위치 : '', // 일치하는 음식점에서 위치 가져오기
           };
         });
         setMyReviewStore(reviewList);
+        console.log(reviewList);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -156,6 +155,7 @@ function ReviewsList() {
   const [reviewListSortButton3, setReviewListSortButton3] =
     useState(false);
   const navigate = useNavigate();
+  const [selectedList, setSelectedList] = useState();
   return (
     <div>
       <div className={styles.header}>
@@ -228,18 +228,20 @@ function ReviewsList() {
                   id: item.id,
                 },
               });
+              setSelectedList(item.id);
             }}
             className={styles.content}
             button
             id={i}
           >
             <ListItemText
-              className={styles.contentList}
+              className={`${styles.contentList} ${item.id === selectedList ? styles.selected : ''}`}
               primary={null}
               secondary={
                 <Typography component="div">
                   <ListItemAvatar>
-                    <Avatar alt="사진" src={stewImg} />
+                    <Avatar alt="사진" />
+                    {/* 사진 */}
                   </ListItemAvatar>
                   <span className={styles.itemInfo}>
                     <span className={styles.itemTitle}>
@@ -279,8 +281,8 @@ function ReviewsList() {
                       <span>
                         {restaurantStore[i].방문횟수}번 방문
                       </span>
-                      <span>|</span>
-                      <span>{restaurantStore[i].최근방문날짜}</span>
+                      {/* <span>|</span> */}
+                      {/* <span>{restaurantStore[i].최근방문날짜}</span> */}
                     </span>
                   </span>
                 </Typography>

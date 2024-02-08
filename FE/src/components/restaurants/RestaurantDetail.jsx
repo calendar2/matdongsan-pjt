@@ -10,7 +10,7 @@ import detail from '../../styles/restaurants/RestaurantDetail.module.css';
 function RestaurantDetail() {
   const location = useLocation();
   const navigate = useNavigate();
-  const restaurantId = location.state.id;
+  const restaurantId = location.state?.id;
   const { API_URL } = urlStore();
   // console.log(restaurantId);
 

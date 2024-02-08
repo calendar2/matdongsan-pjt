@@ -381,14 +381,17 @@ function ReviewUpdate() {
             size="large"
             sx={{ width: '100px' }}
             onClick={() => {
+              console.log(
+                `${방문날짜.$y}-${방문날짜.$M + 1 >= 10 ? 방문날짜.$M + 1 : `0${방문날짜.$M + 1}`}-${방문날짜.$D >= 10 ? 방문날짜.$D : `0${방문날짜.$D}`}`
+              );
               const requestData = {
-                kindnessRating: 친절도,
-                tasteRating: 맛,
+                kindness_rating: 친절도,
+                taste_rating: 맛,
                 content: 내용,
-                visitDate: `${방문날짜.$y}-${방문날짜.$M + 1 >= 10 ? 방문날짜.$M + 1 : `0${방문날짜.$M + 1}`}-${방문날짜.$D >= 10 ? 방문날짜.$D : `0${방문날짜.$D}`}`,
-                restaurantId: 1, // 아직 음식점 등록 API 구현이 안돼있어서 1번 음식점의 리뷰만 작성
-                accountReviews: [], // 아직 팔로워 API 구현이 안돼있어서 빈 목록으로 전송해야함
-                reviewPersonTags: 임의친구들,
+                visit_date: `${방문날짜.$y}-${방문날짜.$M + 1 >= 10 ? 방문날짜.$M + 1 : `0${방문날짜.$M + 1}`}-${방문날짜.$D >= 10 ? 방문날짜.$D : `0${방문날짜.$D}`}`,
+                restaurant_id: 1, // 아직 음식점 등록 API 구현이 안돼있어서 1번 음식점의 리뷰만 작성
+                account_reviews: [], // 아직 팔로워 API 구현이 안돼있어서 빈 목록으로 전송해야함
+                review_person_tags: 임의친구들,
               };
               setTimeout(() => {
                 setUpdate(!update);

@@ -28,10 +28,6 @@ import girl1 from '../../assets/images/reviews/girl1.png';
 import girl2 from '../../assets/images/reviews/girl2.png';
 import urlStore from '../../stores/urlStore';
 
-// import Slider from '@mui/material/Slider'; 슬라이더로 채택할지 고민해보자
-// import employee from '../../assets/images/reviews/accounting.png'; // 항목별 평점에 사용할 이미지로 가져왔는데 어울리는지 판단하기 위해 일단 보류하기로 함
-// import tongue from '../../assets/images/reviews/tongue.png'; // 항목별 평점에 사용할 이미지로 가져왔는데 어울리는지 판단하기 위해 일단 보류하기로 함
-
 function ReviewRegistration() {
   const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
   // const [가게이름, 가게이름수정] = useState('');
@@ -69,6 +65,16 @@ function ReviewRegistration() {
   );
   const { restaurantStore } = reviewStore();
   const { restaurantID } = useParams();
+  const [레스토랑아이디, 레스토랑아이디수정] = useState();
+  useEffect(() => {
+    if (restaurantID !== undefined) {
+      레스토랑아이디수정(restaurantID);
+    }
+    // console.log(
+    //   레스토랑아이디,
+    //   '맛집 리스트에서 바로 리뷰 작성하려고 함! params가 null이 아님!'
+    // );
+  });
   const [클릭버튼, 클릭버튼수정] = useState(false);
   const navigate = useNavigate();
   const handleAutocompleteChange = (event, selectedOptions) => {
@@ -77,33 +83,39 @@ function ReviewRegistration() {
     console.log('같이 간 사람을 선택했습니다!', 같이간친구);
   };
   const filteredShop = restaurantStore.find(
-    (x) => x.id === Number(restaurantID)
+    (x) => x.id === Number(레스토랑아이디)
   );
+
   const restaurants = restaurantStore.map((x) => ({
     label: x.가게이름,
   }));
-  const [selectedRestaurant, setSelectedRestaurant] = useState('');
+  // console.log(레스토랑아이디, '레스토랑ID임!');
   return (
     <div>
       <div className={content.hiddenSpace}>
         <div className={styles.container}>
           <div>
             <div className={styles.header}>
-              {/* 음식점목록을 반영한 autocomplete로 바꿔야함 */}
               {restaurantID == null ? (
                 <Autocomplete
                   disablePortal
+                  disableClearable
                   id="combo-box-demo"
-                  // options={businessTypesCategory}
                   options={restaurants.map((option) => option.label)}
                   onChange={(e, name) => {
-                    setSelectedRestaurant(name);
-                    console.log(selectedRestaurant);
-                    console.log('업종선택되었습니다');
+                    const autoCompletedShop = restaurantStore.find(
+                      (x) => x.가게이름 === name
+                    );
+                    레스토랑아이디수정(autoCompletedShop.id);
+                    console.log(
+                      레스토랑아이디,
+                      '오토컴플릿에서 선택해서 기록하려고함!, params가 null임!'
+                    );
                   }}
                   sx={{
-                    width: 300,
+                    width: 'auto',
                     height: 50,
+                    marginTop: '2vh',
                     '& .MuiOutlinedInput-root': {
                       '&.Mui-focused .MuiOutlinedInput-notchedOutline':
                         {
@@ -393,19 +405,24 @@ function ReviewRegistration() {
               size="large"
               sx={{ width: '100px' }}
               onClick={() => {
+                console.log(
+                  `${방문날짜.$y}-${방문날짜.$M + 1 >= 10 ? 방문날짜.$M + 1 : `0${방문날짜.$M + 1}`}-${방문날짜.$D >= 10 ? 방문날짜.$D : `0${방문날짜.$D}`}`
+                );
                 const requestData = {
                   kindnessRating: 친절도,
                   tasteRating: 맛,
                   content: 내용,
                   visitDate: `${방문날짜.$y}-${방문날짜.$M + 1 >= 10 ? 방문날짜.$M + 1 : `0${방문날짜.$M + 1}`}-${방문날짜.$D >= 10 ? 방문날짜.$D : `0${방문날짜.$D}`}`,
-                  restaurantId: Number(restaurantID), // 아직 음식점 등록 API 구현이 안돼있어서 3번 음식점의 리뷰만 작성
+                  // visitDate: 방문날짜,
+                  restaurantId: Number(레스토랑아이디), // 선택한 음식점으로 리뷰 리스트 전송
                   accountReviews: [], // 아직 팔로워 API 구현이 안돼있어서 빈 목록으로 전송해야함
                   reviewPersonTags: 임의친구들,
                 };
+                console.log('리뷰 전송하는 ID임!', 레스토랑아이디);
                 setTimeout(() => {
                   setRegistration(!registration);
                 }, 500);
-                navigate(`/main/restaurants/${restaurantID}`);
+                navigate(`/main/restaurants/${레스토랑아이디}`);
                 const url = `${API_URL}/review/1`; // 아직 유저 API 구현이 안돼있어서 1번 유저의 리뷰로만 작성
                 axios
                   .post(url, requestData)

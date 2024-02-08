@@ -54,6 +54,7 @@ function TimeModal() {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DemoContainer components={['DatePicker', 'DatePicker']}>
           <DatePicker
+            size="small"
             label="시작 날짜"
             value={selectedStartDate}
             maxDate={dayjs(dayjs().format('YYYY-MM-DD'))}
@@ -62,6 +63,7 @@ function TimeModal() {
               console.log('시작 날짜 변경됨!', selectedStartDate.$d);
             }}
             sx={{
+              width: '10vw',
               '& .MuiOutlinedInput-root': {
                 '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
                   borderColor: 'rgba(29, 177, 119, 0.5)', // 클릭되었을 때 테두리 색상
@@ -82,6 +84,7 @@ function TimeModal() {
               console.log('종료 날짜 변경됨!', selectedEndDate.$d);
             }}
             sx={{
+              width: '10vw',
               '& .MuiOutlinedInput-root': {
                 '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
                   borderColor: 'rgba(29, 177, 119, 0.5)', // 클릭되었을 때 테두리 색상

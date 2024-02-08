@@ -9,6 +9,7 @@ import {
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import { useState } from 'react';
 import sleepy from '../../assets/images/reviews/sleepy.png';
 import reviewStore from '../../stores/reviewStore';
 import styles from '../../styles/reviews/ReviewListSubItems.module.css';
@@ -20,6 +21,7 @@ function ReviewListSubItems(props) {
   const filteredSubItems = myReviewStore.filter(
     (x) => x.id === Number(id)
   );
+  const [selectedListItem, setSelectedListItem] = useState();
   return (
     <div>
       <div className={styles.btn}>
@@ -40,17 +42,18 @@ function ReviewListSubItems(props) {
           +
         </Button>
       </div>
-      {filteredSubItems.length > 0 ? (
+      {filteredSubItems?.length > 0 ? (
         <div>
           <List>
-            {filteredSubItems.map((x, i) => (
+            {filteredSubItems?.map((x, i) => (
               <ListItem
                 key={[filteredSubItems[i].리뷰id]}
-                className={styles.container}
+                className={`${styles.container} ${x.리뷰id === selectedListItem ? styles.selected : ''}`}
                 onClick={(e) => {
                   e.stopPropagation();
                   console.log(x.리뷰id, '번 상세페이지 클릭했음!');
                   navigate(`reviews/${x.리뷰id}`);
+                  setSelectedListItem(x.리뷰id);
                 }}
               >
                 <ListItemAvatar>
@@ -66,10 +69,10 @@ function ReviewListSubItems(props) {
                             ? `${x.내용.substring(0, 10)}...`
                             : x.내용}
                         </span>
-                        <span>{x.방문한날짜.split('T')[0]}</span>
+                        <span>{x.방문한날짜}</span>
                       </span>
                       <span className={styles.info}>
-                        {x.같이간친구.map((y) => (
+                        {x.임의친구들?.map((y) => (
                           <div key={y.name}>{y.name}</div>
                         ))}
                       </span>

@@ -29,3 +29,14 @@
   justify-content: center;
   opacity: 0.5;
 }
+
+.selected {
+  background-color: rgba(52, 91, 75, 0.7); /* 원하는 색상으로 변경하세요 */
+  color: white;
+  .contentList {
+    .itemTitle {
+      color: white;
+      font-size: 14px;
+    }
+  }
+}

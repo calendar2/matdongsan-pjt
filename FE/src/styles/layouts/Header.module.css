@@ -96,15 +96,19 @@
   margin-left: 1vw;
 }
 .container .userRank .userRankInfo .userRankIndex {
-  color: rgba(55, 55, 55, 0.7);
+  font-style: oblique;
+  font-weight: bold;
+  color: #063925;
 }
 .container .userRank .userRankInfo .userRankName {
-  margin-left: 0.25vw;
-  color: rgba(55, 55, 55, 0.7);
+  position: relative;
+  margin-left: 0.4vw;
+  color: #063925;
 }
 .container .userRank .userRankInfo .userRankFollower {
   position: absolute;
-  margin-left: 7vw;
+  margin-left: 6vw;
+  margin-top: 0.2vh;
   color: rgba(29, 177, 119, 0.7);
   display: flex;
   align-items: center;
