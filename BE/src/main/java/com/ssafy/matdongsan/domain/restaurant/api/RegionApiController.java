@@ -1,6 +1,6 @@
 package com.ssafy.matdongsan.domain.restaurant.api;
 
-import com.ssafy.matdongsan.domain.restaurant.model.Region;
+import com.ssafy.matdongsan.domain.restaurant.dto.RegionFindAllDto;
 import com.ssafy.matdongsan.domain.restaurant.service.RegionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ public class RegionApiController {
     private final RegionService regionService;
     @GetMapping("/region")
     public ResponseEntity<?> getRegions(){
-        List<Region> regions = regionService.getAllRegion();
+        List<RegionFindAllDto> regions = regionService.getAllRegion();
         return ResponseEntity.ok().body(regions);
     }
 }
