@@ -192,6 +192,20 @@ public class RestaurantService {
         reviewRepository.deleteByAccountAndRestaurant(account,restaurant);
 
     }
+
+    public RestaurantIsPresentDto getIsPresent(Integer accountId, Integer restaurantId) {
+        Account account = accountRepository.findById(accountId).orElseThrow();
+        Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow();
+        List<Restaurant> restaurants = account.getRestaurants();
+
+        if(restaurants.contains(restaurant)){
+            return new RestaurantIsPresentDto(1);
+
+        }
+        return new RestaurantIsPresentDto(0);
+
+
+    }
 }
 
 

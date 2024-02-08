@@ -60,4 +60,12 @@ public class RestaurantApiController {
         restaurantService.delete(accountId,restaurantId);
         return  ResponseEntity.ok(HttpStatus.OK);
     }
+
+    @GetMapping("/restaurant/{accountId}/{restaurantId}")
+    public ResponseEntity<?> getIsPresentAccountRestaurant(
+            @PathVariable("accountId") Integer accountId,
+            @PathVariable("restaurantId") Integer restaurantId){
+        RestaurantIsPresentDto dto= restaurantService.getIsPresent(accountId,restaurantId);
+        return  ResponseEntity.ok().body(dto);
+    }
 }
