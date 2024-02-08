@@ -3,6 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import Avatar from '@mui/material/Avatar';
 import axios from 'axios';
+import Slider from 'react-slick';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import GlobalFilterModal from '../modals/GlobalFilterModal';
 import NotiModal from '../modals/NotiModal';
 import ProfileModal from '../modals/ProfileModal';
@@ -20,6 +23,61 @@ function Header() {
   const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
   // const location = useLocation();
+  // const accountRank = [
+  //   {
+  //     nickname: 'nickname1',
+  //     follower: 99061,
+  //   },
+  //   {
+  //     nickname: 'nickname10',
+  //     follower: 66653,
+  //   },
+  //   {
+  //     nickname: 'nickname3',
+  //     follower: 60709,
+  //   },
+  //   {
+  //     nickname: 'nickname2',
+  //     follower: 60008,
+  //   },
+  //   {
+  //     nickname: 'nickname7',
+  //     follower: 58661,
+  //   },
+  //   {
+  //     nickname: 'nickname9',
+  //     follower: 58575,
+  //   },
+  //   {
+  //     nickname: 'nickname8',
+  //     follower: 47435,
+  //   },
+  //   {
+  //     nickname: 'nickname5',
+  //     follower: 36148,
+  //   },
+  //   {
+  //     nickname: 'nickname4',
+  //     follower: 20774,
+  //   },
+  //   {
+  //     nickname: 'nickname6',
+  //     follower: 18704,
+  //   },
+  // ]; 로컬에서 현재 API 작동하지 않아서 임시로 구성한 Dummy 입니다
+
+  const settings = {
+    dots: true,
+    vertical: true,
+    infinite: true,
+    speed: 2000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    arrows: false,
+  };
+
   useEffect(() => {
     axios
       .get(url)
@@ -32,7 +90,7 @@ function Header() {
         console.error('유저 순위 요청 요청 실패:', error);
         // 실패 시 에러 처리
       });
-    console.log(accountRank);
+    // console.log(accountRank);
   }, []);
   const modalOpen = () => setLoginModalOpen(true);
 
@@ -107,7 +165,52 @@ function Header() {
           )}
         </div>
       </div>
-      <div className={header.userRank}>유저순위</div>
+      <div className={header.userRank}>
+        <span className={header.userRankLogo}>TOP10</span>
+        <div className={header.userRankInfo}>
+          <Slider
+            dots={false}
+            infinite={settings.infinite}
+            speed={settings.speed}
+            slidesToShow={settings.slidesToShow}
+            slidesToScroll={settings.slidesToScroll}
+            arrows={settings.arrows}
+            autoplay={settings.autoplay}
+            autoplaySpeed={settings.autoplaySpeed}
+            vertical={settings.vertical}
+          >
+            {/* 순위 캐러셀 구현 */}
+            {accountRank.map((x, index) => (
+              <div key={x.nickname}>
+                <span className={header.userRankIndex}>
+                  {index + 1}
+                </span>
+                <span className={header.userRankName}>
+                  {x.nickname}
+                </span>
+                <div className={header.userRankFollower}>
+                  <FavoriteIcon
+                    sx={{
+                      color: 'rgba(29, 177, 119, 0.5)',
+                      width: '1vw',
+                    }}
+                  />
+                  <span>{x.follower}</span>
+                </div>
+              </div>
+            ))}
+          </Slider>
+          <PlayArrowIcon
+            sx={{
+              color: 'rgba(55,55,55,0.5)',
+              transform: 'rotate(90deg)',
+              position: 'absolute',
+              right: '40vw',
+              top: '8.5vh',
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 }
