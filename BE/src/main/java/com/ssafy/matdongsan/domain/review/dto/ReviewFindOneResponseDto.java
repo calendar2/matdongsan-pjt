@@ -14,13 +14,13 @@ public class ReviewFindOneResponseDto {
     private double kindnessRating;
     private double tasteRating;
     private String content;
-    private LocalDateTime visitDate;
+    private String visitDate;
     private Integer restaurantId;
     private List<AccountSaveReviewRequestDto> accountReviews;
     private List<PersonTagSaveReviewRequestDto> reviewPersonTags;
 
 
-    public ReviewFindOneResponseDto(Long id, double kindnessRating, double tasteRating, String content, LocalDateTime visitDate, Integer restaurantId, List<AccountSaveReviewRequestDto> accountReviews, List<PersonTagSaveReviewRequestDto> reviewPersonTags) {
+    public ReviewFindOneResponseDto(Long id, double kindnessRating, double tasteRating, String content, String visitDate, Integer restaurantId, List<AccountSaveReviewRequestDto> accountReviews, List<PersonTagSaveReviewRequestDto> reviewPersonTags) {
         this.id = id;
         this.kindnessRating = kindnessRating;
         this.tasteRating = tasteRating;

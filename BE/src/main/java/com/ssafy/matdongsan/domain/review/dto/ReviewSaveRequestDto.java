@@ -1,14 +1,13 @@
 package com.ssafy.matdongsan.domain.review.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.ssafy.matdongsan.domain.account.model.Account;
 import com.ssafy.matdongsan.domain.account.model.PersonTag;
 import com.ssafy.matdongsan.domain.restaurant.model.Restaurant;
 import com.ssafy.matdongsan.domain.review.model.Review;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+
 
 import java.time.LocalDateTime;
 import java.util.List;

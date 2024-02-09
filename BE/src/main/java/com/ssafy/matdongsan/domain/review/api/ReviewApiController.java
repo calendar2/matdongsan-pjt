@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequiredArgsConstructor
 public class ReviewApiController {
@@ -25,11 +25,9 @@ public class ReviewApiController {
             @PathVariable("accountId") Integer accountId,
             @RequestBody @Valid ReviewSaveRequestDto requestDto
     ){
-        try {
-            reviewService.save(requestDto,accountId);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+
+        reviewService.save(requestDto,accountId);
+
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
@@ -44,6 +42,7 @@ public class ReviewApiController {
 
     @GetMapping("/review/{accountId}/{reviewId}")
     public ResponseEntity<?> readOneReview(
+            @PathVariable("accountId") Integer accountId,
             @PathVariable("reviewId") Long reviewId
     ){
         ReviewFindOneResponseDto responseDto =  reviewService.findById(reviewId);
@@ -51,6 +50,7 @@ public class ReviewApiController {
     }
     @DeleteMapping("/review/{accountId}/{reviewId}")
     public ResponseEntity<?> deleteOneReview(
+            @PathVariable("accountId") Integer accountId,
             @PathVariable("reviewId") Long reviewId
     ){
         reviewService.delete(reviewId);

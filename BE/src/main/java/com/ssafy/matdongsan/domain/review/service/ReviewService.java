@@ -41,7 +41,8 @@ public class ReviewService {
 
     //파일 업로드 연결 필요
     @Transactional
-    public void save(ReviewSaveRequestDto requestDto, Integer accountId) throws Exception {
+    public void save(ReviewSaveRequestDto requestDto, Integer accountId) {
+        System.out.println(requestDto.toString());
 
         // 문자열 -> LocalDateTime
         LocalDateTime visitDate = stringToLocalDateTime(requestDto.getVisitDate());
@@ -91,7 +92,7 @@ public class ReviewService {
                         review.getKindnessRating(),
                         review.getTasteRating(),
                         review.getContent(),
-                        review.getVisitDate(),
+                        review.getVisitDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                         review.getRestaurant().getId(),
                         changeToAccountDtoList(review.getAccountReviews()),
                         changeToPersonTagDtoList(review.getReviewPersonTags())
@@ -125,7 +126,7 @@ public class ReviewService {
                 review.getKindnessRating(),
                 review.getTasteRating(),
                 review.getContent(),
-                review.getVisitDate(),
+                review.getVisitDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                 review.getRestaurant().getId(),
                 changeToAccountDtoList(review.getAccountReviews()),
                 changeToPersonTagDtoList(review.getReviewPersonTags())
