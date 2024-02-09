@@ -20,23 +20,28 @@ function FollowingTab() {
 
   return (
     <div className={tab.wrapper}>
-      <Link to="followings" onClick={followingClick}>
-        {followingChoice && !followChoice ? (
-          <FavoriteIcon sx={{ fontSize: 15 }} />
-        ) : (
-          <FavoriteBorderIcon sx={{ fontSize: 15 }} />
-        )}
-        &nbsp;&nbsp;팔로잉
-      </Link>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <Link to="followers" onClick={followClick}>
-        {followChoice && !followingChoice ? (
-          <FavoriteIcon sx={{ fontSize: 15 }} />
-        ) : (
-          <FavoriteBorderIcon sx={{ fontSize: 15 }} />
-        )}
-        &nbsp;&nbsp;팔로워
-      </Link>
+      <div>
+        <Link to="followings" onClick={followingClick}>
+          {followingChoice && !followChoice ? (
+            <FavoriteIcon sx={{ fontSize: 15 }} />
+          ) : (
+            <FavoriteBorderIcon sx={{ fontSize: 15 }} />
+          )}
+          &nbsp;&nbsp;팔로잉
+        </Link>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <Link to="followers" onClick={followClick}>
+          {followChoice && !followingChoice ? (
+            <FavoriteIcon sx={{ fontSize: 15 }} />
+          ) : (
+            <FavoriteBorderIcon sx={{ fontSize: 15 }} />
+          )}
+          &nbsp;&nbsp;팔로워
+        </Link>
+      </div>
+      <div className={tab.info}>
+        <p>* 동산에 담기</p>
+      </div>
     </div>
   );
 }

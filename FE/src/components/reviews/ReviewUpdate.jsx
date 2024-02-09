@@ -393,10 +393,10 @@ function ReviewUpdate() {
                 accountReviews: [], // 아직 팔로워 API 구현이 안돼있어서 빈 목록으로 전송해야함
                 reviewPersonTags: 임의친구들,
               };
-              // setTimeout(() => {
-              //   setUpdate(!update);
-              // }, 500);
-              setUpdate(!update);
+              setTimeout(() => {
+                setUpdate(!update);
+              }, 500);
+              // setUpdate(!update);
 
               navigate(`/main/restaurants/${restaurantID}`);
               const url = `${API_URL}/review/1/${reviewID}`; // 아직 유저 API 구현이 안돼있어서 1번 유저의 리뷰로만 작성/1번 리뷰 수정

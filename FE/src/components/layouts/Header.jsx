@@ -5,7 +5,9 @@ import Avatar from '@mui/material/Avatar';
 import axios from 'axios';
 import Slider from 'react-slick';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-// import PlayArrowIcon from '@mui/icons-material/PlayArrow'; // 화살표 아이콘 div로 감싸지 못하면 없애는게 나을듯
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
+import { Button } from '@mui/material';
 import GlobalFilterModal from '../modals/GlobalFilterModal';
 import NotiModal from '../modals/NotiModal';
 import ProfileModal from '../modals/ProfileModal';
@@ -14,6 +16,7 @@ import userStore from '../../stores/userStore';
 import header from '../../styles/layouts/Header.module.css';
 import imgLogo from '../../assets/images/logo.png';
 import urlStore from '../../stores/urlStore';
+import UserRankingModal from '../modals/UserRankingModal';
 
 function Header() {
   const { API_URL } = urlStore();
@@ -23,6 +26,18 @@ function Header() {
   const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
   // const location = useLocation();
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   const settings = {
     dots: true,
@@ -124,7 +139,35 @@ function Header() {
         </div>
       </div>
       <div className={header.userRank}>
-        <span className={header.userRankLogo}>TOP10</span>
+        <Button
+          aria-describedby={id}
+          variant="contained"
+          onClick={handleClick}
+          className={header.userRankLogo}
+        >
+          Top10
+        </Button>
+        {/* 화살표 아이콘 div로 감싸지 못하면 없애는게 나을거같음 */}
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+        >
+          <Typography
+            sx={{ p: 2, minHeight: '300px', minWidth: '200px' }}
+          >
+            <UserRankingModal accountRank={accountRank} />
+          </Typography>
+        </Popover>
         <div className={header.userRankInfo}>
           <Slider
             dots={false}
@@ -159,16 +202,6 @@ function Header() {
               </div>
             ))}
           </Slider>
-          {/* <PlayArrowIcon
-            sx={{
-              color: 'rgba(55,55,55,0.5)',
-              transform: 'rotate(90deg)',
-              right: '40vw',
-              top: '12vh',
-              width: '1vw',
-            }}
-          /> */}
-          {/* 화살표 아이콘 div로 감싸지 못하면 없애는게 나을거같음 */}
         </div>
       </div>
     </div>

@@ -108,7 +108,6 @@
 .container .userRank .userRankInfo .userRankFollower {
   position: absolute;
   margin-left: 6vw;
-  margin-top: 0.2vh;
   color: rgba(29, 177, 119, 0.7);
   display: flex;
   align-items: center;

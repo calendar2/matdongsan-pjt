@@ -8,7 +8,7 @@ import dongsanStore from '../../stores/dongsanStore';
 import urlStore from '../../stores/urlStore';
 
 function Following() {
-  const [dummyFollowings, setDummyFollowings] = useState([]);
+  const [followingsData, setFollowingsData] = useState([]);
   const { API_URL } = urlStore();
   const url = `${API_URL}/subscription/7`; // 아직 로그인 유저 API 구현이 안돼있어서 7번 유저의 팔로워
   useEffect(() => {
@@ -16,7 +16,7 @@ function Following() {
       .get(url)
       .then((response) => {
         console.log('팔로워 요청 성공:', response.data);
-        setDummyFollowings(response.data);
+        setFollowingsData(response.data);
         // 성공 시 필요한 작업 수행
       })
       .catch((error) => {
@@ -28,7 +28,7 @@ function Following() {
 
   return (
     <div>
-      {dummyFollowings?.map((following) => (
+      {followingsData?.map((following) => (
         <div className={user.wrapper} key={following.nickname}>
           <div className={user.content}>
             <div className={user.user}>
