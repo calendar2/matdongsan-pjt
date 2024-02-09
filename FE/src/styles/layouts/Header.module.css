@@ -55,7 +55,11 @@
   flex-direction: row;
   align-items: center;
 }
+.container .headline .searchBox .none {
+  display: none !important;
+}
 .container .headline .searchBox .searchWrapper {
+  position: relative;
   border: 1px solid #b2b2b2;
   border-radius: 100px;
   display: flex;
@@ -71,6 +75,54 @@
   border: 0px;
   width: 30rem;
   font-size: 1rem;
+}
+.container .headline .searchBox .searchWrapper .userResult {
+  position: absolute;
+  top: 51.5px;
+  left: 52px;
+  border: 1px solid #b2b2b2;
+  border-top: 0px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 0.5rem 1rem;
+  padding-top: 1.5rem;
+  z-index: 1;
+  background-color: white;
+  width: 410px;
+}
+.container .headline .searchBox .searchWrapper .userResult .userResultContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.container .headline .searchBox .searchWrapper .userResult .userResultContainer .userResultWrapper {
+  display: flex;
+}
+.container .headline .searchBox .searchWrapper .userResult .userResultContainer .userResultWrapper .userResultInfo {
+  padding: 0 2rem;
+}
+.container .headline .searchBox .searchWrapper .userResult .userResultContainer .userResultWrapper .userResultInfo h4 {
+  margin: 0;
+}
+.container .headline .searchBox .searchWrapper .userResult .userResultContainer .followBtn:hover {
+  cursor: pointer;
+}
+.container .headline .searchBox .btnContainer {
+  padding-left: 8px;
+}
+.container .headline .searchBox .activeBtn, .container .headline .searchBox .unactiveBtn {
+  background-color: #1db177;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+.container .headline .searchBox .activeBtn:hover, .container .headline .searchBox .unactiveBtn:hover {
+  cursor: pointer;
+}
+.container .headline .searchBox .unactiveBtn {
+  background-color: #b2b2b2;
 }
 .container .userRank {
   margin-top: 2vh;

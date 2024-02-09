@@ -8,6 +8,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import GlobalFilterModal from '../modals/GlobalFilterModal';
 import NotiModal from '../modals/NotiModal';
 import ProfileModal from '../modals/ProfileModal';
@@ -20,10 +21,12 @@ import UserRankingModal from '../modals/UserRankingModal';
 
 function Header() {
   const { API_URL } = urlStore();
+  const [userOrLocation, setUserOrLocation] = useState('유저');
   const url = `${API_URL}/account/rank`;
   const [accountRank, setAccountRank] = useState([]);
   const { accessToken, setLoginModalOpen } = userStore();
   const [searchValue, setSearchValue] = useState('');
+  const [userSearchInfos, setUserSearchInfos] = useState([]);
   const navigate = useNavigate();
   // const location = useLocation();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -68,17 +71,46 @@ function Header() {
   const modalOpen = () => setLoginModalOpen(true);
 
   const searchBtnClick = () => {
-    navigate({
-      // pathname: location.pathname,
-      pathname: '/main/restaurants',
-      search: `?query=${searchValue}`,
-    });
+    if (userOrLocation === '장소') {
+      navigate({
+        // pathname: location.pathname,
+        pathname: '/main/restaurants',
+        search: `?query=${searchValue}`,
+      });
+    }
   };
 
   const activeEnter = (e) => {
     if (e.key === 'Enter') {
       searchBtnClick();
     }
+  };
+
+  const userTab = () => {
+    setUserOrLocation('유저');
+    setSearchValue('');
+    navigate('/main/restaurants');
+  };
+
+  const locationTab = () => {
+    setUserOrLocation('장소');
+    setSearchValue('');
+    navigate('/main/restaurants');
+  };
+
+  const autoSearch = (e) => {
+    setSearchValue(e.target.value);
+    axios({
+      method: 'get',
+      url: `${API_URL}/account/search?query=${e.target.value}`,
+    })
+      .then((res) => {
+        console.log('유저 검색!', res);
+        setUserSearchInfos(res.data);
+      })
+      .catch((err) => {
+        console.error('유저 검색ㅠㅠ', err);
+      });
   };
 
   return (
@@ -100,14 +132,92 @@ function Header() {
               color="disabled"
               onClick={searchBtnClick}
             />
-            <input
-              type="text"
-              placeholder="사용자명, 음식점명"
-              onKeyDown={(e) => activeEnter(e)}
-              onChange={(e) => setSearchValue(e.target.value)}
-              value={searchValue}
-            />
+            {userOrLocation === '유저' ? (
+              <input
+                type="text"
+                placeholder="사용자명"
+                onKeyDown={(e) => activeEnter(e)}
+                onChange={autoSearch}
+                value={searchValue}
+              />
+            ) : (
+              <input
+                type="text"
+                placeholder="지역, 가게"
+                onKeyDown={(e) => activeEnter(e)}
+                onChange={(e) => setSearchValue(e.target.value)}
+                value={searchValue}
+              />
+            )}
+            {userOrLocation === '유저' &&
+            searchValue &&
+            userSearchInfos.length !== 0 ? (
+              <div className={header.userResult}>
+                {userSearchInfos.map((info) => (
+                  <div
+                    key={info.id}
+                    className={header.userResultContainer}
+                  >
+                    <div className={header.userResultWrapper}>
+                      <Link to={`/main/${1}/restaurants/`}>
+                        <Avatar />
+                      </Link>
+                      <div className={header.userResultInfo}>
+                        <Link to={`/main/${1}/restaurants`}>
+                          <h4>{info.nickname}</h4>
+                        </Link>
+                        <FavoriteIcon
+                          sx={{ fontSize: 15, color: '#1db177' }}
+                        />
+                        &nbsp;&nbsp;<span>{info.follower}</span>
+                      </div>
+                    </div>
+                    <AddCircleIcon
+                      sx={{ color: '#1db177', fontSize: 32 }}
+                      className={header.followBtn}
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className={header.none} />
+            )}
           </div>
+          {userOrLocation === '유저' ? (
+            <div className={header.btnContainer}>
+              <button
+                type="button"
+                className={header.activeBtn}
+                onClick={userTab}
+              >
+                유저
+              </button>
+              <button
+                type="button"
+                className={header.unactiveBtn}
+                onClick={locationTab}
+              >
+                장소
+              </button>
+            </div>
+          ) : (
+            <div className={header.btnContainer}>
+              <button
+                type="button"
+                className={header.unactiveBtn}
+                onClick={userTab}
+              >
+                유저
+              </button>
+              <button
+                type="button"
+                className={header.activeBtn}
+                onClick={locationTab}
+              >
+                장소
+              </button>
+            </div>
+          )}
         </div>
         <div className={header.userInfo}>
           {accessToken ? (
