@@ -157,15 +157,14 @@ function ReviewDetail() {
           <div key={x.name}>{x.name}</div>
         ))}
         <hr />
-        {/* <Typography
+        <Typography
           component="legend"
           sx={{ color: 'rgba(55,55,55,0.7)' }}
         >
           방문한 날짜
         </Typography>
-        <div>{filteredReview?.방문한날짜.split('T')[0]}</div>
-        <hr /> */}
-        {/* 날짜 관련 코드 젠킨스 서버에서 구동 안함 */}
+        <div>{filteredReview?.방문한날짜}</div>
+        <hr />
         <div className={styles.footer}>
           <Button
             type="button"

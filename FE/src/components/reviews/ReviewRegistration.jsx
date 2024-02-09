@@ -420,7 +420,6 @@ function ReviewRegistration() {
                 setTimeout(() => {
                   setRegistration(!registration);
                 }, 500);
-                // setRegistration(!registration);
                 navigate(`/main/restaurants/${레스토랑아이디}`);
                 const url = `${API_URL}/review/1`; // 아직 유저 API 구현이 안돼있어서 1번 유저의 리뷰로만 작성
                 axios

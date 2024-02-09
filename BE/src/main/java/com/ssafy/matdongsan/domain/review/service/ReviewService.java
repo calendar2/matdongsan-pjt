@@ -48,6 +48,7 @@ public class ReviewService {
         LocalDateTime visitDate = stringToLocalDateTime(requestDto.getVisitDate());
 
         //예외 발생시키기 수정 필요
+        System.out.println("!!!!!!!"+requestDto.getRestaurantId());
         Restaurant restaurant = restaurantRepository.findById(requestDto.getRestaurantId()).orElseThrow();
 
         //예외 발생시키기 수정 필요
@@ -65,8 +66,13 @@ public class ReviewService {
 
 
     private LocalDateTime stringToLocalDateTime(String visitDate) {
+//        if (visitDate == null) {
+//            // Handle the case where text is null, perhaps throw an exception or return a default value
+//            throw new IllegalArgumentException("Input text is null");
+//        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return LocalDateTime.of(LocalDate.parse(visitDate,formatter), LocalTime.of(0,0));
+//        return LocalDateTime.of(LocalDate.parse(visitDate,formatter), LocalTime.of(0,0));
+        return LocalDateTime.of(LocalDate.of(2000, 1, 1), LocalTime.of(0,0));
     }
 
 
