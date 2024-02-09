@@ -5,7 +5,7 @@ import useGeolocation from '../../hooks/useGeolocation';
 import checkForMarkersRendering from '../../util/checkForMarkersRendering';
 import urlStore from '../../stores/urlStore';
 import foodmap from '../../styles/foodmap/FoodMap.module.css';
-import mapwindow from '../../styles/mapcontents/infowindow.module.css';
+import markerStyle from '../../styles/mapcontents/marker.module.css';
 
 function FoodMap() {
   const mapRef = useRef(null);
@@ -82,6 +82,18 @@ function FoodMap() {
           mapRef.current = new naver.maps.Map('map', mapOptions);
 
           const createMarkerAndInfoWindow = (item) => {
+            const markerContent = `
+            <div class=${markerStyle.wrapper}>
+              <img src="/test/cat.jpg" alt="프로필 사진" class=${markerStyle.imgStyle}>
+              <div class=${markerStyle.restaurantInfo}>${item.title}</div>
+              <div class=${markerStyle.none}>${item.category}</div>
+              <div class=${markerStyle.none}>${item.address}</div>
+              <div class=${markerStyle.none}>${Number(item.mapx)}</div>
+              <div class=${markerStyle.none}>${Number(item.mapy)}</div>
+              <div class=${markerStyle.none}>${item.roadAddress}</div>
+              <div class=${markerStyle.none}>${item.telephone}</div>
+            </div>
+            `;
             const marker = new naver.maps.Marker({
               map: mapRef.current,
               position: new naver.maps.LatLng(
@@ -89,34 +101,29 @@ function FoodMap() {
                 Number(item.mapx) / tenPowSeven
               ),
               icon: {
-                content: [
-                  '<div style="padding: 8px; border: 1px solid black; display: block; max-width: none; max-height: none; -webkit-user-select: none; position: absolute; width: 30px; height: 30px; left: 0px; top: 0px; border-radius: 50% 50% 0 50%; transform: rotate(45deg);">',
-                  '  <img src="/test/cat.jpg" alt="프로필 사진" style="margin: 0px; padding: 0px; border: 1px solid black; display: block; max-width: none; max-height: none; -webkit-user-select: none; position: absolute; width: 30px; height: 30px; left: 7px; top: 7px; border-radius: 30px; transform: rotate(-45deg);">',
-                  '</div>',
-                ].join(''),
-                anchor: new naver.maps.Point(20, 50),
+                content: markerContent,
+                anchor: new naver.maps.Point(0, 50),
               },
             });
 
             const infoWindowContent = `
-              <div class=${mapwindow.container}>
-                <div class=${mapwindow.title} id="restaurantName">${item.title}</div>
-                <div class=${mapwindow.category} id="restaurantCategory">${item.category}</div>
-                <div class=${mapwindow.address} id="restaurantAddress">${item.address}</div>
-                <div class=${mapwindow.none} id="restaurantMapx">${Number(item.mapx)}</div>
-                <div class=${mapwindow.none} id="restaurantMapy">${Number(item.mapy)}</div>
-                <div class=${mapwindow.none} id="restaurantRoadAddress">${item.roadAddress}</div>
-                <div class=${mapwindow.none} id="restaurantPhone">${item.telephone}</div>
-              </div>`;
+              <div class=${markerStyle.none} id="restaurantName">${item.title}</div>
+              <div class=${markerStyle.none} id="restaurantCategory">${item.category}</div>
+              <div class=${markerStyle.none} id="restaurantAddress">${item.address}</div>
+              <div class=${markerStyle.none} id="restaurantMapx">${Number(item.mapx)}</div>
+              <div class=${markerStyle.none} id="restaurantMapy">${Number(item.mapy)}</div>
+              <div class=${markerStyle.none} id="restaurantRoadAddress">${item.roadAddress}</div>
+              <div class=${markerStyle.none} id="restaurantPhone">${item.telephone}</div>
+            `;
 
             const infoWindow = new naver.maps.InfoWindow({
               content: infoWindowContent,
-              maxWidth: 300,
+              zIndex: -100,
               anchorSize: {
-                width: 12,
-                height: 14,
+                width: 0,
+                height: 0,
               },
-              borderColor: '#cdcdc7',
+              borderWidth: 0,
             });
 
             markers.push(marker);
@@ -158,20 +165,18 @@ function FoodMap() {
                 .then((res) => {
                   console.log('우리 db에 가게 등록하기!', res);
                   restaurantId = res.data.id;
+                  navigate(
+                    `/main/restaurants/${restaurantId}/detail`,
+                    {
+                      state: {
+                        id: restaurantId,
+                      },
+                    }
+                  );
                 })
                 .catch((err) => {
                   console.error('우리 db에 가게 등록 실패ㅠㅠ', err);
                 });
-
-              const restaurantName =
-                document.querySelector('#restaurantName');
-              restaurantName.addEventListener('click', () => {
-                navigate(`/main/restaurants/${restaurantId}/detail`, {
-                  state: {
-                    id: restaurantId,
-                  },
-                });
-              });
             }
           };
 

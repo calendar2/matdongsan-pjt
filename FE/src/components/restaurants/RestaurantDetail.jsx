@@ -78,7 +78,7 @@ function RestaurantDetail() {
     })
       .then((res) => {
         console.log('내 맛집?', res);
-        setIsPresent(res.data.isPresent);
+        setIsPresent(res.data.is_present);
       })
       .catch((err) => {
         console.error('내 맛집ㅠㅠ', err);
