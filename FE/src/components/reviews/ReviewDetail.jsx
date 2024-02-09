@@ -102,15 +102,14 @@ function ReviewDetail() {
           className={styles.content}
         >
           <TextField
-            multiline
-            fullWidth
             readOnly
             value={filteredReview?.내용}
             color="success"
             underline="none"
             InputProps={{
               sx: {
-                height: '300px', // 원하는 높이로 설정합니다.
+                width: '20vw',
+                height: '20vh', // 원하는 높이로 설정합니다.
                 display: 'flex', // 내용을 위에서부터 배치하기 위해 flex를 사용합니다.
                 alignItems: 'flex-start', // 내용을 위쪽으로 정렬합니다.
               },
@@ -158,14 +157,15 @@ function ReviewDetail() {
           <div key={x.name}>{x.name}</div>
         ))}
         <hr />
-        <Typography
+        {/* <Typography
           component="legend"
           sx={{ color: 'rgba(55,55,55,0.7)' }}
         >
           방문한 날짜
         </Typography>
         <div>{filteredReview?.방문한날짜.split('T')[0]}</div>
-        <hr />
+        <hr /> */}
+        {/* 날짜 관련 코드 젠킨스 서버에서 구동 안함 */}
         <div className={styles.footer}>
           <Button
             type="button"
@@ -194,9 +194,10 @@ function ReviewDetail() {
             onClick={() => {
               console.log('삭제하기 버튼이 눌렸어요!.');
               navigate(`/main/restaurants/${restaurantID}`);
-              setTimeout(() => {
-                setRemove(!remove);
-              }, 500);
+              // setTimeout(() => {
+              //   setRemove(!remove);
+              // }, 500);
+              setRemove(!remove);
               const url = `${API_URL}/review/1/${reviewID}`;
               axios
                 .delete(url)

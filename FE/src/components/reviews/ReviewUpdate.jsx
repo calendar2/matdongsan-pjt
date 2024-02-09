@@ -385,17 +385,18 @@ function ReviewUpdate() {
                 `${방문날짜.$y}-${방문날짜.$M + 1 >= 10 ? 방문날짜.$M + 1 : `0${방문날짜.$M + 1}`}-${방문날짜.$D >= 10 ? 방문날짜.$D : `0${방문날짜.$D}`}`
               );
               const requestData = {
-                kindness_rating: 친절도,
-                taste_rating: 맛,
+                kindnessRating: 친절도,
+                tasteRating: 맛,
                 content: 내용,
-                visit_date: `${방문날짜.$y}-${방문날짜.$M + 1 >= 10 ? 방문날짜.$M + 1 : `0${방문날짜.$M + 1}`}-${방문날짜.$D >= 10 ? 방문날짜.$D : `0${방문날짜.$D}`}`,
-                restaurant_id: 1, // 아직 음식점 등록 API 구현이 안돼있어서 1번 음식점의 리뷰만 작성
-                account_reviews: [], // 아직 팔로워 API 구현이 안돼있어서 빈 목록으로 전송해야함
-                review_person_tags: 임의친구들,
+                visitDate: `${방문날짜.$y}-${방문날짜.$M + 1 >= 10 ? 방문날짜.$M + 1 : `0${방문날짜.$M + 1}`}-${방문날짜.$D >= 10 ? 방문날짜.$D : `0${방문날짜.$D}`}`,
+                restaurantId: 1, // 아직 음식점 등록 API 구현이 안돼있어서 1번 음식점의 리뷰만 작성
+                accountReviews: [], // 아직 팔로워 API 구현이 안돼있어서 빈 목록으로 전송해야함
+                reviewPersonTags: 임의친구들,
               };
-              setTimeout(() => {
-                setUpdate(!update);
-              }, 500);
+              // setTimeout(() => {
+              //   setUpdate(!update);
+              // }, 500);
+              setUpdate(!update);
 
               navigate(`/main/restaurants/${restaurantID}`);
               const url = `${API_URL}/review/1/${reviewID}`; // 아직 유저 API 구현이 안돼있어서 1번 유저의 리뷰로만 작성/1번 리뷰 수정

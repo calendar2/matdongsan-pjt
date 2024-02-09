@@ -1,28 +1,34 @@
 import Avatar from '@mui/material/Avatar';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import user from '../../styles/subscribe/Following.module.css';
 import dongsanStore from '../../stores/dongsanStore';
+import urlStore from '../../stores/urlStore';
 
 function Following() {
+  const [dummyFollowings, setDummyFollowings] = useState([]);
+  const { API_URL } = urlStore();
+  const url = `${API_URL}/subscription/7`; // 아직 로그인 유저 API 구현이 안돼있어서 7번 유저의 팔로워
+  useEffect(() => {
+    axios // 여기서 put 요청으로 수정해야함
+      .get(url)
+      .then((response) => {
+        console.log('팔로워 요청 성공:', response.data);
+        setDummyFollowings(response.data);
+        // 성공 시 필요한 작업 수행
+      })
+      .catch((error) => {
+        console.error('팔로워 요청 실패:', error);
+        // 실패 시 에러 처리
+      });
+  }, []);
   const { dongsanUsers, setDongsanUsers } = dongsanStore();
-  const dummyFollowings = [
-    { nickname: '용수', follower: 123 },
-    { nickname: '준엽', follower: 423 },
-    { nickname: '형준', follower: 765 },
-    { nickname: '다은', follower: 543 },
-    { nickname: '자영', follower: 432 },
-    { nickname: '민재', follower: 876 },
-    { nickname: '테스트1', follower: 123 },
-    { nickname: '테스트2', follower: 423 },
-    { nickname: '테스트3', follower: 765 },
-    { nickname: '테스트4', follower: 543 },
-    { nickname: '테스트5', follower: 432 },
-    { nickname: '테스트6', follower: 876 },
-  ]; // axios get, /subscription/{subscriberId}
+
   return (
     <div>
-      {dummyFollowings.map((following) => (
+      {dummyFollowings?.map((following) => (
         <div className={user.wrapper} key={following.nickname}>
           <div className={user.content}>
             <div className={user.user}>
@@ -34,7 +40,10 @@ function Following() {
               </div>
             </div>
             <AddCircleIcon
-              sx={{ fontSize: '2.5rem', color: '#1DB177' }}
+              sx={{
+                fontSize: '2.5rem',
+                color: 'rgba(29, 177, 119, 0.7)',
+              }}
               className={user.addBtn}
               onClick={() => {
                 console.log('동산 추가 버튼 클릭됨');

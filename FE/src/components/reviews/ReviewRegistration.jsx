@@ -67,13 +67,10 @@ function ReviewRegistration() {
   const { restaurantID } = useParams();
   const [레스토랑아이디, 레스토랑아이디수정] = useState();
   useEffect(() => {
+    // useparams에 restaurantID가 있을 경우에 레스토랑 아이디를 할당함
     if (restaurantID !== undefined) {
       레스토랑아이디수정(restaurantID);
     }
-    // console.log(
-    //   레스토랑아이디,
-    //   '맛집 리스트에서 바로 리뷰 작성하려고 함! params가 null이 아님!'
-    // );
   });
   const [클릭버튼, 클릭버튼수정] = useState(false);
   const navigate = useNavigate();
@@ -90,6 +87,8 @@ function ReviewRegistration() {
     label: x.가게이름,
   }));
   // console.log(레스토랑아이디, '레스토랑ID임!');
+
+  // const camelToSnakeCase = str => str.replace(/[A-Z]/g, letter => _${letter.toLowerCase()});
   return (
     <div>
       <div className={content.hiddenSpace}>
@@ -413,15 +412,15 @@ function ReviewRegistration() {
                   tasteRating: 맛,
                   content: 내용,
                   visitDate: `${방문날짜.$y}-${방문날짜.$M + 1 >= 10 ? 방문날짜.$M + 1 : `0${방문날짜.$M + 1}`}-${방문날짜.$D >= 10 ? 방문날짜.$D : `0${방문날짜.$D}`}`,
-                  // visitDate: 방문날짜,
                   restaurantId: Number(레스토랑아이디), // 선택한 음식점으로 리뷰 리스트 전송
                   accountReviews: [], // 아직 팔로워 API 구현이 안돼있어서 빈 목록으로 전송해야함
                   reviewPersonTags: 임의친구들,
                 };
                 console.log('리뷰 전송하는 ID임!', 레스토랑아이디);
-                setTimeout(() => {
-                  setRegistration(!registration);
-                }, 500);
+                // setTimeout(() => {
+                //   setRegistration(!registration);
+                // }, 500);
+                setRegistration(!registration);
                 navigate(`/main/restaurants/${레스토랑아이디}`);
                 const url = `${API_URL}/review/1`; // 아직 유저 API 구현이 안돼있어서 1번 유저의 리뷰로만 작성
                 axios

@@ -1,6 +1,9 @@
 .container {
   padding: 30px;
 }
+.container hr {
+  background-color: black;
+}
 .container .content {
   margin: auto;
 }

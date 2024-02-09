@@ -1,6 +1,10 @@
 .container {
   padding: 30px;
 
+  hr {
+    background-color: black;
+  }
+  
   .content {
     margin: auto;
   }
@@ -15,7 +19,7 @@
       margin-left: 10px;
     }
   }
-  
+
   .footer {
     display: flex;
     justify-content: center;
