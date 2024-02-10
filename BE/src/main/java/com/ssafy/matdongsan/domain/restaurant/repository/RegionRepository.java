@@ -11,6 +11,10 @@ public interface RegionRepository extends JpaRepository<Region,Short> {
 
 
     Optional<Region> findByCode(String code);
+
+
+
+    Optional<Region> findByCityAndCountyAndDistrict(String city, String county, String district);
 //    @Query("SELECT r.id FROM Region r WHERE r.code = :code")
 //    Optional<Short> findIdByCode(String code);
 
