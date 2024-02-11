@@ -68,6 +68,7 @@ public class AccountService {
         List<Account> accounts = accountRepository.findAllOrderByFollower();
         for (Account account : accounts) {
             AccountSimpleResponseDto dto = AccountSimpleResponseDto.builder()
+                    .id(account.getId())
                     .nickname(account.getNickname())
                     .follower(account.getFollower())
                     .build();

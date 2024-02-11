@@ -8,6 +8,7 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 public class AccountSimpleResponseDto {
+    private Integer id;
     private String nickname;
     private int follower;
 }

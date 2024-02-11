@@ -27,19 +27,19 @@ public class AccountController {
 
     private final AccountService accountService;
 
+    @Operation(summary = "Get account infos", tags = { "account" })
+    @GetMapping
+    public ResponseEntity<?> getAccount(@AuthenticationPrincipal String email) {
+        log.info("email={}", email);
+        AccountResponse accountResponse = accountService.getAccount(email);
+        return ResponseEntity.ok().body(accountResponse);
+    }
+
     @Operation(summary = "Get an account by id", tags = { "account" })
     @GetMapping("/{accountId}")
     public ResponseEntity<?> getAccount(@PathVariable Integer accountId) {
         log.info("id={}", accountId);
         AccountResponse accountResponse = accountService.getAccount(accountId);
-        return ResponseEntity.ok().body(accountResponse);
-    }
-
-    @Operation(summary = "Get an account by email", tags = { "account" })
-    @GetMapping
-    public ResponseEntity<?> getAccount(@RequestParam String email) {
-        log.info("email={}", email);
-        AccountResponse accountResponse = accountService.getAccount(email);
         return ResponseEntity.ok().body(accountResponse);
     }
 
