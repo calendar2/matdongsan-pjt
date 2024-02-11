@@ -30,7 +30,7 @@ function FoodMapView() {
   const { isMyPage } = userStore();
   const navigate = useNavigate();
   const { setIsMyPage, setPageID, setloginAccount } = userStore();
-  const { setRefresh } = reviewStore();
+  const { setRefresh, refresh } = reviewStore();
   const { userID } = useParams();
   const loginID = 1;
   useEffect(() => {
@@ -50,13 +50,13 @@ function FoodMapView() {
       setPageID(userID);
       setIsMyPage(false);
       setTimeout(() => {
-        setRefresh();
+        setRefresh(!refresh);
       }, 5); // 리스트목록갱신
     } else {
       setPageID(loginID); // 로그인한아이디 입력
       setIsMyPage(true);
       setTimeout(() => {
-        setRefresh(); // 리스트목록갱신
+        setRefresh(!refresh); // 리스트목록갱신
       }, 5);
     }
   }, [navigate]);

@@ -1,8 +1,10 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from 'react-router-dom';
 import styles from '../../styles/modals/UserRankingModal.module.css';
+import reviewStore from '../../stores/reviewStore';
 
 function UserRankingModal(props) {
+  const { refresh, setRefresh } = reviewStore();
   const { accountRank, setAnchorEl } = props;
   return (
     <div className={styles.wrapper}>
@@ -15,6 +17,9 @@ function UserRankingModal(props) {
                 to={`/main/users/${x.id}/restaurants`}
                 onClick={() => {
                   setAnchorEl(null);
+                  setTimeout(() => {
+                    setRefresh(!refresh);
+                  }, 50);
                 }}
                 style={{ textDecoration: 'none' }}
               >

@@ -8,12 +8,14 @@ import user from '../../styles/subscribe/Following.module.css';
 import dongsanStore from '../../stores/dongsanStore';
 import urlStore from '../../stores/urlStore';
 import userStore from '../../stores/userStore';
+import reviewStore from '../../stores/reviewStore';
 
 function Following() {
   const { userID } = useParams();
   const [followingsData, setFollowingsData] = useState([]);
   const { API_URL } = urlStore();
   const { isMyPage } = userStore();
+  const { refresh, setRefresh } = reviewStore();
   useEffect(() => {
     if (isMyPage) {
       axios //
@@ -40,7 +42,7 @@ function Following() {
           // 실패 시 에러 처리
         });
     }
-  }, []);
+  }, [refresh]);
   const { dongsanUsers, setDongsanUsers } = dongsanStore();
 
   return (
@@ -50,7 +52,14 @@ function Following() {
           {/* key={following.id}로 수정 예정임 */}
           <div className={user.content}>
             <div className={user.user}>
-              <Link to={`/main/users/${following.id}/restaurants`}>
+              <Link
+                to={`/main/users/${following.id}/restaurants`}
+                onClick={() => {
+                  setTimeout(() => {
+                    setRefresh(!refresh);
+                  }, 50);
+                }}
+              >
                 <Avatar sx={{ width: 60, height: 60 }} />
               </Link>
               <div className={user.info}>
