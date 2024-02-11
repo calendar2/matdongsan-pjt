@@ -50,6 +50,7 @@ public class Account extends BaseEntity {
     private byte spicyLevel;
     private int follower = 0;
     private char gender;
+    private boolean isPassed = false;
 
     @Lob
     private String picture;
@@ -128,6 +129,7 @@ public class Account extends BaseEntity {
 
     public void modify(AccountModifyStep2RequestDto dto) {
         spicyLevel = dto.getSpicyLevel();
+        isPassed = true;
     }
 
 

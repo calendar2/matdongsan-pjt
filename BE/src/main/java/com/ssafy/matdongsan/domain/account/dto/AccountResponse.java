@@ -16,6 +16,7 @@ public class AccountResponse {
     private byte spicyLevel;
     private int follower;
     private char gender;
+    private boolean isPassed;
 
     public static AccountResponse from(Account account) {
         return AccountResponse.builder()
@@ -26,6 +27,7 @@ public class AccountResponse {
                 .spicyLevel(account.getSpicyLevel())
                 .follower(account.getFollower())
                 .gender(account.getGender())
+                .isPassed(account.isPassed())
                 .build();
     }
 }
