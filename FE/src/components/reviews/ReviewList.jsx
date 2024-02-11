@@ -15,7 +15,13 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import StarIcon from '@mui/icons-material/Star';
 import Button from '@mui/material/Button';
 import { useEffect, useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import {
+  Route,
+  Routes,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
+
 import axios from 'axios';
 import dayjs from 'dayjs';
 import reviewStore from '../../stores/reviewStore';
@@ -37,24 +43,45 @@ function ReviewsList() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
-  const [refresh, setRefresh] = useState(false);
   const {
     setRestaurantStore,
     setMyReviewStore,
-    update,
-    remove,
-    registration,
+    refresh,
+    setRefresh,
+    setIsOwner,
   } = reviewStore();
-
+  const navigate = useNavigate();
+  const { userID } = useParams();
+  const 로그인한아이디 = 1;
+  const [페이지주인아이디, 페이지주인아이디수정] = useState();
+  // const [페이지공개여부, 페이지공개여부수정] = useState(false); 리뷰페이지 공개여부, 이건 나중에
   const { API_URL } = urlStore();
   useEffect(() => {
-    console.log('의존성 배열이 변경됐음!');
+    if (userID !== undefined) {
+      페이지주인아이디수정(userID);
+      setIsOwner(false);
+      console.log('다른사람페이지구경중임!', 페이지주인아이디);
+      setTimeout(() => {
+        setRefresh();
+      }, 5); // 리스트목록갱신
+    } else {
+      페이지주인아이디수정(로그인한아이디); // 로그인한아이디 입력
+      setIsOwner(true);
+      console.log('내페이지임!', 페이지주인아이디);
+      setTimeout(() => {
+        setRefresh(); // 리스트목록갱신
+      }, 5);
+    }
     const fetchData = async () => {
       try {
+        // eslint-disable-next-line eqeqeq
+        if (페이지주인아이디 == undefined) {
+          return;
+        }
         const [restaurantData, reviewData, regions] =
           await Promise.all([
-            axios.get(`${API_URL}/restaurant/1`), // 1에 유저 id가 들어가야함
-            axios.get(`${API_URL}/review/1`), // 1에 유저 id가 들어가야함
+            axios.get(`${API_URL}/restaurant/${페이지주인아이디}`),
+            axios.get(`${API_URL}/review/${페이지주인아이디}`),
             axios.get(`${API_URL}/region`),
           ]);
         const restaurantList = restaurantData.data.map(
@@ -112,7 +139,6 @@ function ReviewsList() {
 
         setRestaurantStore(restaurantList);
         const reviewList = reviewData?.data.map((review) => {
-          console.log(review.visitDate);
           const filteredRestaurant = restaurantList.find(
             (x) => Number(x.id) === Number(review.restaurantId)
           );
@@ -140,7 +166,7 @@ function ReviewsList() {
       }
     };
     fetchData();
-  }, [refresh, remove, registration, update]);
+  }, [refresh, navigate]);
 
   const [reviewListSortButton1, setReviewListSortButton1] =
     useState(true);
@@ -148,7 +174,6 @@ function ReviewsList() {
     useState(false);
   const [reviewListSortButton3, setReviewListSortButton3] =
     useState(false);
-  const navigate = useNavigate();
   const [selectedList, setSelectedList] = useState();
   return (
     <div>
@@ -199,12 +224,12 @@ function ReviewsList() {
         </div>
         {/* handleScrollToSection, 인자 = 이동하고자하는 음식점 pk) 해당 음식점으로 스크롤 이동) */}
         <div>
-          <IconButton>
-            <RefreshIcon
-              onClick={() => {
-                setRefresh(!refresh);
-              }}
-            />
+          <IconButton
+            onClick={() => {
+              setRefresh(!refresh);
+            }}
+          >
+            <RefreshIcon />
           </IconButton>
           <IconButton onClick={() => handleScrollToSection(0)}>
             <ArrowUpwardIcon fontSize="small" />

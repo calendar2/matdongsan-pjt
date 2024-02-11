@@ -49,12 +49,12 @@ function DongsanModal() {
               <span>{dongsanUser.nickname}</span>
               <div className={dongsan.colorCheck} />
               <DoDisturbOnOutlinedIcon
-                color="error"
+                color={index !== 0 ? 'error' : 'success'}
                 className={dongsan.cancel}
                 onClick={() => {
                   const copy = [...dongsanUsers];
 
-                  if (dongsanUser.nickname === '김더미') {
+                  if (index === 0) {
                     console.log('자기자신은 삭제할 수 없습니다.');
                   } else {
                     setDongsanUsers(

@@ -1,6 +1,10 @@
 import { create } from 'zustand';
 
 const reviewStore = create((set) => ({
+  value: 0,
+  setValue: (value) => set({ value }),
+  isOwner: true,
+  setIsOwner: (value) => set({ isOwner: value }),
   registration: false,
   setRegistration: (value) => set({ registration: value }),
   update: false,
@@ -8,6 +12,8 @@ const reviewStore = create((set) => ({
   remove: false,
   setRemove: (value) => set({ remove: value }),
   restaurantStore: [],
+  refresh: false,
+  setRefresh: (value) => set({ refresh: value }),
   setRestaurantStore: (value) => set({ restaurantStore: value }),
   sortByVisitCount: () => {
     set((state) => ({

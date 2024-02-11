@@ -3,26 +3,43 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import user from '../../styles/subscribe/Following.module.css';
 import dongsanStore from '../../stores/dongsanStore';
 import urlStore from '../../stores/urlStore';
+import reviewStore from '../../stores/reviewStore';
 
 function Following() {
+  const { userID } = useParams();
   const [followingsData, setFollowingsData] = useState([]);
   const { API_URL } = urlStore();
-  const url = `${API_URL}/subscription/7`; // 아직 로그인 유저 API 구현이 안돼있어서 7번 유저의 팔로워
+  const { isOwner } = reviewStore();
   useEffect(() => {
-    axios // 여기서 put 요청으로 수정해야함
-      .get(url)
-      .then((response) => {
-        console.log('팔로워 요청 성공:', response.data);
-        setFollowingsData(response.data);
-        // 성공 시 필요한 작업 수행
-      })
-      .catch((error) => {
-        console.error('팔로워 요청 실패:', error);
-        // 실패 시 에러 처리
-      });
+    if (isOwner) {
+      axios //
+        .get(`${API_URL}/subscription/7`) // 7에서 로그인한 아이디로 수정
+        .then((response) => {
+          console.log('팔로워 요청 성공:', response.data);
+          setFollowingsData(response.data);
+          // 성공 시 필요한 작업 수행
+        })
+        .catch((error) => {
+          console.error('팔로워 요청 실패:', error);
+          // 실패 시 에러 처리
+        });
+    } else {
+      axios
+        .get(`${API_URL}/subscription/${userID}`)
+        .then((response) => {
+          console.log('팔로워 요청 성공:', response.data);
+          setFollowingsData(response.data);
+          // 성공 시 필요한 작업 수행
+        })
+        .catch((error) => {
+          console.error('팔로워 요청 실패:', error);
+          // 실패 시 에러 처리
+        });
+    }
   }, []);
   const { dongsanUsers, setDongsanUsers } = dongsanStore();
 

@@ -29,7 +29,7 @@ import girl2 from '../../assets/images/reviews/girl2.png';
 import urlStore from '../../stores/urlStore';
 
 function ReviewUpdate() {
-  const { myReviewStore, setUpdate, update } = reviewStore();
+  const { myReviewStore, setRefresh, refresh } = reviewStore();
   const { API_URL } = urlStore();
   const { reviewID, restaurantID } = useParams();
   const navigate = useNavigate();
@@ -394,8 +394,8 @@ function ReviewUpdate() {
                 reviewPersonTags: 임의친구들,
               };
               setTimeout(() => {
-                setUpdate(!update);
-              }, 500);
+                setRefresh(!refresh);
+              }, 5);
               navigate(`/main/restaurants/${restaurantID}`);
               const url = `${API_URL}/review/1/${reviewID}`; // 아직 유저 API 구현이 안돼있어서 1번 유저의 리뷰로만 작성/1번 리뷰 수정
               axios // 여기서 put 요청으로 수정해야함

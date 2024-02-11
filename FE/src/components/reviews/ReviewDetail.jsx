@@ -20,7 +20,8 @@ import content from '../../styles/foodmap/FoodMapView.module.css';
 
 function ReviewDetail() {
   const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
-  const { myReviewStore, remove, setRemove } = reviewStore();
+  const { myReviewStore, refresh, setRefresh, isOwner } =
+    reviewStore();
   const { API_URL } = urlStore();
   const navigate = useNavigate();
   const { reviewID, restaurantID } = useParams();
@@ -165,63 +166,65 @@ function ReviewDetail() {
         </Typography>
         <div>{filteredReview?.방문한날짜}</div>
         <hr />
-        <div className={styles.footer}>
-          <Button
-            type="button"
-            variant="contained"
-            size="large"
-            sx={{ width: '130px' }}
-            onClick={() => {
-              console.log('수정하기 버튼이 눌렸어요!.');
-              navigate('update');
-            }}
-            style={{
-              backgroundColor: 'rgba(29, 177, 119, 0.7)', // 버튼의 배경색을 1db177로 설정
-              color: '#ffffff', // 버튼의 글자색을 흰색으로 설정
-              fontSize: '1rem', // 버튼의 글자 크기를 조절
-              padding: '5px 30px', // 버튼의 내부 여백을 조절
-              borderRadius: '20px',
-            }}
-          >
-            수정
-          </Button>
-          <Button
-            type="button"
-            variant="contained"
-            size="large"
-            sx={{ width: '130px' }}
-            onClick={() => {
-              console.log('삭제하기 버튼이 눌렸어요!.');
-              navigate(`/main/restaurants/${restaurantID}`);
-              setTimeout(() => {
-                setRemove(!remove);
-              }, 500);
-              // setRemove(!remove);
-              const url = `${API_URL}/review/1/${reviewID}`;
-              axios
-                .delete(url)
-                .then((response) => {
-                  console.log('요청 성공:', response.data);
-                  // 성공 시 필요한 작업 수행
-                })
-                .catch((error) => {
-                  console.error('요청 실패:', error);
-                  // 실패 시 에러 처리
-                });
-            }}
-            style={{
-              backgroundColor: 'rgba(29, 177, 119, 0.7)', // 버튼의 배경색을 1db177로 설정
-              color: '#ffffff', // 버튼의 글자색을 흰색으로 설정
-              fontSize: '1rem', // 버튼의 글자 크기를 조절
-              padding: '5px 30px', // 버튼의 내부 여백을 조절
-              borderRadius: '20px',
-              marginLeft: '10px',
-            }}
-          >
-            <DeleteIcon />
-            삭제
-          </Button>
-        </div>
+        {isOwner && (
+          <div className={styles.footer}>
+            <Button
+              type="button"
+              variant="contained"
+              size="large"
+              sx={{ width: '130px' }}
+              onClick={() => {
+                console.log('수정하기 버튼이 눌렸어요!.');
+                navigate('update');
+              }}
+              style={{
+                backgroundColor: 'rgba(29, 177, 119, 0.7)', // 버튼의 배경색을 1db177로 설정
+                color: '#ffffff', // 버튼의 글자색을 흰색으로 설정
+                fontSize: '1rem', // 버튼의 글자 크기를 조절
+                padding: '5px 30px', // 버튼의 내부 여백을 조절
+                borderRadius: '20px',
+              }}
+            >
+              수정
+            </Button>
+            <Button
+              type="button"
+              variant="contained"
+              size="large"
+              sx={{ width: '130px' }}
+              onClick={() => {
+                console.log('삭제하기 버튼이 눌렸어요!.');
+                navigate(`/main/restaurants/${restaurantID}`);
+                setTimeout(() => {
+                  setRefresh(!refresh);
+                }, 5);
+                // setRemove(!remove);
+                const url = `${API_URL}/review/1/${reviewID}`;
+                axios
+                  .delete(url)
+                  .then((response) => {
+                    console.log('요청 성공:', response.data);
+                    // 성공 시 필요한 작업 수행
+                  })
+                  .catch((error) => {
+                    console.error('요청 실패:', error);
+                    // 실패 시 에러 처리
+                  });
+              }}
+              style={{
+                backgroundColor: 'rgba(29, 177, 119, 0.7)', // 버튼의 배경색을 1db177로 설정
+                color: '#ffffff', // 버튼의 글자색을 흰색으로 설정
+                fontSize: '1rem', // 버튼의 글자 크기를 조절
+                padding: '5px 30px', // 버튼의 내부 여백을 조절
+                borderRadius: '20px',
+                marginLeft: '10px',
+              }}
+            >
+              <DeleteIcon />
+              삭제
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

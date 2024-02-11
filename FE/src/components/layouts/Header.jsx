@@ -7,8 +7,9 @@ import Slider from 'react-slick';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
-import { Button } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import HomeIcon from '@mui/icons-material/Home';
 import GlobalFilterModal from '../modals/GlobalFilterModal';
 import NotiModal from '../modals/NotiModal';
 import ProfileModal from '../modals/ProfileModal';
@@ -18,6 +19,7 @@ import header from '../../styles/layouts/Header.module.css';
 import imgLogo from '../../assets/images/logo.png';
 import urlStore from '../../stores/urlStore';
 import UserRankingModal from '../modals/UserRankingModal';
+import reviewStore from '../../stores/reviewStore';
 
 function Header() {
   const { API_URL } = urlStore();
@@ -53,7 +55,7 @@ function Header() {
     autoplaySpeed: 4000,
     arrows: false,
   };
-
+  const { refresh, setRefresh, setValue, isOwner } = reviewStore();
   useEffect(() => {
     axios
       .get(url)
@@ -116,7 +118,16 @@ function Header() {
   return (
     <div className={header.container}>
       <div className={header.headline}>
-        <Link to="/main/restaurants" className={header}>
+        <Link
+          to="/main/restaurants"
+          className={header}
+          onClick={() => {
+            setTimeout(() => {
+              setRefresh(!refresh);
+              setValue(0);
+            }, 50);
+          }}
+        >
           <img
             src={imgLogo}
             alt="mainLogo"
@@ -159,11 +170,29 @@ function Header() {
                     className={header.userResultContainer}
                   >
                     <div className={header.userResultWrapper}>
-                      <Link to={`/main/${1}/restaurants/`}>
+                      <Link
+                        to={`/main/users/${info.id}/restaurants/`}
+                        onClick={() => {
+                          setSearchValue('');
+                          setValue(0);
+                          setTimeout(() => {
+                            setRefresh(!refresh);
+                          }, 50);
+                        }}
+                      >
                         <Avatar />
                       </Link>
                       <div className={header.userResultInfo}>
-                        <Link to={`/main/${1}/restaurants`}>
+                        <Link
+                          to={`/main/users/${info.id}/restaurants`}
+                          onClick={() => {
+                            setSearchValue('');
+                            setValue(0);
+                            setTimeout(() => {
+                              setRefresh(!refresh);
+                            }, 50);
+                          }}
+                        >
                           <h4>{info.nickname}</h4>
                         </Link>
                         <FavoriteIcon
@@ -222,6 +251,19 @@ function Header() {
         <div className={header.userInfo}>
           {accessToken ? (
             <ul>
+              {!isOwner && (
+                <IconButton
+                  sx={{ marginRight: '1vw' }}
+                  onClick={() => {
+                    navigate('/main/restaurants');
+                    setTimeout(() => {
+                      setRefresh(!refresh);
+                    }, 5);
+                  }}
+                >
+                  <HomeIcon fontSize="large" color="disabled" />
+                </IconButton>
+              )}
               <li>
                 <NotiModal />
               </li>

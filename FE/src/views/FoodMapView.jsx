@@ -12,8 +12,12 @@ import DongsanModal from '../components/modals/DongsanModal';
 import Following from '../components/subscribe/Following';
 import Follower from '../components/subscribe/Follower';
 import RestaurantDetail from '../components/restaurants/RestaurantDetail';
+import UserInfoModal from '../components/modals/UserInfoModal';
+import reviewStore from '../stores/reviewStore';
+import OtherUserDongsanModal from '../components/modals/OtherUserDongsanModal';
 
 function FoodMapView() {
+  const { isOwner } = reviewStore();
   return (
     <div className={contents.container}>
       <Header />
@@ -51,7 +55,9 @@ function FoodMapView() {
             />
           </Routes>
           <FoodMap />
-          <DongsanModal />
+          {isOwner && <DongsanModal />}
+          {!isOwner && <UserInfoModal />}
+          {!isOwner && <OtherUserDongsanModal />}
         </div>
       </main>
     </div>

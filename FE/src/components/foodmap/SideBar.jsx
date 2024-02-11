@@ -1,13 +1,13 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import MyDongsanIconOn from '../../assets/images/sidebar/foodwhite.png';
 import MyDongsanIconOff from '../../assets/images/sidebar/foodblack.png';
 import FollowerIconOff from '../../assets/images/sidebar/heartblack.png';
 import FollowerIconOn from '../../assets/images/sidebar/heartwhite.png';
 import styles from '../../styles/foodmap/SideBar.module.css';
+import reviewStore from '../../stores/reviewStore';
 
 function SideBar() {
-  const [value, setValue] = useState(0);
+  const { value, setValue } = reviewStore();
 
   const reviewChange = () => {
     setValue(0);

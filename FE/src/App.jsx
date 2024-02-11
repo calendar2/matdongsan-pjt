@@ -11,6 +11,8 @@ function App() {
     <Routes>
       {/* 로그인 했을 때는 이 레이아웃으로 */}
       <Route path="/main/*" element={<FoodMapView />} />
+      {/* 다른사람 페이지는 이 레이아웃으로 */}
+      <Route path="/main/users/:userID/*" element={<FoodMapView />} />
       {/* 로그인 하지않았을 때는 이 레이아웃으로 */}
       <Route path="*" element={<StartView />} />
       {/* <Route path="/oauth2/kakao" element={<KakaoLogin />} /> */}

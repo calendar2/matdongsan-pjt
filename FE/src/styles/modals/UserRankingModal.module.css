@@ -3,9 +3,6 @@
   justify-content: space-between;
   align-items: center;
 }
-.wrapper .content:hover {
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
-}
 .wrapper .content .rank {
   font-style: oblique;
   font-weight: bold;
@@ -14,6 +11,10 @@
 .wrapper .content .name {
   margin-left: 5px;
   color: #063925;
+}
+.wrapper .content .name:hover {
+  color: #1db177;
+  cursor: pointer;
 }
 .wrapper .content .follower {
   display: flex;

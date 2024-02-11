@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { useState } from 'react';
 import sleepy from '../../assets/images/reviews/sleepy.png';
@@ -15,8 +15,9 @@ import reviewStore from '../../stores/reviewStore';
 import styles from '../../styles/reviews/ReviewListSubItems.module.css';
 
 function ReviewListSubItems(props) {
-  const { myReviewStore } = reviewStore();
+  const { myReviewStore, isOwner } = reviewStore();
   const { id } = props;
+  const { userID } = useParams();
   const navigate = useNavigate();
   const filteredSubItems = myReviewStore.filter(
     (x) => x.id === Number(id)
@@ -25,22 +26,24 @@ function ReviewListSubItems(props) {
   return (
     <div>
       <div className={styles.btn}>
-        <Button
-          type="submit"
-          variant="text"
-          onClick={(e) => {
-            e.stopPropagation();
-            navigate('write');
-          }}
-          sx={{
-            color: 'rgba(55,55,55,0.7)',
-            '&:hover': {
-              backgroundColor: 'transparent', // 배경색을 투명하게 설정
-            },
-          }}
-        >
-          +
-        </Button>
+        {isOwner && (
+          <Button
+            type="submit"
+            variant="text"
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate('write');
+            }}
+            sx={{
+              color: 'rgba(55,55,55,0.7)',
+              '&:hover': {
+                backgroundColor: 'transparent', // 배경색을 투명하게 설정
+              },
+            }}
+          >
+            +
+          </Button>
+        )}
       </div>
       {filteredSubItems?.length > 0 ? (
         <div>
@@ -87,7 +90,11 @@ function ReviewListSubItems(props) {
             <ArrowDropUpIcon
               onClick={(e) => {
                 e.stopPropagation();
-                navigate('/main/restaurants');
+                if (isOwner) {
+                  navigate('/main/restaurants');
+                } else {
+                  navigate(`/main/users/${userID}/restaurants`);
+                }
               }}
               sx={{
                 color: 'rgba(55,55,55,0.7)',
