@@ -79,7 +79,7 @@ public class Account extends BaseEntity {
     @OneToMany(mappedBy = "compared")
     private List<Comparison> compared = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account")
     private List<Review> accountReviews = new ArrayList<>();
 
     @ManyToMany
