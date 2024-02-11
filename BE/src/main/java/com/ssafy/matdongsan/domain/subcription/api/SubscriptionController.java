@@ -34,7 +34,8 @@ public class SubscriptionController {
 
     @GetMapping("/{accountId}")
     public ResponseEntity<?> getSubscriptions(@PathVariable Integer accountId) {
-        return ResponseEntity.ok().body(subscriptionService.getSubscriptions(accountId));
+        List<AccountSimpleResponseDto> subscriptions = subscriptionService.getSubscriptions(accountId);
+        return ResponseEntity.ok().body(subscriptions);
     }
 
 }
