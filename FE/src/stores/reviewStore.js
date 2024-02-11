@@ -3,8 +3,6 @@ import { create } from 'zustand';
 const reviewStore = create((set) => ({
   value: 0,
   setValue: (value) => set({ value }),
-  isOwner: true,
-  setIsOwner: (value) => set({ isOwner: value }),
   registration: false,
   setRegistration: (value) => set({ registration: value }),
   update: false,

@@ -17,11 +17,12 @@ import styles from '../../styles/reviews/ReviewDetail.module.css';
 import reviewStore from '../../stores/reviewStore';
 import urlStore from '../../stores/urlStore';
 import content from '../../styles/foodmap/FoodMapView.module.css';
+import userStore from '../../stores/userStore';
 
 function ReviewDetail() {
   const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
-  const { myReviewStore, refresh, setRefresh, isOwner } =
-    reviewStore();
+  const { isMyPage } = userStore();
+  const { myReviewStore, refresh, setRefresh } = reviewStore();
   const { API_URL } = urlStore();
   const navigate = useNavigate();
   const { reviewID, restaurantID } = useParams();
@@ -166,7 +167,7 @@ function ReviewDetail() {
         </Typography>
         <div>{filteredReview?.방문한날짜}</div>
         <hr />
-        {isOwner && (
+        {isMyPage && (
           <div className={styles.footer}>
             <Button
               type="button"

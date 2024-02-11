@@ -13,9 +13,11 @@ import { useState } from 'react';
 import sleepy from '../../assets/images/reviews/sleepy.png';
 import reviewStore from '../../stores/reviewStore';
 import styles from '../../styles/reviews/ReviewListSubItems.module.css';
+import userStore from '../../stores/userStore';
 
 function ReviewListSubItems(props) {
-  const { myReviewStore, isOwner } = reviewStore();
+  const { myReviewStore } = reviewStore();
+  const { isMyPage } = userStore();
   const { id } = props;
   const { userID } = useParams();
   const navigate = useNavigate();
@@ -26,7 +28,7 @@ function ReviewListSubItems(props) {
   return (
     <div>
       <div className={styles.btn}>
-        {isOwner && (
+        {isMyPage && (
           <Button
             type="submit"
             variant="text"
@@ -90,7 +92,7 @@ function ReviewListSubItems(props) {
             <ArrowDropUpIcon
               onClick={(e) => {
                 e.stopPropagation();
-                if (isOwner) {
+                if (isMyPage) {
                   navigate('/main/restaurants');
                 } else {
                   navigate(`/main/users/${userID}/restaurants`);

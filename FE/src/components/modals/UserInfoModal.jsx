@@ -1,20 +1,37 @@
 import { IconButton, Avatar } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import styles from '../../styles/modals/UserInfoModal.module.css';
 import urlStore from '../../stores/urlStore';
 
 function UserInfoModal() {
   const { API_URL } = urlStore();
   const { userID } = useParams();
+  const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState();
+  useEffect(() => {
+    const url = `${API_URL}/account/${userID}`;
+    axios
+      .get(url)
+      .then((response) => {
+        console.log('요청 성공:', response.data);
+        setUserInfo(response.data);
+        // 성공 시 필요한 작업 수행
+      })
+      .catch((error) => {
+        console.error('요청 실패:', error);
+        // 실패 시 에러 처리
+      });
+  }, [navigate]);
   return (
     <div className={styles.box}>
       <div className={styles.avatar}>
         <Avatar sx={{ width: '100px', height: '100px' }} />
       </div>
       <div className={styles.info}>
-        <div className={styles.nickname}>닉네임</div>
+        <div className={styles.nickname}>{userInfo?.nickname}</div>
         <div className={styles.follower}>
           <FavoriteIcon
             sx={{
@@ -22,7 +39,7 @@ function UserInfoModal() {
               width: '1vw',
             }}
           />
-          1.2k
+          {userInfo?.follower}
         </div>
         <div>
           <IconButton

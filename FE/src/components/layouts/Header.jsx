@@ -55,7 +55,8 @@ function Header() {
     autoplaySpeed: 4000,
     arrows: false,
   };
-  const { refresh, setRefresh, setValue, isOwner } = reviewStore();
+  const { refresh, setRefresh, setValue } = reviewStore();
+  const { isMyPage } = userStore();
   useEffect(() => {
     axios
       .get(url)
@@ -251,7 +252,7 @@ function Header() {
         <div className={header.userInfo}>
           {accessToken ? (
             <ul>
-              {!isOwner && (
+              {!isMyPage && (
                 <IconButton
                   sx={{ marginRight: '1vw' }}
                   onClick={() => {
@@ -317,7 +318,10 @@ function Header() {
           <Typography
             sx={{ p: 2, minHeight: '300px', minWidth: '200px' }}
           >
-            <UserRankingModal accountRank={accountRank} />
+            <UserRankingModal
+              setAnchorEl={setAnchorEl}
+              accountRank={accountRank}
+            />
           </Typography>
         </Popover>
         <div className={header.userRankInfo}>

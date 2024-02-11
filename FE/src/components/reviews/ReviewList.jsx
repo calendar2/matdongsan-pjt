@@ -15,12 +15,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import StarIcon from '@mui/icons-material/Star';
 import Button from '@mui/material/Button';
 import { useEffect, useState } from 'react';
-import {
-  Route,
-  Routes,
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 import dayjs from 'dayjs';
@@ -28,6 +23,7 @@ import reviewStore from '../../stores/reviewStore';
 import styles from '../../styles/reviews/ReviewList.module.css';
 import ReviewsListSubItems from './ReviewListSubItems';
 import urlStore from '../../stores/urlStore';
+import userStore from '../../stores/userStore';
 
 function ReviewsList() {
   const {
@@ -36,6 +32,8 @@ function ReviewsList() {
     sortByRecentVisitDate,
     sortByAverageTasteAndKindness,
   } = reviewStore();
+  const { pageID } = userStore();
+  const navigate = useNavigate();
   // 음식점 ID를 인자로 입력하면 해당 음식점으로 스크롤 이동한다
   const handleScrollToSection = (id) => {
     const element = document.getElementById(id);
@@ -48,40 +46,21 @@ function ReviewsList() {
     setMyReviewStore,
     refresh,
     setRefresh,
-    setIsOwner,
   } = reviewStore();
-  const navigate = useNavigate();
-  const { userID } = useParams();
-  const 로그인한아이디 = 1;
-  const [페이지주인아이디, 페이지주인아이디수정] = useState();
+
   // const [페이지공개여부, 페이지공개여부수정] = useState(false); 리뷰페이지 공개여부, 이건 나중에
   const { API_URL } = urlStore();
   useEffect(() => {
-    if (userID !== undefined) {
-      페이지주인아이디수정(userID);
-      setIsOwner(false);
-      console.log('다른사람페이지구경중임!', 페이지주인아이디);
-      setTimeout(() => {
-        setRefresh();
-      }, 5); // 리스트목록갱신
-    } else {
-      페이지주인아이디수정(로그인한아이디); // 로그인한아이디 입력
-      setIsOwner(true);
-      console.log('내페이지임!', 페이지주인아이디);
-      setTimeout(() => {
-        setRefresh(); // 리스트목록갱신
-      }, 5);
-    }
     const fetchData = async () => {
       try {
-        // eslint-disable-next-line eqeqeq
-        if (페이지주인아이디 == undefined) {
+        // 백트래킹
+        if (pageID === undefined) {
           return;
         }
         const [restaurantData, reviewData, regions] =
           await Promise.all([
-            axios.get(`${API_URL}/restaurant/${페이지주인아이디}`),
-            axios.get(`${API_URL}/review/${페이지주인아이디}`),
+            axios.get(`${API_URL}/restaurant/${pageID}`),
+            axios.get(`${API_URL}/review/${pageID}`),
             axios.get(`${API_URL}/region`),
           ]);
         const restaurantList = restaurantData.data.map(
@@ -166,7 +145,7 @@ function ReviewsList() {
       }
     };
     fetchData();
-  }, [refresh, navigate]);
+  }, [refresh]);
 
   const [reviewListSortButton1, setReviewListSortButton1] =
     useState(true);

@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom'; // 가게 선택 안하고 기�
 import styles from '../../styles/reviews/Review.module.css';
 import ReviewsList from './ReviewList';
 import ReviewsSearch from './ReviewSearch';
-import reviewStore from '../../stores/reviewStore';
+import userStore from '../../stores/userStore';
 // import Region from './Region'; // 지역 API 호출
 // import Random from './Random'; // 랜덤 사진 API 호출
 
 function Reviews() {
-  const { isOwner } = reviewStore();
+  const { isMyPage } = userStore();
   const navigate = useNavigate(); // 가게 선택 안하고 기록하기 버튼 막아놓음
   return (
     <div className={styles.wrapper}>
@@ -18,7 +18,7 @@ function Reviews() {
       <div>
         <ReviewsSearch className={styles.reviewsearch} />
         <ReviewsList className={styles.reviewlist} />
-        {isOwner && (
+        {isMyPage && (
           <IconButton
             type="button"
             variant="contained"

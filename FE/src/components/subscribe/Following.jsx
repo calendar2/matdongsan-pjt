@@ -3,21 +3,21 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import user from '../../styles/subscribe/Following.module.css';
 import dongsanStore from '../../stores/dongsanStore';
 import urlStore from '../../stores/urlStore';
-import reviewStore from '../../stores/reviewStore';
+import userStore from '../../stores/userStore';
 
 function Following() {
   const { userID } = useParams();
   const [followingsData, setFollowingsData] = useState([]);
   const { API_URL } = urlStore();
-  const { isOwner } = reviewStore();
+  const { isMyPage } = userStore();
   useEffect(() => {
-    if (isOwner) {
+    if (isMyPage) {
       axios //
-        .get(`${API_URL}/subscription/7`) // 7에서 로그인한 아이디로 수정
+        .get(`${API_URL}/subscription/1`) // 1에서 로그인한 아이디로 수정
         .then((response) => {
           console.log('팔로워 요청 성공:', response.data);
           setFollowingsData(response.data);
@@ -46,10 +46,13 @@ function Following() {
   return (
     <div>
       {followingsData?.map((following) => (
-        <div className={user.wrapper} key={following.nickname}>
+        <div className={user.wrapper} key={following.id}>
+          {/* key={following.id}로 수정 예정임 */}
           <div className={user.content}>
             <div className={user.user}>
-              <Avatar sx={{ width: 60, height: 60 }} />
+              <Link to={`/main/users/${following.id}/restaurants`}>
+                <Avatar sx={{ width: 60, height: 60 }} />
+              </Link>
               <div className={user.info}>
                 <h4>{following.nickname}</h4>
                 <FavoriteIcon sx={{ fontSize: 15 }} />

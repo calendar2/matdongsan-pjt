@@ -1,16 +1,25 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Link } from 'react-router-dom';
 import styles from '../../styles/modals/UserRankingModal.module.css';
 
 function UserRankingModal(props) {
-  const { accountRank } = props;
+  const { accountRank, setAnchorEl } = props;
   return (
     <div className={styles.wrapper}>
       {accountRank.map((x, i) => (
-        <div>
+        <div key={x.id}>
           <div className={styles.content}>
             <div>
               <span className={styles.rank}>{i + 1}.</span>
-              <span className={styles.name}>{x.nickname}</span>
+              <Link
+                to={`/main/users/${x.id}/restaurants`}
+                onClick={() => {
+                  setAnchorEl(null);
+                }}
+                style={{ textDecoration: 'none' }}
+              >
+                <span className={styles.name}>{x.nickname}</span>
+              </Link>
             </div>
             <span className={styles.follower}>
               <FavoriteIcon

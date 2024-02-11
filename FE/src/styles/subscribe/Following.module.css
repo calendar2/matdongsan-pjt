@@ -14,6 +14,7 @@
 }
 .wrapper .content:hover {
   box-shadow: 0px 0px 20px rgba(55, 55, 55, 0.3);
+  cursor: pointer;
 }
 .wrapper .content .user {
   display: flex;
