@@ -44,7 +44,7 @@ public class Restaurant extends BaseEntity {
     @Column(length = 16)
     private String phone;
 
-    @Column(length = 255)
+    @Column(length = 1000)
     private String thum_url;
 
     @Column(columnDefinition = "TEXT")
