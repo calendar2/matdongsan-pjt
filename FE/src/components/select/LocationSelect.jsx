@@ -12,12 +12,30 @@ function LocationSelect() {
 
   const defaultProps = {
     options: getRegion?.data,
-    getOptionLabel: (option) => option.district,
+    getOptionLabel: (option) => {
+      let address = '';
+
+      if (option.city !== '0') {
+        address += `${option.city} `;
+      }
+
+      if (option.county !== '0') {
+        address += `${option.county} `;
+      }
+      if (option.district !== '0') {
+        address += option.district;
+      }
+
+      return address;
+    },
+    key: (option) => option.id,
   };
 
-  const handleAutocompleteChange = (e) => {
-    setLocation(e.target.outerText);
+  const handleAutocompleteChange = (e, selectedOption) => {
+    setLocation(selectedOption?.id);
+    console.log('event 값', e);
     console.log('로케이션', location);
+    console.log('선택한 옵션의 키 값:', selectedOption);
   };
 
   return (
