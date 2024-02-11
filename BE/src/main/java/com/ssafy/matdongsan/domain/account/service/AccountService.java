@@ -18,9 +18,10 @@ public class AccountService {
     private final AccountRepository accountRepository;
     private final PersonTagRepository personTagRepository;
 
-    public void savePersonTag(PersonTagSaveRequestDto dto, String email) {
+    public PersonTagResponse savePersonTag(PersonTagSaveRequestDto dto, String email) {
         Account account = accountRepository.findByEmail(email);
-        personTagRepository.save(dto.toEntity(account));
+        PersonTag savedPersonTag = personTagRepository.save(dto.toEntity(account));
+        return PersonTagResponse.from(savedPersonTag);
     }
 
     public AccountResponse modifyAccount(AccountModifyRequestDto dto, String email) {
@@ -44,8 +45,9 @@ public class AccountService {
         return AccountResponse.from(savedAccount);
     }
 
-    public Account saveAccount(AccountSaveRequestDto dto) {
-        return accountRepository.save(dto.toEntity());
+    public AccountResponse saveAccount(AccountSaveRequestDto dto) {
+        Account account = accountRepository.save(dto.toEntity());
+        return AccountResponse.from(account);
     }
 
     public AccountResponse getAccount(Integer accountId) {
@@ -58,9 +60,15 @@ public class AccountService {
         return AccountResponse.from(account);
     }
 
-    public List<PersonTag> getPersonTags(String email) {
+    public List<PersonTagResponse> getPersonTags(String email) {
         Account account = accountRepository.findByEmail(email);
-        return account.getPersonTags();
+        List<PersonTag> personTags;
+        personTags = account.getPersonTags();
+        List<PersonTagResponse> ret = new ArrayList<>();
+        for (PersonTag personTag : personTags) {
+            ret.add(PersonTagResponse.from(personTag));
+        }
+        return ret;
     }
 
     public List<AccountSimpleResponseDto> getAccountsTop10() {

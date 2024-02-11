@@ -25,7 +25,7 @@ public class PersonTag extends BaseEntity {
     @Column(name = "person_tag_name", nullable = false, length = 100)
     private String name;
 
-    private int birthYear;
+    private short birthYear;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "account_id")
@@ -36,7 +36,7 @@ public class PersonTag extends BaseEntity {
 
 
     @Builder
-    public PersonTag(String name, int birthYear, Account account) {
+    public PersonTag(String name, short birthYear, Account account) {
         this.name = name;
         this.birthYear = birthYear;
         this.account = account;

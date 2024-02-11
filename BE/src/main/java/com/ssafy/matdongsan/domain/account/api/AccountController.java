@@ -28,6 +28,11 @@ public class AccountController {
     private final AccountService accountService;
 
     @Operation(summary = "Get account infos", tags = { "account" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = AccountResponse.class))
+            })
+    })
     @GetMapping
     public ResponseEntity<?> getAccount(@AuthenticationPrincipal String email) {
         log.info("email={}", email);
@@ -36,6 +41,11 @@ public class AccountController {
     }
 
     @Operation(summary = "Get an account by id", tags = { "account" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = AccountResponse.class))
+            })
+    })
     @GetMapping("/{accountId}")
     public ResponseEntity<?> getAccount(@PathVariable Integer accountId) {
         log.info("id={}", accountId);
@@ -44,6 +54,11 @@ public class AccountController {
     }
 
     @Operation(summary = "Update an account", tags = { "account" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = AccountResponse.class))
+            })
+    })
     @PutMapping
     public ResponseEntity<?> modifyAccount(@AuthenticationPrincipal String email, @RequestBody AccountModifyRequestDto dto) {
         log.info("email={}", email);
@@ -53,6 +68,11 @@ public class AccountController {
     }
 
     @Operation(summary = "Update an account", tags = { "account" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = AccountResponse.class))
+            })
+    })
     @PutMapping("/step1")
     public ResponseEntity<?> modifyAccount(@AuthenticationPrincipal String email, @RequestBody AccountModifyStep1RequestDto dto) {
         log.info("email={}", email);
@@ -62,6 +82,11 @@ public class AccountController {
     }
 
     @Operation(summary = "Update an account", tags = { "account" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = AccountResponse.class))
+            })
+    })
     @PutMapping("/step2")
     public ResponseEntity<?> modifyAccount(@AuthenticationPrincipal String email, @RequestBody AccountModifyStep2RequestDto dto) {
         log.info("email={}", email);
@@ -71,26 +96,41 @@ public class AccountController {
     }
 
     @Operation(summary = "Save an account", tags = { "account" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = AccountResponse.class))
+            })
+    })
     @PostMapping
     public ResponseEntity<?> saveAccount(@RequestBody AccountSaveRequestDto dto) {
         log.info("Account={}", dto.toString());
-        Account account = accountService.saveAccount(dto);
-        return ResponseEntity.ok().body(account);
+        AccountResponse accountResponse = accountService.saveAccount(dto);
+        return ResponseEntity.ok().body(accountResponse);
     }
 
     @Operation(summary = "Get a person tag", tags = { "account" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = PersonTagResponse.class))
+            })
+    })
     @GetMapping("/tag")
     public ResponseEntity<?> getPersonTags(@AuthenticationPrincipal String email) {
-        List<PersonTag> personTags = accountService.getPersonTags(email);
+        List<PersonTagResponse> personTags = accountService.getPersonTags(email);
         return ResponseEntity.ok().body(personTags);
     }
 
     @Operation(summary = "Create a person tag", tags = { "account" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = PersonTagResponse.class))
+            })
+    })
     @PostMapping("/tag")
-    public void createPersonTag(@AuthenticationPrincipal String email, @RequestBody PersonTagSaveRequestDto dto) {
+    public PersonTagResponse createPersonTag(@AuthenticationPrincipal String email, @RequestBody PersonTagSaveRequestDto dto) {
         log.info("email={}", email);
         log.info("dto={}", dto.toString());
-        accountService.savePersonTag(dto, email);
+        return accountService.savePersonTag(dto, email);
     }
 
 
