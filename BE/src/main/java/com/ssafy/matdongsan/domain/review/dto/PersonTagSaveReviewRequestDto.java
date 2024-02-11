@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PersonTagSaveReviewRequestDto {
     private String name;
-    private int birthYear;
+    private short birthYear;
 
     @Builder
-    public PersonTagSaveReviewRequestDto(String name, int birthYear) {
+    public PersonTagSaveReviewRequestDto(String name, short birthYear) {
         this.name = name;
         this.birthYear = birthYear;
     }
