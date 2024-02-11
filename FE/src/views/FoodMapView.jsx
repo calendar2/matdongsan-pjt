@@ -27,16 +27,30 @@ import urlStore from '../stores/urlStore';
 
 function FoodMapView() {
   const { API_URL } = urlStore();
-  const { isMyPage } = userStore();
   const navigate = useNavigate();
-  const { setIsMyPage, setPageID, setloginAccount } = userStore();
+  const {
+    setIsMyPage,
+    setPageID,
+    setloginAccount,
+    isMyPage,
+    accessToken,
+    setAccessToken,
+  } = userStore();
   const { setRefresh, refresh } = reviewStore();
   const { userID } = useParams();
   const loginID = 1;
+
   useEffect(() => {
-    const url = `${API_URL}/account/`;
-    axios
-      .get(url)
+    const url = `${API_URL}/account`;
+    setAccessToken(localStorage.getItem('ACCESS_TOKEN'));
+    axios({
+      method: 'get',
+      url,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    })
       .then((response) => {
         console.log('요청 성공:', response.data);
         setloginAccount(response.data);

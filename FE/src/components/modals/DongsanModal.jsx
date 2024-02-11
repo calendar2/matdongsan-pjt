@@ -16,7 +16,7 @@ function DongsanModal() {
           type="button"
           onClick={() => {
             setDongsanUsers([
-              { nickname: '나', followers: '513', filter: true }, // 로그인 기능 구현 되면 로그인 유저의 nickname, followers 가져오기
+              { nickname: '나', followers: '513', filter: true }, // 로그인 기능 구현 되면 로그인 유저의 nickname, followers, id 가져오기
             ]);
           }}
         >

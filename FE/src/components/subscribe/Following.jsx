@@ -15,7 +15,7 @@ function Following() {
   const [followingsData, setFollowingsData] = useState([]);
   const { API_URL } = urlStore();
   const { isMyPage } = userStore();
-  const { refresh, setRefresh } = reviewStore();
+  const { refresh, setRefresh, value } = reviewStore();
   useEffect(() => {
     if (isMyPage) {
       axios //
@@ -53,11 +53,15 @@ function Following() {
           <div className={user.content}>
             <div className={user.user}>
               <Link
-                to={`/main/users/${following.id}/restaurants`}
+                to={
+                  value === 0
+                    ? `/main/users/${following.id}/restaurants`
+                    : `/main/users/${following.id}/subscribe`
+                }
                 onClick={() => {
                   setTimeout(() => {
                     setRefresh(!refresh);
-                  }, 50);
+                  }, 5);
                 }}
               >
                 <Avatar sx={{ width: 60, height: 60 }} />

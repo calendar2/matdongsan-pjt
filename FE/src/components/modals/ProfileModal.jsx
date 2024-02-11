@@ -6,9 +6,11 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
+import userStore from '../../stores/userStore';
 
 function ProfileModal() {
   const [anchorElProfile, setanchorElProfile] = useState(null);
+  const { setAccessToken } = userStore();
   const profileOpen = Boolean(anchorElProfile);
   const profileClick = (event) => {
     setanchorElProfile(event.currentTarget);
@@ -74,7 +76,13 @@ function ProfileModal() {
           <Avatar /> 회원정보 수정
         </MenuItem>
         <Divider />
-        <MenuItem onClick={profileClose}>
+        <MenuItem
+          onClick={() => {
+            profileClose();
+            localStorage.removeItem('ACCESS_TOKEN');
+            setAccessToken();
+          }}
+        >
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

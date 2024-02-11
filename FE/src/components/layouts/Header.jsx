@@ -55,7 +55,7 @@ function Header() {
     autoplaySpeed: 4000,
     arrows: false,
   };
-  const { refresh, setRefresh, setValue } = reviewStore();
+  const { refresh, setRefresh, setValue, value } = reviewStore();
   const { isMyPage } = userStore();
   useEffect(() => {
     axios
@@ -172,10 +172,13 @@ function Header() {
                   >
                     <div className={header.userResultWrapper}>
                       <Link
-                        to={`/main/users/${info.id}/restaurants/`}
+                        to={
+                          value === 0
+                            ? `/main/users/${info.id}/restaurants`
+                            : `/main/users/${info.id}/subscribe`
+                        }
                         onClick={() => {
                           setSearchValue('');
-                          setValue(0);
                           setTimeout(() => {
                             setRefresh(!refresh);
                           }, 50);
@@ -185,10 +188,13 @@ function Header() {
                       </Link>
                       <div className={header.userResultInfo}>
                         <Link
-                          to={`/main/users/${info.id}/restaurants`}
+                          to={
+                            value === 0
+                              ? `/main/users/${info.id}/restaurants`
+                              : `/main/users/${info.id}/subscribe`
+                          }
                           onClick={() => {
                             setSearchValue('');
-                            setValue(0);
                             setTimeout(() => {
                               setRefresh(!refresh);
                             }, 50);
@@ -338,7 +344,7 @@ function Header() {
           >
             {/* 순위 캐러셀 구현 */}
             {accountRank.map((x, index) => (
-              <div key={x.nickname}>
+              <div key={x.id}>
                 <span className={header.userRankIndex}>
                   {index + 1}
                 </span>
@@ -352,7 +358,12 @@ function Header() {
                       width: '1vw',
                     }}
                   />
-                  <span>{x.follower}</span>
+                  <span>
+                    {index === accountRank.length - 1
+                      ? accountRank[0].follower
+                      : accountRank[index + 1].follower}
+                  </span>
+                  {/* 이부분은 캐러셀이 자꾸 이전 순위를 보여줘서 배열을 조정해 줌 */}
                   <span />
                 </div>
               </div>

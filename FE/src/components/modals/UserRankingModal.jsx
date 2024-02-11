@@ -4,7 +4,7 @@ import styles from '../../styles/modals/UserRankingModal.module.css';
 import reviewStore from '../../stores/reviewStore';
 
 function UserRankingModal(props) {
-  const { refresh, setRefresh } = reviewStore();
+  const { refresh, setRefresh, value } = reviewStore();
   const { accountRank, setAnchorEl } = props;
   return (
     <div className={styles.wrapper}>
@@ -14,7 +14,11 @@ function UserRankingModal(props) {
             <div>
               <span className={styles.rank}>{i + 1}.</span>
               <Link
-                to={`/main/users/${x.id}/restaurants`}
+                to={
+                  value === 0
+                    ? `/main/users/${x.id}/restaurants`
+                    : `/main/users/${x.id}/subscribe`
+                }
                 onClick={() => {
                   setAnchorEl(null);
                   setTimeout(() => {
