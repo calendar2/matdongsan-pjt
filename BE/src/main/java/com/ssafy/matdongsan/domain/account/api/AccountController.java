@@ -27,12 +27,20 @@ public class AccountController {
 
     private final AccountService accountService;
 
+    @Operation(summary = "Get an account by id", tags = { "account" })
+    @GetMapping("/{accountId}")
+    public ResponseEntity<?> getAccount(@PathVariable Integer accountId) {
+        log.info("id={}", accountId);
+        AccountResponse accountResponse = accountService.getAccount(accountId);
+        return ResponseEntity.ok().body(accountResponse);
+    }
+
     @Operation(summary = "Get an account by email", tags = { "account" })
     @GetMapping
     public ResponseEntity<?> getAccount(@RequestParam String email) {
         log.info("email={}", email);
-        Account account = accountService.getAccount(email);
-        return ResponseEntity.ok().body(account);
+        AccountResponse accountResponse = accountService.getAccount(email);
+        return ResponseEntity.ok().body(accountResponse);
     }
 
     @Operation(summary = "Update an account", tags = { "account" })
@@ -40,8 +48,8 @@ public class AccountController {
     public ResponseEntity<?> modifyAccount(@AuthenticationPrincipal String email, @RequestBody AccountModifyRequestDto dto) {
         log.info("email={}", email);
         log.info("dto={}", dto.toString());
-        Account account = accountService.modifyAccount(dto, email);
-        return ResponseEntity.ok().body(account);
+        AccountResponse accountResponse = accountService.modifyAccount(dto, email);
+        return ResponseEntity.ok().body(accountResponse);
     }
 
     @Operation(summary = "Update an account", tags = { "account" })
@@ -49,7 +57,7 @@ public class AccountController {
     public ResponseEntity<?> modifyAccount(@AuthenticationPrincipal String email, @RequestBody AccountModifyStep1RequestDto dto) {
         log.info("email={}", email);
         log.info("dto={}", dto.toString());
-        Account account = accountService.modifyAccount(dto, email);
+        AccountResponse account = accountService.modifyAccount(dto, email);
         return ResponseEntity.ok().body(account);
     }
 
@@ -58,7 +66,7 @@ public class AccountController {
     public ResponseEntity<?> modifyAccount(@AuthenticationPrincipal String email, @RequestBody AccountModifyStep2RequestDto dto) {
         log.info("email={}", email);
         log.info("dto={}", dto.toString());
-        Account account = accountService.modifyAccount(dto, email);
+        AccountResponse account = accountService.modifyAccount(dto, email);
         return ResponseEntity.ok().body(account);
     }
 

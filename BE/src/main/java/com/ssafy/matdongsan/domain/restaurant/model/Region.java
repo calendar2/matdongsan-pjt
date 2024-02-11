@@ -33,7 +33,7 @@ public class Region {
     private Integer mapx;
     private Integer mapy;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "regions")
     private List<Account> accounts = new ArrayList<>();
 
     @OneToMany

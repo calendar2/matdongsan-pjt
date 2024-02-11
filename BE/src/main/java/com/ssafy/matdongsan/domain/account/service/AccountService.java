@@ -23,30 +23,39 @@ public class AccountService {
         personTagRepository.save(dto.toEntity(account));
     }
 
-    public Account modifyAccount(AccountModifyRequestDto dto, String email) {
+    public AccountResponse modifyAccount(AccountModifyRequestDto dto, String email) {
         Account account = accountRepository.findByEmail(email);
         account.modify(dto);
-        return accountRepository.save(account);
+        Account savedAccount = accountRepository.save(account);
+        return AccountResponse.from(savedAccount);
     }
 
-    public Account modifyAccount(AccountModifyStep1RequestDto dto, String email) {
+    public AccountResponse modifyAccount(AccountModifyStep1RequestDto dto, String email) {
         Account account = accountRepository.findByEmail(email);
         account.modify(dto);
-        return accountRepository.save(account);
+        Account savedAccount = accountRepository.save(account);
+        return AccountResponse.from(savedAccount);
     }
 
-    public Account modifyAccount(AccountModifyStep2RequestDto dto, String email) {
+    public AccountResponse modifyAccount(AccountModifyStep2RequestDto dto, String email) {
         Account account = accountRepository.findByEmail(email);
         account.modify(dto);
-        return accountRepository.save(account);
+        Account savedAccount = accountRepository.save(account);
+        return AccountResponse.from(savedAccount);
     }
 
     public Account saveAccount(AccountSaveRequestDto dto) {
         return accountRepository.save(dto.toEntity());
     }
 
-    public Account getAccount(String email) {
-        return accountRepository.findByEmail(email);
+    public AccountResponse getAccount(Integer accountId) {
+        Account account = accountRepository.findById(accountId).orElseThrow();
+        return AccountResponse.from(account);
+    }
+
+    public AccountResponse getAccount(String email) {
+        Account account = accountRepository.findByEmail(email);
+        return AccountResponse.from(account);
     }
 
     public List<PersonTag> getPersonTags(String email) {

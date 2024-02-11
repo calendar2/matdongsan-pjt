@@ -14,11 +14,11 @@ public class Notice extends BaseEntity {
     @Column(name = "notice_id")
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private Account sender;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "target_account_id")
     private Account receiver;
 

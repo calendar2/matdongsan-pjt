@@ -24,12 +24,11 @@ public class Subscription extends BaseEntity {
     @Column(name = "subscription_id")
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subscriber_id")
     private Account subscriber;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subscribed_id")
     private Account subscribed;
 }
-

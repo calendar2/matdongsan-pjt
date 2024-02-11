@@ -58,7 +58,7 @@ public class Restaurant extends BaseEntity {
     @JoinColumn(name = "region_id")
     private Region region;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "restaurants")
     private List<Account> accounts = new ArrayList<>();
 
     @ManyToMany

@@ -31,7 +31,7 @@ public class PersonTag extends BaseEntity {
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "reviewPersonTags")
     private List<Review> reviews = new ArrayList<>();
 
 
