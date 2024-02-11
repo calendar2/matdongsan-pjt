@@ -1,11 +1,14 @@
 package com.ssafy.matdongsan.domain.naver.api;
 
+import com.ssafy.matdongsan.domain.naver.dto.NaverSearchSaveResponseDto;
+import com.ssafy.matdongsan.domain.naver.service.NaverSearchService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,14 +17,16 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 
 @RestController
 @RequiredArgsConstructor
-
 public class NaverSearchApiController {
+    private final NaverSearchService naverSearchService;
+
     @GetMapping("/naver/search/")
-    @Operation(summary = "네이버 지역 검색 API", description = "관련 음식점 및 장소 5개 반환")
+    @Operation(summary = "[버전-1] 5개 반환 네이버 지역 검색 API", description = "관련 음식점 및 장소 5개 반환")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "성공"),
             @ApiResponse(responseCode = "400", description = "실패"),
@@ -55,5 +60,15 @@ public class NaverSearchApiController {
         ResponseEntity<String> result = restTemplate.exchange(req, String.class);
 
         return ResponseEntity.ok(result.getBody());
+    }
+
+    @GetMapping("/naver/search/v2/")
+    @Operation(summary = "[버전-2] 20개 반환 네이버 지역 검색 API", description = "관련 음식점 및 장소 20개 반환")
+    public ResponseEntity<?> naverSearchV2(
+            @RequestParam("query") String query
+    ){
+        List<NaverSearchSaveResponseDto> responseDtos= naverSearchService.searchRestaurants(query);
+
+        return ResponseEntity.ok().body(responseDtos);
     }
 }

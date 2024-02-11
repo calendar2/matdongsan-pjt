@@ -45,10 +45,10 @@ public class Restaurant extends BaseEntity {
     private String phone;
 
     @Column(length = 1000)
-    private String thum_url;
+    private String thumUrl;
 
     @Column(columnDefinition = "TEXT")
-    private String menu_info;
+    private String menuInfo;
 
 
     @OneToMany(mappedBy = "restaurant")

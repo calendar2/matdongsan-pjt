@@ -3,13 +3,15 @@ package com.ssafy.matdongsan.domain.food.model;
 import com.ssafy.matdongsan.domain.account.model.Account;
 import com.ssafy.matdongsan.domain.restaurant.model.Restaurant;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FoodCategory {
 
     @Id
@@ -28,4 +30,11 @@ public class FoodCategory {
 
     @ManyToMany(mappedBy = "restaurantFoodCategories")
     private List<Restaurant> restaurants = new ArrayList<>();
+
+
+    public FoodCategory(String foodCategoryName) {
+        this.name = foodCategoryName;
+    }
+
+
 }

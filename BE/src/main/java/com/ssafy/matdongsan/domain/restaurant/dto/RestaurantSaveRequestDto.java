@@ -1,5 +1,6 @@
 package com.ssafy.matdongsan.domain.restaurant.dto;
 
+import com.ssafy.matdongsan.domain.naver.dto.NaverSearchSaveRequestDto;
 import com.ssafy.matdongsan.domain.restaurant.model.Region;
 import com.ssafy.matdongsan.domain.restaurant.model.Restaurant;
 import lombok.AccessLevel;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RestaurantSaveRequestDto {
+public class RestaurantSaveRequestDto extends NaverSearchSaveRequestDto {
 
     private String name;
     private Integer mapx;
