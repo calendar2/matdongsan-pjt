@@ -10,7 +10,8 @@ import Button from '@mui/material/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { useState } from 'react';
-import sleepy from '../../assets/images/reviews/sleepy.png';
+import EditIcon from '@mui/icons-material/Edit';
+import fail from '../../assets/images/reviews/fail.png';
 import reviewStore from '../../stores/reviewStore';
 import styles from '../../styles/reviews/ReviewListSubItems.module.css';
 import userStore from '../../stores/userStore';
@@ -43,7 +44,8 @@ function ReviewListSubItems(props) {
               },
             }}
           >
-            +
+            <EditIcon />
+            기록하기
           </Button>
         )}
       </div>
@@ -107,7 +109,7 @@ function ReviewListSubItems(props) {
         </div>
       ) : (
         <div className={styles.btn}>
-          <img src={sleepy} alt="" width={75} />
+          <img src={fail} alt="" width={75} />
         </div>
       )}
     </div>

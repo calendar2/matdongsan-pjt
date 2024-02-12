@@ -30,17 +30,19 @@ function FoodMapView() {
   const navigate = useNavigate();
   const {
     setIsMyPage,
-    setPageID,
-    setloginAccount,
+    setCurrentPageID,
+    setLoginAccount,
     isMyPage,
     accessToken,
     setAccessToken,
+    loginAccount,
+    setIsLogin,
   } = userStore();
   const { setRefresh, refresh } = reviewStore();
   const { userID } = useParams();
-  const loginID = 1;
 
   useEffect(() => {
+    const loginID = loginAccount.id;
     const url = `${API_URL}/account`;
     setAccessToken(localStorage.getItem('ACCESS_TOKEN'));
     axios({
@@ -53,7 +55,7 @@ function FoodMapView() {
     })
       .then((response) => {
         console.log('요청 성공:', response.data);
-        setloginAccount(response.data);
+        setLoginAccount(response.data);
         // 성공 시 필요한 작업 수행
       })
       .catch((error) => {
@@ -61,22 +63,37 @@ function FoodMapView() {
         // 실패 시 에러 처리
       });
     if (userID !== undefined) {
-      setPageID(userID);
+      setCurrentPageID(userID);
       setIsMyPage(false);
       setTimeout(() => {
         setRefresh(!refresh);
       }, 5); // 리스트목록갱신
     } else {
-      setPageID(loginID); // 로그인한아이디 입력
+      setCurrentPageID(loginID); // 로그인한아이디 입력
       setIsMyPage(true);
       setTimeout(() => {
         setRefresh(!refresh); // 리스트목록갱신
       }, 5);
     }
+    if (loginID !== undefined) {
+      setIsLogin(true);
+      console.log(loginID, '로그인 함!');
+      setTimeout(() => {
+        setRefresh(!refresh);
+      }, 5);
+    } else {
+      setIsLogin(false);
+      console.log(loginID, '로그인 안함!');
+      setTimeout(() => {
+        setRefresh(!refresh);
+      }, 5);
+    }
   }, [navigate]);
   return (
     <div className={contents.container}>
-      <Header />
+      <header className={contents.header}>
+        <Header />
+      </header>
       <main className={contents.wrapper}>
         <SideBar />
         <Routes>

@@ -27,9 +27,12 @@ import girl0 from '../../assets/images/reviews/girl0.png';
 import girl1 from '../../assets/images/reviews/girl1.png';
 import girl2 from '../../assets/images/reviews/girl2.png';
 import urlStore from '../../stores/urlStore';
+import userStore from '../../stores/userStore';
 
 function ReviewRegistration() {
   const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
+  const { loginAccount, setFollowingUsers, followingUsers } =
+    userStore();
   // const [가게이름, 가게이름수정] = useState('');
   const [친절도, 친절도수정] = useState(0);
   const [맛, 맛수정] = useState(0);
@@ -43,16 +46,9 @@ function ReviewRegistration() {
   const [방문날짜, 방문날짜수정] = useState(
     dayjs(dayjs().format('YYYY-MM-DD'))
   );
+  console.log(loginAccount);
   const [임의친구들, 임의친구들수정] = useState([]);
-  const [전체친구] = useState([
-    // 내 전체 친구 확인하는 API가 있는지 확인할 필요
-    { title: '다은' },
-    { title: '민재' },
-    { title: '형준' },
-    { title: '준엽' },
-    { title: '자영' },
-    { title: '용수' },
-  ]);
+  const [전체친구, 전체친구수정] = useState([]);
   const { setRefresh, refresh } = reviewStore();
   const { API_URL } = urlStore();
   useEffect(
@@ -87,7 +83,22 @@ function ReviewRegistration() {
     label: x.가게이름,
   }));
   // console.log(레스토랑아이디, '레스토랑ID임!');
-
+  useEffect(() => {
+    axios //
+      .get(`${API_URL}/subscription/${loginAccount.id}`) // 1에서 로그인한 아이디로 수정
+      .then((response) => {
+        console.log('팔로워 요청 성공:', response.data);
+        setFollowingUsers(response.data);
+        전체친구수정(
+          followingUsers?.map((x) => ({ title: x.nickname }))
+        );
+        // 성공 시 필요한 작업 수행
+      })
+      .catch((error) => {
+        console.error('팔로워 요청 실패:', error);
+        // 실패 시 에러 처리
+      });
+  }, [navigate]);
   // const camelToSnakeCase = str => str.replace(/[A-Z]/g, letter => _${letter.toLowerCase()});
   return (
     <div>
@@ -172,19 +183,6 @@ function ReviewRegistration() {
                   }}
                   sx={{ color: 'rgba(29, 177, 119, 0.7)' }}
                 />
-                {/* 슬라이더로 채용할지 고민해보자 */}
-                {/* <Slider
-                defaultValue={50}
-                aria-label="Default"
-                valueLabelDisplay="auto"
-                onChange={(event, newValue) => {
-                  친절도수정(Number(newValue));
-                  console.log('친절도 선택되었습니다!');
-                  console.log(친절도);
-                }}
-                style={{ width: '200px' }}
-                color="success"
-              /> */}
               </div>
             </div>
             <div className={styles.rating}>
@@ -422,7 +420,7 @@ function ReviewRegistration() {
                   setRefresh(!refresh);
                 }, 5);
                 navigate(`/main/restaurants/${레스토랑아이디}`);
-                const url = `${API_URL}/review/1`; // 아직 유저 API 구현이 안돼있어서 1번 유저의 리뷰로만 작성
+                const url = `${API_URL}/review/${loginAccount.id}`;
                 axios
                   .post(url, requestData)
                   .then((response) => {

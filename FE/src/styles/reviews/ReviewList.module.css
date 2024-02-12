@@ -14,7 +14,7 @@
 
 .selected {
   border: 0px solid white;
-  background-color: rgba(52, 91, 75, 0.7); /* 원하는 색상으로 변경하세요 */
+  background-color: rgba(29, 177, 119, 0.5); /* 원하는 색상으로 변경하세요 */
   color: white;
 }
 .selected .contentList {
@@ -27,7 +27,7 @@
 
 .container {
   overflow-y: auto;
-  height: calc(100vh - 340px);
+  height: calc(100vh - 310px);
 }
 .container::-webkit-scrollbar {
   width: 10px;
@@ -68,4 +68,15 @@
 .container .content .contentList .itemTitle {
   color: black;
   font-size: 14px;
+}
+
+.footer {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.aside {
+  height: calc(100vh - 370px);
 }/*# sourceMappingURL=ReviewList.module.css.map */

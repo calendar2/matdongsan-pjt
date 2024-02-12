@@ -8,7 +8,6 @@ import {
   Divider,
   Typography,
 } from '@mui/material';
-
 import RefreshIcon from '@mui/icons-material/Refresh';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -16,9 +15,9 @@ import StarIcon from '@mui/icons-material/Star';
 import Button from '@mui/material/Button';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-
 import axios from 'axios';
 import dayjs from 'dayjs';
+// import EditIcon from '@mui/icons-material/Edit';
 import reviewStore from '../../stores/reviewStore';
 import styles from '../../styles/reviews/ReviewList.module.css';
 import ReviewsListSubItems from './ReviewListSubItems';
@@ -32,7 +31,7 @@ function ReviewsList() {
     sortByRecentVisitDate,
     sortByAverageTasteAndKindness,
   } = reviewStore();
-  const { pageID } = userStore();
+  const { currentPageID } = userStore();
   const navigate = useNavigate();
   // 음식점 ID를 인자로 입력하면 해당 음식점으로 스크롤 이동한다
   const handleScrollToSection = (id) => {
@@ -53,16 +52,13 @@ function ReviewsList() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // 백트래킹
-        if (pageID === undefined) {
-          return;
-        }
         const [restaurantData, reviewData, regions] =
           await Promise.all([
-            axios.get(`${API_URL}/restaurant/${pageID}`),
-            axios.get(`${API_URL}/review/${pageID}`),
+            axios.get(`${API_URL}/restaurant/${currentPageID}`),
+            axios.get(`${API_URL}/review/${currentPageID}`),
             axios.get(`${API_URL}/region`),
           ]);
+        console.log(restaurantData, '레스토랑데이터요청성공');
         const restaurantList = restaurantData.data.map(
           (restaurant) => {
             const filteredRegeion = regions.data.find(
@@ -154,6 +150,7 @@ function ReviewsList() {
   const [reviewListSortButton3, setReviewListSortButton3] =
     useState(false);
   const [selectedList, setSelectedList] = useState();
+  // const { isMyPage, isLogin } = userStore();
   return (
     <div>
       <div className={styles.header}>
@@ -201,7 +198,6 @@ function ReviewsList() {
             • 별점순
           </Button>
         </div>
-        {/* handleScrollToSection, 인자 = 이동하고자하는 음식점 pk) 해당 음식점으로 스크롤 이동) */}
         <div>
           <IconButton
             onClick={() => {
@@ -304,6 +300,29 @@ function ReviewsList() {
           </ListItem>
         ))}
       </List>
+      {/* 기록하기 버튼때문에 다른사람페이지로 넘어갔을때 라우팅이 망가져서 일단 주석처리함 */}
+      {/* {isMyPage && isLogin && (
+        <div className={styles.footer}>
+          <IconButton
+            type="button"
+            variant="contained"
+            onClick={() => {
+              navigate('write');
+            }}
+            style={{
+              backgroundColor: 'rgba(29, 177, 119, 0.7)', // 버튼의 배경색을 1db177로 설정
+              color: '#ffffff', // 버튼의 글자색을 흰색으로 설정
+              fontSize: '1.5rem', // 버튼의 글자 크기를 조절
+              padding: '15px 30px', // 버튼의 내부 여백을 조절
+              borderRadius: '40px',
+              position: 'fixed',
+            }}
+          >
+            <EditIcon />
+            기록하기
+          </IconButton>
+        </div>
+      )} */}
     </div>
   );
 }

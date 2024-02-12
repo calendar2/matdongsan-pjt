@@ -4,13 +4,4 @@
   display: grid;
   width: 100%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 음영 추가 */
-}
-.wrapper .footer {
-  margin: 5px;
-  height: 50px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease-in-out;
-}
-.wrapper .footer:hover {
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
 }/*# sourceMappingURL=Review.module.css.map */

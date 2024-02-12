@@ -28,4 +28,11 @@
 }
 .wrapper .addBtn:hover {
   cursor: pointer;
+}
+
+.aside {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }/*# sourceMappingURL=Following.module.css.map */

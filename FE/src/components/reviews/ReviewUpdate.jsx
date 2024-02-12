@@ -27,8 +27,11 @@ import girl0 from '../../assets/images/reviews/girl0.png';
 import girl1 from '../../assets/images/reviews/girl1.png';
 import girl2 from '../../assets/images/reviews/girl2.png';
 import urlStore from '../../stores/urlStore';
+import userStore from '../../stores/userStore';
 
 function ReviewUpdate() {
+  const { loginAccount, followingUsers, setFollowingUsers } =
+    userStore();
   const { myReviewStore, setRefresh, refresh } = reviewStore();
   const { API_URL } = urlStore();
   const { reviewID, restaurantID } = useParams();
@@ -56,23 +59,23 @@ function ReviewUpdate() {
     dayjs(filteredReview?.방문한날짜)
   );
   const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
-  const [전체친구] = useState([
-    // 내 전체 친구 확인하는 API가 있는지 확인할 필요
-    { title: '다은' },
-    { title: '민재' },
-    { title: '형준' },
-    { title: '준엽' },
-    { title: '자영' },
-    { title: '용수' },
-  ]);
-  useEffect(
-    () => () => {
-      console.log('기록페이지 언마운트 됨!'); // Axios 요청을 보내서 리뷰 리스트를 갱신할 예정입니다 (useEffect 안에 적는 코드들은 어려운 연산 / 서버에서 데이터 가져오는 작업),
-      // 따라서 Dependency에 []를 넣고 unmount 됐을때 한번만 처리할 예정입니다
-      // 임의친구들수정([]); 이거때문에 안나왔구나...
-    },
-    []
-  );
+  const [전체친구, 전체친구수정] = useState([]);
+  useEffect(() => {
+    axios //
+      .get(`${API_URL}/subscription/${loginAccount.id}`) // 1에서 로그인한 아이디로 수정
+      .then((response) => {
+        console.log('팔로워 요청 성공:', response.data);
+        setFollowingUsers(response.data);
+        전체친구수정(
+          followingUsers?.map((x) => ({ title: x.nickname }))
+        );
+        // 성공 시 필요한 작업 수행
+      })
+      .catch((error) => {
+        console.error('팔로워 요청 실패:', error);
+        // 실패 시 에러 처리
+      });
+  }, [navigate]);
   const [클릭버튼, 클릭버튼수정] = useState(false);
   const handleAutocompleteChange = (event, selectedOptions) => {
     // 선택된 항목을 setSelectedFriend 함수의 인자로 전달
@@ -397,7 +400,7 @@ function ReviewUpdate() {
                 setRefresh(!refresh);
               }, 5);
               navigate(`/main/restaurants/${restaurantID}`);
-              const url = `${API_URL}/review/1/${reviewID}`; // 아직 유저 API 구현이 안돼있어서 1번 유저의 리뷰로만 작성/1번 리뷰 수정
+              const url = `${API_URL}/review/${loginAccount.id}/${reviewID}`; // 아직 유저 API 구현이 안돼있어서 1번 유저의 리뷰로만 작성/1번 리뷰 수정
               axios // 여기서 put 요청으로 수정해야함
                 .put(url, requestData)
                 .then((response) => {

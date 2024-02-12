@@ -6,6 +6,7 @@ import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import urlStore from '../../stores/urlStore';
 import content from '../../styles/foodmap/FoodMapView.module.css';
 import detail from '../../styles/restaurants/RestaurantDetail.module.css';
+import userStore from '../../stores/userStore';
 
 function RestaurantDetail() {
   const location = useLocation();
@@ -13,7 +14,7 @@ function RestaurantDetail() {
   const restaurantId = location.state?.id;
   const { API_URL } = urlStore();
   // console.log(restaurantId);
-
+  const { loginAccount } = userStore();
   const [address, setAddress] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -22,7 +23,7 @@ function RestaurantDetail() {
   const deleteMyRestaurant = () => {
     axios({
       method: 'delete',
-      url: `${API_URL}/restaurant/${2}/${restaurantId}`,
+      url: `${API_URL}/restaurant/${loginAccount.id}/${restaurantId}`,
     })
       .then((res) => {
         console.log('가게 삭제', res);
@@ -40,7 +41,7 @@ function RestaurantDetail() {
   const registerMyRestaurant = () => {
     axios({
       method: 'post',
-      url: `${API_URL}/restaurant/${2}?restaurantId=${restaurantId}`,
+      url: `${API_URL}/restaurant/${loginAccount.id}?restaurantId=${restaurantId}`,
     })
       .then((res) => {
         console.log('내 맛집 등록', res);
@@ -74,7 +75,7 @@ function RestaurantDetail() {
     // 해당 가게가 내 맛집으로 저장되어있는지?
     axios({
       method: 'get',
-      url: `${API_URL}/restaurant/${2}/${restaurantId}`,
+      url: `${API_URL}/restaurant/${loginAccount.id}/${restaurantId}`,
     })
       .then((res) => {
         console.log('내 맛집?', res);

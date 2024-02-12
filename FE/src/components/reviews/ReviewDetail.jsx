@@ -20,6 +20,7 @@ import content from '../../styles/foodmap/FoodMapView.module.css';
 import userStore from '../../stores/userStore';
 
 function ReviewDetail() {
+  const { loginAccount } = userStore();
   const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
   const { isMyPage } = userStore();
   const { myReviewStore, refresh, setRefresh } = reviewStore();
@@ -200,7 +201,7 @@ function ReviewDetail() {
                   setRefresh(!refresh);
                 }, 5);
                 // setRemove(!remove);
-                const url = `${API_URL}/review/1/${reviewID}`;
+                const url = `${API_URL}/review/${loginAccount.id}/${reviewID}`;
                 axios
                   .delete(url)
                   .then((response) => {

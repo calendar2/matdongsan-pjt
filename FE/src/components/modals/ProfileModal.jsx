@@ -7,10 +7,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import userStore from '../../stores/userStore';
+import reviewStore from '../../stores/reviewStore';
 
 function ProfileModal() {
   const [anchorElProfile, setanchorElProfile] = useState(null);
-  const { setAccessToken } = userStore();
+  const { setAccessToken, setLoginAccount } = userStore();
   const profileOpen = Boolean(anchorElProfile);
   const profileClick = (event) => {
     setanchorElProfile(event.currentTarget);
@@ -18,7 +19,7 @@ function ProfileModal() {
   const profileClose = () => {
     setanchorElProfile(null);
   };
-
+  const { setRefresh, refresh } = reviewStore();
   return (
     <div>
       <IconButton
@@ -81,6 +82,10 @@ function ProfileModal() {
             profileClose();
             localStorage.removeItem('ACCESS_TOKEN');
             setAccessToken();
+            setLoginAccount({});
+            setTimeout(() => {
+              setRefresh(!refresh);
+            }, 5);
           }}
         >
           <ListItemIcon>
