@@ -91,7 +91,7 @@ function RestaurantDetail() {
       .catch((err) => {
         console.error('내 맛집ㅠㅠ', err);
       });
-  }, [restaurantId]);
+  }, [location]);
 
   useEffect(() => {
     setMenuList(menus.split(' | '));

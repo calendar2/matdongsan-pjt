@@ -116,6 +116,23 @@ function Header() {
       });
   };
 
+  const subscribe = (userId) => {
+    console.log('클릭!', userId);
+    axios({
+      method: 'post',
+      url: `${API_URL}/subscription/${userId}`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+      .then((res) => {
+        console.log('구독 성공!', res);
+      })
+      .catch((err) => {
+        console.error('구독 실패ㅠ', err);
+      });
+  };
+
   return (
     <div className={header.container}>
       <div className={header.headline}>
@@ -211,6 +228,7 @@ function Header() {
                     <AddCircleIcon
                       sx={{ color: '#1db177', fontSize: 32 }}
                       className={header.followBtn}
+                      onClick={() => subscribe(info.id)}
                     />
                   </div>
                 ))}
