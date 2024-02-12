@@ -43,6 +43,15 @@ public class RestaurantApiController {
         return  ResponseEntity.ok().body(responseDto);
     }
 
+    @Operation(summary = "[버전-2] 음식점 상세 조회 API", description = "thumUrl,menuInfo,category 정보 있는 버전")
+    @GetMapping("/restaurant/common/v2/{restaurantId}")
+    public ResponseEntity<?> readOneCommonRestaurantV2(
+            @PathVariable("restaurantId") Integer restaurantId
+    ){
+        RestaurantFindAllAccountResponseV2Dto responseDto =  restaurantService.findByIdV2(restaurantId);
+        return  ResponseEntity.ok().body(responseDto);
+    }
+
     @Operation(summary = "[버전-공통] 해당 계정에 음식점 저장 API", description = "공통 사용")
     @PostMapping("/restaurant/{accountId}")
     public ResponseEntity<?> createAccountRestaurant(

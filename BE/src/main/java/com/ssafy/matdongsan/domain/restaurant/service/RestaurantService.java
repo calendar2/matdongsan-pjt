@@ -258,6 +258,25 @@ public class RestaurantService {
                 )
         ).toList();
     }
+
+    public RestaurantFindAllAccountResponseV2Dto findByIdV2(Integer restaurantId) {
+        Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow();
+        return new RestaurantFindAllAccountResponseV2Dto(
+                restaurant.getId(),
+                restaurant.getRegion().getId(),
+                restaurant.getName(),
+                restaurant.getMapx(),
+                restaurant.getMapy(),
+                restaurant.getAddress(),
+                restaurant.getRoadAddress(),
+                restaurant.getPhone(),
+                restaurant.getThumUrl(),
+                restaurant.getMenuInfo(),
+                restaurant.getRestaurantFoodCategories().stream().map(
+                        foodCategory -> new FoodCategoryNaverSearchResponseDto(foodCategory.getName())
+                ).toList()
+        );
+    }
 }
 
 
