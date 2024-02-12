@@ -17,8 +17,8 @@ public class RestaurantFindAllAccountResponseV2Dto {
     private String address;
     private String roadAddress;
     private String phone;
-    private String thum_url;
-    private String menu_info;
+    private String thumUrl;
+    private String menuInfo;
     private List<FoodCategoryNaverSearchResponseDto> restaurantFoodCategories;
 
 
