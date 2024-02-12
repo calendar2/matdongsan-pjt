@@ -16,6 +16,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import ClearIcon from '@mui/icons-material/Clear';
 import Avatar from '@mui/material/Avatar';
+import Swal from 'sweetalert2';
 import reviewStore from '../../stores/reviewStore';
 import styles from '../../styles/reviews/ReviewRegistration.module.css';
 import content from '../../styles/foodmap/FoodMapView.module.css';
@@ -28,6 +29,7 @@ import girl1 from '../../assets/images/reviews/girl1.png';
 import girl2 from '../../assets/images/reviews/girl2.png';
 import urlStore from '../../stores/urlStore';
 import userStore from '../../stores/userStore';
+import angel from '../../assets/images/reviews/angel.png';
 
 function ReviewRegistration() {
   const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
@@ -206,6 +208,11 @@ function ReviewRegistration() {
                 />
               </div>
             </div>
+            {맛 > 4 && 친절도 > 4 && (
+              <div className={styles.angel}>
+                <img src={angel} alt="" width={100} />
+              </div>
+            )}
             <hr />
             <div>
               <IconButton
@@ -301,6 +308,7 @@ function ReviewRegistration() {
               >
                 계정없는친구
               </Button>
+              <img src="" alt="" />
             </div>
             <div>
               {같이간친구.map((x, i) => (
@@ -426,10 +434,24 @@ function ReviewRegistration() {
                   .then((response) => {
                     console.log('요청 성공:', response.data);
                     // 성공 시 필요한 작업 수행
+                    Swal.fire({
+                      title: '저장 완료!',
+                      text: '데이터가 성공적으로 저장되었습니다.',
+                      icon: 'success',
+                      confirmButtonText: '확인',
+                      confirmButtonColor: '#1db177',
+                    });
                   })
                   .catch((error) => {
                     console.error('요청 실패:', error);
                     // 실패 시 에러 처리
+                    Swal.fire({
+                      title: '저장 실패!',
+                      text: '데이터 저장에 실패하였습니다.',
+                      icon: 'error',
+                      confirmButtonText: '확인',
+                      confirmButtonColor: '#1db177',
+                    });
                   });
               }}
               style={{

@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import boy0 from '../../assets/images/reviews/boy0.png';
 import boy1 from '../../assets/images/reviews/boy1.png';
 import boy2 from '../../assets/images/reviews/boy2.png';
@@ -18,6 +19,7 @@ import reviewStore from '../../stores/reviewStore';
 import urlStore from '../../stores/urlStore';
 import content from '../../styles/foodmap/FoodMapView.module.css';
 import userStore from '../../stores/userStore';
+import ghost from '../../assets/images/reviews/ghost.png';
 
 function ReviewDetail() {
   const { loginAccount } = userStore();
@@ -30,6 +32,43 @@ function ReviewDetail() {
   const filteredReview = myReviewStore.find(
     (x) => x.리뷰id === Number(reviewID)
   );
+  const handleDelete = () => {
+    Swal.fire({
+      title: '정말로 삭제하시겠습니까?',
+      text: '삭제된 데이터는 복구할 수 없습니다!',
+      imageUrl: ghost,
+      imageWidth: 100,
+      showCancelButton: true,
+      confirmButtonColor: '#1db177',
+      cancelButtonColor: '#585858',
+      confirmButtonText: '예, 삭제하겠습니다!',
+      cancelButtonText: '아니요, 취소합니다!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const url = `${API_URL}/review/${loginAccount.id}/${reviewID}`;
+        axios
+          .delete(url)
+          .then((response) => {
+            console.log('요청 성공:', response.data);
+            navigate(`/main/restaurants/${restaurantID}`);
+            setTimeout(() => {
+              setRefresh(!refresh);
+            }, 5);
+          })
+          .catch((error) => {
+            console.error('요청 실패:', error);
+            // 실패 시 에러 처리
+          });
+        Swal.fire({
+          title: '삭제가 완료되었습니다!',
+          text: '성공적으로 삭제하였습니다.',
+          icon: 'success',
+          confirmButtonText: '확인',
+          confirmButtonColor: '#1db177',
+        });
+      }
+    });
+  };
   return (
     <div className={content.hiddenSpace} key={reviewID}>
       <div className={styles.container}>
@@ -195,23 +234,7 @@ function ReviewDetail() {
               size="large"
               sx={{ width: '130px' }}
               onClick={() => {
-                console.log('삭제하기 버튼이 눌렸어요!.');
-                navigate(`/main/restaurants/${restaurantID}`);
-                setTimeout(() => {
-                  setRefresh(!refresh);
-                }, 5);
-                // setRemove(!remove);
-                const url = `${API_URL}/review/${loginAccount.id}/${reviewID}`;
-                axios
-                  .delete(url)
-                  .then((response) => {
-                    console.log('요청 성공:', response.data);
-                    // 성공 시 필요한 작업 수행
-                  })
-                  .catch((error) => {
-                    console.error('요청 실패:', error);
-                    // 실패 시 에러 처리
-                  });
+                handleDelete();
               }}
               style={{
                 backgroundColor: 'rgba(29, 177, 119, 0.7)', // 버튼의 배경색을 1db177로 설정

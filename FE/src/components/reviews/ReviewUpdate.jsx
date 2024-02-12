@@ -14,6 +14,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import Swal from 'sweetalert2';
 import ClearIcon from '@mui/icons-material/Clear';
 import Avatar from '@mui/material/Avatar';
 import reviewStore from '../../stores/reviewStore';
@@ -28,6 +29,7 @@ import girl1 from '../../assets/images/reviews/girl1.png';
 import girl2 from '../../assets/images/reviews/girl2.png';
 import urlStore from '../../stores/urlStore';
 import userStore from '../../stores/userStore';
+import angel from '../../assets/images/reviews/angel.png';
 
 function ReviewUpdate() {
   const { loginAccount, followingUsers, setFollowingUsers } =
@@ -149,21 +151,9 @@ function ReviewUpdate() {
                 }}
                 sx={{ color: 'rgba(29, 177, 119, 0.7)' }}
               />
-              {/* 슬라이더로 채용할지 고민해보자 */}
-              {/* <Slider
-              defaultValue={50}
-              aria-label="Default"
-              valueLabelDisplay="auto"
-              onChange={(event, newValue) => {
-                친절도수정(Number(newValue));
-                console.log('친절도 선택되었습니다!');
-                console.log(친절도);
-              }}
-              style={{ width: '200px' }}
-              color="success"
-            /> */}
             </div>
           </div>
+
           <div className={styles.rating}>
             {/* <img src={tongue} alt="" width={50} /> */}
             <div>
@@ -185,6 +175,11 @@ function ReviewUpdate() {
               />
             </div>
           </div>
+          {맛 > 4 && 친절도 > 4 && (
+            <div className={styles.angel}>
+              <img src={angel} alt="" width={100} />
+            </div>
+          )}
           <hr />
           <div>
             <IconButton
@@ -406,10 +401,24 @@ function ReviewUpdate() {
                 .then((response) => {
                   console.log('요청 성공:', response.data);
                   // 성공 시 필요한 작업 수행
+                  Swal.fire({
+                    title: '저장 완료!',
+                    text: '데이터가 성공적으로 저장되었습니다.',
+                    icon: 'success',
+                    confirmButtonText: '확인',
+                    confirmButtonColor: '#1db177',
+                  });
                 })
                 .catch((error) => {
                   console.error('요청 실패:', error);
                   // 실패 시 에러 처리
+                  Swal.fire({
+                    title: '저장 실패!',
+                    text: '데이터 저장에 실패하였습니다.',
+                    icon: 'error',
+                    confirmButtonText: '확인',
+                    confirmButtonColor: '#1db177',
+                  });
                 });
             }}
             style={{

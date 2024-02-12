@@ -5,12 +5,42 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styles from '../../styles/modals/UserInfoModal.module.css';
 import urlStore from '../../stores/urlStore';
+import userStore from '../../stores/userStore';
+import reviewStore from '../../stores/reviewStore';
 
 function UserInfoModal() {
   const { API_URL } = urlStore();
   const { userID } = useParams();
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState();
+  const { accessToken, loginAccount } = userStore();
+  const [followStatus, setFollowStatus] = useState(false);
+  const { refresh, setRefresh } = reviewStore();
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: `${API_URL}/subscription/${loginAccount.id}`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        const isFollowNow = response.data.find(
+          (x) => x.id === userInfo.id
+        );
+        if (isFollowNow) {
+          setFollowStatus(true);
+          setRefresh(!refresh);
+        } else {
+          setFollowStatus(false);
+          setRefresh(!refresh);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [navigate]);
   useEffect(() => {
     const url = `${API_URL}/account/${userID}`;
     axios
@@ -24,7 +54,7 @@ function UserInfoModal() {
         console.error('요청 실패:', error);
         // 실패 시 에러 처리
       });
-  }, [navigate]);
+  }, [navigate, refresh]);
   return (
     <div className={styles.box}>
       <div className={styles.avatar}>
@@ -42,34 +72,76 @@ function UserInfoModal() {
           {userInfo?.follower}
         </div>
         <div>
-          <IconButton
-            type="button"
-            variant="contained"
-            onClick={() => {
-              console.log('팔로우 하는 기능 만들어야함');
-              const url = `${API_URL}/subscription/${userID}`;
-              axios
-                .post(url)
-                .then((response) => {
-                  console.log('요청 성공:', response.data);
-                  // 성공 시 필요한 작업 수행
+          {!followStatus ? (
+            <IconButton
+              type="button"
+              variant="contained"
+              onClick={() => {
+                console.log('팔로우 하는 기능 만들어야함');
+                axios({
+                  method: 'post',
+                  url: `${API_URL}/subscription/${userID}`,
+                  headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json',
+                  },
                 })
-                .catch((error) => {
-                  console.error('요청 실패:', error);
-                  // 실패 시 에러 처리
-                });
-            }}
-            style={{
-              backgroundColor: 'rgba(29, 177, 119, 0.7)', // 버튼의 배경색을 1db177로 설정
-              color: '#ffffff', // 버튼의 글자색을 흰색으로 설정
-              fontSize: '15px', // 버튼의 글자 크기를 조절
-              padding: '2px 20px', // 버튼의 내부 여백을 조절
-              borderRadius: '40px',
-            }}
-            className={styles.footer}
-          >
-            팔로잉
-          </IconButton>
+                  .then((response) => {
+                    console.log('요청 성공:', response.data);
+                    setRefresh(!refresh);
+                    // 성공 시 필요한 작업 수행
+                  })
+                  .catch((error) => {
+                    console.error('요청 실패:', error);
+                    // 실패 시 에러 처리
+                  });
+              }}
+              style={{
+                backgroundColor: 'rgba(29, 177, 119, 0.7)', // 버튼의 배경색을 1db177로 설정
+                color: '#ffffff', // 버튼의 글자색을 흰색으로 설정
+                fontSize: '15px', // 버튼의 글자 크기를 조절
+                padding: '2px 20px', // 버튼의 내부 여백을 조절
+                borderRadius: '40px',
+              }}
+              className={styles.footer}
+            >
+              팔로우
+            </IconButton>
+          ) : (
+            <IconButton
+              type="button"
+              variant="contained"
+              onClick={() => {
+                console.log('팔로우 하는 기능 만들어야함');
+                axios({
+                  method: 'delete',
+                  url: `${API_URL}/subscription/${userID}`,
+                  headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json',
+                  },
+                })
+                  .then((response) => {
+                    console.log('요청 성공:', response.data);
+                    setRefresh(!refresh);
+                  })
+                  .catch((error) => {
+                    console.error('요청 실패:', error);
+                    // 실패 시 에러 처리
+                  });
+              }}
+              style={{
+                backgroundColor: 'rgba(29, 177, 119, 0.7)', // 버튼의 배경색을 1db177로 설정
+                color: '#ffffff', // 버튼의 글자색을 흰색으로 설정
+                fontSize: '15px', // 버튼의 글자 크기를 조절
+                padding: '2px 20px', // 버튼의 내부 여백을 조절
+                borderRadius: '40px',
+              }}
+              className={styles.footer}
+            >
+              언팔로우
+            </IconButton>
+          )}
         </div>
       </div>
     </div>

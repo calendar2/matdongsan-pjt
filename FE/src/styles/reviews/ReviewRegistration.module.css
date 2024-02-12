@@ -9,8 +9,12 @@
   display: flex;
   justify-content: center;
 }
+.container .angel {
+  opacity: 0.5;
+}
 .container .friend {
   display: flex;
+  justify-content: center;
 }
 .container .photo {
   width: 30px;
@@ -58,5 +62,5 @@
 
 .date {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
 }/*# sourceMappingURL=ReviewRegistration.module.css.map */

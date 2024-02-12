@@ -9,9 +9,12 @@
     display: flex;
     justify-content: center;
   }
-
+  .angel {
+    opacity: 0.5;
+  }
   .friend {
     display: flex;
+    justify-content: center;
   }
 
   .photo {
@@ -67,5 +70,6 @@
 
 .date {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
 }
+
