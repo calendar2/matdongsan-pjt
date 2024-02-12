@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useGeolocation from '../../hooks/useGeolocation';
@@ -23,58 +23,38 @@ function FoodMap() {
   const { dongsanUsers } = dongsanStore(); // 동산에 추가된 유저 정보
   const { accessToken } = userStore();
 
-  // 지도 중심 좌표
-  const [centerLat, setCenterLat] = useState(currentMyLocation.lat);
-  const [centerLng, setCenterLng] = useState(currentMyLocation.lng);
-
-  // 유저가 로그인하면 본인의 이전 동산 상태를 참고하여 지도의 초기 위치 조정(나중에 토큰의 변동으로 useEffect 동작을 제어해야함!)
-  useEffect(() => {
-    if (dongsanUsers.length !== 0) {
-      axios({
-        method: 'get',
-        url: `${API_URL}/restaurant/v2/${1}`,
-      })
-        .then((res) => {
-          console.log('로그인한 사용자의 맛집 목록', res);
-          setCenterLat(res.data[0].mapy / tenPowSeven);
-          setCenterLng(res.data[0].mapx / tenPowSeven);
-          console.log('위치', centerLat, centerLng);
-        })
-        .catch((err) => {
-          console.error('로그인한 사용자의 맛집 목록ㅠㅠ', err);
-        });
-    }
-  }, [accessToken]);
-
-  // 최초 렌더링 및 이용자의 현재 위치가 변할 때 지도 제작 코드(나중에 for문을 수정해야함 - 동산의 정보를 토대로!)
+  // 최초 렌더링 및 이용자의 현재 위치가 변할 때 지도 제작 코드
   useEffect(() => {
     if (naver && naver.maps) {
       if (
         currentMyLocation.lat !== 0 &&
         currentMyLocation.lng !== 0
       ) {
-        // 네이버 지도 옵션 선택
-        const mapOptions = {
-          // 지도의 초기 중심 좌표
-          center: new naver.maps.LatLng(centerLat, centerLng),
-          logoControl: false, // 네이버 로고 표시 X
-          mapDataControl: false, // 지도 데이터 저작권 컨트롤 표시 X
-          scaleControl: true, // 지도 축척 컨트롤의 표시 여부
-          tileDuration: 200, // 지도 타일을 전환할 때 페이드 인 효과의 지속 시간(밀리초)
-          zoom: 16, // 지도의 초기 줌 레벨
-          zoomControl: true, // 줌 컨트롤 표시
-          zoomControlOptions: { position: 9 }, // 줌 컨트롤 우하단에 배치
-        };
-        mapRef.current = new naver.maps.Map('map', mapOptions);
-
         // eslint-disable-next-line max-depth
-        if (dongsanUsers.length !== 0) {
+        if (accessToken) {
           // 로그인 했을 때
+          // 네이버 지도 옵션 선택
+          const mapOptions = {
+            // 지도의 초기 중심 좌표
+            center: new naver.maps.LatLng(
+              currentMyLocation.lat,
+              currentMyLocation.lng
+            ),
+            logoControl: false, // 네이버 로고 표시 X
+            mapDataControl: false, // 지도 데이터 저작권 컨트롤 표시 X
+            scaleControl: true, // 지도 축척 컨트롤의 표시 여부
+            tileDuration: 200, // 지도 타일을 전환할 때 페이드 인 효과의 지속 시간(밀리초)
+            zoom: 16, // 지도의 초기 줌 레벨
+            zoomControl: true, // 줌 컨트롤 표시
+            zoomControlOptions: { position: 9 }, // 줌 컨트롤 우하단에 배치
+          };
+          mapRef.current = new naver.maps.Map('map', mapOptions);
+
           // eslint-disable-next-line max-depth
-          for (let i = 1; i < 3; i += 1) {
+          for (let i = 0; i < dongsanUsers.length; i += 1) {
             axios({
               method: 'get',
-              url: `${API_URL}/restaurant/v2/${i}`,
+              url: `${API_URL}/restaurant/v2/${dongsanUsers[i].id}`,
             })
               // eslint-disable-next-line no-loop-func
               .then((res) => {
@@ -196,6 +176,23 @@ function FoodMap() {
                 );
               });
           }
+        } else {
+          // 네이버 지도 옵션 선택
+          const mapOptions = {
+            // 지도의 초기 중심 좌표
+            center: new naver.maps.LatLng(
+              currentMyLocation.lat,
+              currentMyLocation.lng
+            ),
+            logoControl: false, // 네이버 로고 표시 X
+            mapDataControl: false, // 지도 데이터 저작권 컨트롤 표시 X
+            scaleControl: true, // 지도 축척 컨트롤의 표시 여부
+            tileDuration: 200, // 지도 타일을 전환할 때 페이드 인 효과의 지속 시간(밀리초)
+            zoom: 16, // 지도의 초기 줌 레벨
+            zoomControl: true, // 줌 컨트롤 표시
+            zoomControlOptions: { position: 9 }, // 줌 컨트롤 우하단에 배치
+          };
+          mapRef.current = new naver.maps.Map('map', mapOptions);
         }
       }
     }

@@ -97,7 +97,7 @@ function Following() {
                     copy.push(following);
                     setDongsanUsers(copy);
                   }
-                  console.log(dongsanUsers);
+                  console.log('동산 상태', dongsanUsers);
                 }}
               />
             </div>

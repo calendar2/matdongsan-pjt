@@ -7,20 +7,56 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import userStore from '../../stores/userStore';
 import reviewStore from '../../stores/reviewStore';
+import dongsanStore from '../../stores/dongsanStore';
+import urlStore from '../../stores/urlStore';
 
 function ProfileModal() {
   const [anchorElProfile, setanchorElProfile] = useState(null);
-  const { setAccessToken, setLoginAccount } = userStore();
+  const { setAccessToken, setLoginAccount, loginAccount } =
+    userStore();
   const profileOpen = Boolean(anchorElProfile);
+  const { setRefresh, refresh } = reviewStore();
+  const { dongsanUsers } = dongsanStore();
+  const { KAKAO_URL } = urlStore();
+
   const profileClick = (event) => {
     setanchorElProfile(event.currentTarget);
   };
+
   const profileClose = () => {
     setanchorElProfile(null);
   };
-  const { setRefresh, refresh } = reviewStore();
+
+  const comparisonSave = () => {
+    const comparisonList = [];
+
+    for (let i = 0; i < dongsanUsers.length; i += 1) {
+      comparisonList.push({
+        comparedAccountId: dongsanUsers[i].id,
+        isHidden: 0,
+      });
+    }
+
+    console.log('동산상태 확인', comparisonList);
+
+    axios({
+      method: 'post',
+      url: `${KAKAO_URL}/comparison/${loginAccount.id}`,
+      data: {
+        comparisonList,
+      },
+    })
+      .then((res) => {
+        console.log('현재 동산상태 저장', res);
+      })
+      .catch((err) => {
+        console.error('현재 동산상태 저장실패ㅠㅠ', err);
+      });
+  };
+
   return (
     <div>
       <IconButton
@@ -85,7 +121,7 @@ function ProfileModal() {
         <Divider />
         <MenuItem
           onClick={() => {
-            profileClose();
+            comparisonSave();
             localStorage.removeItem('ACCESS_TOKEN');
             setAccessToken();
             setLoginAccount({});
