@@ -6,6 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
+import { Link } from 'react-router-dom';
 import userStore from '../../stores/userStore';
 import reviewStore from '../../stores/reviewStore';
 
@@ -73,9 +74,14 @@ function ProfileModal() {
           vertical: 'bottom',
         }}
       >
-        <MenuItem onClick={profileClose}>
-          <Avatar /> 회원정보 수정
-        </MenuItem>
+        <Link
+          to="/editprofile"
+          style={{ color: 'black', textDecoration: 'none' }}
+        >
+          <MenuItem onClick={profileClose}>
+            <Avatar /> 회원정보 수정
+          </MenuItem>
+        </Link>
         <Divider />
         <MenuItem
           onClick={() => {

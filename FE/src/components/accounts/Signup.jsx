@@ -18,7 +18,8 @@ import userStore from '../../stores/userStore';
 const steps = ['', ''];
 
 export default function HorizontalNonLinearStepper() {
-  const { age, gender, regionInterest, spicyLevel } = signupStore();
+  const { age, gender, regionInterest, spicyLevel, allergy } =
+    signupStore();
   const { API_URL } = urlStore();
   const { accessToken } = userStore();
   const [activeStep, setActiveStep] = useState(0);
@@ -69,9 +70,9 @@ export default function HorizontalNonLinearStepper() {
   const signupStep1Data = () => {
     console.log(accessToken, '액세스토큰임!');
     const requestData = {
-      gender: 'F',
-      birth_year: 1997,
-      region_name: '역삼동',
+      gender,
+      birthYear: age,
+      region_name: regionInterest,
     };
     const url = `${API_URL}/account/step1`;
     axios({
@@ -84,11 +85,38 @@ export default function HorizontalNonLinearStepper() {
       },
     })
       .then((response) => {
-        console.log('요청 성공:', response.data);
+        console.log('step1 요청 성공:', response.data);
         // 성공 시 필요한 작업 수행
       })
       .catch((error) => {
-        console.error('요청 실패:', error);
+        console.error('step1 요청 실패:', error);
+        console.log(accessToken);
+        // 실패 시 에러 처리
+      });
+  };
+
+  const signupStep2Data = () => {
+    console.log(accessToken, '액세스토큰임!');
+    const requestData = {
+      spicyLevel,
+      banned_food_names: allergy,
+    };
+    const url = `${API_URL}/account/step2`;
+    axios({
+      method: 'put',
+      url,
+      data: requestData,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        console.log('step2 요청 성공:', response.data);
+        // 성공 시 필요한 작업 수행
+      })
+      .catch((error) => {
+        console.error('step2 요청 실패:', error);
         console.log(accessToken);
         // 실패 시 에러 처리
       });
@@ -190,7 +218,10 @@ export default function HorizontalNonLinearStepper() {
                       },
                       px: '5vw',
                     }}
-                    onClick={handleComplete}
+                    onClick={() => {
+                      handleComplete();
+                      signupStep2Data();
+                    }}
                   >
                     완료
                   </Button>

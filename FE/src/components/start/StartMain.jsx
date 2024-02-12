@@ -19,8 +19,9 @@ function StartMain() {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 2500,
     arrows: false,
+    pauseOnHover: false,
   };
   const { setLoginModalOpen } = userStore();
   const handleOpen = () => setLoginModalOpen(true);
@@ -36,6 +37,7 @@ function StartMain() {
         arrows={settings.arrows}
         autoplay={settings.autoplay}
         autoplaySpeed={settings.autoplaySpeed}
+        pauseOnHover={settings.pauseOnHover}
       >
         <img src={imgIntro1} alt="" />
         <img src={imgIntro2} alt="" />

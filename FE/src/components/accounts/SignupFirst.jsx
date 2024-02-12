@@ -212,7 +212,7 @@ function SignupFirst() {
             {...defaultProps}
             onChange={handleAutocompleteChange}
             sx={{
-              width: '335px',
+              width: '280px',
               '& .MuiInputBase-root': {
                 padding: '1px',
                 paddingTop: '4px',

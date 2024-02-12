@@ -21,20 +21,18 @@ function SignupSecond() {
         <button
           className={styles.button}
           type="button"
-          onClick={() => handleButtonClick('애기 입맛')}
+          onClick={() => handleButtonClick(1)}
           style={{
             backgroundColor:
-              selectedButton === '애기 입맛'
+              selectedButton === 1
                 ? 'rgba(29, 177, 119, 0.5)'
                 : 'white',
             border:
-              selectedButton === '애기 입맛'
+              selectedButton === 1
                 ? 'none'
                 : '1px solid rgba(29, 177, 119, 0.7)',
             color:
-              selectedButton === '애기 입맛'
-                ? 'white'
-                : 'rgba(0, 0, 0, 0.7)',
+              selectedButton === 1 ? 'white' : 'rgba(0, 0, 0, 0.7)',
           }}
         >
           <div className={styles.tasteBox}>
@@ -50,20 +48,18 @@ function SignupSecond() {
         <button
           className={styles.button}
           type="button"
-          onClick={() => handleButtonClick('신라면')}
+          onClick={() => handleButtonClick(2)}
           style={{
             backgroundColor:
-              selectedButton === '신라면'
+              selectedButton === 2
                 ? 'rgba(29, 177, 119, 0.5)'
                 : 'white',
             border:
-              selectedButton === '신라면'
+              selectedButton === 2
                 ? 'none'
                 : '1px solid rgba(29, 177, 119, 0.7)',
             color:
-              selectedButton === '신라면'
-                ? 'white'
-                : 'rgba(0, 0, 0, 0.7)',
+              selectedButton === 2 ? 'white' : 'rgba(0, 0, 0, 0.7)',
           }}
         >
           <div className={styles.tasteBox}>
@@ -79,20 +75,18 @@ function SignupSecond() {
         <button
           className={styles.button}
           type="button"
-          onClick={() => handleButtonClick('불닭볶음면')}
+          onClick={() => handleButtonClick(3)}
           style={{
             backgroundColor:
-              selectedButton === '불닭볶음면'
+              selectedButton === 3
                 ? 'rgba(29, 177, 119, 0.5)'
                 : 'white',
             border:
-              selectedButton === '불닭볶음면'
+              selectedButton === 3
                 ? 'none'
                 : '1px solid rgba(29, 177, 119, 0.7)',
             color:
-              selectedButton === '불닭볶음면'
-                ? 'white'
-                : 'rgba(0, 0, 0, 0.7)',
+              selectedButton === 3 ? 'white' : 'rgba(0, 0, 0, 0.7)',
           }}
         >
           <div className={styles.tasteBox}>

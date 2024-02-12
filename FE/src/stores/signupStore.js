@@ -11,12 +11,14 @@ const signupStore = create((set) => ({
   setSpicyLevel: (value) => set({ spicyLevel: value }),
   allergy: '',
   setAllergy: (value) => set({ allergy: value }),
-  regionTotal: [
-    {
-      regionName: '서울특별시 강남구 역삼동',
-    },
-  ],
-  setRegionTotal: (value) => set({ regionTotal: value }),
+  passed: false,
+  setPassed: (value) => set({ passed: value }),
+  // regionTotal: [
+  //   {
+  //     regionName: '서울특별시 강남구 역삼동',
+  //   },
+  // ],
+  // setRegionTotal: (value) => set({ regionTotal: value }),
 }));
 
 export default signupStore;

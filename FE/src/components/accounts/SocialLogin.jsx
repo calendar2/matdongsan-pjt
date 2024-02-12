@@ -1,21 +1,21 @@
+import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-// sweetalert
-// eslint-disable-next-line import/no-extraneous-dependencies
 import swal from 'sweetalert2';
+import axios from 'axios';
 import userStore from '../../stores/userStore';
+import urlStore from '../../stores/urlStore';
 
 function SocialLogin() {
+  const { API_URL } = urlStore();
   const { setAccessToken } = userStore();
   const navigate = useNavigate();
   const location = useLocation();
   const getUrlParameter = (name) => {
-    // 쿼리 파라미터에서 값을 추출 해 주는 함수
     const { search } = location;
     const params = new URLSearchParams(search);
     return params.get(name);
   };
   const token = getUrlParameter('token');
-  // sweetalert
   const Toast = swal.mixin({
     toast: true,
     position: 'center-center',
@@ -28,22 +28,58 @@ function SocialLogin() {
     },
   });
 
-  console.log(`토큰 파싱: ${token}`);
-  setAccessToken(token);
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const url = `${API_URL}/account`;
+        const response = await axios({
+          method: 'get',
+          url,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        console.log('사용자 데이터 요청 성공:', response.data);
+        return response.data; // 사용자 데이터 반환
+      } catch (error) {
+        console.error('사용자 데이터 요청 실패:', error);
+        throw error;
+      }
+    };
 
-  if (token) {
-    console.log(`로컬스토리지에 토큰 저장${token}`);
-    localStorage.setItem('ACCESS_TOKEN', token);
-    navigate('/signup', { state: location });
-    Toast.fire({
-      icon: 'success',
-      title: `반갑습니다. \n회원가입 페이지로 이동합니다.`,
-    });
-  } else {
-    console.error();
-    console.log('token확인:', token);
-    navigate('/', { state: location });
-  }
+    const fetchData = async () => {
+      try {
+        const userData = await getUserData(); // 사용자 데이터 받아오기
+        // token 있고, 회원가입 한번도 하지 않았다면 -> 회원가입
+        if (token && !userData.passed) {
+          console.log('token/passed:', token, userData.passed);
+          setAccessToken(token); // 토큰 설정
+          localStorage.setItem('ACCESS_TOKEN', token);
+          navigate('/signup', { state: location });
+          Toast.fire({
+            icon: 'success',
+            title: `반갑습니다. 회원가입 페이지로 이동합니다.`,
+          });
+        } else if (token && userData.passed) {
+          setAccessToken(token); // 토큰 설정
+          console.log(
+            '토큰 및 isPassed 확인:',
+            token,
+            userData.passed
+          );
+          navigate('/main/restaurants', { state: location }); // '/main/restaurants'로 수정
+        }
+      } catch (error) {
+        console.error('사용자 데이터 요청 실패:', error);
+        navigate('/');
+      }
+    };
+
+    fetchData(); // fetchData 함수 호출
+  }, [API_URL, navigate, token, location, Toast]);
+
+  return null;
 }
 
 export default SocialLogin;

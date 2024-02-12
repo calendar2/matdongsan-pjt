@@ -4,6 +4,7 @@ import styles from '../../styles/start/StartView.module.css';
 import imgLogo from '../../assets/images/logo.png';
 import kakaoLogo from '../../assets/images/login/kakao.png';
 import userStore from '../../stores/userStore';
+import urlStore from '../../stores/urlStore';
 // import Redirect from '../accounts/Redirect';
 
 const style = {
@@ -21,6 +22,7 @@ const style = {
 
 function LoginModal() {
   const { loginModalOpen, setLoginModalOpen } = userStore();
+  const { KAKAO_URL } = urlStore();
 
   const handleClose = () => setLoginModalOpen(false);
   // 카카오 로그인(테스트)
@@ -30,7 +32,7 @@ function LoginModal() {
 
   // 이게 원래꺼
   const frontendUrl = `${window.location.protocol}//${window.location.host}`;
-  const KAKAO_AUTH_URL = `https://i10a209.p.ssafy.io:4000/auth/authorize/kakao?redirect_url=${frontendUrl}`;
+  const KAKAO_AUTH_URL = `${KAKAO_URL}/auth/authorize/kakao?redirect_url=${frontendUrl}`;
 
   const loginHandler = () => {
     window.location.href = KAKAO_AUTH_URL;
