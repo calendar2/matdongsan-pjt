@@ -155,7 +155,7 @@ function Header() {
             ) : (
               <input
                 type="text"
-                placeholder="지역, 가게"
+                placeholder="가게명, 음식"
                 onKeyDown={(e) => activeEnter(e)}
                 onChange={(e) => setSearchValue(e.target.value)}
                 value={searchValue}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import StarOutlineRoundedIcon from '@mui/icons-material/StarOutlineRounded';
@@ -11,7 +11,7 @@ import userStore from '../../stores/userStore';
 function RestaurantDetail() {
   const location = useLocation();
   const navigate = useNavigate();
-  const restaurantId = location.state?.id;
+  const restaurantId = location.state.id;
   const { API_URL } = urlStore();
   // console.log(restaurantId);
   const { loginAccount } = userStore();
@@ -19,8 +19,12 @@ function RestaurantDetail() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [isPresent, setIsPresent] = useState(0);
+  const [thum, setThum] = useState('');
+  const [menus, setMenus] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [menuList, setMenuList] = useState([]);
 
-  const deleteMyRestaurant = () => {
+  const deleteMyRestaurant = useCallback(() => {
     axios({
       method: 'delete',
       url: `${API_URL}/restaurant/${loginAccount.id}/${restaurantId}`,
@@ -36,9 +40,9 @@ function RestaurantDetail() {
       .catch((err) => {
         console.error('가게 삭제ㅠㅠ', err);
       });
-  };
+  }, [API_URL, navigate, restaurantId]);
 
-  const registerMyRestaurant = () => {
+  const registerMyRestaurant = useCallback(() => {
     axios({
       method: 'post',
       url: `${API_URL}/restaurant/${loginAccount.id}?restaurantId=${restaurantId}`,
@@ -54,19 +58,22 @@ function RestaurantDetail() {
       .catch((err) => {
         console.error('내 맛집 등록ㅠㅠ', err);
       });
-  };
+  }, [API_URL, navigate, restaurantId]);
 
   useEffect(() => {
     // 가게 상세 정보 가져오기
     axios({
       method: 'get',
-      url: `${API_URL}/restaurant/common/${restaurantId}`,
+      url: `${API_URL}/restaurant/common/v2/${restaurantId}`,
     })
       .then((res) => {
         console.log('가게 상세 정보', res);
         setAddress(res.data.address);
         setName(res.data.name);
         setPhone(res.data.phone);
+        setThum(res.data.thumUrl);
+        setMenus(res.data.menuInfo);
+        setCategories(res.data.restaurantFoodCategories);
       })
       .catch((err) => {
         console.error('가게 상세 정보 실패ㅠㅠ', err);
@@ -79,12 +86,17 @@ function RestaurantDetail() {
     })
       .then((res) => {
         console.log('내 맛집?', res);
-        setIsPresent(res.data.is_present);
+        setIsPresent(res.data.isPresent);
       })
       .catch((err) => {
         console.error('내 맛집ㅠㅠ', err);
       });
-  }, [restaurantId, deleteMyRestaurant, registerMyRestaurant]);
+  }, [restaurantId]);
+
+  useEffect(() => {
+    setMenuList(menus.split(' | '));
+    console.log(menuList);
+  }, [menus]);
 
   return (
     <div className={content.hiddenSpace}>
@@ -105,10 +117,35 @@ function RestaurantDetail() {
             />
           )}
         </div>
-        <div>사진</div>
+        <div className={detail.category}>
+          <ul>
+            {categories.map((category) => (
+              <li key={category.name}>{category.name}</li>
+            ))}
+          </ul>
+        </div>
+        <div className={detail.thumNail}>
+          <img src={thum} alt="가게 썸네일" />
+        </div>
         <div>{address}</div>
         <div>{phone}</div>
-        <div>메뉴</div>
+        <table className={detail.menu}>
+          <caption>메뉴판</caption>
+          <tbody>
+            {menuList.map((menu) => (
+              <tr key={menu}>
+                <td>{menu}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {/* <div>
+          <ul>
+            {menuList.map((menu) => (
+              <li key={menu}>{menu}</li>
+            ))}
+          </ul>
+        </div> */}
       </div>
     </div>
   );

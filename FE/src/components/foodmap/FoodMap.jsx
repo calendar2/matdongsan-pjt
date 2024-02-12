@@ -7,7 +7,7 @@ import urlStore from '../../stores/urlStore';
 import foodmap from '../../styles/foodmap/FoodMap.module.css';
 import markerStyle from '../../styles/mapcontents/marker.module.css';
 import dongsanStore from '../../stores/dongsanStore';
-// import userStore from '../../stores/userStore';
+import userStore from '../../stores/userStore';
 
 function FoodMap() {
   const mapRef = useRef(null);
@@ -21,7 +21,7 @@ function FoodMap() {
   const tenPowSeven = 10 ** 7;
   let restaurantId = 0;
   const { dongsanUsers } = dongsanStore(); // 동산에 추가된 유저 정보
-  // const { accessToken } = userStore();
+  const { accessToken } = userStore();
 
   // 지도 중심 좌표
   const [centerLat, setCenterLat] = useState(currentMyLocation.lat);
@@ -32,7 +32,7 @@ function FoodMap() {
     if (dongsanUsers.length !== 0) {
       axios({
         method: 'get',
-        url: `${API_URL}/restaurant/${1}`,
+        url: `${API_URL}/restaurant/v2/${1}`,
       })
         .then((res) => {
           console.log('로그인한 사용자의 맛집 목록', res);
@@ -44,7 +44,7 @@ function FoodMap() {
           console.error('로그인한 사용자의 맛집 목록ㅠㅠ', err);
         });
     }
-  }, []);
+  }, [accessToken]);
 
   // 최초 렌더링 및 이용자의 현재 위치가 변할 때 지도 제작 코드(나중에 for문을 수정해야함 - 동산의 정보를 토대로!)
   useEffect(() => {
@@ -74,7 +74,7 @@ function FoodMap() {
           for (let i = 1; i < 3; i += 1) {
             axios({
               method: 'get',
-              url: `${API_URL}/restaurant/${i}`,
+              url: `${API_URL}/restaurant/v2/${i}`,
             })
               // eslint-disable-next-line no-loop-func
               .then((res) => {
@@ -212,10 +212,10 @@ function FoodMap() {
           query !== null
         ) {
           const response = await axios.get(
-            `${API_URL}/naver/search/?query=${query}`
+            `${API_URL}/naver/search/v2/?query=${query}`
           );
           console.log('글로벌 검색 수행 완료!', response);
-          const searchList = response.data.items;
+          const searchList = response.data;
 
           const markers = [];
           const infoWindows = [];
@@ -224,8 +224,8 @@ function FoodMap() {
           const mapOptions = {
             // 지도의 초기 중심 좌표
             center: new naver.maps.LatLng(
-              Number(searchList[0].mapy) / tenPowSeven,
-              Number(searchList[0].mapx) / tenPowSeven
+              searchList[0].mapy / tenPowSeven,
+              searchList[0].mapx / tenPowSeven
             ),
             logoControl: false, // 네이버 로고 표시 X
             mapDataControl: false, // 지도 데이터 저작권 컨트롤 표시 X
@@ -240,21 +240,14 @@ function FoodMap() {
           const createMarkerAndInfoWindow = (item) => {
             const markerContent = `
               <div class=${markerStyle.wrapper}>
-                <img src="/test/cat.jpg" alt="프로필 사진" class=${markerStyle.imgStyle}>
-                <div class=${markerStyle.restaurantInfo}>${item.title}</div>
-                <div class=${markerStyle.none}>${item.category}</div>
-                <div class=${markerStyle.none}>${item.address}</div>
-                <div class=${markerStyle.none}>${Number(item.mapx)}</div>
-                <div class=${markerStyle.none}>${Number(item.mapy)}</div>
-                <div class=${markerStyle.none}>${item.roadAddress}</div>
-                <div class=${markerStyle.none}>${item.telephone}</div>
+                <div class=${markerStyle.searchInfo}>${item.name}</div>
               </div>
             `;
             const marker = new naver.maps.Marker({
               map: mapRef.current,
               position: new naver.maps.LatLng(
-                Number(item.mapy) / tenPowSeven,
-                Number(item.mapx) / tenPowSeven
+                item.mapy / tenPowSeven,
+                item.mapx / tenPowSeven
               ),
               icon: {
                 content: markerContent,
@@ -263,13 +256,7 @@ function FoodMap() {
             });
 
             const infoWindowContent = `
-              <div class=${markerStyle.none} id="restaurantName">${item.title}</div>
-              <div class=${markerStyle.none} id="restaurantCategory">${item.category}</div>
-              <div class=${markerStyle.none} id="restaurantAddress">${item.address}</div>
-              <div class=${markerStyle.none} id="restaurantMapx">${Number(item.mapx)}</div>
-              <div class=${markerStyle.none} id="restaurantMapy">${Number(item.mapy)}</div>
-              <div class=${markerStyle.none} id="restaurantRoadAddress">${item.roadAddress}</div>
-              <div class=${markerStyle.none} id="restaurantPhone">${item.telephone}</div>
+              <div class=${markerStyle.none} id="restaurantId">${item.id}</div>
             `;
 
             const infoWindow = new naver.maps.InfoWindow({
@@ -297,42 +284,15 @@ function FoodMap() {
             } else if (mapRef.current !== null) {
               infoWindows[index].open(mapRef.current, markers[index]);
 
-              axios({
-                method: 'post',
-                url: `${API_URL}/restaurant/common`,
-                data: {
-                  name: document.querySelector('#restaurantName')
-                    .innerText,
-                  mapx: document.querySelector('#restaurantMapx')
-                    .innerText,
-                  mapy: document.querySelector('#restaurantMapy')
-                    .innerText,
-                  address: document.querySelector(
-                    '#restaurantAddress'
-                  ).innerText,
-                  roadAddress: document.querySelector(
-                    '#restaurantRoadAddress'
-                  ).innerText,
-                  phone: document.querySelector('#restaurantPhone')
-                    .innerText,
+              restaurantId =
+                document.querySelector('#restaurantId').innerText;
+              infoWindows[index].close();
+
+              navigate(`/main/restaurants/${restaurantId}/detail`, {
+                state: {
+                  id: restaurantId,
                 },
-              })
-                .then((res) => {
-                  console.log('우리 db에 가게 등록하기!', res);
-                  infoWindows[index].close();
-                  restaurantId = res.data.id;
-                  navigate(
-                    `/main/restaurants/${restaurantId}/detail`,
-                    {
-                      state: {
-                        id: restaurantId,
-                      },
-                    }
-                  );
-                })
-                .catch((err) => {
-                  console.error('우리 db에 가게 등록 실패ㅠㅠ', err);
-                });
+              });
             }
           };
 

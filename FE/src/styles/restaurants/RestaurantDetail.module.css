@@ -1,6 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .container .wrapper {
   display: flex;
@@ -10,4 +11,21 @@
 }
 .container .btn:hover {
   cursor: pointer;
+}
+.container .category ul {
+  margin: 0;
+  padding-left: 0;
+}
+.container .category ul li {
+  display: inline-block;
+}
+.container .thumNail {
+  width: 200px;
+  height: 200px;
+}
+.container .thumNail img {
+  width: 100%;
+}
+.container .menu {
+  margin-top: 1rem;
 }/*# sourceMappingURL=RestaurantDetail.module.css.map */
