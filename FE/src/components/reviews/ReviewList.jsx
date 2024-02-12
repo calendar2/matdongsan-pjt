@@ -138,7 +138,6 @@ function ReviewsList() {
           };
         });
         setMyReviewStore(reviewList);
-        sortByRecentVisitDate();
       } catch (error) {
         console.error('Error fetching data:', error);
       }

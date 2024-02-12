@@ -22,7 +22,6 @@ import RestaurantDetail from '../components/restaurants/RestaurantDetail';
 import UserInfoModal from '../components/modals/UserInfoModal';
 import OtherUserDongsanModal from '../components/modals/OtherUserDongsanModal';
 import userStore from '../stores/userStore';
-import reviewStore from '../stores/reviewStore';
 import urlStore from '../stores/urlStore';
 
 function FoodMapView() {
@@ -38,7 +37,6 @@ function FoodMapView() {
     loginAccount,
     setIsLogin,
   } = userStore();
-  const { setRefresh, refresh } = reviewStore();
   const { userID } = useParams();
 
   useEffect(() => {
@@ -64,29 +62,17 @@ function FoodMapView() {
       });
     if (userID !== undefined) {
       setCurrentPageID(userID);
-      setIsMyPage(false);
-      setTimeout(() => {
-        setRefresh(!refresh);
-      }, 5); // 리스트목록갱신
+      setIsMyPage(false); // 리스트목록갱신
     } else {
       setCurrentPageID(loginID); // 로그인한아이디 입력
       setIsMyPage(true);
-      setTimeout(() => {
-        setRefresh(!refresh); // 리스트목록갱신
-      }, 5);
     }
     if (loginID !== undefined) {
       setIsLogin(true);
       console.log(loginID, '로그인 함!');
-      setTimeout(() => {
-        setRefresh(!refresh);
-      }, 5);
     } else {
       setIsLogin(false);
       console.log(loginID, '로그인 안함!');
-      setTimeout(() => {
-        setRefresh(!refresh);
-      }, 5);
     }
   }, [navigate]);
   return (
