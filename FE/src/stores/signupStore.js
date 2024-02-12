@@ -11,7 +11,7 @@ const signupStore = create((set) => ({
   setRegionInterest: (value) => set({ regionInterest: value }),
   spicyLevel: '',
   setSpicyLevel: (value) => set({ spicyLevel: value }),
-  allergy: '',
+  allergy: [],
   setAllergy: (value) => set({ allergy: value }),
   passed: false,
   setPassed: (value) => set({ passed: value }),

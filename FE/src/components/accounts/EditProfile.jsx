@@ -98,6 +98,34 @@ function EditProfile() {
     getUserData();
   }, [API_URL, accessToken]);
 
+  const editProfileData = () => {
+    console.log(accessToken, '액세스토큰임!');
+    const requestData = {
+      nickname,
+      spicyLevel,
+      bannedFoodNames: allergy,
+    };
+    const url = `${API_URL}/account`;
+    axios({
+      method: 'put',
+      url,
+      data: requestData,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        console.log('회원가입 정보 수정 성공:', response.data);
+        // 성공 시 필요한 작업 수행
+      })
+      .catch((error) => {
+        console.error('회원가입 정보 수정 실패:', error);
+        console.log(accessToken);
+        // 실패 시 에러 처리
+      });
+  };
+
   return (
     <div className={styles.profileBox}>
       <img src={imgLogo} alt="mainLogo" className={styles.imgLogo} />
@@ -112,7 +140,7 @@ function EditProfile() {
             >
               <div className={styles.gridItem}>닉네임</div>
               <div className={styles.gridItem}>
-                {userData.nickname}
+                {/* {userData.nickname} */}
                 <input
                   value={nickname}
                   placeholder={userData.nickname}
@@ -699,7 +727,7 @@ function EditProfile() {
             px: '5vw',
           }}
           onClick={() => {
-            // editProfileData();
+            editProfileData();
           }}
         >
           완료
