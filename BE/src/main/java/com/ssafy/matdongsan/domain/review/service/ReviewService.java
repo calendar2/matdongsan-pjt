@@ -71,8 +71,8 @@ public class ReviewService {
 //            throw new IllegalArgumentException("Input text is null");
 //        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        return LocalDateTime.of(LocalDate.parse(visitDate,formatter), LocalTime.of(0,0));
-        return LocalDateTime.of(LocalDate.of(2000, 1, 1), LocalTime.of(0,0));
+        return LocalDateTime.of(LocalDate.parse(visitDate,formatter), LocalTime.of(0,0));
+//        return LocalDateTime.of(LocalDate.of(2000, 1, 1), LocalTime.of(0,0));
     }
 
 
