@@ -35,8 +35,8 @@ public class NaverSearchSaveResponseDto {
         this.address = requestDto.getAddress();
         this.roadAddress = requestDto.getRoadAddress();
         this.phone = requestDto.getPhone();
-        this.thum_url = requestDto.getThumUrl();
-        this.menu_info = requestDto.getMenuInfo();
+        this.thumUrl = requestDto.getThumUrl();
+        this.menuInfo = requestDto.getMenuInfo();
         this.restaurantFoodCategories = restaurantFoodCategories;
     }
 
