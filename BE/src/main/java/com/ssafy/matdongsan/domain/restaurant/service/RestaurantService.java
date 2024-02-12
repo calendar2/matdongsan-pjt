@@ -58,7 +58,7 @@ public class RestaurantService {
     public NaverSearchSaveResponseDto saveNaverSearchV2(NaverSearchSaveRequestDto requestDto) {
         Optional<List<Restaurant>> restaurants = getRestaurants(requestDto);
         List<FoodCategoryNaverSearchResponseDto> restaurantFoodCategories = requestDto.getRestaurantFoodCategories().stream().map(
-                foodCategory -> new FoodCategoryNaverSearchResponseDto(foodCategory.getId())
+                foodCategory -> new FoodCategoryNaverSearchResponseDto(foodCategory.getName())
         ).toList();
         //음식점이 이미 등록 되어 있는 경우
         if(!restaurants.get().isEmpty()) {

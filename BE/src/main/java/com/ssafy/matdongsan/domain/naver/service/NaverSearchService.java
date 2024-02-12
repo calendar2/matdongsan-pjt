@@ -71,12 +71,10 @@ public class NaverSearchService {
         List<NaverSearchSaveRequestDto> requestDtos = extractRequestDto(restaurantsJsonArray);
         System.out.println(requestDtos.get(0));
         List<NaverSearchSaveResponseDto> responseDtos = new ArrayList<>();
-        int i =0;
+
         for (NaverSearchSaveRequestDto requestDto: requestDtos){
             NaverSearchSaveResponseDto responseDto = restaurantService.saveNaverSearchV2(requestDto);
             responseDtos.add(responseDto);
-            System.out.println(i);
-            i++;
         }
 
         return responseDtos;

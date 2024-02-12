@@ -6,5 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class FoodCategoryNaverSearchResponseDto {
-    private Integer id;
+
+    private String name;
+
 }

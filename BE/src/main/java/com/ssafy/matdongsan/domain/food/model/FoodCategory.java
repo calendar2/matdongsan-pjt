@@ -4,10 +4,7 @@ import com.ssafy.matdongsan.domain.account.model.Account;
 import com.ssafy.matdongsan.domain.restaurant.model.Restaurant;
 import jakarta.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +14,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class FoodCategory {
 
     @Id
@@ -36,8 +34,10 @@ public class FoodCategory {
     @ManyToMany(mappedBy = "restaurantFoodCategories")
     private List<Restaurant> restaurants = new ArrayList<>();
 
+
     public FoodCategory(String foodCategoryName) {
         this.name = foodCategoryName;
     }
+
 
 }
