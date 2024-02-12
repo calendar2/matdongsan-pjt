@@ -72,7 +72,7 @@ export default function HorizontalNonLinearStepper() {
     const requestData = {
       gender,
       birthYear: age,
-      region_name: regionInterest,
+      regionName: regionInterest,
     };
     const url = `${API_URL}/account/step1`;
     axios({
@@ -99,7 +99,7 @@ export default function HorizontalNonLinearStepper() {
     console.log(accessToken, '액세스토큰임!');
     const requestData = {
       spicyLevel,
-      banned_food_names: allergy,
+      bannedFoodNames: allergy,
     };
     const url = `${API_URL}/account/step2`;
     axios({

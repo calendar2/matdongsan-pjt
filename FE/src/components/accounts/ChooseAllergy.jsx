@@ -25,7 +25,7 @@ function ChooseAllergy() {
   const [selectedButtons, setSelectedButtons] = useState([]);
   const { allergy, setAllergy } = signupStore();
 
-  const handleButtonClick = (buttonValue) => {
+  const AllergyButtonClick = (buttonValue) => {
     if (selectedButtons.includes(buttonValue)) {
       // 이미 선택된 버튼일 경우, 선택 해제
       setSelectedButtons(
@@ -44,7 +44,7 @@ function ChooseAllergy() {
         <button
           className={styles.allergyButton}
           type="button"
-          onClick={() => handleButtonClick('소고기')}
+          onClick={() => AllergyButtonClick('소고기')}
           style={{
             backgroundColor: selectedButtons.includes('소고기')
               ? 'rgba(29, 177, 119, 0.5)'
@@ -65,7 +65,7 @@ function ChooseAllergy() {
         <button
           className={styles.allergyButton}
           type="button"
-          onClick={() => handleButtonClick('돼지고기')}
+          onClick={() => AllergyButtonClick('돼지고기')}
           style={{
             backgroundColor: selectedButtons.includes('돼지고기')
               ? 'rgba(29, 177, 119, 0.5)'
@@ -85,7 +85,7 @@ function ChooseAllergy() {
         <button
           className={styles.allergyButton}
           type="button"
-          onClick={() => handleButtonClick('닭고기')}
+          onClick={() => AllergyButtonClick('닭고기')}
           style={{
             backgroundColor: selectedButtons.includes('닭고기')
               ? 'rgba(29, 177, 119, 0.5)'
@@ -105,7 +105,7 @@ function ChooseAllergy() {
         <button
           className={styles.allergyButton}
           type="button"
-          onClick={() => handleButtonClick('난류')}
+          onClick={() => AllergyButtonClick('난류')}
           style={{
             backgroundColor: selectedButtons.includes('난류')
               ? 'rgba(29, 177, 119, 0.5)'
@@ -121,7 +121,7 @@ function ChooseAllergy() {
         <button
           className={styles.allergyButton}
           type="button"
-          onClick={() => handleButtonClick('새우')}
+          onClick={() => AllergyButtonClick('새우')}
           style={{
             backgroundColor: selectedButtons.includes('새우')
               ? 'rgba(29, 177, 119, 0.5)'
@@ -141,7 +141,7 @@ function ChooseAllergy() {
         <button
           className={styles.allergyButton}
           type="button"
-          onClick={() => handleButtonClick('게')}
+          onClick={() => AllergyButtonClick('게')}
           style={{
             backgroundColor: selectedButtons.includes('게')
               ? 'rgba(29, 177, 119, 0.5)'
@@ -161,7 +161,7 @@ function ChooseAllergy() {
         <button
           className={styles.allergyButton}
           type="button"
-          onClick={() => handleButtonClick('오징어')}
+          onClick={() => AllergyButtonClick('오징어')}
           style={{
             backgroundColor: selectedButtons.includes('오징어')
               ? 'rgba(29, 177, 119, 0.5)'
@@ -181,7 +181,7 @@ function ChooseAllergy() {
         <button
           className={styles.allergyButton}
           type="button"
-          onClick={() => handleButtonClick('고등어')}
+          onClick={() => AllergyButtonClick('고등어')}
           style={{
             backgroundColor: selectedButtons.includes('고등어')
               ? 'rgba(29, 177, 119, 0.5)'
@@ -202,7 +202,7 @@ function ChooseAllergy() {
         <button
           className={styles.allergyButton}
           type="button"
-          onClick={() => handleButtonClick('조개류')}
+          onClick={() => AllergyButtonClick('조개류')}
           style={{
             backgroundColor: selectedButtons.includes('조개류')
               ? 'rgba(29, 177, 119, 0.5)'
@@ -223,7 +223,7 @@ function ChooseAllergy() {
         <button
           className={styles.allergyButton}
           type="button"
-          onClick={() => handleButtonClick('우유')}
+          onClick={() => AllergyButtonClick('우유')}
           style={{
             backgroundColor: selectedButtons.includes('우유')
               ? 'rgba(29, 177, 119, 0.5)'
@@ -244,7 +244,7 @@ function ChooseAllergy() {
         <button
           className={styles.allergyButton}
           type="button"
-          onClick={() => handleButtonClick('땅콩')}
+          onClick={() => AllergyButtonClick('땅콩')}
           style={{
             backgroundColor: selectedButtons.includes('땅콩')
               ? 'rgba(29, 177, 119, 0.5)'
@@ -264,7 +264,7 @@ function ChooseAllergy() {
         <button
           className={styles.allergyButton}
           type="button"
-          onClick={() => handleButtonClick('호두')}
+          onClick={() => AllergyButtonClick('호두')}
           style={{
             backgroundColor: selectedButtons.includes('호두')
               ? 'rgba(29, 177, 119, 0.5)'
@@ -284,7 +284,7 @@ function ChooseAllergy() {
         <button
           className={styles.allergyButton}
           type="button"
-          onClick={() => handleButtonClick('잣')}
+          onClick={() => AllergyButtonClick('잣')}
           style={{
             backgroundColor: selectedButtons.includes('잣')
               ? 'rgba(29, 177, 119, 0.5)'
@@ -304,7 +304,7 @@ function ChooseAllergy() {
         <button
           className={styles.allergyButton}
           type="button"
-          onClick={() => handleButtonClick('대두')}
+          onClick={() => AllergyButtonClick('대두')}
           style={{
             backgroundColor: selectedButtons.includes('대두')
               ? 'rgba(29, 177, 119, 0.5)'
@@ -325,7 +325,7 @@ function ChooseAllergy() {
         <button
           className={styles.allergyButton}
           type="button"
-          onClick={() => handleButtonClick('복숭아')}
+          onClick={() => AllergyButtonClick('복숭아')}
           style={{
             backgroundColor: selectedButtons.includes('복숭아')
               ? 'rgba(29, 177, 119, 0.5)'
@@ -345,7 +345,7 @@ function ChooseAllergy() {
         <button
           className={styles.allergyButton}
           type="button"
-          onClick={() => handleButtonClick('토마토')}
+          onClick={() => AllergyButtonClick('토마토')}
           style={{
             backgroundColor: selectedButtons.includes('토마토')
               ? 'rgba(29, 177, 119, 0.5)'
@@ -365,7 +365,7 @@ function ChooseAllergy() {
         <button
           className={styles.allergyButton}
           type="button"
-          onClick={() => handleButtonClick('밀')}
+          onClick={() => AllergyButtonClick('밀')}
           style={{
             backgroundColor: selectedButtons.includes('밀')
               ? 'rgba(29, 177, 119, 0.5)'
@@ -385,7 +385,7 @@ function ChooseAllergy() {
         <button
           className={styles.allergyButton}
           type="button"
-          onClick={() => handleButtonClick('메밀')}
+          onClick={() => AllergyButtonClick('메밀')}
           style={{
             backgroundColor: selectedButtons.includes('메밀')
               ? 'rgba(29, 177, 119, 0.5)'
@@ -405,7 +405,7 @@ function ChooseAllergy() {
         <button
           className={styles.allergyButton}
           type="button"
-          onClick={() => handleButtonClick('아황산류')}
+          onClick={() => AllergyButtonClick('아황산류')}
           style={{
             backgroundColor: selectedButtons.includes('아황산류')
               ? 'rgba(29, 177, 119, 0.5)'
