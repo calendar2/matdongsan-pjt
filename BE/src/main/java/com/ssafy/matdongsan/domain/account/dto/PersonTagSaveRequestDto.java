@@ -26,4 +26,11 @@ public class PersonTagSaveRequestDto {
                 .build();
 
     }
+
+    public PersonTag toEntity() {
+        return PersonTag.builder()
+                .name(this.name)
+                .birthYear(this.birthYear)
+                .build();
+    }
 }

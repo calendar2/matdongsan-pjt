@@ -5,6 +5,10 @@ import com.ssafy.matdongsan.domain.account.model.Account;
 import com.ssafy.matdongsan.domain.account.model.PersonTag;
 import com.ssafy.matdongsan.domain.account.repository.AccountRepository;
 import com.ssafy.matdongsan.domain.account.repository.PersonTagRepository;
+import com.ssafy.matdongsan.domain.food.model.FoodCategory;
+import com.ssafy.matdongsan.domain.food.repository.FoodCategoryRepository;
+import com.ssafy.matdongsan.domain.restaurant.model.Region;
+import com.ssafy.matdongsan.domain.restaurant.repository.RegionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,30 +21,42 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
     private final PersonTagRepository personTagRepository;
+    private final RegionRepository regionRepository;
+    private final FoodCategoryRepository foodCategoryRepository;
 
     public PersonTagResponse savePersonTag(PersonTagSaveRequestDto dto, String email) {
         Account account = accountRepository.findByEmail(email);
-        PersonTag savedPersonTag = personTagRepository.save(dto.toEntity(account));
+        PersonTag personTag = dto.toEntity();
+        account.setPersonTag(personTag);
+        accountRepository.save(account);
+        PersonTag savedPersonTag = personTagRepository.save(personTag);
         return PersonTagResponse.from(savedPersonTag);
     }
 
     public AccountResponse modifyAccount(AccountModifyRequestDto dto, String email) {
         Account account = accountRepository.findByEmail(email);
-        account.modify(dto);
+        account.setGenderAndBirthYear(dto);
         Account savedAccount = accountRepository.save(account);
         return AccountResponse.from(savedAccount);
     }
 
     public AccountResponse modifyAccount(AccountModifyStep1RequestDto dto, String email) {
         Account account = accountRepository.findByEmail(email);
-        account.modify(dto);
+        Region region = regionRepository.findByDistrict(dto.getRegionName());
+        account.setGenderAndBirthYear(dto.getGender(), dto.getBirthYear());
+        account.addRegion(region);
         Account savedAccount = accountRepository.save(account);
         return AccountResponse.from(savedAccount);
     }
 
     public AccountResponse modifyAccount(AccountModifyStep2RequestDto dto, String email) {
         Account account = accountRepository.findByEmail(email);
-        account.modify(dto);
+        account.setSpicyLevel(dto.getSpicyLevel());
+        for (String foodCategoryName : dto.getBannedFoodNames()) {
+            FoodCategory foodCategory = foodCategoryRepository.findByName(foodCategoryName).orElseThrow();
+            account.addBannedFoodCategory(foodCategory);
+        }
+        account.pass();
         Account savedAccount = accountRepository.save(account);
         return AccountResponse.from(savedAccount);
     }

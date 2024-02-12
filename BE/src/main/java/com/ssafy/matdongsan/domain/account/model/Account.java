@@ -2,8 +2,6 @@ package com.ssafy.matdongsan.domain.account.model;
 
 import com.ssafy.matdongsan.domain.*;
 import com.ssafy.matdongsan.domain.account.dto.AccountModifyRequestDto;
-import com.ssafy.matdongsan.domain.account.dto.AccountModifyStep1RequestDto;
-import com.ssafy.matdongsan.domain.account.dto.AccountModifyStep2RequestDto;
 import com.ssafy.matdongsan.domain.comparison.model.Comparison;
 import com.ssafy.matdongsan.domain.food.model.Food;
 import com.ssafy.matdongsan.domain.food.model.FoodCategory;
@@ -115,23 +113,37 @@ public class Account extends BaseEntity {
     private List<Restaurant> restaurants = new ArrayList<>();
 
 
-    public void modify(AccountModifyRequestDto dto) {
+    public void setGenderAndBirthYear(AccountModifyRequestDto dto) {
         username = dto.getUsername();
         nickname = dto.getNickname();
         birthYear = dto.getBirthYear();
         spicyLevel = dto.getSpicyLevel();
     }
 
-    public void modify(AccountModifyStep1RequestDto dto) {
-        gender = dto.getGender();
-        birthYear = dto.getBirthYear();
+    public void setGenderAndBirthYear(char gender, short birthYear) {
+        this.gender = gender;
+        this.birthYear = birthYear;
     }
 
-    public void modify(AccountModifyStep2RequestDto dto) {
-        spicyLevel = dto.getSpicyLevel();
-        isPassed = true;
+    public void addRegion(Region region) {
+        regions.add(region);
+        region.getAccounts().add(this);
     }
 
+    public void setSpicyLevel(byte spicyLevel) {
+        this.spicyLevel = spicyLevel;
+    }
+
+    public void addBannedFoodCategory(FoodCategory foodCategory) {
+        if (!bannedFoodCategories.contains(foodCategory)) {
+            bannedFoodCategories.add(foodCategory);
+            foodCategory.getAccounts().add(this);
+        }
+    }
+
+    public void pass() {
+        this.isPassed = true;
+    }
 
     public void updateRestaurant(List<Restaurant> restaurants) {
         this.restaurants = restaurants;
@@ -145,5 +157,9 @@ public class Account extends BaseEntity {
         follower--;
     }
 
+    public void setPersonTag(PersonTag personTag) {
+        personTags.add(personTag);
+        personTag.setAccount(this);
+    }
 
 }

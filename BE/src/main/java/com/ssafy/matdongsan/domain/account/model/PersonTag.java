@@ -34,11 +34,14 @@ public class PersonTag extends BaseEntity {
     @ManyToMany(mappedBy = "reviewPersonTags")
     private List<Review> reviews = new ArrayList<>();
 
-
     @Builder
     public PersonTag(String name, short birthYear, Account account) {
         this.name = name;
         this.birthYear = birthYear;
+        this.account = account;
+    }
+
+    public void setAccount(Account account) {
         this.account = account;
     }
 }
