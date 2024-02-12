@@ -11,11 +11,13 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PersonTagSaveReviewRequestDto {
+    private Integer id;
     private String name;
     private short birthYear;
 
     @Builder
-    public PersonTagSaveReviewRequestDto(String name, short birthYear) {
+    public PersonTagSaveReviewRequestDto(Integer id, String name, short birthYear) {
+        this.id = id;
         this.name = name;
         this.birthYear = birthYear;
     }

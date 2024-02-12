@@ -109,6 +109,7 @@ public class ReviewService {
     private List<PersonTagSaveReviewRequestDto> changeToPersonTagDtoList(List<PersonTag> reviewPersonTags) {
         return  reviewPersonTags.stream()
                 .map(r -> new PersonTagSaveReviewRequestDto(
+                        r.getId(),
                         r.getName(),
                         r.getBirthYear()
                 ))
