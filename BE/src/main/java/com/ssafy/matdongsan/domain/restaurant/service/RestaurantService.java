@@ -235,6 +235,29 @@ public class RestaurantService {
 
 
     }
+
+    public List<RestaurantFindAllAccountResponseV2Dto> findAllAccountRestaurantsV2(Integer accountId) {
+        Account account = accountRepository.findById(accountId).orElseThrow();
+        List<Restaurant> restaurants = account.getRestaurants();
+
+        return restaurants.stream().map(
+                restaurant -> new RestaurantFindAllAccountResponseV2Dto(
+                        restaurant.getId(),
+                        restaurant.getRegion().getId(),
+                        restaurant.getName(),
+                        restaurant.getMapx(),
+                        restaurant.getMapy(),
+                        restaurant.getAddress(),
+                        restaurant.getRoadAddress(),
+                        restaurant.getPhone(),
+                        restaurant.getThumUrl(),
+                        restaurant.getMenuInfo(),
+                        restaurant.getRestaurantFoodCategories().stream().map(
+                                foodCategory -> new FoodCategoryNaverSearchResponseDto(foodCategory.getName())
+                        ).toList()
+                )
+        ).toList();
+    }
 }
 
 
