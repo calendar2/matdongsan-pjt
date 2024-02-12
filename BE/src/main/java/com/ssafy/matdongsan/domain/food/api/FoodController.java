@@ -1,5 +1,6 @@
 package com.ssafy.matdongsan.domain.food.api;
 
+import com.ssafy.matdongsan.domain.food.dto.FoodCategoryResponse;
 import com.ssafy.matdongsan.domain.food.dto.FoodRequest;
 import com.ssafy.matdongsan.domain.food.dto.FoodResponse;
 import com.ssafy.matdongsan.domain.food.service.FoodService;
@@ -11,7 +12,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/food")
@@ -53,6 +57,20 @@ public class FoodController {
     public ResponseEntity<?> registerFood(@RequestBody FoodRequest request) {
         FoodResponse response = foodService.saveFood(request);
         if (response == null)
+            return ResponseEntity.badRequest().build();
+        return ResponseEntity.ok().body(response);
+    }
+
+    @Operation(summary = "get the banned food categories of the authenticated user", tags = { "food" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(type = "array", implementation = FoodResponse.class))
+            })
+    })
+    @GetMapping("/banned-food-category")
+    public ResponseEntity<?> getBannedFoodCategories(@AuthenticationPrincipal String email) {
+        List<FoodCategoryResponse> response = foodService.getBannedFoodCategories(email);
+        if (!response.isEmpty())
             return ResponseEntity.badRequest().build();
         return ResponseEntity.ok().body(response);
     }
