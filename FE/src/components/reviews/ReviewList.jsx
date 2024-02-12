@@ -31,6 +31,7 @@ function ReviewsList() {
     sortByRecentVisitDate,
     sortByAverageTasteAndKindness,
   } = reviewStore();
+
   const { currentPageID } = userStore();
   const navigate = useNavigate();
   // 음식점 ID를 인자로 입력하면 해당 음식점으로 스크롤 이동한다
@@ -54,7 +55,7 @@ function ReviewsList() {
       try {
         const [restaurantData, reviewData, regions] =
           await Promise.all([
-            axios.get(`${API_URL}/restaurant/${currentPageID}`),
+            axios.get(`${API_URL}/restaurant/v2/${currentPageID}`),
             axios.get(`${API_URL}/review/${currentPageID}`),
             axios.get(`${API_URL}/region`),
           ]);
@@ -103,15 +104,17 @@ function ReviewsList() {
               id: restaurant.id,
               가게이름: restaurant.name,
               위치: filteredRegeion?.district,
-              업종: '한식',
+              업종: restaurant.restaurantFoodCategories
+                .map((x) => x.name)
+                .join(' / '),
               친절도: Math.round(averageKindnessRating),
               맛: Math.round(averageTasteRating),
               최근방문날짜: `${latestVisitDate.$y}-${latestVisitDate.$M + 1 >= 10 ? latestVisitDate.$M + 1 : `0${latestVisitDate.$M + 1}`}-${latestVisitDate.$D >= 10 ? latestVisitDate.$D : `0${latestVisitDate.$D}`}`,
               방문횟수: filteredReview.length,
+              가게사진: restaurant.thumUrl,
             };
           }
         );
-
         setRestaurantStore(restaurantList);
         const reviewList = reviewData?.data.map((review) => {
           const filteredRestaurant = restaurantList.find(
@@ -150,7 +153,6 @@ function ReviewsList() {
   const [reviewListSortButton3, setReviewListSortButton3] =
     useState(false);
   const [selectedList, setSelectedList] = useState();
-  // const { isMyPage, isLogin } = userStore();
   return (
     <div>
       <div className={styles.header}>
@@ -241,7 +243,10 @@ function ReviewsList() {
               secondary={
                 <Typography component="div">
                   <ListItemAvatar>
-                    <Avatar alt="사진" />
+                    <Avatar
+                      src={restaurantStore[i]?.가게사진}
+                      alt="사진"
+                    />
                     {/* 사진 */}
                   </ListItemAvatar>
                   <span className={styles.itemInfo}>

@@ -21,19 +21,19 @@ function Following() {
       axios //
         .get(`${API_URL}/subscription/${loginAccount.id}`) // 1에서 로그인한 아이디로 수정
         .then((response) => {
-          console.log('팔로워 요청 성공:', response.data);
+          console.log('내 팔로잉목록:', response.data);
           setFollowingUsers(response.data);
           // 성공 시 필요한 작업 수행
         })
         .catch((error) => {
-          console.error('팔로워 요청 실패:', error);
+          console.error('내 팔로잉 목록 요청 실패:', error);
           // 실패 시 에러 처리
         });
     } else {
       axios
         .get(`${API_URL}/subscription/${userID}`)
         .then((response) => {
-          console.log('팔로워 요청 성공:', response.data);
+          console.log('팔로잉 목록 요청 성공:', response.data);
           setFollowingUsers(response.data);
           // 성공 시 필요한 작업 수행
         })

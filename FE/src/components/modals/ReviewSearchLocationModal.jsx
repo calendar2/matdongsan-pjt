@@ -52,7 +52,23 @@ function LocationModal() {
 
   const defaultProps = {
     options: getRegion?.data,
-    getOptionLabel: (option) => option.district,
+    getOptionLabel: (option) => {
+      let address = '';
+
+      if (option.city !== '0') {
+        address += `${option.city} `;
+      }
+
+      if (option.county !== '0') {
+        address += `${option.county} `;
+      }
+      if (option.district !== '0') {
+        address += option.district;
+      }
+
+      return address;
+    },
+    key: (option) => option.id,
   };
 
   const handleAutocompleteChange = (e) => {
