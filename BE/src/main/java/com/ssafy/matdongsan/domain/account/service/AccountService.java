@@ -47,7 +47,7 @@ public class AccountService {
 
     public AccountResponse modifyAccount(AccountModifyStep1RequestDto dto, String email) {
         Account account = accountRepository.findByEmail(email);
-        Region region = regionRepository.findByDistrict(dto.getRegionName());
+        Region region = regionRepository.findById(dto.getRegionId()).orElseThrow();
         account.setGenderAndBirthYear(dto.getGender(), dto.getBirthYear());
         account.addRegion(region);
         Account savedAccount = accountRepository.save(account);
