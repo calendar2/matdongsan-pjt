@@ -63,21 +63,21 @@ function SignupFirst() {
     key: (option) => option.id,
   };
 
-  const handleAutocompleteChange = (e) => {
-    setRegionInterest(e.target.outerText);
-    console.log('로케이션', regionInterest);
-  };
+  // const handleAutocompleteChange = (e) => {
+  //   setRegionInterest(e.target.outerText);
+  //   console.log('로케이션', regionInterest);
+  // };
 
   // 시 + 군/구 + 동/읍/면으로 바꾸면서 회원가입도 일부 수정함
   // 관심지역 선택했을 때 넘길 데이터는 아래 코드 보면서 원하는 거로 선택하면 됨
 
-  // const handleAutocompleteChange = (e, selectedOption) => {
-  //   setRegionInterest(selectedOption?.id);  -> 선택한 주소의 id값
-  //   setRegionInterest(e.target.outerText);  -> 선택한 주소의 주소명
-  //   console.log('event 값', e);
-  //   console.log('로케이션', regionInterest);
-  //   console.log('선택한 옵션의 키 값:', selectedOption);
-  // };
+  const handleAutocompleteChange = (e, selectedOption) => {
+    setRegionInterest(selectedOption?.id); // -> 선택한 주소의 id값
+    // setRegionInterest(e.target.outerText);  -> 선택한 주소의 주소명
+    console.log('event 값', e);
+    console.log('로케이션', regionInterest);
+    console.log('선택한 옵션의 키 값:', selectedOption);
+  };
 
   return (
     <div className={styles.main}>

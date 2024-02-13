@@ -80,7 +80,7 @@ function SocialLogin() {
             token,
             userData.passed
           );
-          navigate('/main/restaurants', { state: location }); // '/main/restaurants'로 수정
+          navigate('/signup', { state: location }); // '/main/restaurants'로 수정
         }
       } catch (error) {
         console.error('사용자 데이터 요청 실패:', error);

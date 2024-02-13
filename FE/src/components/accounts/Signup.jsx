@@ -7,6 +7,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { createAvatar } from '@dicebear/core';
+import { bigSmile } from '@dicebear/collection';
 import SignupFirst from './SignupFirst';
 import SignupSecond from './SignupSecond';
 import imgLogo from '../../assets/images/logo.png';
@@ -18,8 +20,15 @@ import userStore from '../../stores/userStore';
 const steps = ['', ''];
 
 export default function HorizontalNonLinearStepper() {
-  const { age, gender, regionInterest, spicyLevel, allergy } =
-    signupStore();
+  const {
+    age,
+    gender,
+    regionInterest,
+    spicyLevel,
+    allergy,
+    setProfile,
+    profile,
+  } = signupStore();
   const { API_URL } = urlStore();
   const { accessToken } = userStore();
   const [activeStep, setActiveStep] = useState(0);
@@ -69,16 +78,16 @@ export default function HorizontalNonLinearStepper() {
 
   const signupStep1Data = () => {
     console.log(accessToken, '액세스토큰임!');
-    const requestData = {
+    const requestData1 = {
       gender,
       birthYear: age,
-      regionName: regionInterest,
+      regionId: regionInterest,
     };
     const url = `${API_URL}/account/step1`;
     axios({
       method: 'put',
       url,
-      data: requestData,
+      data: requestData1,
       headers: {
         Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
@@ -99,7 +108,8 @@ export default function HorizontalNonLinearStepper() {
     console.log(accessToken, '액세스토큰임!');
     const requestData = {
       spicyLevel,
-      bannedFoodNames: allergy,
+      bannedFoodIds: allergy,
+      picture: profile,
     };
     const url = `${API_URL}/account/step2`;
     axios({
@@ -120,6 +130,17 @@ export default function HorizontalNonLinearStepper() {
         console.log(accessToken);
         // 실패 시 에러 처리
       });
+  };
+
+  // 랜덤 프로필 생성
+  const [svg, setSvg] = useState('');
+  const ramdomProfile = () => {
+    const newAvatar = createAvatar(bigSmile, {
+      seed: Math.random().toString(),
+    }).toString();
+
+    setSvg(newAvatar);
+    setProfile(`data:image/svg+xml;base64,${btoa(svg)}`);
   };
 
   return (
@@ -221,6 +242,7 @@ export default function HorizontalNonLinearStepper() {
                     onClick={() => {
                       handleComplete();
                       signupStep2Data();
+                      ramdomProfile();
                     }}
                   >
                     완료
