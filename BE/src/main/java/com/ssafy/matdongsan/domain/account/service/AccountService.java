@@ -39,9 +39,9 @@ public class AccountService {
     public AccountResponse modifyAccount(AccountModifyAllRequestDto dto, String email) {
         Account account = accountRepository.findByEmail(email);
         account.setAccountInfos(dto);
+        account.clearBannedFoodCategories();
         List<Integer> ids = dto.getBannedFoodCategoryIds();
         if (!ids.isEmpty()) {
-            account.clearBannedFoodCategories();
             for (Integer id : ids) {
                 FoodCategory foodCategory = foodCategoryRepository.findById(id).orElseThrow();
                 account.addBannedFoodCategory(foodCategory);
