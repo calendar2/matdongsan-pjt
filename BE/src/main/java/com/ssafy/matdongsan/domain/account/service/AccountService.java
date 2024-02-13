@@ -57,8 +57,8 @@ public class AccountService {
     public AccountResponse modifyAccount(AccountModifyStep2RequestDto dto, String email) {
         Account account = accountRepository.findByEmail(email);
         account.setSpicyLevel(dto.getSpicyLevel());
-        for (String foodCategoryName : dto.getBannedFoodNames()) {
-            FoodCategory foodCategory = foodCategoryRepository.findByName(foodCategoryName).orElseThrow();
+        for (Integer id : dto.getBannedFoodIds()) {
+            FoodCategory foodCategory = foodCategoryRepository.findById(id).orElseThrow();
             account.addBannedFoodCategory(foodCategory);
         }
         account.pass();

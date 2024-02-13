@@ -19,7 +19,7 @@ public class FoodCategoryService {
     }
 
     public FoodCategoryResponse getFoodCategory(String foodCategoryName) {
-        FoodCategory foodCategory = foodCategoryRepository.findByName(foodCategoryName).orElseThrow();
+        FoodCategory foodCategory = foodCategoryRepository.findOneByName(foodCategoryName);
         return FoodCategoryResponse.from(foodCategory);
     }
 
