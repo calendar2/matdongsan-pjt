@@ -12,5 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 public class AccountModifyStep2RequestDto {
     byte spicyLevel;
+    String picture;
     List<Integer> bannedFoodIds;
 }
