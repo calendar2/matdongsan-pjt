@@ -4,10 +4,12 @@ import DoDisturbOnOutlinedIcon from '@mui/icons-material/DoDisturbOnOutlined';
 import Avatar from '@mui/material/Avatar';
 import dongsan from '../../styles/modals/DongsanModal.module.css';
 import dongsanStore from '../../stores/dongsanStore';
+import userStore from '../../stores/userStore';
 
 function DongsanModal() {
   const { dongsanUsers, setDongsanUsers, toggleDongsanUsersFilter } =
     dongsanStore();
+  const { loginAccount } = userStore();
   return (
     <div className={dongsan.box}>
       <div className={dongsan.title}>
@@ -16,7 +18,11 @@ function DongsanModal() {
           type="button"
           onClick={() => {
             setDongsanUsers([
-              { nickname: '나', followers: '513', filter: true }, // 로그인 기능 구현 되면 로그인 유저의 nickname, followers, id 가져오기
+              {
+                id: loginAccount.id,
+                nickname: loginAccount.nickname,
+                filter: true,
+              }, // 로그인 기능 구현 되면 로그인 유저의 nickname, followers, id 가져오기
             ]);
           }}
         >

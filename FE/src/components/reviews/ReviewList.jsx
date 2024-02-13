@@ -47,7 +47,6 @@ function ReviewsList() {
     refresh,
     setRefresh,
   } = reviewStore();
-
   // const [페이지공개여부, 페이지공개여부수정] = useState(false); 리뷰페이지 공개여부, 이건 나중에
   const { API_URL } = urlStore();
   useEffect(() => {
