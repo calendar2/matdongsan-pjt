@@ -34,10 +34,17 @@ function ProfileModal() {
     const comparisonList = [];
 
     for (let i = 0; i < dongsanUsers.length; i += 1) {
-      comparisonList.push({
-        comparedAccountId: dongsanUsers[i].id,
-        isHidden: 0,
-      });
+      if (dongsanUsers[i].filter) {
+        comparisonList.push({
+          comparedAccountId: dongsanUsers[i].id,
+          isHidden: 0,
+        });
+      } else {
+        comparisonList.push({
+          comparedAccountId: dongsanUsers[i].id,
+          isHidden: 1,
+        });
+      }
     }
 
     console.log('동산상태 확인', comparisonList);

@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import StarOutlineRoundedIcon from '@mui/icons-material/StarOutlineRounded';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
+import CloseIcon from '@mui/icons-material/Close';
 import urlStore from '../../stores/urlStore';
 import content from '../../styles/foodmap/FoodMapView.module.css';
 import detail from '../../styles/restaurants/RestaurantDetail.module.css';
@@ -100,6 +101,20 @@ function RestaurantDetail() {
 
   return (
     <div className={content.hiddenSpace}>
+      <CloseIcon
+        onClick={() => {
+          navigate('/main/restaurants');
+        }}
+        sx={{
+          position: 'absolute',
+          right: '1vw',
+          top: '2vh',
+          width: '18px',
+          '&:hover': {
+            cursor: 'pointer',
+          },
+        }}
+      />
       <div className={detail.container}>
         <div className={detail.wrapper}>
           <h3>{name}</h3>

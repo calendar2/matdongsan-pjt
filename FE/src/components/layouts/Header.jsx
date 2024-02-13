@@ -144,6 +144,7 @@ function Header() {
               setRefresh(!refresh);
               setValue(0);
             }, 50);
+            setSearchValue('');
           }}
         >
           <img
