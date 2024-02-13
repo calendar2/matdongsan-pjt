@@ -36,6 +36,11 @@ public class AccountService {
     public AccountResponse modifyAccount(AccountModifyRequestDto dto, String email) {
         Account account = accountRepository.findByEmail(email);
         account.setAccountInfos(dto);
+        List<String> names = dto.getBannedFoodCategoryNames();
+        for (String name : names) {
+            FoodCategory foodCategory = foodCategoryRepository.findByName(name).orElseThrow();
+            account.addBannedFoodCategory(foodCategory);
+        }
         Account savedAccount = accountRepository.save(account);
         return AccountResponse.from(savedAccount);
     }

@@ -5,6 +5,8 @@ import jakarta.persistence.Column;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.List;
+
 @Builder
 @Getter
 public class AccountResponse {
@@ -17,6 +19,7 @@ public class AccountResponse {
     private int follower;
     private char gender;
     private boolean isPassed;
+    private String picture;
 
     public static AccountResponse from(Account account) {
         return AccountResponse.builder()
@@ -28,6 +31,7 @@ public class AccountResponse {
                 .follower(account.getFollower())
                 .gender(account.getGender())
                 .isPassed(account.isPassed())
+                .picture(account.getPicture())
                 .build();
     }
 }

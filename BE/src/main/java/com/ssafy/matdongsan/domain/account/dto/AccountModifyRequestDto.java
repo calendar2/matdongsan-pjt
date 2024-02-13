@@ -1,6 +1,7 @@
 package com.ssafy.matdongsan.domain.account.dto;
 
 import com.ssafy.matdongsan.domain.account.model.Account;
+import com.ssafy.matdongsan.domain.food.model.FoodCategory;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -15,4 +16,5 @@ public class AccountModifyRequestDto {
     byte spicyLevel;
     char gender;
     String picture;
+    List<String> bannedFoodCategoryNames;
 }
