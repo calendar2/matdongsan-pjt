@@ -113,11 +113,13 @@ public class Account extends BaseEntity {
     private List<Restaurant> restaurants = new ArrayList<>();
 
 
-    public void setGenderAndBirthYear(AccountModifyRequestDto dto) {
+    public void setAccountInfos(AccountModifyRequestDto dto) {
         username = dto.getUsername();
         nickname = dto.getNickname();
         birthYear = dto.getBirthYear();
         spicyLevel = dto.getSpicyLevel();
+        gender = dto.getGender();
+        picture = dto.getPicture();
     }
 
     public void setGenderAndBirthYear(char gender, short birthYear) {

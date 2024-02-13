@@ -13,4 +13,6 @@ public class AccountModifyRequestDto {
     String nickname;
     short birthYear;
     byte spicyLevel;
+    char gender;
+    String picture;
 }

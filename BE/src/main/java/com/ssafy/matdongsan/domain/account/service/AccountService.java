@@ -35,7 +35,7 @@ public class AccountService {
 
     public AccountResponse modifyAccount(AccountModifyRequestDto dto, String email) {
         Account account = accountRepository.findByEmail(email);
-        account.setGenderAndBirthYear(dto);
+        account.setAccountInfos(dto);
         Account savedAccount = accountRepository.save(account);
         return AccountResponse.from(savedAccount);
     }
