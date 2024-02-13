@@ -2,11 +2,15 @@ package com.ssafy.matdongsan.domain.account.dto;
 
 import com.ssafy.matdongsan.domain.account.model.PersonTag;
 import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Builder
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class PersonTagResponse {
 
     private Integer id;

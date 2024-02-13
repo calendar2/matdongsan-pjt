@@ -6,14 +6,12 @@ import com.ssafy.matdongsan.domain.restaurant.model.Region;
 import com.ssafy.matdongsan.domain.restaurant.model.Restaurant;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@NoArgsConstructor
 public class PersonTagSaveRequestDto {
     private String name;
     private short birthYear;

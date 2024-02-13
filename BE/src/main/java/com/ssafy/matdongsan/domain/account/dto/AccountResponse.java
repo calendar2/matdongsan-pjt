@@ -6,14 +6,18 @@ import com.ssafy.matdongsan.domain.food.model.FoodCategory;
 import com.ssafy.matdongsan.domain.restaurant.dto.RegionFindAllDto;
 import com.ssafy.matdongsan.domain.restaurant.model.Region;
 import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Builder
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class AccountResponse {
 
     private Integer id;
