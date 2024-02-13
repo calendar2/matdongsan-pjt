@@ -239,6 +239,25 @@ public class ReviewService {
                 );
     }
 
+    public List<ReviewSearchSimpleResponseDto> searchByRestaurantName(ReviewSearchSimpleRequestDto requestDto, Integer accountId) {
+        Account account = accountRepository.findById(accountId).orElseThrow();
+        List<Review> reviews = reviewRepository.searchByRestaurantName(requestDto.getName(), account);
+
+
+        return reviews.stream()
+                .map(review -> new ReviewSearchSimpleResponseDto(
+                        review.getId(),
+                        review.getKindnessRating(),
+                        review.getTasteRating(),
+                        review.getContent(),
+                        review.getVisitDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                        review.getRestaurant().getId(),
+                        changeToAccountDtoList(review.getAccountReviews()),
+                        changeToPersonTagDtoList(review.getReviewPersonTags())
+                ))
+                .toList();
+    }
+
 
     class FriendsLists {
         private List<PersonTag> newRivewPersonTags;

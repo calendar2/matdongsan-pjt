@@ -78,4 +78,15 @@ public class ReviewApiController {
         return ResponseEntity.ok().body(responseDtos);
     }
 
+    @Operation(summary = "[단순 검색] 음식점 이름으로 리뷰 검색 API")
+    @PostMapping("/review/search/simple/{accountId}")
+    public ResponseEntity<?> searchByRestaurantName(
+            @PathVariable("accountId") Integer accountId,
+            @RequestBody @Valid ReviewSearchSimpleRequestDto requestDto
+    ){
+        List<ReviewSearchSimpleResponseDto> responseDtos=reviewService.searchByRestaurantName(requestDto,accountId);
+        return ResponseEntity.ok().body(responseDtos);
+    }
+
+
 }

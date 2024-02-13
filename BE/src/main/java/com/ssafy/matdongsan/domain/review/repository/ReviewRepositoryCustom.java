@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface ReviewRepositoryCustom {
     List<SearchReviewQueryDto> searchByFilter(FilterDto filter);
+
+
 }
