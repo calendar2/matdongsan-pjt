@@ -151,4 +151,11 @@ public class AccountController {
         List<AccountSearchResponseDto> dtos = accountService.searchNickname(query);
         return ResponseEntity.ok().body(dtos);
     }
+
+    @Operation(summary = "Get a person tag by accountId")
+    @GetMapping("/tag/{accountId}")
+    public ResponseEntity<?> getPersonTagsById( @PathVariable("accountId") Integer accountId ) {
+        List<PersonTagResponse> personTags = accountService.getPersonTagsById(accountId);
+        return ResponseEntity.ok().body(personTags);
+    }
 }

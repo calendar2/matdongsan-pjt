@@ -129,4 +129,14 @@ public class AccountService {
         ).toList();
 
     }
+
+    public List<PersonTagResponse> getPersonTagsById(Integer accountId) {
+        Account account = accountRepository.findById(accountId).orElseThrow();
+        List<PersonTag> personTags = account.getPersonTags();
+        List<PersonTagResponse> ret = new ArrayList<>();
+        for (PersonTag personTag : personTags) {
+            ret.add(PersonTagResponse.from(personTag));
+        }
+        return ret;
+    }
 }
