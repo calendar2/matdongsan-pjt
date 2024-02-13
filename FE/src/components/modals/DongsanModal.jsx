@@ -18,7 +18,7 @@ function DongsanModal() {
   const [spicyLevel, setSpicyLevel] = useState(0);
   const [bannedFoodList, setBannedFoodList] = useState([]);
   const [spicyWord, setSpicyWord] = useState('');
-  const [isHidden, setIsHidden] = useState(true);
+  const [isHidden, setIsHidden] = useState(false);
   const [bannedFood, setBannedFood] = useState('');
 
   const dongsanStatic = () => {

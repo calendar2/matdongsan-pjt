@@ -3,6 +3,7 @@ import {
   Route,
   useNavigate,
   useParams,
+  // useLocation,
 } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
@@ -23,33 +24,33 @@ import UserInfoModal from '../components/modals/UserInfoModal';
 import OtherUserDongsanModal from '../components/modals/OtherUserDongsanModal';
 import userStore from '../stores/userStore';
 import urlStore from '../stores/urlStore';
-import dongsanStore from '../stores/dongsanStore';
 
 function FoodMapView() {
   const { API_URL } = urlStore();
   const navigate = useNavigate();
+  // const location = useLocation();
   const {
     setIsMyPage,
-    setCurrentPageID,
+    // setCurrentPageID,
     setLoginAccount,
     isMyPage,
-    accessToken,
+    // accessToken,
     setAccessToken,
-    loginAccount,
-    setIsLogin,
+    // loginAccount,
+    // setIsLogin,
   } = userStore();
-  const { setDongsanUsers, dongsanUsers } = dongsanStore();
   const { userID } = useParams();
+  // const loginID = loginAccount.id;
 
   useEffect(() => {
-    const loginID = loginAccount.id;
+    // console.log('로그인아이디', loginID);
     const url = `${API_URL}/account`;
     setAccessToken(localStorage.getItem('ACCESS_TOKEN'));
     axios({
       method: 'get',
       url,
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
         'Content-Type': 'application/json',
       },
     })
@@ -57,14 +58,6 @@ function FoodMapView() {
       .then((response) => {
         console.log('요청 성공:', response.data);
         setLoginAccount(response.data);
-        setDongsanUsers([
-          {
-            id: response.data.id,
-            nickname: response.data.nickname,
-            filter: true,
-          },
-        ]);
-        console.log(dongsanUsers, '나를 동산에 추가했음');
         // 성공 시 필요한 작업 수행
       })
       .catch((error) => {
@@ -72,20 +65,21 @@ function FoodMapView() {
         // 실패 시 에러 처리
       });
     if (userID !== undefined) {
-      setCurrentPageID(userID);
+      // setCurrentPageID(userID);
       setIsMyPage(false); // 리스트목록갱신
     } else {
-      setCurrentPageID(loginID); // 로그인한아이디 입력
+      // setCurrentPageID(loginID); // 로그인한아이디 입력
       setIsMyPage(true);
     }
-    if (loginID !== undefined) {
-      setIsLogin(true);
-      console.log(loginID, '로그인 함!');
-    } else {
-      setIsLogin(false);
-      console.log(loginID, '로그인 안함!');
-    }
+    // if (loginID !== undefined) {
+    //   setIsLogin(true);
+    //   console.log(loginID, '로그인 함!');
+    // } else {
+    //   setIsLogin(false);
+    //   console.log(loginID, '로그인 안함!');
+    // }
   }, [navigate]);
+
   return (
     <div className={contents.container}>
       <header className={contents.header}>

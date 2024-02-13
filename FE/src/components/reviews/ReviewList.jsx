@@ -14,7 +14,13 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import StarIcon from '@mui/icons-material/Star';
 import Button from '@mui/material/Button';
 import { useEffect, useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import {
+  Route,
+  Routes,
+  useNavigate,
+  useParams,
+  useLocation,
+} from 'react-router-dom';
 import axios from 'axios';
 import dayjs from 'dayjs';
 // import EditIcon from '@mui/icons-material/Edit';
@@ -32,8 +38,9 @@ function ReviewsList() {
     sortByAverageTasteAndKindness,
   } = reviewStore();
 
-  const { currentPageID } = userStore();
+  const { loginAccount } = userStore();
   const navigate = useNavigate();
+  const location = useLocation();
   // 음식점 ID를 인자로 입력하면 해당 음식점으로 스크롤 이동한다
   const handleScrollToSection = (id) => {
     const element = document.getElementById(id);
@@ -49,9 +56,17 @@ function ReviewsList() {
   } = reviewStore();
   // const [페이지공개여부, 페이지공개여부수정] = useState(false); 리뷰페이지 공개여부, 이건 나중에
   const { API_URL } = urlStore();
+  const { userID } = useParams();
+
   useEffect(() => {
+    const currentPageID =
+      userID === undefined ? loginAccount?.id : userID;
     const fetchData = async () => {
       try {
+        if (!currentPageID) {
+          return;
+        }
+
         const [restaurantData, reviewData, regions] =
           await Promise.all([
             axios.get(`${API_URL}/restaurant/v2/${currentPageID}`),
@@ -142,7 +157,7 @@ function ReviewsList() {
       }
     };
     fetchData();
-  }, [refresh]);
+  }, [refresh, location, loginAccount]);
 
   const [reviewListSortButton1, setReviewListSortButton1] =
     useState(true);

@@ -4,10 +4,12 @@ import swal from 'sweetalert2';
 import axios from 'axios';
 import userStore from '../../stores/userStore';
 import urlStore from '../../stores/urlStore';
+import dongsanStore from '../../stores/dongsanStore';
 
 function SocialLogin() {
+  const { setDongsanUsers } = dongsanStore();
   const { API_URL } = urlStore();
-  const { setAccessToken } = userStore();
+  const { setAccessToken, setLoginAccount } = userStore();
   const navigate = useNavigate();
   const location = useLocation();
   const getUrlParameter = (name) => {
@@ -41,6 +43,14 @@ function SocialLogin() {
           },
         });
         console.log('사용자 데이터 요청 성공:', response.data);
+        setLoginAccount(response.data);
+        setDongsanUsers([
+          {
+            id: response.data.id,
+            nickname: response.data.nickname,
+            filter: true,
+          },
+        ]);
         return response.data; // 사용자 데이터 반환
       } catch (error) {
         console.error('사용자 데이터 요청 실패:', error);
