@@ -55,6 +55,7 @@ function SocialLogin() {
         if (token && !userData.passed) {
           console.log('token/passed:', token, userData.passed);
           setAccessToken(token); // 토큰 설정
+          console.log('토큰 로컬스토리지에 저장함!');
           localStorage.setItem('ACCESS_TOKEN', token);
           navigate('/signup', { state: location });
           Toast.fire({
@@ -63,6 +64,7 @@ function SocialLogin() {
           });
         } else if (token && userData.passed) {
           setAccessToken(token); // 토큰 설정
+          localStorage.setItem('ACCESS_TOKEN', token);
           console.log(
             '토큰 및 isPassed 확인:',
             token,
