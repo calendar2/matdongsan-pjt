@@ -11,6 +11,7 @@ import com.ssafy.matdongsan.domain.restaurant.model.Restaurant;
 import com.ssafy.matdongsan.domain.review.model.Review;
 import com.ssafy.matdongsan.domain.subcription.model.Subscription;
 import jakarta.persistence.*;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.DynamicUpdate;
 import lombok.*;
 
@@ -26,6 +27,7 @@ import java.util.List;
 @Setter
 @DynamicUpdate
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Slf4j
 public class Account extends BaseEntity {
 
     @Id
@@ -129,6 +131,10 @@ public class Account extends BaseEntity {
         this.birthYear = birthYear;
     }
 
+    public void clearRegions() {
+        regions.clear();
+    }
+
     public void addRegion(Region region) {
         regions.add(region);
         region.getAccounts().add(this);
@@ -138,8 +144,13 @@ public class Account extends BaseEntity {
         this.spicyLevel = spicyLevel;
     }
 
+    public void clearBannedFoodCategories() {
+        bannedFoodCategories.clear();
+    }
+
     public void addBannedFoodCategory(FoodCategory foodCategory) {
         if (!bannedFoodCategories.contains(foodCategory)) {
+            log.info("{} not contains", foodCategory.toString());
             bannedFoodCategories.add(foodCategory);
             foodCategory.getAccounts().add(this);
         }

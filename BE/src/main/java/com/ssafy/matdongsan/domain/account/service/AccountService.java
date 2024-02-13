@@ -10,13 +10,16 @@ import com.ssafy.matdongsan.domain.food.repository.FoodCategoryRepository;
 import com.ssafy.matdongsan.domain.restaurant.model.Region;
 import com.ssafy.matdongsan.domain.restaurant.repository.RegionRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AccountService {
 
     private final AccountRepository accountRepository;
@@ -37,11 +40,18 @@ public class AccountService {
         Account account = accountRepository.findByEmail(email);
         account.setAccountInfos(dto);
         List<Integer> ids = dto.getBannedFoodCategoryIds();
-        for (Integer id : ids) {
-            FoodCategory foodCategory = foodCategoryRepository.findById(id).orElseThrow();
-            account.addBannedFoodCategory(foodCategory);
+        if (!ids.isEmpty()) {
+            account.clearBannedFoodCategories();
+            for (Integer id : ids) {
+                FoodCategory foodCategory = foodCategoryRepository.findById(id).orElseThrow();
+                account.addBannedFoodCategory(foodCategory);
+            }
         }
-        account.addRegion(regionRepository.findById(dto.getRegionId()).orElseThrow());
+        Short regionId = dto.getRegionId();
+        if (regionId != null) {
+            account.clearRegions();
+            account.addRegion(regionRepository.findById(regionId).orElseThrow());
+        }
         Account savedAccount = accountRepository.save(account);
         return AccountResponse.from(savedAccount);
     }
@@ -50,6 +60,7 @@ public class AccountService {
         Account account = accountRepository.findByEmail(email);
         Region region = regionRepository.findById(dto.getRegionId()).orElseThrow();
         account.setGenderAndBirthYear(dto.getGender(), dto.getBirthYear());
+        account.clearRegions();
         account.addRegion(region);
         Account savedAccount = accountRepository.save(account);
         return AccountResponse.from(savedAccount);
@@ -58,6 +69,7 @@ public class AccountService {
     public AccountResponse modifyAccount(AccountModifyStep2RequestDto dto, String email) {
         Account account = accountRepository.findByEmail(email);
         account.setSpicyLevel(dto.getSpicyLevel());
+        account.clearBannedFoodCategories();
         for (Integer id : dto.getBannedFoodIds()) {
             FoodCategory foodCategory = foodCategoryRepository.findById(id).orElseThrow();
             account.addBannedFoodCategory(foodCategory);
