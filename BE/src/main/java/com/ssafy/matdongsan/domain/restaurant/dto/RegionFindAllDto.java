@@ -1,11 +1,14 @@
 package com.ssafy.matdongsan.domain.restaurant.dto;
 
+import com.ssafy.matdongsan.domain.restaurant.model.Region;
 import jakarta.persistence.Column;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
+@Builder
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RegionFindAllDto {
@@ -25,5 +28,17 @@ public class RegionFindAllDto {
         this.district = district;
         this.mapx = mapx;
         this.mapy = mapy;
+    }
+
+    public static RegionFindAllDto from(Region region) {
+        return RegionFindAllDto.builder()
+                .id(region.getId())
+                .code(region.getCode())
+                .city(region.getCity())
+                .county(region.getCounty())
+                .district(region.getDistrict())
+                .mapx(region.getMapx())
+                .mapy(region.getMapy())
+                .build();
     }
 }
