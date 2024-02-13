@@ -15,11 +15,13 @@ import static jakarta.persistence.FetchType.LAZY;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class PersonTag extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "person_tag_id")
+    @EqualsAndHashCode.Include
     private Integer id;
 
     @Column(name = "person_tag_name", nullable = false, length = 100)

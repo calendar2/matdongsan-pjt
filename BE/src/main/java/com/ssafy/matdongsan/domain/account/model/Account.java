@@ -25,11 +25,13 @@ import java.util.List;
 @Getter
 @Setter
 @DynamicUpdate
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Account extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id")
+    @EqualsAndHashCode.Include
     private Integer id;
 
     @Column(length = 64)

@@ -14,12 +14,13 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class FoodCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "food_category_id")
+    @EqualsAndHashCode.Include
     private Integer id;
 
     @Column(name = "food_category_name", length = 100)
@@ -38,6 +39,5 @@ public class FoodCategory {
     public FoodCategory(String foodCategoryName) {
         this.name = foodCategoryName;
     }
-
 
 }
