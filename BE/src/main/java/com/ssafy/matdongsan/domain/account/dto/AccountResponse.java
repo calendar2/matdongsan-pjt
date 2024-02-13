@@ -1,6 +1,8 @@
 package com.ssafy.matdongsan.domain.account.dto;
 
 import com.ssafy.matdongsan.domain.account.model.Account;
+import com.ssafy.matdongsan.domain.food.model.FoodCategory;
+import com.ssafy.matdongsan.domain.restaurant.model.Region;
 import jakarta.persistence.Column;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,6 +22,8 @@ public class AccountResponse {
     private char gender;
     private boolean isPassed;
     private String picture;
+    private List<FoodCategory> bannedFoodCategories;
+    private List<Region> regions;
 
     public static AccountResponse from(Account account) {
         return AccountResponse.builder()
@@ -32,6 +36,8 @@ public class AccountResponse {
                 .gender(account.getGender())
                 .isPassed(account.isPassed())
                 .picture(account.getPicture())
+                .bannedFoodCategories(account.getBannedFoodCategories())
+                .regions(account.getRegions())
                 .build();
     }
 }
