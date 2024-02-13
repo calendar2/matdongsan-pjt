@@ -7,7 +7,6 @@ import urlStore from '../../stores/urlStore';
 import foodmap from '../../styles/foodmap/FoodMap.module.css';
 import markerStyle from '../../styles/mapcontents/marker.module.css';
 import dongsanStore from '../../stores/dongsanStore';
-import userStore from '../../stores/userStore';
 
 function FoodMap() {
   const mapRef = useRef(null);
@@ -21,7 +20,6 @@ function FoodMap() {
   const tenPowSeven = 10 ** 7;
   let restaurantId = 0;
   const { dongsanUsers } = dongsanStore(); // 동산에 추가된 유저 정보
-  const { accessToken } = userStore();
 
   // 최초 렌더링 및 이용자의 현재 위치가 변할 때 지도 제작 코드
   useEffect(() => {
@@ -31,8 +29,8 @@ function FoodMap() {
         currentMyLocation.lng !== 0
       ) {
         // eslint-disable-next-line max-depth
-        if (accessToken) {
-          // 로그인 했을 때
+        if (localStorage.getItem('ACCESS_TOKEN')) {
+          console.log('로그인한 지도');
           // 네이버 지도 옵션 선택
           const mapOptions = {
             // 지도의 초기 중심 좌표
@@ -50,35 +48,73 @@ function FoodMap() {
           };
           mapRef.current = new naver.maps.Map('map', mapOptions);
 
-          // eslint-disable-next-line max-depth
-          for (let i = 0; i < dongsanUsers.length; i += 1) {
-            axios({
-              method: 'get',
-              url: `${API_URL}/restaurant/v2/${dongsanUsers[i].id}`,
-            })
-              // eslint-disable-next-line no-loop-func
-              .then((res) => {
-                console.log(
-                  '처음 지도가 생성될 때 로그인한 사용자의 맛집 목록',
-                  res
+          // 사용자 정보 받아오기
+          const fetchUserData = async () => {
+            try {
+              const userIds = [];
+              for (let i = 0; i < dongsanUsers.length; i += 1) {
+                // eslint-disable-next-line no-await-in-loop
+                const response = await axios.get(
+                  `${API_URL}/account/${dongsanUsers[i].id}`
                 );
-                const searchList = res.data;
-                const markers = [];
-                const infoWindows = [];
+                console.log('유저 정보들', response);
+                userIds.push(response.data);
+              }
+              return userIds;
+            } catch (error) {
+              console.error('유저 정보 받아오기 오류', error);
+              return [];
+            }
+          };
 
+          // 맛집 목록 받아오기
+          const fetchRestaurantData = async (userIds) => {
+            try {
+              const restaurantLists = [];
+              for (let i = 0; i < userIds.length; i += 1) {
+                // eslint-disable-next-line no-await-in-loop
+                const res = await axios.get(
+                  `${API_URL}/restaurant/v2/${userIds[i].id}`
+                );
+                console.log('맛집 목록들', res);
+                restaurantLists.push(res.data);
+              }
+              return { restaurantLists, userIds };
+            } catch (err) {
+              console.error('맛집 목록 받기 에러', err);
+              return [];
+            }
+          };
+
+          // 선언한 함수 호출
+          fetchUserData()
+            .then((userIds) => fetchRestaurantData(userIds))
+            .then((mapDatas) => {
+              console.log('지도에 필요한 모든 데이터', mapDatas);
+              const markers = [];
+              const infoWindows = [];
+
+              for (let i = 0; i < mapDatas.userIds.length; i += 1) {
                 // 마커 찍기
-                for (let j = 0; j < searchList.length; j += 1) {
+                for (
+                  let j = 0;
+                  j < mapDatas.restaurantLists[i].length;
+                  j += 1
+                ) {
+                  console.log('유저 정보', mapDatas.userIds[i]);
                   const markerContent = `
-                    <div class=${markerStyle.wrapper}>
-                      <img src="/test/cat.jpg" alt="프로필 사진" class=${markerStyle.imgStyle}>
-                      <div class=${markerStyle.restaurantInfo}>${searchList[j].name}</div>
-                    </div>
-                  `;
+                      <div class=${markerStyle.wrapper}>
+                        <img src=${mapDatas.userIds[i].picture} alt="프로필 사진" class=${markerStyle.imgStyle}>
+                        <div class=${markerStyle.restaurantInfo}>${mapDatas.restaurantLists[i][j].name}</div>
+                      </div>
+                    `;
                   const marker = new naver.maps.Marker({
                     map: mapRef.current,
                     position: new naver.maps.LatLng(
-                      searchList[j].mapy / tenPowSeven,
-                      searchList[j].mapx / tenPowSeven
+                      mapDatas.restaurantLists[i][j].mapy /
+                        tenPowSeven,
+                      mapDatas.restaurantLists[i][j].mapx /
+                        tenPowSeven
                     ),
                     icon: {
                       content: markerContent,
@@ -87,8 +123,8 @@ function FoodMap() {
                   });
 
                   const infoWindowContent = `
-                    <div class=${markerStyle.none} id="restaurantId">${searchList[i].id}</div>
-                  `;
+                      <div class=${markerStyle.none} id="restaurantId">${mapDatas.restaurantLists[i][j].id}</div>
+                    `;
                   const infoWindow = new naver.maps.InfoWindow({
                     content: infoWindowContent,
                     anchorSize: {
@@ -101,82 +137,69 @@ function FoodMap() {
                   markers.push(marker);
                   infoWindows.push(infoWindow);
                 }
+              }
 
-                // 마커 클릭 이벤트
-                const getClickHandler = (index) => () => {
-                  if (infoWindows[index].getMap()) {
-                    infoWindows[index].close();
-                  } else if (mapRef.current !== null) {
-                    infoWindows[index].open(
-                      mapRef.current,
-                      markers[index]
-                    );
-                    restaurantId =
-                      document.querySelector(
-                        '#restaurantId'
-                      ).innerText;
-                    console.log('클릭한 가게 아이디', restaurantId);
-                    infoWindows[index].close();
-                    navigate(
-                      `/main/restaurants/${restaurantId}/detail`,
-                      {
-                        state: {
-                          id: restaurantId,
-                        },
-                      }
-                    );
-                  }
-                };
-
-                // 정보창의 이벤트 핸들러 등록 함수
-                const registerClickHandlers = () => {
-                  for (let j = 0; j < markers.length; j += 1) {
-                    naver.maps.Event.addListener(
-                      markers[j],
-                      'click',
-                      getClickHandler(j)
-                    );
-                  }
-                };
-
-                // 정보창의 이벤트 핸들러 등록
-                registerClickHandlers();
-
-                // 지도 줌 인/아웃 시 마커 업데이트 이벤트 핸들러
-                naver.maps.Event.addListener(
-                  mapRef.current,
-                  'zoom_changed',
-                  () => {
-                    if (mapRef.current !== null) {
-                      checkForMarkersRendering(
-                        mapRef.current,
-                        markers
-                      );
+              // 마커 클릭 이벤트
+              const getClickHandler = (index) => () => {
+                if (infoWindows[index].getMap()) {
+                  infoWindows[index].close();
+                } else if (mapRef.current !== null) {
+                  infoWindows[index].open(
+                    mapRef.current,
+                    markers[index]
+                  );
+                  restaurantId =
+                    document.querySelector('#restaurantId').innerText;
+                  console.log('클릭한 가게 아이디', restaurantId);
+                  infoWindows[index].close();
+                  navigate(
+                    `/main/restaurants/${restaurantId}/detail`,
+                    {
+                      state: {
+                        id: restaurantId,
+                      },
                     }
+                  );
+                }
+              };
+
+              // 정보창의 이벤트 핸들러 등록 함수
+              const registerClickHandlers = () => {
+                for (let j = 0; j < markers.length; j += 1) {
+                  naver.maps.Event.addListener(
+                    markers[j],
+                    'click',
+                    getClickHandler(j)
+                  );
+                }
+              };
+
+              // 정보창의 이벤트 핸들러 등록
+              registerClickHandlers();
+
+              // 지도 줌 인/아웃 시 마커 업데이트 이벤트 핸들러
+              naver.maps.Event.addListener(
+                mapRef.current,
+                'zoom_changed',
+                () => {
+                  if (mapRef.current !== null) {
+                    checkForMarkersRendering(mapRef.current, markers);
                   }
-                );
-                // 지도 드래그 시 마커 업데이트 이벤트 핸들러
-                naver.maps.Event.addListener(
-                  mapRef.current,
-                  'dragend',
-                  () => {
-                    if (mapRef.current !== null) {
-                      checkForMarkersRendering(
-                        mapRef.current,
-                        markers
-                      );
-                    }
+                }
+              );
+              // 지도 드래그 시 마커 업데이트 이벤트 핸들러
+              naver.maps.Event.addListener(
+                mapRef.current,
+                'dragend',
+                () => {
+                  if (mapRef.current !== null) {
+                    checkForMarkersRendering(mapRef.current, markers);
                   }
-                );
-              })
-              .catch((err) => {
-                console.error(
-                  '처음 지도가 생성될 때 로그인한 사용자의 맛집 목록ㅠㅠ',
-                  err
-                );
-              });
-          }
+                }
+              );
+            });
         } else {
+          console.log('로그인 안한 지도!');
           // 네이버 지도 옵션 선택
           const mapOptions = {
             // 지도의 초기 중심 좌표
