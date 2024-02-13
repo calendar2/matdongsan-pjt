@@ -5,6 +5,8 @@ import com.ssafy.matdongsan.domain.account.model.Account;
 import com.ssafy.matdongsan.domain.account.model.PersonTag;
 import com.ssafy.matdongsan.domain.account.repository.AccountRepository;
 import com.ssafy.matdongsan.domain.account.repository.PersonTagRepository;
+import com.ssafy.matdongsan.domain.food.model.FoodCategory;
+import com.ssafy.matdongsan.domain.food.repository.FoodCategoryRepository;
 import com.ssafy.matdongsan.domain.restaurant.model.Restaurant;
 import com.ssafy.matdongsan.domain.restaurant.repository.RestaurantRepository;
 
@@ -12,6 +14,7 @@ import com.ssafy.matdongsan.domain.review.dto.*;
 
 import com.ssafy.matdongsan.domain.review.model.Review;
 import com.ssafy.matdongsan.domain.review.repository.ReviewRepository;
+import com.ssafy.matdongsan.domain.review.repository.query.SearchReviewQueryDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,7 +39,7 @@ public class ReviewService {
     private final RestaurantRepository restaurantRepository;
     private final AccountRepository accountRepository;
     private final PersonTagRepository personTagRepository;
-
+    private final FoodCategoryRepository foodCategoryRepository;
 
 
     //파일 업로드 연결 필요
@@ -121,7 +124,8 @@ public class ReviewService {
 
         return  accountReviews.stream()
                 .map(a -> new AccountSaveReviewRequestDto(
-                        a.getId()
+                        a.getId(),
+                        a.getNickname()
                 ))
                 .toList();
     }
@@ -182,6 +186,60 @@ public class ReviewService {
         return new FriendsLists(newRivewPersonTags,newAccountReviews);
 
     }
+
+    public List<ReviewSearchFilterResponseDto> searchByFilter(ReviewSearchFilterRequestDto requestDto, Integer accountId) {
+        FilterDto filter = changeToFilter(requestDto,accountId);
+//        FilterDto{accountId=1, accountReviews=[3, 4], reviewPersonTags=[2, 14], restaurantFoodCategories=[215, 149], startDate='2024-02-01T00:00', endDate='2024-02-03T00:00'}
+        List<SearchReviewQueryDto> searchReviewQueryDtos = reviewRepository.searchByFilter(filter);
+        System.out.println(filter);
+        System.out.println(searchReviewQueryDtos);
+
+        return searchReviewQueryDtos.stream().map(
+                searchReviewQueryDto -> {
+                    Review review = reviewRepository.findById(searchReviewQueryDto.getId()).get();
+                    return new ReviewSearchFilterResponseDto(
+                            searchReviewQueryDto,
+                            changeToAccountDtoList(review.getAccountReviews()),
+                            changeToPersonTagDtoList(review.getReviewPersonTags())
+                    );
+                }
+        ).toList();
+    }
+
+    private FilterDto changeToFilter(ReviewSearchFilterRequestDto requestDto, Integer accountId) {
+        List<Integer> restaurantFoodCategories = new ArrayList<>();
+        for ( RestaurantFoodCategorySearchFilterRequestDto category: requestDto.getRestaurantFoodCategories()){
+            List<Integer> foodCategoryIds = foodCategoryRepository.findByNameLike(category.getName()).stream().map(
+                    FoodCategory::getId
+            ).toList();
+            restaurantFoodCategories.addAll(foodCategoryIds);
+        }
+        String dateRange = requestDto.getVisitDate();
+        LocalDateTime startDate = null;
+        LocalDateTime endDate = null;
+        if(!dateRange.isEmpty()){
+            startDate = stringToLocalDateTime(dateRange.substring(0, 10)); // Extracts "2024-02-06"
+            endDate = stringToLocalDateTime(dateRange.substring(11, 21)); // Extracts "2024-02-12"
+
+        }
+
+
+        return new FilterDto(
+                accountId,
+                requestDto.getAccountReviews().stream().map(
+                        AccountSearchFilterRequestDto::getId
+                ).toList(),
+                requestDto.getReviewPersonTags().stream().map(
+                        PersonTagSearchFilterRequestDto::getId
+                ).toList(),
+                restaurantFoodCategories,
+                requestDto.getRegionId(),
+                startDate,
+                endDate
+                );
+    }
+
+
     class FriendsLists {
         private List<PersonTag> newRivewPersonTags;
         private List<Account> newAccountReviews;

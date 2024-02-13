@@ -1,8 +1,5 @@
 package com.ssafy.matdongsan.domain.review.api;
-import com.ssafy.matdongsan.domain.review.dto.ReviewFindAllResponseDto;
-import com.ssafy.matdongsan.domain.review.dto.ReviewFindOneResponseDto;
-import com.ssafy.matdongsan.domain.review.dto.ReviewSaveRequestDto;
-import com.ssafy.matdongsan.domain.review.dto.ReviewUpdateRequestDto;
+import com.ssafy.matdongsan.domain.review.dto.*;
 import com.ssafy.matdongsan.domain.review.service.ReviewService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -70,6 +67,15 @@ public class ReviewApiController {
     ){
         reviewService.update(accountId,reviewId,requestDto);
         return ResponseEntity.ok(HttpStatus.OK);
+    }
+    @Operation(summary = "[필터 검색] 리뷰 통합 검색 API")
+    @PostMapping("/review/search/filter/{accountId}")
+    public ResponseEntity<?> searchByFilter(
+            @PathVariable("accountId") Integer accountId,
+            @RequestBody @Valid ReviewSearchFilterRequestDto requestDto
+    ){
+        List<ReviewSearchFilterResponseDto> responseDtos=reviewService.searchByFilter(requestDto,accountId);
+        return ResponseEntity.ok().body(responseDtos);
     }
 
 }

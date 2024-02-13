@@ -6,13 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class AccountSaveReviewRequestDto {
     private Integer id;
+    private String nickname;
 
     @Builder
-    public AccountSaveReviewRequestDto(Integer id) {
+    public AccountSaveReviewRequestDto(Integer id,String nickname) {
         this.id = id;
+        this.nickname =nickname;
     }
 
 }
