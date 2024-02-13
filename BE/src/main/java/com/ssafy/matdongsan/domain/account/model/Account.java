@@ -1,7 +1,7 @@
 package com.ssafy.matdongsan.domain.account.model;
 
 import com.ssafy.matdongsan.domain.*;
-import com.ssafy.matdongsan.domain.account.dto.AccountModifyRequestDto;
+import com.ssafy.matdongsan.domain.account.dto.AccountModifyAllRequestDto;
 import com.ssafy.matdongsan.domain.comparison.model.Comparison;
 import com.ssafy.matdongsan.domain.food.model.Food;
 import com.ssafy.matdongsan.domain.food.model.FoodCategory;
@@ -117,12 +117,10 @@ public class Account extends BaseEntity {
     private List<Restaurant> restaurants = new ArrayList<>();
 
 
-    public void setAccountInfos(AccountModifyRequestDto dto) {
-        username = dto.getUsername();
+    public void setAccountInfos(AccountModifyAllRequestDto dto) {
         nickname = dto.getNickname();
         birthYear = dto.getBirthYear();
         spicyLevel = dto.getSpicyLevel();
-        gender = dto.getGender();
         picture = dto.getPicture();
     }
 

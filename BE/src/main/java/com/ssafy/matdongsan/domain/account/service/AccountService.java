@@ -36,7 +36,7 @@ public class AccountService {
         return PersonTagResponse.from(savedPersonTag);
     }
 
-    public AccountResponse modifyAccount(AccountModifyRequestDto dto, String email) {
+    public AccountResponse modifyAccount(AccountModifyAllRequestDto dto, String email) {
         Account account = accountRepository.findByEmail(email);
         account.setAccountInfos(dto);
         List<Integer> ids = dto.getBannedFoodCategoryIds();
@@ -46,11 +46,6 @@ public class AccountService {
                 FoodCategory foodCategory = foodCategoryRepository.findById(id).orElseThrow();
                 account.addBannedFoodCategory(foodCategory);
             }
-        }
-        Short regionId = dto.getRegionId();
-        if (regionId != null) {
-            account.clearRegions();
-            account.addRegion(regionRepository.findById(regionId).orElseThrow());
         }
         Account savedAccount = accountRepository.save(account);
         return AccountResponse.from(savedAccount);

@@ -11,13 +11,10 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountModifyRequestDto {
-    String username;
+public class AccountModifyAllRequestDto {
     String nickname;
     short birthYear;
     byte spicyLevel;
-    char gender;
     String picture;
     List<Integer> bannedFoodCategoryIds;
-    Short regionId;
 }

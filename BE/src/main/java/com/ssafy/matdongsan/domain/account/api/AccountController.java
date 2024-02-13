@@ -1,8 +1,6 @@
 package com.ssafy.matdongsan.domain.account.api;
 
 import com.ssafy.matdongsan.domain.account.dto.*;
-import com.ssafy.matdongsan.domain.account.model.Account;
-import com.ssafy.matdongsan.domain.account.model.PersonTag;
 import com.ssafy.matdongsan.domain.account.service.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -60,7 +58,7 @@ public class AccountController {
             })
     })
     @PutMapping
-    public ResponseEntity<?> modifyAccount(@AuthenticationPrincipal String email, @RequestBody AccountModifyRequestDto dto) {
+    public ResponseEntity<?> modifyAccount(@AuthenticationPrincipal String email, @RequestBody AccountModifyAllRequestDto dto) {
         log.info("email={}", email);
         log.info("dto={}", dto.toString());
         AccountResponse accountResponse = accountService.modifyAccount(dto, email);
