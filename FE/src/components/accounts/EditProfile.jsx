@@ -217,7 +217,7 @@ function EditProfile() {
                 borderBottom: '1px dashed rgba(29, 177, 119, 0.3)',
               }}
             >
-              <div className={styles.gridItem}>프로필 사진</div>
+              <div className={styles.gridItem}>프로필</div>
               <div className={styles.gridItem}>
                 <div className={styles.profileImageBox}>
                   <img
