@@ -32,8 +32,7 @@ import userStore from '../../stores/userStore';
 import angel from '../../assets/images/reviews/angel.png';
 
 function ReviewUpdate() {
-  const { loginAccount, followingUsers, setFollowingUsers } =
-    userStore();
+  const { loginAccount } = userStore();
   const { myReviewStore, setRefresh, refresh } = reviewStore();
   const { API_URL } = urlStore();
   const { reviewID, restaurantID } = useParams();
@@ -47,9 +46,10 @@ function ReviewUpdate() {
   // const [사진] = useState(filteredReview.사진);
   const [내용, 내용수정] = useState(filteredReview?.내용);
   const [같이간친구, 같이간친구수정] = useState(
-    filteredReview?.같이간친구.map((x) => x.id) // 나중에 x.nickname으로 수정해야함
+    filteredReview?.같이간친구.map((x) => x.nickname) // 나중에 x.nickname으로 수정해야함
   );
-  console.log(filteredReview, '같이간친구임');
+  console.log(같이간친구, '진짜 같이간 친구임');
+  console.log(filteredReview, '진짜 같이간 친구임');
   // 버그 난 이유 ? 기존에 같이 간 친구의 형태는 ['이름', '이름2'] 였는데 [{name:'이름', birth:'1995'}] 형태로 바뀜
   const [임의친구이름, 임의친구이름수정] = useState('');
   const [임의친구생년, 임의친구생년수정] = useState(
@@ -69,9 +69,8 @@ function ReviewUpdate() {
       .get(`${API_URL}/subscription/${loginAccount.id}`) // 1에서 로그인한 아이디로 수정
       .then((response) => {
         console.log('팔로워 요청 성공:', response.data);
-        setFollowingUsers(response.data);
         전체친구수정(
-          followingUsers?.map((x) => ({
+          response.data?.map((x) => ({
             title: x.nickname,
             id: x.id,
           }))

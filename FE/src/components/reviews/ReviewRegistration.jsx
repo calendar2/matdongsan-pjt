@@ -33,8 +33,7 @@ import angel from '../../assets/images/reviews/angel.png';
 
 function ReviewRegistration() {
   const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
-  const { loginAccount, setFollowingUsers, followingUsers } =
-    userStore();
+  const { loginAccount } = userStore();
   // const [가게이름, 가게이름수정] = useState('');
   const [친절도, 친절도수정] = useState(0);
   const [맛, 맛수정] = useState(0);
@@ -96,9 +95,8 @@ function ReviewRegistration() {
       .get(`${API_URL}/subscription/${loginAccount.id}`) // 1에서 로그인한 아이디로 수정
       .then((response) => {
         console.log('팔로워 요청 성공:', response.data);
-        setFollowingUsers(response.data);
         전체친구수정(
-          followingUsers?.map((x) => ({
+          response.data?.map((x) => ({
             title: x.nickname,
             id: x.id,
           }))

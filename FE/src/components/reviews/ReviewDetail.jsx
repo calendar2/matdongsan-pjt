@@ -186,7 +186,7 @@ function ReviewDetail() {
               src={icons[i]}
               sx={{ backgroundColor: 'rgba(29, 177, 119, 0.3)' }}
             />
-            <p className={styles.asideItem}>{x.id}</p>
+            <p className={styles.asideItem}>{x.nickname}</p>
             <hr />
           </div>
         ))}
