@@ -1,4 +1,5 @@
 package com.ssafy.matdongsan.domain.review.api;
+import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantFindAllAccountResponseV2Dto;
 import com.ssafy.matdongsan.domain.review.dto.*;
 import com.ssafy.matdongsan.domain.review.service.ReviewService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -84,7 +85,7 @@ public class ReviewApiController {
             @PathVariable("accountId") Integer accountId,
             @RequestBody @Valid ReviewSearchSimpleRequestDto requestDto
     ){
-        List<ReviewSearchSimpleResponseDto> responseDtos=reviewService.searchByRestaurantName(requestDto,accountId);
+        List<RestaurantFindAllAccountResponseV2Dto> responseDtos=reviewService.searchByRestaurantName(requestDto,accountId);
         return ResponseEntity.ok().body(responseDtos);
     }
 

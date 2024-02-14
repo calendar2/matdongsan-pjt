@@ -4,8 +4,10 @@ import com.ssafy.matdongsan.domain.account.model.Account;
 import com.ssafy.matdongsan.domain.account.model.PersonTag;
 import com.ssafy.matdongsan.domain.account.repository.AccountRepository;
 import com.ssafy.matdongsan.domain.account.repository.PersonTagRepository;
+import com.ssafy.matdongsan.domain.food.dto.FoodCategoryNaverSearchResponseDto;
 import com.ssafy.matdongsan.domain.food.model.FoodCategory;
 import com.ssafy.matdongsan.domain.food.repository.FoodCategoryRepository;
+import com.ssafy.matdongsan.domain.restaurant.dto.RestaurantFindAllAccountResponseV2Dto;
 import com.ssafy.matdongsan.domain.restaurant.model.Restaurant;
 import com.ssafy.matdongsan.domain.restaurant.repository.RestaurantRepository;
 
@@ -245,23 +247,30 @@ public class ReviewService {
     }
 
 
-    public List<ReviewSearchSimpleResponseDto> searchByRestaurantName(ReviewSearchSimpleRequestDto requestDto, Integer accountId) {
+    public List<RestaurantFindAllAccountResponseV2Dto> searchByRestaurantName(ReviewSearchSimpleRequestDto requestDto, Integer accountId) {
         Account account = accountRepository.findById(accountId).orElseThrow();
         List<Review> reviews = reviewRepository.searchByRestaurantName(requestDto.getName(), account);
 
 
         return reviews.stream()
-                .map(review -> new ReviewSearchSimpleResponseDto(
-                        review.getId(),
-                        review.getKindnessRating(),
-                        review.getTasteRating(),
-                        review.getContent(),
-                        review.getVisitDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                        review.getRestaurant().getId(),
-                        changeToAccountDtoList(review.getAccountReviews()),
-                        changeToPersonTagDtoList(review.getReviewPersonTags())
-                ))
-                .toList();
+                .map(review -> {
+                    Restaurant restaurant = review.getRestaurant();
+                    return new RestaurantFindAllAccountResponseV2Dto(
+                            restaurant.getId(),
+                            restaurant.getRegion().getId(),
+                            restaurant.getName(),
+                            restaurant.getMapx(),
+                            restaurant.getMapy(),
+                            restaurant.getAddress(),
+                            restaurant.getRoadAddress(),
+                            restaurant.getPhone(),
+                            restaurant.getThumUrl(),
+                            restaurant.getMenuInfo(),
+                            restaurant.getRestaurantFoodCategories().stream().map(
+                                    foodCategory -> new FoodCategoryNaverSearchResponseDto(foodCategory.getName())
+                            ).toList()
+                    );
+                }).toList();
     }
 
 
