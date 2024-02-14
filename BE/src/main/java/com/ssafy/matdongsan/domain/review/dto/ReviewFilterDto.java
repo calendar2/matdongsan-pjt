@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @ToString
-public class FilterDto {
+public class ReviewFilterDto {
     private Integer accountId;
     private List<Integer> accountReviews;
     private List<Integer> reviewPersonTags;

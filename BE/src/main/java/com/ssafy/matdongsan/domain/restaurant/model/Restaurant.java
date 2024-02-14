@@ -20,6 +20,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name="restaurant")
+@ToString
 @EntityListeners(AuditingEntityListener.class)
 
 public class Restaurant extends BaseEntity {

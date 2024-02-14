@@ -3,7 +3,6 @@ package com.ssafy.matdongsan.domain.restaurant.service;
 import com.ssafy.matdongsan.domain.account.model.Account;
 import com.ssafy.matdongsan.domain.account.repository.AccountRepository;
 import com.ssafy.matdongsan.domain.food.dto.FoodCategoryNaverSearchResponseDto;
-import com.ssafy.matdongsan.domain.food.model.FoodCategory;
 import com.ssafy.matdongsan.domain.naver.dto.NaverSearchSaveRequestDto;
 import com.ssafy.matdongsan.domain.naver.dto.NaverSearchSaveResponseDto;
 import com.ssafy.matdongsan.domain.restaurant.dto.*;
@@ -12,7 +11,9 @@ import com.ssafy.matdongsan.domain.restaurant.model.Restaurant;
 import com.ssafy.matdongsan.domain.restaurant.repository.RegionRepository;
 import com.ssafy.matdongsan.domain.restaurant.repository.RestaurantRepository;
 
+import com.ssafy.matdongsan.domain.restaurant.repository.query.SearchRestaurantQueryDto;
 import com.ssafy.matdongsan.domain.review.repository.ReviewRepository;
+import com.ssafy.matdongsan.domain.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
@@ -38,6 +39,7 @@ public class RestaurantService {
     private final RegionRepository regionRepository;
     private final AccountRepository accountRepository;
     private final ReviewRepository reviewRepository;
+    private final ReviewService reviewService;
 
 
     @Transactional
@@ -276,6 +278,24 @@ public class RestaurantService {
                         foodCategory -> new FoodCategoryNaverSearchResponseDto(foodCategory.getName())
                 ).toList()
         );
+    }
+
+    public List<RestaurantSearchFilterResponseDto> searchByFilter(RestaurantSearchFilterRequestDto requestDto) {
+        List<Integer> restaurantFoodCategoryIds = reviewService.getRestaurantFoodCategoryIds(requestDto.getRestaurantFoodCategories());
+        RestaurantFilterDto filter = new RestaurantFilterDto(requestDto.getIsDescend(), restaurantFoodCategoryIds, requestDto.getRegionId());
+        List<SearchRestaurantQueryDto> searchRestaurantQueryDtos = restaurantRepository.findByFilter(filter);
+        System.out.println(filter);
+        System.out.println(searchRestaurantQueryDtos);
+        return searchRestaurantQueryDtos.stream().map(
+                searchRestaurantQueryDto -> {
+                    Restaurant restaurant = restaurantRepository.findById(searchRestaurantQueryDto.getId()).get();
+                    return new RestaurantSearchFilterResponseDto(
+                            searchRestaurantQueryDto,
+                            restaurant.getRestaurantFoodCategories().stream().map(
+                                    foodCategory -> new FoodCategoryNaverSearchResponseDto(foodCategory.getName())).toList()
+                    );
+                }
+        ).toList();
     }
 }
 

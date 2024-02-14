@@ -94,4 +94,12 @@ public class RestaurantApiController {
         RestaurantIsPresentDto dto= restaurantService.getIsPresent(accountId,restaurantId);
         return  ResponseEntity.ok().body(dto);
     }
+
+    @Operation(summary = "[필터 검색] 음식점 필터 검색  API")
+    @PostMapping("/restaurant/search/filter")
+    public ResponseEntity<?> searchByFilterRestaurant(
+            @RequestBody @Valid RestaurantSearchFilterRequestDto requestDto ){
+        List<RestaurantSearchFilterResponseDto> responseDtos = restaurantService.searchByFilter(requestDto);
+        return  ResponseEntity.ok().body(responseDtos);
+    }
 }

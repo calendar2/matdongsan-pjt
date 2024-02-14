@@ -1,17 +1,13 @@
 package com.ssafy.matdongsan.domain.review.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ssafy.matdongsan.domain.review.dto.FilterDto;
-import com.ssafy.matdongsan.domain.review.model.QReview;
+import com.ssafy.matdongsan.domain.review.dto.ReviewFilterDto;
 import com.ssafy.matdongsan.domain.review.repository.query.QSearchReviewQueryDto;
 import com.ssafy.matdongsan.domain.review.repository.query.SearchReviewQueryDto;
 import lombok.RequiredArgsConstructor;
-import org.h2.expression.Subquery;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,7 +20,7 @@ import static com.ssafy.matdongsan.domain.review.model.QReview.review;
 public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
     @Override
-    public List<SearchReviewQueryDto> searchByFilter(FilterDto filter) {
+    public List<SearchReviewQueryDto> searchByFilter(ReviewFilterDto filter) {
                 return jpaQueryFactory
                 .select(new QSearchReviewQueryDto(
                         review.id,

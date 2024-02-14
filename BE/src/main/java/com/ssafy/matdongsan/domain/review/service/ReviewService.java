@@ -1,6 +1,5 @@
 package com.ssafy.matdongsan.domain.review.service;
 
-import com.ssafy.matdongsan.domain.account.dto.PersonTagSaveRequestDto;
 import com.ssafy.matdongsan.domain.account.model.Account;
 import com.ssafy.matdongsan.domain.account.model.PersonTag;
 import com.ssafy.matdongsan.domain.account.repository.AccountRepository;
@@ -188,7 +187,7 @@ public class ReviewService {
     }
 
     public List<ReviewSearchFilterResponseDto> searchByFilter(ReviewSearchFilterRequestDto requestDto, Integer accountId) {
-        FilterDto filter = changeToFilter(requestDto,accountId);
+        ReviewFilterDto filter = changeToFilter(requestDto,accountId);
 //        FilterDto{accountId=1, accountReviews=[3, 4], reviewPersonTags=[2, 14], restaurantFoodCategories=[215, 149], startDate='2024-02-01T00:00', endDate='2024-02-03T00:00'}
         List<SearchReviewQueryDto> searchReviewQueryDtos = reviewRepository.searchByFilter(filter);
         System.out.println(filter);
@@ -206,14 +205,8 @@ public class ReviewService {
         ).toList();
     }
 
-    private FilterDto changeToFilter(ReviewSearchFilterRequestDto requestDto, Integer accountId) {
-        List<Integer> restaurantFoodCategories = new ArrayList<>();
-        for ( RestaurantFoodCategorySearchFilterRequestDto category: requestDto.getRestaurantFoodCategories()){
-            List<Integer> foodCategoryIds = foodCategoryRepository.findByNameLike(category.getName()).stream().map(
-                    FoodCategory::getId
-            ).toList();
-            restaurantFoodCategories.addAll(foodCategoryIds);
-        }
+    private ReviewFilterDto changeToFilter(ReviewSearchFilterRequestDto requestDto, Integer accountId) {
+        List<Integer> restaurantFoodCategories = getRestaurantFoodCategoryIds( requestDto.getRestaurantFoodCategories());
         String dateRange = requestDto.getVisitDate();
         LocalDateTime startDate = null;
         LocalDateTime endDate = null;
@@ -224,7 +217,7 @@ public class ReviewService {
         }
 
 
-        return new FilterDto(
+        return new ReviewFilterDto(
                 accountId,
                 requestDto.getAccountReviews().stream().map(
                         AccountSearchFilterRequestDto::getId
@@ -238,6 +231,19 @@ public class ReviewService {
                 endDate
                 );
     }
+
+
+    public List<Integer> getRestaurantFoodCategoryIds(List<RestaurantFoodCategorySearchFilterRequestDto> foodCategoryNames) {
+        List<Integer> restaurantFoodCategories = new ArrayList<>();
+        for ( RestaurantFoodCategorySearchFilterRequestDto category: foodCategoryNames){
+            List<Integer> foodCategoryIds = foodCategoryRepository.findByNameLike(category.getName()).stream().map(
+                    FoodCategory::getId
+            ).toList();
+            restaurantFoodCategories.addAll(foodCategoryIds);
+        }
+        return restaurantFoodCategories;
+    }
+
 
     public List<ReviewSearchSimpleResponseDto> searchByRestaurantName(ReviewSearchSimpleRequestDto requestDto, Integer accountId) {
         Account account = accountRepository.findById(accountId).orElseThrow();
