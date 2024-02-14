@@ -15,6 +15,6 @@ public class AccountModifyAllRequestDto {
     String nickname;
     short birthYear;
     byte spicyLevel;
-    String picture;
+    Integer picture;
     List<Integer> bannedFoodCategoryIds;
 }

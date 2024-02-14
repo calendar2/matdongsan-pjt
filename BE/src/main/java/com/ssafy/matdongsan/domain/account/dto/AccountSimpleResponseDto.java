@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccountSimpleResponseDto {
     private Integer id;
+    private Integer picture;
     private String nickname;
     private int follower;
 }

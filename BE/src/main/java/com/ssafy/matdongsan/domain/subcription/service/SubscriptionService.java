@@ -46,6 +46,7 @@ public class SubscriptionService {
             Account subscribed = subscription.getSubscribed();
             AccountSimpleResponseDto dto = AccountSimpleResponseDto.builder()
                     .id(subscribed.getId())
+                    .picture(subscribed.getPicture())
                     .nickname(subscribed.getNickname())
                     .follower(subscribed.getFollower())
                     .build();

@@ -109,6 +109,7 @@ public class AccountService {
         for (Account account : accounts) {
             AccountSimpleResponseDto dto = AccountSimpleResponseDto.builder()
                     .id(account.getId())
+                    .picture(account.getPicture())
                     .nickname(account.getNickname())
                     .follower(account.getFollower())
                     .build();
