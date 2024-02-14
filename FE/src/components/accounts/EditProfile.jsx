@@ -33,6 +33,7 @@ function EditProfile() {
   const { API_URL } = urlStore();
   const { accessToken } = userStore();
   const [selectedButton, setSelectedButton] = useState(null);
+  const [profileUrl, setProfileUrl] = useState();
   const {
     setNickname,
     nickname,
@@ -56,9 +57,9 @@ function EditProfile() {
       e.preventDefault(); // 링크 클릭 이벤트 기본 동작 방지
     }
   };
-  const onChangeImage = (e) => {
-    setProfile(URL.createObjectURL(e.target.files[0]));
-  };
+  // const onChangeImage = (e) => {
+  //   setProfile(URL.createObjectURL(e.target.files[0]));
+  // };
 
   const AllergyButtonClick = (buttonValue) => {
     if (selectedButtons.includes(buttonValue)) {
@@ -93,8 +94,21 @@ function EditProfile() {
         setUserData(response.data); // 받아온 회원 정보를 상태에 저장
         // userData.spicyLevel로 selectedButton 설정
         setSelectedButton(response.data.spicyLevel);
-        // spicyLevel 상태 업데이트
-        setSpicyLevel(response.data.spicyLevel);
+        // spicyLevel 상태 업데이트(하면 안됨)
+        // setSpicyLevel(response.data.spicyLevel);
+        const bannedFoodIds = response.data.bannedFoodCategories.map(
+          (category) => category.id
+        );
+        setSelectedButtons(bannedFoodIds);
+        console.log('받아온 알레르기??', [bannedFoodIds]);
+        setProfile(response.data.picture);
+        // 프로필주소 설정
+        setProfileUrl(
+          `/assets/random/profile${response.data.picture}.png`
+        );
+        console.log(
+          `/assets/random/profile${response.data.picture}.png`
+        );
       } catch (error) {
         console.error('회원정보 요청 실패:', error);
         console.log(accessToken);
@@ -207,18 +221,18 @@ function EditProfile() {
               <div className={styles.gridItem}>
                 <div className={styles.profileImageBox}>
                   <img
-                    src={userData.picture}
+                    src={profileUrl}
                     alt="프로필이미지"
                     style={{ width: '60px' }}
                   />
                 </div>
-                프로필: {userData.picture}
-                <input
+                {/* 프로필: {userData.picture} */}
+                {/* <input
                   name="imgUpload"
                   type="file"
                   accept="image/*"
                   onChange={onChangeImage}
-                />
+                /> */}
               </div>
             </div>
             <div

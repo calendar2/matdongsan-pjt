@@ -7,8 +7,6 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { createAvatar } from '@dicebear/core';
-import { bigSmile } from '@dicebear/collection';
 import SignupFirst from './SignupFirst';
 import SignupSecond from './SignupSecond';
 import imgLogo from '../../assets/images/logo.png';
@@ -106,14 +104,11 @@ export default function HorizontalNonLinearStepper() {
 
   const [randomprofile, setRandomProfile] = useState('');
 
-  const randomProfile = () => {
-    const newAvatar = createAvatar(bigSmile, {
-      seed: Math.random().toString(),
-      // size: 50,
-    }).toString();
-
-    console.log('newAvatar: ', newAvatar);
-    setRandomProfile(`data:image/svg+xml;base64,${btoa(newAvatar)}`);
+  const randomProfile = (min, max) => {
+    const randomNum =
+      Math.floor(Math.random() * (max - min + 1)) + min;
+    console.log('randomNum: ', randomNum);
+    setRandomProfile(randomNum);
   };
 
   const signupStep2Data = () => {
@@ -121,7 +116,7 @@ export default function HorizontalNonLinearStepper() {
     const requestData = {
       spicyLevel,
       bannedFoodIds: allergy,
-      picture: 3,
+      picture: randomprofile,
     };
     const url = `${API_URL}/account/step2`;
     axios({
@@ -280,7 +275,7 @@ export default function HorizontalNonLinearStepper() {
                   onClick={() => {
                     handleComplete();
                     signupStep1Data();
-                    randomProfile();
+                    randomProfile(1, 31);
                   }}
                 >
                   다음
