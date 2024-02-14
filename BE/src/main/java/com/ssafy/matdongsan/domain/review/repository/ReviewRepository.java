@@ -18,8 +18,8 @@ public interface ReviewRepository extends JpaRepository<Review, Long>,ReviewRepo
     @Query(value = "delete from Review  r where r.account = :account and r.restaurant = :restaurant")
     void deleteByAccountAndRestaurant(Account account, Restaurant restaurant);
 
-    @Query(value = "select r from Review  r where r.account = :account and r.restaurant.name like %:name% ")
-    List<Review> searchByRestaurantName(String name, Account account);
+    @Query(value = "select distinct r.restaurant from Review  r where r.account = :account and r.restaurant.name like %:name% ")
+    List<Restaurant> searchByRestaurantName(String name, Account account);
 
 
 

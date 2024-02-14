@@ -249,28 +249,27 @@ public class ReviewService {
 
     public List<RestaurantFindAllAccountResponseV2Dto> searchByRestaurantName(ReviewSearchSimpleRequestDto requestDto, Integer accountId) {
         Account account = accountRepository.findById(accountId).orElseThrow();
-        List<Review> reviews = reviewRepository.searchByRestaurantName(requestDto.getName(), account);
+        List<Restaurant> restaurants = reviewRepository.searchByRestaurantName(requestDto.getName(), account);
 
 
-        return reviews.stream()
-                .map(review -> {
-                    Restaurant restaurant = review.getRestaurant();
-                    return new RestaurantFindAllAccountResponseV2Dto(
-                            restaurant.getId(),
-                            restaurant.getRegion().getId(),
-                            restaurant.getName(),
-                            restaurant.getMapx(),
-                            restaurant.getMapy(),
-                            restaurant.getAddress(),
-                            restaurant.getRoadAddress(),
-                            restaurant.getPhone(),
-                            restaurant.getThumUrl(),
-                            restaurant.getMenuInfo(),
-                            restaurant.getRestaurantFoodCategories().stream().map(
-                                    foodCategory -> new FoodCategoryNaverSearchResponseDto(foodCategory.getName())
-                            ).toList()
-                    );
-                }).toList();
+
+        return restaurants.stream()
+                .map(restaurant -> new RestaurantFindAllAccountResponseV2Dto(
+                        restaurant.getId(),
+                        restaurant.getRegion().getId(),
+                        restaurant.getName(),
+                        restaurant.getMapx(),
+                        restaurant.getMapy(),
+                        restaurant.getAddress(),
+                        restaurant.getRoadAddress(),
+                        restaurant.getPhone(),
+                        restaurant.getThumUrl(),
+                        restaurant.getMenuInfo(),
+                        restaurant.getRestaurantFoodCategories().stream().map(
+                                foodCategory -> new FoodCategoryNaverSearchResponseDto(foodCategory.getName())
+                        ).toList()
+                )).toList();
+
     }
 
 
