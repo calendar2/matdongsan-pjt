@@ -26,8 +26,8 @@ export default function HorizontalNonLinearStepper() {
     regionInterest,
     spicyLevel,
     allergy,
-    setProfile,
-    profile,
+    // setProfile,
+    // profile,
   } = signupStore();
   const { API_URL } = urlStore();
   const { accessToken } = userStore();
@@ -104,12 +104,24 @@ export default function HorizontalNonLinearStepper() {
       });
   };
 
+  const [randomprofile, setRandomProfile] = useState('');
+
+  const randomProfile = () => {
+    const newAvatar = createAvatar(bigSmile, {
+      seed: Math.random().toString(),
+      // size: 50,
+    }).toString();
+
+    console.log('newAvatar: ', newAvatar);
+    setRandomProfile(`data:image/svg+xml;base64,${btoa(newAvatar)}`);
+  };
+
   const signupStep2Data = () => {
     console.log(accessToken, '액세스토큰임!');
     const requestData = {
       spicyLevel,
       bannedFoodIds: allergy,
-      picture: profile,
+      picture: 3,
     };
     const url = `${API_URL}/account/step2`;
     axios({
@@ -123,25 +135,19 @@ export default function HorizontalNonLinearStepper() {
     })
       .then((response) => {
         console.log('step2 요청 성공:', response.data);
+        console.log('picture 확인:', randomprofile);
         // 성공 시 필요한 작업 수행
       })
       .catch((error) => {
         console.error('step2 요청 실패:', error);
+        console.log('picture 확인:', randomprofile);
         console.log(accessToken);
         // 실패 시 에러 처리
       });
   };
 
   // 랜덤 프로필 생성
-  const [svg, setSvg] = useState('');
-  const ramdomProfile = () => {
-    const newAvatar = createAvatar(bigSmile, {
-      seed: Math.random().toString(),
-    }).toString();
-
-    setSvg(newAvatar);
-    setProfile(`data:image/svg+xml;base64,${btoa(svg)}`);
-  };
+  // const [svg, setSvg] = useState('');
 
   return (
     <Box
@@ -241,8 +247,8 @@ export default function HorizontalNonLinearStepper() {
                     }}
                     onClick={() => {
                       handleComplete();
+                      // ramdomProfile();
                       signupStep2Data();
-                      ramdomProfile();
                     }}
                   >
                     완료
@@ -274,6 +280,7 @@ export default function HorizontalNonLinearStepper() {
                   onClick={() => {
                     handleComplete();
                     signupStep1Data();
+                    randomProfile();
                   }}
                 >
                   다음

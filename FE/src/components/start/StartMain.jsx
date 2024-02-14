@@ -4,22 +4,22 @@ import { Button } from '@mui/material';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import LoginModal from '../modals/LoginModal';
-import imgIntro1 from '../../assets/images/intro/intro_1.png';
-import imgIntro2 from '../../assets/images/intro/intro_2.png';
-import imgIntro3 from '../../assets/images/intro/intro_3.png';
+import imgIntro1 from '../../assets/images/intro/save.png';
+import imgIntro2 from '../../assets/images/intro/note.png';
+import imgIntro3 from '../../assets/images/intro/compare.png';
 import styles from '../../styles/start/StartView.module.css';
 import userStore from '../../stores/userStore';
 
 function StartMain() {
   const settings = {
-    dots: true,
+    // dots: true,
     // dotsClass: 'custom-dots',
     infinite: true,
-    speed: 2000,
+    speed: 3500,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2500,
+    autoplaySpeed: 3500,
     arrows: false,
     pauseOnHover: false,
   };
@@ -29,7 +29,7 @@ function StartMain() {
   return (
     <div className={styles.mainBox}>
       <Slider
-        dots={settings.dots}
+        // dots={settings.dots}
         infinite={settings.infinite}
         speed={settings.speed}
         slidesToShow={settings.slidesToShow}

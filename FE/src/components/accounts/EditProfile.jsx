@@ -51,6 +51,11 @@ function EditProfile() {
   const [userData, setUserData] = useState(null);
   const [selectedButtons, setSelectedButtons] = useState([]);
 
+  const handleLinkClick = (e) => {
+    if (nickname === '') {
+      e.preventDefault(); // 링크 클릭 이벤트 기본 동작 방지
+    }
+  };
   const onChangeImage = (e) => {
     setProfile(URL.createObjectURL(e.target.files[0]));
   };
@@ -724,7 +729,15 @@ function EditProfile() {
           </>
         )}
       </div>
-      <Link to="/main/restaurants" style={{ textDecoration: 'none' }}>
+      <Link
+        onClick={handleLinkClick}
+        to="/main/restaurants"
+        style={{
+          textDecoration: 'none',
+          pointerEvents: nickname === '' ? 'none' : 'auto', // 닉네임이 비어있을 때는 링크 클릭 이벤트 비활성화
+          cursor: nickname === '' ? 'default' : 'pointer', // 닉네임이 비어있을 때는 기본 커서로 변경
+        }}
+      >
         <Button
           disabled={nickname === ''}
           sx={{
