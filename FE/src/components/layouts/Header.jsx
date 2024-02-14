@@ -20,6 +20,7 @@ import imgLogo from '../../assets/images/logo.png';
 import urlStore from '../../stores/urlStore';
 import UserRankingModal from '../modals/UserRankingModal';
 import reviewStore from '../../stores/reviewStore';
+import globalFilterStore from '../../stores/globalFilterStore';
 
 function Header() {
   const { API_URL } = urlStore();
@@ -27,11 +28,11 @@ function Header() {
   const url = `${API_URL}/account/rank`;
   const [accountRank, setAccountRank] = useState([]);
   const { accessToken, setLoginModalOpen } = userStore();
-  const [searchValue, setSearchValue] = useState('');
   const [userSearchInfos, setUserSearchInfos] = useState([]);
   const navigate = useNavigate();
-  // const location = useLocation();
   const [anchorEl, setAnchorEl] = useState(null);
+  const { setLocationFilterData, searchValue, setSearchValue } =
+    globalFilterStore();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -75,6 +76,7 @@ function Header() {
 
   const searchBtnClick = () => {
     if (userOrLocation === '장소') {
+      setLocationFilterData([]);
       navigate({
         // pathname: location.pathname,
         pathname: '/main/restaurants',

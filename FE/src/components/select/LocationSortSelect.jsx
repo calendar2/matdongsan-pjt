@@ -9,7 +9,7 @@ function LocationSortSelect() {
 
   const sortStateChange = (event) => {
     setRankSort(event.target.value);
-    // console.log(event.target.value);
+    console.log('별점 높으면 1, 낮으면 0', event.target.value);
   };
 
   return (
@@ -26,8 +26,8 @@ function LocationSortSelect() {
           autoWidth
           label="정렬"
         >
-          <MenuItem value={0}>별점 높은 순</MenuItem>
-          <MenuItem value={1}>별점 낮은 순</MenuItem>
+          <MenuItem value={1}>별점 높은 순</MenuItem>
+          <MenuItem value={0}>별점 낮은 순</MenuItem>
         </Select>
       </FormControl>
     </div>

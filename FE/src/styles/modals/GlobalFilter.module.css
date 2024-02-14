@@ -26,4 +26,16 @@
 .modalContainer .filterMenu {
   display: flex;
   align-items: center;
+}
+.modalContainer .filterMenu .locationBtn {
+  margin-left: 1rem;
+  border: 1px solid #1DB177;
+  border-radius: 20px;
+  background-color: white;
+  padding: 0.5rem 1rem;
+}
+.modalContainer .filterMenu .locationBtn:hover {
+  cursor: pointer;
+  background-color: #1DB177;
+  color: white;
 }/*# sourceMappingURL=GlobalFilter.module.css.map */

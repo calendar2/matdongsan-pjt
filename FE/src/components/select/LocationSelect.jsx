@@ -51,7 +51,7 @@ function LocationSelect() {
           <TextField
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...params}
-            label="지역"
+            label="지역(선택필수)"
             variant="standard"
           />
         )}

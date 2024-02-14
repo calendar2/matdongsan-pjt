@@ -33,5 +33,19 @@ $secondary-color: #b2b2b2;
   .filterMenu {
     display: flex;
     align-items: center;
+
+    .locationBtn {
+      margin-left: 1rem;
+      border: 1px solid $primary-color;
+      border-radius: 20px;
+      background-color: white;
+      padding: 0.5rem 1rem;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $primary-color;
+        color: white;
+      }
+    }
   }
 }
