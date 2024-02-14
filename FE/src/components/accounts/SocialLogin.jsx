@@ -4,10 +4,8 @@ import swal from 'sweetalert2';
 import axios from 'axios';
 import userStore from '../../stores/userStore';
 import urlStore from '../../stores/urlStore';
-import dongsanStore from '../../stores/dongsanStore';
 
 function SocialLogin() {
-  const { setDongsanUsers } = dongsanStore();
   const { API_URL } = urlStore();
   const { setAccessToken, setLoginAccount } = userStore();
   const navigate = useNavigate();
@@ -44,17 +42,42 @@ function SocialLogin() {
         });
         console.log('사용자 데이터 요청 성공:', response.data);
         setLoginAccount(response.data);
-        setDongsanUsers([
-          {
-            id: response.data.id,
-            nickname: response.data.nickname,
-            filter: true,
-          },
-        ]);
         return response.data; // 사용자 데이터 반환
       } catch (error) {
         console.error('사용자 데이터 요청 실패:', error);
         throw error;
+      }
+    };
+
+    // DB에 저장한 동산 상태 받아오기
+    const getDongsanData = async (userId) => {
+      try {
+        const dongsanStatusRes = await axios.get(
+          `${API_URL}/comparison/${userId}`
+        );
+        console.log('동산 상태!', dongsanStatusRes);
+
+        if (dongsanStatusRes.data.comparisonList.length === 0) {
+          dongsanStatusRes.data.comparisonList.push({
+            comparedAccountId: userId,
+            isHidden: 0,
+          });
+        } else if (
+          dongsanStatusRes.data.comparisonList[0]
+            .comparedAccountId !== userId
+        ) {
+          dongsanStatusRes.data.comparisonList.unshift({
+            comparedAccountId: userId,
+            isHidden: 0,
+          });
+        }
+
+        localStorage.setItem(
+          'DONGSAN_LIST',
+          JSON.stringify(dongsanStatusRes.data.comparisonList)
+        );
+      } catch (err) {
+        console.error('동산 상태ㅠㅠ', err);
       }
     };
 
@@ -82,13 +105,15 @@ function SocialLogin() {
           );
           navigate('/signup', { state: location }); // '/main/restaurants'로 수정
         }
+        return userData;
       } catch (error) {
         console.error('사용자 데이터 요청 실패:', error);
         navigate('/');
+        return error;
       }
     };
 
-    fetchData(); // fetchData 함수 호출
+    fetchData().then((userData) => getDongsanData(userData.id));
   }, [API_URL, navigate, token, location, Toast]);
 
   return null;

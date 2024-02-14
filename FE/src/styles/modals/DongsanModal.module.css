@@ -68,6 +68,8 @@
 .box .content .profile .avatar, .staticBox .content .profile .avatar {
   margin-left: 0.6rem;
   margin-right: 0.3rem;
+  width: 24px;
+  height: 24px;
 }
 .box .content .profile .colorCheck, .staticBox .content .profile .colorCheck {
   width: 12px;

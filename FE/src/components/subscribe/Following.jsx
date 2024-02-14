@@ -16,6 +16,8 @@ function Following() {
   const { API_URL } = urlStore();
   const { isMyPage, loginAccount } = userStore();
   const { refresh, setRefresh, value } = reviewStore();
+  const { dongsanUsers, setDongsanUsers } = dongsanStore();
+
   useEffect(() => {
     if (isMyPage) {
       axios //
@@ -43,7 +45,15 @@ function Following() {
         });
     }
   }, [refresh]);
-  const { dongsanUsers, setDongsanUsers } = dongsanStore();
+
+  const storageAdd = (id) => {
+    const storage = JSON.parse(localStorage.getItem('DONGSAN_LIST'));
+    storage.push({
+      comparedAccountId: id,
+      isHidden: 0,
+    });
+    localStorage.setItem('DONGSAN_LIST', JSON.stringify(storage));
+  };
 
   return (
     <div>
@@ -96,6 +106,7 @@ function Following() {
                     Object.assign(following, { filter: true });
                     copy.push(following);
                     setDongsanUsers(copy);
+                    storageAdd(following.id);
                   }
                   console.log('동산 상태', dongsanUsers);
                 }}
