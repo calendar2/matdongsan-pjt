@@ -6,7 +6,16 @@ function StartView() {
   return (
     <div>
       <StartHeader />
-      <StartMain />
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          // backgroundColor: 'rgba(29, 177, 119, 0.2)',
+        }}
+      >
+        <StartMain />
+      </div>
       <StartFooter />
     </div>
   );

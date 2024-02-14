@@ -22,7 +22,7 @@ function StartFooter() {
     console.log(accountRank);
   }, []);
   return (
-    <div>
+    <div className={styles.footer}>
       <div className={styles.topText}>Top 10</div>
       <div className={styles.topBox}>
         {accountRank.map((account, index) => (
