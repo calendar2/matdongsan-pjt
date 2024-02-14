@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import styles from '../../styles/modals/UserInfoModal.module.css';
 import urlStore from '../../stores/urlStore';
 import userStore from '../../stores/userStore';
-import reviewStore from '../../stores/reviewStore';
 
 function UserInfoModal() {
   const { API_URL } = urlStore();
@@ -14,33 +13,7 @@ function UserInfoModal() {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState();
   const { accessToken, loginAccount } = userStore();
-  const [followStatus, setFollowStatus] = useState(false);
-  const { refresh, setRefresh } = reviewStore();
-  useEffect(() => {
-    axios({
-      method: 'get',
-      url: `${API_URL}/subscription/${loginAccount.id}`,
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => {
-        const isFollowNow = response.data.find(
-          (x) => x.id === userInfo.id
-        );
-        if (isFollowNow) {
-          setFollowStatus(true);
-          setRefresh(!refresh);
-        } else {
-          setFollowStatus(false);
-          setRefresh(!refresh);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [navigate]);
+  const [followButtonClick, setFollowButtonClick] = useState();
   useEffect(() => {
     const url = `${API_URL}/account/${userID}`;
     axios
@@ -54,7 +27,39 @@ function UserInfoModal() {
         console.error('요청 실패:', error);
         // 실패 시 에러 처리
       });
-  }, [navigate, refresh]);
+  }, [navigate, followButtonClick]);
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: `${API_URL}/subscription/${loginAccount.id}`,
+    })
+      .then((response) => {
+        if (response.data.find((x) => x.id === Number(userID))) {
+          setFollowButtonClick(true);
+        }
+        // 성공 시 필요한 작업 수행
+      })
+      .catch((error) => {
+        console.error(error);
+        // 실패 시 에러 처리
+      });
+  }, []);
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: `${API_URL}/subscription/${loginAccount.id}`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        console.log(response.data, '구독버튼 눌렀습니다');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [navigate, followButtonClick]);
   return (
     <div className={styles.box}>
       <div className={styles.avatar}>
@@ -72,7 +77,7 @@ function UserInfoModal() {
           {userInfo?.follower}
         </div>
         <div>
-          {!followStatus ? (
+          {!followButtonClick ? (
             <IconButton
               type="button"
               variant="contained"
@@ -88,7 +93,7 @@ function UserInfoModal() {
                 })
                   .then((response) => {
                     console.log('요청 성공:', response.data);
-                    setRefresh(!refresh);
+                    setFollowButtonClick(!followButtonClick);
                     // 성공 시 필요한 작업 수행
                   })
                   .catch((error) => {
@@ -123,7 +128,7 @@ function UserInfoModal() {
                 })
                   .then((response) => {
                     console.log('요청 성공:', response.data);
-                    setRefresh(!refresh);
+                    setFollowButtonClick(!followButtonClick);
                   })
                   .catch((error) => {
                     console.error('요청 실패:', error);

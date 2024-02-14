@@ -2,6 +2,7 @@ import { TextField, InputAdornment, IconButton } from '@mui/material';
 // eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
+// import axios from 'axios';
 import {
   ReviewsSearchTogether,
   TogetherModal,
@@ -20,29 +21,18 @@ import {
 } from '../modals/ReviewSearchTimeModal';
 import styles from '../../styles/reviews/ReviewSearch.module.css';
 import reviewFilterStore from '../../stores/reviewFilterStore';
+// import userStore from '../../stores/userStore';
+// import urlStore from '../../stores/urlStore';
 
 function ReviewsSearch() {
+  // const { API_URL } = urlStore();
+  // const { loginAccount } = userStore();
   const [whatIsClicked, setClicked] = useState(0);
-  const {
-    selectedFriend,
-    selectedStartDate,
-    selectedEndDate,
-    selectedBusinessTypes,
-    selectedUserLocation,
-    setSearchKeyWord,
-    searchKeyWord,
-  } = reviewFilterStore();
+  const { setSearchKeyWord, searchKeyWord } = reviewFilterStore();
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       console.log('엔터버튼 눌렀음!');
-      console.log(
-        selectedFriend,
-        `${selectedStartDate.$y}-${selectedStartDate.$M + 1 > 10 ? selectedStartDate.$M + 1 : `0${selectedStartDate.$M + 1}`}-${selectedStartDate.$D > 10 ? selectedStartDate.$D : `0${selectedStartDate.$D}`}`, // 시작날짜임
-        `${selectedEndDate.$y}-${selectedEndDate.$M + 1 > 10 ? selectedEndDate.$M + 1 : `0${selectedEndDate.$M + 1}`}-${selectedEndDate.$D > 10 ? selectedEndDate.$D : `0${selectedEndDate.$D}`}`, // 종료날짜임
-        selectedBusinessTypes,
-        selectedUserLocation,
-        searchKeyWord
-      );
+      console.log(searchKeyWord);
     }
   };
   return (
@@ -69,7 +59,6 @@ function ReviewsSearch() {
         }}
         onKeyPress={handleKeyPress}
         onChange={(e) => {
-          console.log(searchKeyWord);
           setSearchKeyWord(e.target.value);
         }}
         InputProps={{
@@ -78,14 +67,7 @@ function ReviewsSearch() {
             <InputAdornment position="start">
               <IconButton
                 onClick={() => {
-                  console.log('검색버튼 클릭함!');
-                  console.log(
-                    selectedFriend,
-                    `${selectedStartDate.$y}-${selectedStartDate.$M + 1 > 10 ? selectedStartDate.$M + 1 : `0${selectedStartDate.$M + 1}`}-${selectedStartDate.$D > 10 ? selectedStartDate.$D : `0${selectedStartDate.$D}`}`, // 시작날짜임
-                    `${selectedEndDate.$y}-${selectedEndDate.$M + 1 > 10 ? selectedEndDate.$M + 1 : `0${selectedEndDate.$M + 1}`}-${selectedEndDate.$D > 10 ? selectedEndDate.$D : `0${selectedEndDate.$D}`}`, // 종료날짜임
-                    selectedBusinessTypes,
-                    selectedUserLocation
-                  );
+                  console.log(searchKeyWord);
                 }}
               >
                 <SearchIcon />

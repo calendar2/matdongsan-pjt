@@ -29,6 +29,7 @@ import styles from '../../styles/reviews/ReviewList.module.css';
 import ReviewsListSubItems from './ReviewListSubItems';
 import urlStore from '../../stores/urlStore';
 import userStore from '../../stores/userStore';
+import reviewFilterStore from '../../stores/reviewFilterStore';
 
 function ReviewsList() {
   const {
@@ -57,7 +58,22 @@ function ReviewsList() {
   // const [페이지공개여부, 페이지공개여부수정] = useState(false); 리뷰페이지 공개여부, 이건 나중에
   const { API_URL } = urlStore();
   const { userID } = useParams();
-
+  const {
+    selectedFriendID,
+    selectedStartDate,
+    selectedEndDate,
+    selectedBusinessTypes,
+    selectedUserLocationID,
+    계정없는친구ID선택,
+    searchKeyWord,
+  } = reviewFilterStore();
+  const [reviewListSortButton1, setReviewListSortButton1] =
+    useState(true);
+  const [reviewListSortButton2, setReviewListSortButton2] =
+    useState(false);
+  const [reviewListSortButton3, setReviewListSortButton3] =
+    useState(false);
+  const [selectedList, setSelectedList] = useState();
   useEffect(() => {
     const currentPageID =
       userID === undefined ? loginAccount?.id : userID;
@@ -66,43 +82,79 @@ function ReviewsList() {
         if (!currentPageID) {
           return;
         }
+        const reviewResponseData = {
+          accountReviews: selectedFriendID?.map((x) => ({
+            id: Number(x),
+          })),
+          reviewPersonTags: 계정없는친구ID선택.map((x) => ({
+            id: Number(x),
+          })),
+          restaurantFoodCategories: selectedBusinessTypes?.map(
+            (x) => ({
+              name: String(x),
+            })
+          ),
+          regionId: Number(selectedUserLocationID),
+          visitDate: `${selectedStartDate.format('YYYY-MM-DD')}-${selectedEndDate.format('YYYY-MM-DD')}`,
+        };
+        const restaurantResponseData = {
+          name: String(searchKeyWord),
+        };
 
         const [restaurantData, reviewData, regions] =
           await Promise.all([
-            axios.get(`${API_URL}/restaurant/v2/${currentPageID}`),
-            axios.get(`${API_URL}/review/${currentPageID}`),
+            axios(
+              searchKeyWord === ''
+                ? {
+                    method: 'get',
+                    url: `${API_URL}/restaurant/v2/${currentPageID}`,
+                  }
+                : {
+                    method: 'post',
+                    url: `${API_URL}/review/search/simple/${currentPageID}`,
+                    data: restaurantResponseData,
+                  }
+            ),
+            axios({
+              method: 'post',
+              url: `${API_URL}/review/search/filter/${currentPageID} `,
+              data: reviewResponseData,
+            }),
             axios.get(`${API_URL}/region`),
           ]);
+        console.log(restaurantData);
+        setRestaurantStore([]);
+        setMyReviewStore([]);
         console.log(restaurantData, '레스토랑데이터요청성공');
-        const restaurantList = restaurantData.data.map(
+        const restaurantList = restaurantData.data?.map(
           (restaurant) => {
-            const filteredRegeion = regions.data.find(
+            const filteredRegeion = regions.data?.find(
               (region) => region.id === restaurant.regionId
             );
-            const filteredReview = reviewData.data.filter(
+            const filteredReview = reviewData?.data.filter(
               (review) => review.restaurantId === restaurant.id
             );
             console.log(filteredReview);
-            const totalKindnessRating = filteredReview.reduce(
+            const totalKindnessRating = filteredReview?.reduce(
               (sum, review) => sum + review.kindnessRating,
               0
             );
 
             const averageKindnessRating =
-              filteredReview.length > 0
+              filteredReview?.length > 0
                 ? totalKindnessRating / filteredReview.length
                 : 0;
-            const totalTasteRating = filteredReview.reduce(
+            const totalTasteRating = filteredReview?.reduce(
               (sum, review) => sum + review.tasteRating,
               0
             );
 
             const averageTasteRating =
-              filteredReview.length > 0
+              filteredReview?.length > 0
                 ? totalTasteRating / filteredReview.length
                 : 0;
             const latestVisitDate =
-              filteredReview.length > 0
+              filteredReview?.length > 0
                 ? dayjs(
                     new Date(
                       Math.max.apply(
@@ -118,14 +170,14 @@ function ReviewsList() {
               id: restaurant.id,
               가게이름: restaurant.name,
               위치: filteredRegeion?.district,
-              업종: restaurant.restaurantFoodCategories
-                .map((x) => x.name)
+              업종: restaurant?.restaurantFoodCategories
+                ?.map((x) => x.name)
                 .join(' / '),
               친절도: Math.round(averageKindnessRating),
               맛: Math.round(averageTasteRating),
-              최근방문날짜: `${latestVisitDate.$y}-${latestVisitDate.$M + 1 >= 10 ? latestVisitDate.$M + 1 : `0${latestVisitDate.$M + 1}`}-${latestVisitDate.$D >= 10 ? latestVisitDate.$D : `0${latestVisitDate.$D}`}`,
+              최근방문날짜: latestVisitDate.format('YYYY-MM-DD'),
               방문횟수: filteredReview.length,
-              가게사진: restaurant.thumUrl,
+              가게사진: restaurant?.thumUrl,
             };
           }
         );
@@ -152,20 +204,29 @@ function ReviewsList() {
           };
         });
         setMyReviewStore(reviewList);
+        if (reviewListSortButton1) sortByRecentVisitDate();
+        if (reviewListSortButton2) sortByVisitCount();
+        if (reviewListSortButton3) sortByAverageTasteAndKindness();
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
     fetchData();
-  }, [refresh, location, loginAccount]);
+  }, [
+    location,
+    loginAccount,
+    selectedFriendID,
+    selectedStartDate,
+    selectedEndDate,
+    selectedBusinessTypes,
+    selectedUserLocationID,
+    계정없는친구ID선택,
+    searchKeyWord,
+    reviewListSortButton1,
+    reviewListSortButton2,
+    reviewListSortButton3,
+  ]);
 
-  const [reviewListSortButton1, setReviewListSortButton1] =
-    useState(true);
-  const [reviewListSortButton2, setReviewListSortButton2] =
-    useState(false);
-  const [reviewListSortButton3, setReviewListSortButton3] =
-    useState(false);
-  const [selectedList, setSelectedList] = useState();
   return (
     <div>
       <div className={styles.header}>

@@ -1,6 +1,8 @@
 @charset "UTF-8";
 .wrapper {
   position: absolute;
+  display: flex;
+  justify-content: space-between;
   border-radius: 20px;
   margin-left: 1vw;
   margin-top: 1vh;

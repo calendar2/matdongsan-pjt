@@ -47,19 +47,20 @@ function StoreModal() {
     businessTypesCategory,
     setSelectedBusinessTypes,
   } = reviewFilterStore();
+  const handleAutocompleteChange = (event, selectedOptions) => {
+    // 선택된 항목을 setSelectedFriend 함수의 인자로 전달
+    setSelectedBusinessTypes(
+      selectedOptions.map((option) => option.title)
+    );
+  };
   return (
     <div className={styles.wrapper}>
       <Autocomplete
-        id="free-solo-2-demo"
-        freeSolo
-        includeInputInList
-        // options={businessTypesCategory}
-        options={businessTypesCategory.map((option) => option.label)}
-        onChange={(e, name) => {
-          setSelectedBusinessTypes(name);
-          console.log(selectedBusinessTypes);
-          console.log('업종선택되었습니다');
-        }}
+        multiple
+        id="tags-outlined"
+        options={businessTypesCategory}
+        getOptionLabel={(option) => option.title}
+        onChange={handleAutocompleteChange}
         sx={{
           width: '300px',
           '& .MuiInputBase-root': {
@@ -85,7 +86,7 @@ function StoreModal() {
           <TextField
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...params}
-            label="업종을 검색해주세요"
+            label="계정이 있는 친구"
             variant="standard"
             InputProps={{
               ...params.InputProps,
@@ -109,8 +110,22 @@ function StoreModal() {
       />
       {selectedBusinessTypes !== '' &&
       selectedBusinessTypes !== null ? (
-        <div className={styles.aside}>{selectedBusinessTypes}</div>
+        <div className={styles.aside}>
+          {selectedBusinessTypes.join(' /')}
+        </div>
       ) : null}
+      <Button
+        type="submit"
+        onClick={() => {
+          setSelectedBusinessTypes([]);
+        }}
+        sx={{
+          color: 'black',
+          backgroundColor: 'rgba(177,233,2, 0.5)',
+        }}
+      >
+        초기화
+      </Button>
     </div>
   );
 }

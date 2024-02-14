@@ -24,6 +24,8 @@ import UserInfoModal from '../components/modals/UserInfoModal';
 import OtherUserDongsanModal from '../components/modals/OtherUserDongsanModal';
 import userStore from '../stores/userStore';
 import urlStore from '../stores/urlStore';
+import dongsanStore from '../stores/dongsanStore';
+import reviewStore from '../stores/reviewStore';
 
 function FoodMapView() {
   const { API_URL } = urlStore();
@@ -39,6 +41,8 @@ function FoodMapView() {
     // loginAccount,
     // setIsLogin,
   } = userStore();
+  const { setDongsanUsers, dongsanUsers } = dongsanStore();
+  const { refresh, setRefresh } = reviewStore();
   const { userID } = useParams();
   // const loginID = loginAccount.id;
 
@@ -58,6 +62,17 @@ function FoodMapView() {
       .then((response) => {
         console.log('요청 성공:', response.data);
         setLoginAccount(response.data);
+        setTimeout(() => {
+          setRefresh(!refresh);
+        }, 50);
+        setDongsanUsers([
+          {
+            id: response.data.id,
+            nickname: response.data.nickname,
+            filter: true,
+          },
+        ]);
+        console.log(dongsanUsers, '나를 동산에 추가했음');
         // 성공 시 필요한 작업 수행
       })
       .catch((error) => {

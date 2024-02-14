@@ -11,6 +11,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
+import dayjs from 'dayjs';
 import fail from '../../assets/images/reviews/fail.png';
 import reviewStore from '../../stores/reviewStore';
 import styles from '../../styles/reviews/ReviewListSubItems.module.css';
@@ -76,7 +77,9 @@ function ReviewListSubItems(props) {
                             ? `${x.내용.substring(0, 10)}...`
                             : x.내용}
                         </span>
-                        <span>{x.방문한날짜}</span>
+                        <span>
+                          {dayjs(x.방문한날짜).format('YYYY-MM-DD')}
+                        </span>
                       </span>
                       <span className={styles.info}>
                         {x.임의친구들?.map((y) => (

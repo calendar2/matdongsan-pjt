@@ -47,8 +47,9 @@ function ReviewUpdate() {
   // const [사진] = useState(filteredReview.사진);
   const [내용, 내용수정] = useState(filteredReview?.내용);
   const [같이간친구, 같이간친구수정] = useState(
-    filteredReview?.같이간친구.map((x) => x.name)
+    filteredReview?.같이간친구.map((x) => x.id) // 나중에 x.nickname으로 수정해야함
   );
+  console.log(filteredReview, '같이간친구임');
   // 버그 난 이유 ? 기존에 같이 간 친구의 형태는 ['이름', '이름2'] 였는데 [{name:'이름', birth:'1995'}] 형태로 바뀜
   const [임의친구이름, 임의친구이름수정] = useState('');
   const [임의친구생년, 임의친구생년수정] = useState(
@@ -57,6 +58,7 @@ function ReviewUpdate() {
   const [임의친구들, 임의친구들수정] = useState(
     filteredReview?.임의친구들
   );
+  const [선택한계정친구들, 선택한계정친구들수정] = useState([]);
   const [방문날짜, 방문날짜수정] = useState(
     dayjs(filteredReview?.방문한날짜)
   );
@@ -69,7 +71,10 @@ function ReviewUpdate() {
         console.log('팔로워 요청 성공:', response.data);
         setFollowingUsers(response.data);
         전체친구수정(
-          followingUsers?.map((x) => ({ title: x.nickname }))
+          followingUsers?.map((x) => ({
+            title: x.nickname,
+            id: x.id,
+          }))
         );
         // 성공 시 필요한 작업 수행
       })
@@ -77,12 +82,17 @@ function ReviewUpdate() {
         console.error('팔로워 요청 실패:', error);
         // 실패 시 에러 처리
       });
-  }, [navigate]);
+  }, []);
   const [클릭버튼, 클릭버튼수정] = useState(false);
   const handleAutocompleteChange = (event, selectedOptions) => {
     // 선택된 항목을 setSelectedFriend 함수의 인자로 전달
     같이간친구수정(selectedOptions.map((option) => option.title));
-    console.log('같이 간 사람을 선택했습니다!', 같이간친구);
+    선택한계정친구들수정(
+      selectedOptions?.map((option) => ({
+        id: option.id,
+      }))
+    );
+    console.log('같이 간 사람을 선택했습니다!', 선택한계정친구들);
   };
 
   return (
@@ -387,15 +397,15 @@ function ReviewUpdate() {
                 tasteRating: 맛,
                 content: 내용,
                 visitDate: `${방문날짜.$y}-${방문날짜.$M + 1 >= 10 ? 방문날짜.$M + 1 : `0${방문날짜.$M + 1}`}-${방문날짜.$D >= 10 ? 방문날짜.$D : `0${방문날짜.$D}`}`,
-                restaurantId: 1, // 아직 음식점 등록 API 구현이 안돼있어서 1번 음식점의 리뷰만 작성
-                accountReviews: [], // 아직 팔로워 API 구현이 안돼있어서 빈 목록으로 전송해야함
+                restaurantId: Number(restaurantID),
+                accountReviews: 선택한계정친구들,
                 reviewPersonTags: 임의친구들,
               };
               setTimeout(() => {
                 setRefresh(!refresh);
               }, 5);
               navigate(`/main/restaurants/${restaurantID}`);
-              const url = `${API_URL}/review/${loginAccount.id}/${reviewID}`; // 아직 유저 API 구현이 안돼있어서 1번 유저의 리뷰로만 작성/1번 리뷰 수정
+              const url = `${API_URL}/review/${loginAccount.id}/${reviewID}`;
               axios // 여기서 put 요청으로 수정해야함
                 .put(url, requestData)
                 .then((response) => {

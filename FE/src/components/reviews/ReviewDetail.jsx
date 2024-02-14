@@ -8,6 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import dayjs from 'dayjs';
 import boy0 from '../../assets/images/reviews/boy0.png';
 import boy1 from '../../assets/images/reviews/boy1.png';
 import boy2 from '../../assets/images/reviews/boy2.png';
@@ -32,6 +33,7 @@ function ReviewDetail() {
   const filteredReview = myReviewStore.find(
     (x) => x.리뷰id === Number(reviewID)
   );
+  console.log(filteredReview?.같이간친구);
   const handleDelete = () => {
     Swal.fire({
       title: '정말로 삭제하시겠습니까?',
@@ -184,7 +186,7 @@ function ReviewDetail() {
               src={icons[i]}
               sx={{ backgroundColor: 'rgba(29, 177, 119, 0.3)' }}
             />
-            <p className={styles.asideItem}>{x.name}</p>
+            <p className={styles.asideItem}>{x.id}</p>
             <hr />
           </div>
         ))}
@@ -205,7 +207,9 @@ function ReviewDetail() {
         >
           방문한 날짜
         </Typography>
-        <div>{filteredReview?.방문한날짜}</div>
+        <div>
+          {dayjs(filteredReview?.방문한날짜).format('YYYY-MM-DD')}
+        </div>
         <hr />
         {isMyPage && (
           <div className={styles.footer}>

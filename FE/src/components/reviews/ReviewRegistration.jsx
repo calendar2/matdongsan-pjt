@@ -50,6 +50,7 @@ function ReviewRegistration() {
   );
   console.log(loginAccount);
   const [임의친구들, 임의친구들수정] = useState([]);
+  const [선택한계정친구들, 선택한계정친구들수정] = useState([]);
   const [전체친구, 전체친구수정] = useState([]);
   const { setRefresh, refresh } = reviewStore();
   const { API_URL } = urlStore();
@@ -74,8 +75,13 @@ function ReviewRegistration() {
   const navigate = useNavigate();
   const handleAutocompleteChange = (event, selectedOptions) => {
     // 선택된 항목을 setSelectedFriend 함수의 인자로 전달
-    같이간친구수정(selectedOptions.map((option) => option.title));
-    console.log('같이 간 사람을 선택했습니다!', 같이간친구);
+    같이간친구수정(selectedOptions?.map((option) => option.title));
+    선택한계정친구들수정(
+      selectedOptions?.map((option) => ({
+        id: option.id,
+      }))
+    );
+    console.log(같이간친구);
   };
   const filteredShop = restaurantStore.find(
     (x) => x.id === Number(레스토랑아이디)
@@ -92,7 +98,10 @@ function ReviewRegistration() {
         console.log('팔로워 요청 성공:', response.data);
         setFollowingUsers(response.data);
         전체친구수정(
-          followingUsers?.map((x) => ({ title: x.nickname }))
+          followingUsers?.map((x) => ({
+            title: x.nickname,
+            id: x.id,
+          }))
         );
         // 성공 시 필요한 작업 수행
       })
@@ -100,7 +109,7 @@ function ReviewRegistration() {
         console.error('팔로워 요청 실패:', error);
         // 실패 시 에러 처리
       });
-  }, [navigate]);
+  }, []);
   // const camelToSnakeCase = str => str.replace(/[A-Z]/g, letter => _${letter.toLowerCase()});
   return (
     <div>
@@ -320,7 +329,7 @@ function ReviewRegistration() {
                       backgroundColor: 'rgba(29, 177, 119, 0.3)',
                     }}
                   />
-                  <p className={styles.item}>{x}</p>
+                  <p className={styles.item}>{x.title}</p>
                   <hr />
                 </div>
               ))}
@@ -418,8 +427,8 @@ function ReviewRegistration() {
                   tasteRating: 맛,
                   content: 내용,
                   visitDate: `${방문날짜.$y}-${방문날짜.$M + 1 >= 10 ? 방문날짜.$M + 1 : `0${방문날짜.$M + 1}`}-${방문날짜.$D >= 10 ? 방문날짜.$D : `0${방문날짜.$D}`}`,
-                  restaurantId: Number(레스토랑아이디), // 선택한 음식점으로 리뷰 리스트 전송
-                  accountReviews: [], // 아직 팔로워 API 구현이 안돼있어서 빈 목록으로 전송해야함
+                  restaurantId: Number(레스토랑아이디),
+                  accountReviews: 선택한계정친구들,
                   reviewPersonTags: 임의친구들,
                 };
                 console.log('리뷰 전송하는 ID임!', 레스토랑아이디);

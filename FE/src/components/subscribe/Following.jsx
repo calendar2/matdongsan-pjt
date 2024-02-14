@@ -15,7 +15,7 @@ function Following() {
   const { followingUsers, setFollowingUsers } = userStore();
   const { API_URL } = urlStore();
   const { isMyPage, loginAccount } = userStore();
-  const { refresh, setRefresh, value } = reviewStore();
+  const { refresh, value } = reviewStore();
   const { dongsanUsers, setDongsanUsers } = dongsanStore();
 
   useEffect(() => {
@@ -69,11 +69,6 @@ function Following() {
                       ? `/main/users/${following.id}/restaurants`
                       : `/main/users/${following.id}/subscribe`
                   }
-                  onClick={() => {
-                    setTimeout(() => {
-                      setRefresh(!refresh);
-                    }, 5);
-                  }}
                 >
                   <Avatar sx={{ width: 60, height: 60 }} />
                 </Link>

@@ -46,6 +46,7 @@ function LocationModal() {
     userLocation,
     selectedUserLocation,
     setSelectedUserLocation,
+    setSelectedUserLocationID,
   } = reviewFilterStore();
   const getRegion = useGetRegion();
   console.log(getRegion?.data);
@@ -71,9 +72,11 @@ function LocationModal() {
     key: (option) => option.id,
   };
 
-  const handleAutocompleteChange = (e) => {
+  const handleAutocompleteChange = (e, a) => {
     setSelectedUserLocation(e.target.outerText);
     console.log('로케이션', userLocation);
+    console.log('a', a);
+    setSelectedUserLocationID(a?.id);
   };
   return (
     <div className={styles.wrapper}>
@@ -95,7 +98,7 @@ function LocationModal() {
               // borderBottom: '1px solid rgba(0, 0, 0, 0.5)',
             },
             fontSize: '14px',
-            color: 'rgba(29, 177, 119)',
+            color: 'rgba(255, 255, 255)',
             // border: '1px dashed red',
           },
           '& .MuiOutlinedInput-notchedOutline': {
@@ -132,10 +135,17 @@ function LocationModal() {
           />
         )}
       />
-      {selectedUserLocation !== '' &&
-      selectedUserLocation !== null ? (
-        <div className={styles.aside}>{selectedUserLocation}</div>
-      ) : null}
+      <div className={styles.aside}>{selectedUserLocation}</div>
+
+      <button
+        type="submit"
+        onClick={() => {
+          setSelectedUserLocationID(undefined);
+          setSelectedUserLocation('');
+        }}
+      >
+        초기화
+      </button>
     </div>
   );
 }
