@@ -2,7 +2,8 @@
   /* color: black; */
   width: 7rem;
   height: 7vh;
-  margin: 4px;
+  padding: 4px;
+  padding-left: 10px;
   margin-bottom: 0px;
   display: flex;
   align-items: center;
@@ -13,7 +14,7 @@
 }
 
 .mainBox {
-  /* height: 75vh; */
+  height: 70vh;
   width: 100%;
 }
 
@@ -21,8 +22,8 @@
   display: flex;
   justify-content: flex-end;
   position: relative;
-  bottom: 250px;
-  margin-right: 120px;
+  bottom: 210px;
+  margin-right: 150px;
 }
 
 /* .custom-dots {
@@ -31,14 +32,14 @@
 } */
 
 .footer {
-  height: 17vh;
+  height: 22vh;
 }
 
 .topText {
   background-color: rgba(29, 177, 119, 0.5);
   color: white;
   width: 8rem;
-  height: 2rem;
+  height: 4vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,7 +49,7 @@
 }
 
 .topBox {
-  height: 10vh;
+  height: 15.5vh;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;

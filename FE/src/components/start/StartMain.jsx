@@ -28,21 +28,23 @@ function StartMain() {
 
   return (
     <div className={styles.mainBox}>
-      <Slider
-        // dots={settings.dots}
-        infinite={settings.infinite}
-        speed={settings.speed}
-        slidesToShow={settings.slidesToShow}
-        slidesToScroll={settings.slidesToScroll}
-        arrows={settings.arrows}
-        autoplay={settings.autoplay}
-        autoplaySpeed={settings.autoplaySpeed}
-        pauseOnHover={settings.pauseOnHover}
-      >
-        <img src={imgIntro1} alt="" />
-        <img src={imgIntro2} alt="" />
-        <img src={imgIntro3} alt="" />
-      </Slider>
+      <div>
+        <Slider
+          // dots={settings.dots}
+          infinite={settings.infinite}
+          speed={settings.speed}
+          slidesToShow={settings.slidesToShow}
+          slidesToScroll={settings.slidesToScroll}
+          arrows={settings.arrows}
+          autoplay={settings.autoplay}
+          autoplaySpeed={settings.autoplaySpeed}
+          pauseOnHover={settings.pauseOnHover}
+        >
+          <img src={imgIntro1} alt="" />
+          <img src={imgIntro2} alt="" />
+          <img src={imgIntro3} alt="" />
+        </Slider>
+      </div>
       <div className={styles.buttonBox}>
         {/* <Link to="/"> */}
         <Button
