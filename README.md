@@ -55,8 +55,8 @@
 <img src="https://img.shields.io/badge/KAKAO API-FFCD00?style=flat-square&logo=kakao&logoColor=white">
 
 # 서비스 화면
-### 로그인 (회원가입 절차 X)
-![login](gif/login.gif)
+### 로그인 + 회원가입
+![signin_up](gif/signin_up.gif)
 ### 계정 검색하기
 ![search-user](gif/search-user.gif)
 ### 계정 구독하기
