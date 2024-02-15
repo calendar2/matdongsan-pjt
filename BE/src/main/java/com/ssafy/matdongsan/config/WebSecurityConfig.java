@@ -35,16 +35,14 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/**", "/auth/**", "/oauth2/**").permitAll()
+                        .requestMatchers("/", "/auth/**", "/oauth2/**").permitAll()
                         .anyRequest().authenticated()
                 )
-//                .formLogin(AbstractHttpConfigurer::disable) todo delete
                 .oauth2Login((oauth) -> oauth
                                 .redirectionEndpoint((endpointConfig) -> endpointConfig.baseUri("/oauth2/kakao/**"))
                                 .authorizationEndpoint((endpoint) -> endpoint.baseUri("/auth/authorize"))
                                 .userInfoEndpoint((endpoint) -> endpoint.userService(oAuthUserService))
                                 .successHandler(oAuthSuccessHandler)
-//                        .authorizationEndpoint((endpoint) -> endpoint.baseUri("/oauth2/authorization/**"))
                 )
                 .exceptionHandling((ex) -> ex
                         .authenticationEntryPoint(new Http403ForbiddenEntryPoint()))

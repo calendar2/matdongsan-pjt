@@ -24,7 +24,7 @@ public class WebMvcConfig {
         config.setAllowedOrigins(List.of("http://localhost:3000", "https://i10a209.p.ssafy.io:3000"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
-//        config.setExposedHeaders(List.of("*")); todo check
+        config.setExposedHeaders(List.of("*"));
         config.setAllowCredentials(true);
         config.setMaxAge(MAX_AGE_SECS);
 
