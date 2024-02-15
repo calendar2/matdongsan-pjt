@@ -217,6 +217,13 @@ function Header() {
                         }}
                       >
                         <Avatar
+                          sx={{
+                            backgroundColor:
+                              'rgba(217, 217, 217, 0.4)',
+                            padding: '3px',
+                            border:
+                              '1px solid rgba(217, 217, 217, 0.6)',
+                          }}
                           src={`/assets/random/profile${info.picture}.png`}
                         />
                       </Link>
