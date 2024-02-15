@@ -55,4 +55,17 @@
 <img src="https://img.shields.io/badge/KAKAO API-FFCD00?style=flat-square&logo=kakao&logoColor=white">
 
 # 서비스 화면
-
+### 로그인 (회원가입 절차 X)
+![login](gif/login.gif)
+### 계정 검색하기
+![search-user](gif/search-user.gif)
+### 계정 구독하기
+![subscription](gif/subscription.gif)
+### 음식점 검색하기 + 저장하기
+![search-restaurant](gif/search-restaurant.gif)
+### 리뷰 작성하기
+![review](gif/review.gif)
+### 리뷰 검색하기
+![search-review](gif/search-review.gif)
+### 여러 계정의 저장한 음식점 + 리뷰 동시에 보기
+![comparison](gif/comparison.gif)
