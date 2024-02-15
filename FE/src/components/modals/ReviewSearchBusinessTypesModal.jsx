@@ -121,7 +121,7 @@ function StoreModal() {
         }}
         sx={{
           color: 'black',
-          backgroundColor: 'rgba(177,233,2, 0.5)',
+          backgroundColor: 'rgba(217, 217, 217, 0.4)',
         }}
       >
         초기화

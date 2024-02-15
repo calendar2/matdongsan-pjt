@@ -134,26 +134,40 @@ function RestaurantDetail() {
         </div>
         <div className={detail.category}>
           <ul>
-            {categories.map((category) => (
-              <li key={category.name}>{category.name}</li>
-            ))}
+            {categories.map((category, i) =>
+              i < categories.length - 1 ? (
+                <li key={category.name}>{category.name}|</li>
+              ) : (
+                <li key={category.name}>{category.name}</li>
+              )
+            )}
           </ul>
         </div>
         <div className={detail.thumNail}>
           <img src={thum} alt="가게 썸네일" />
         </div>
-        <div>{address}</div>
-        <div>{phone}</div>
-        <table className={detail.menu}>
-          <caption>메뉴판</caption>
-          <tbody>
-            {menuList.map((menu) => (
-              <tr key={menu}>
-                <td>{menu}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className={detail.address}>🏠 {address}</div>
+        <div className={detail.phone}>📞 {phone}</div>
+        <div className={detail.menu}>
+          <table>
+            <caption className={detail.menuTitle}>메뉴판</caption>
+            <tbody>
+              {menuList.map((menu) => (
+                <tr key={menu} className={detail.menuBody}>
+                  {/* <td>{menu}</td> */}
+                  <td>
+                    {menu &&
+                      menu?.match(/^(.*?)(\d[\d,]*)$/)[1]?.trim()}
+                  </td>
+                  <td>
+                    {menu &&
+                      menu?.match(/^(.*?)(\d[\d,]*)$/)[2]?.trim()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         {/* <div>
           <ul>
             {menuList.map((menu) => (

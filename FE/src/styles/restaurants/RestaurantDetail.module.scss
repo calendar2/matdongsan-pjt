@@ -17,8 +17,9 @@
   .category {
     ul {
       margin: 0;
+      margin-bottom: 10px;
       padding-left: 0;
-      
+
       li {
         display: inline-block;
       }
@@ -26,15 +27,43 @@
   }
 
   .thumNail {
-    width: 200px;
-    height: 200px;
+    // width: 200px;
+    // height: 200px;
 
     img {
       width: 100%;
     }
   }
 
+  .address,
+  .phone {
+    border-bottom: 1px solid rgba(217, 217, 217, 0.5);
+    width: 100%;
+    height: 40px;
+    display: flex;
+    // justify-content: flex-start;
+    align-items: center;
+    padding: 0 10px;
+  }
+
   .menu {
     margin-top: 1rem;
+    width: 100%;
+    table,
+    tbody {
+      padding: 0 20px;
+      width: 100%;
+    }
+    
+    .menuTitle {
+      padding: 0 20px;
+      font-size: 20px;
+      text-align: start;
+    }
+  }
+
+  .menuBody {
+    display: flex;
+    justify-content: space-between;
   }
 }
