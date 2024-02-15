@@ -1,13 +1,14 @@
 # 맛동산
+
 ![main](main_image.png)
 맛동산은 음식점을 방문한 후 남기는 기록을 쉽게 다시 찾아보거나 다른 사람들과 공유하기를 원하는 사용자들을 위해 탄생했습니다.
 
 맛동산과 함께 맛있는 추억을 남겨보세요!
 
 ## 주요 링크
-[메인 페이지](http://i10a209.p.ssafy.io/) </br>
-[소개 영상](https://www.youtube.com/watch?v=0PtYbQHdgZc&pp=ygUM66eb64-Z7IKwIENG) </br>
 
+[메인 페이지](http://i10a209.p.ssafy.io/) </br>
+[소개 영상](https://youtu.be/jF2EbYaSVDc?si=xOxmrc3Wdxsfr1W8) </br>
 
 # 주요 기능
 
@@ -55,17 +56,31 @@
 <img src="https://img.shields.io/badge/KAKAO API-FFCD00?style=flat-square&logo=kakao&logoColor=white">
 
 # 서비스 화면
+
 ### 로그인 + 회원가입
+
 ![signin_up](gif/signin_up.gif)
+
 ### 계정 검색하기
+
 ![search-user](gif/search-user.gif)
+
 ### 계정 구독하기
+
 ![subscription](gif/subscription.gif)
+
 ### 음식점 검색하기 + 저장하기
+
 ![search-restaurant](gif/search-restaurant.gif)
+
 ### 리뷰 작성하기
+
 ![review](gif/review.gif)
+
 ### 리뷰 검색하기
+
 ![search-review](gif/search-review.gif)
+
 ### 여러 계정의 저장한 음식점 + 리뷰 동시에 보기
+
 ![comparison](gif/comparison.gif)
