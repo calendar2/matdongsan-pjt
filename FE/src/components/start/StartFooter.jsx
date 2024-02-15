@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Avatar } from '@mui/material';
+import { Link } from 'react-router-dom';
 import styles from '../../styles/start/StartView.module.css';
 import urlStore from '../../stores/urlStore';
 
@@ -31,10 +32,12 @@ function StartFooter() {
             <div className={styles.topRank}>{index + 1}</div>
             {/* <div className={styles.topContent}> */}
             <div>
-              <Avatar
-                className={styles.topProfile}
-                src={`/assets/random/profile${account.picture}.png`}
-              />
+              <Link to={`/main/users/${account.id}/restaurants`}>
+                <Avatar
+                  className={styles.topProfile}
+                  src={`/assets/random/profile${account.picture}.png`}
+                />
+              </Link>
             </div>
             <div className={styles.topNickname}>
               {account.nickname}

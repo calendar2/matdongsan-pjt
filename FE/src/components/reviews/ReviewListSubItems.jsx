@@ -97,7 +97,8 @@ function ReviewListSubItems(props) {
                             <span key={z.nickname}>{z.nickname}</span>
                           )
                         )}
-                        {x.같이간친구.length > 0 && <span> | </span>}
+                        {x.같이간친구.length > 0 &&
+                          x.임의친구들.length > 0 && <span> | </span>}
                         {x.임의친구들?.map((y, yI) =>
                           yI < x.임의친구들.length - 1 ? (
                             <span key={y.name}>{y.name} | </span>

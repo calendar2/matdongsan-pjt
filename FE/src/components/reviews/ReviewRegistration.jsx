@@ -2,7 +2,6 @@ import TextField from '@mui/material/TextField';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import Autocomplete from '@mui/material/Autocomplete';
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -30,7 +29,6 @@ function ReviewRegistration() {
   // const [가게이름, 가게이름수정] = useState('');
   const [친절도, 친절도수정] = useState(0);
   const [맛, 맛수정] = useState(0);
-  // const [사진, 사진수정] = useState('');
   const [내용, 내용수정] = useState('');
   const [같이간친구, 같이간친구수정] = useState([]);
   const [임의친구이름, 임의친구이름수정] = useState('');
@@ -220,16 +218,6 @@ function ReviewRegistration() {
                 <img src={angel} alt="" width={100} />
               </div>
             )}
-            <hr />
-            <div>
-              <IconButton
-                onClick={() => {
-                  console.log('사진 추가 버튼을 클릭했음!');
-                }}
-              >
-                <AddPhotoAlternateIcon />
-              </IconButton>
-            </div>
             <TextField
               id="outlined-multiline-static"
               label=""

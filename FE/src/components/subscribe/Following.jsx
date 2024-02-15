@@ -4,6 +4,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import user from '../../styles/subscribe/Following.module.css';
 import dongsanStore from '../../stores/dongsanStore';
 import urlStore from '../../stores/urlStore';
@@ -19,6 +20,7 @@ function Following() {
   const { dongsanUsers, setDongsanUsers } = dongsanStore();
 
   useEffect(() => {
+    setFollowingUsers([]);
     if (isMyPage) {
       axios //
         .get(`${API_URL}/subscription/${loginAccount.id}`) // 1에서 로그인한 아이디로 수정
@@ -91,6 +93,18 @@ function Following() {
                 }}
                 className={user.addBtn}
                 onClick={() => {
+                  if (!loginAccount.id) {
+                    Swal.fire({
+                      icon: 'warning',
+                      title: '로그인이 필요합니다',
+                      confirmButtonText: '확인',
+                      confirmButtonColor: '#1db177',
+                      customClass: {
+                        confirmButton: 'custom-confirm-button',
+                      },
+                    });
+                    return;
+                  }
                   console.log('동산 추가 버튼 클릭됨');
                   const copy = [...dongsanUsers];
                   if (

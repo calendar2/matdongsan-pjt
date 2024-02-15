@@ -43,7 +43,7 @@ function Header() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const { loginAccount } = userStore();
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
@@ -97,13 +97,19 @@ function Header() {
   const userTab = () => {
     setUserOrLocation('유저');
     setSearchValue('');
-    navigate('/main/restaurants');
+    setValue(0);
+    navigate(
+      loginAccount.id !== undefined ? '/main/restaurants' : null
+    );
   };
 
   const locationTab = () => {
     setUserOrLocation('장소');
     setSearchValue('');
-    navigate('/main/restaurants');
+    setValue(0);
+    navigate(
+      loginAccount.id !== undefined ? '/main/restaurants' : null
+    );
   };
 
   const autoSearch = (e) => {
@@ -142,7 +148,10 @@ function Header() {
     <div className={header.container}>
       <div className={header.headline}>
         <Link
-          to="/main/restaurants"
+          to={
+            loginAccount.id !== undefined ? '/main/restaurants' : '/'
+            // '/main/restaurants'
+          }
           className={header}
           onClick={() => {
             setTimeout(() => {

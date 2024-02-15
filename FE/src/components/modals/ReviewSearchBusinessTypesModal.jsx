@@ -86,7 +86,7 @@ function StoreModal() {
           <TextField
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...params}
-            label="계정이 있는 친구"
+            label="업종을 선택해주세요"
             variant="standard"
             InputProps={{
               ...params.InputProps,
@@ -111,7 +111,7 @@ function StoreModal() {
       {selectedBusinessTypes !== '' &&
       selectedBusinessTypes !== null ? (
         <div className={styles.aside}>
-          {selectedBusinessTypes.join(' /')}
+          {selectedBusinessTypes.join(' | ')}
         </div>
       ) : null}
       <Button

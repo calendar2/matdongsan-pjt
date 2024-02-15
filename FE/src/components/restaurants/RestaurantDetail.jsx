@@ -1,5 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import axios from 'axios';
 import StarOutlineRoundedIcon from '@mui/icons-material/StarOutlineRounded';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
@@ -24,7 +28,7 @@ function RestaurantDetail() {
   const [menus, setMenus] = useState('');
   const [categories, setCategories] = useState([]);
   const [menuList, setMenuList] = useState([]);
-
+  const { userID } = useParams();
   const deleteMyRestaurant = useCallback(() => {
     axios({
       method: 'delete',
@@ -103,7 +107,12 @@ function RestaurantDetail() {
     <div className={content.hiddenSpace}>
       <CloseIcon
         onClick={() => {
-          navigate('/main/restaurants');
+          // 로그인한 사용자라면 바로 navigate 함수를 호출합니다.
+          navigate(
+            userID === undefined
+              ? '/main/restaurants'
+              : `/main/users/${userID}/restaurants`
+          );
         }}
         sx={{
           position: 'absolute',

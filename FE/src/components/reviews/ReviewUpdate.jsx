@@ -2,7 +2,6 @@ import TextField from '@mui/material/TextField';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import Autocomplete from '@mui/material/Autocomplete';
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -56,7 +55,11 @@ function ReviewUpdate() {
   const [임의친구들, 임의친구들수정] = useState(
     filteredReview?.임의친구들
   );
-  const [선택한계정친구들, 선택한계정친구들수정] = useState([]);
+  const [선택한계정친구들, 선택한계정친구들수정] = useState(
+    filteredReview?.같이간친구.map((x) => ({
+      id: x?.id,
+    }))
+  );
   const [방문날짜, 방문날짜수정] = useState(
     dayjs(filteredReview?.방문한날짜)
   );
@@ -192,16 +195,6 @@ function ReviewUpdate() {
               <img src={angel} alt="" width={100} />
             </div>
           )}
-          <hr />
-          <div>
-            <IconButton
-              onClick={() => {
-                console.log('사진 추가 버튼을 클릭했음!');
-              }}
-            >
-              <AddPhotoAlternateIcon />
-            </IconButton>
-          </div>
           <TextField
             id="outlined-multiline-static"
             label=""
