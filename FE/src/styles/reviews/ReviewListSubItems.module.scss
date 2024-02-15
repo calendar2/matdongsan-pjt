@@ -20,7 +20,10 @@
   .info {
     color: black;
     font-size: 10px;
-    background-color: rgba(29, 177, 119);
+    .friend {
+      border: 1px solid black;
+      border-radius: 5px;
+    }
   }
 }
 

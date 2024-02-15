@@ -48,7 +48,7 @@ function Following() {
 
   const storageAdd = (id) => {
     const storage = JSON.parse(localStorage.getItem('DONGSAN_LIST'));
-    storage.push({
+    storage?.push({
       comparedAccountId: id,
       isHidden: 0,
     });
@@ -70,7 +70,10 @@ function Following() {
                       : `/main/users/${following.id}/subscribe`
                   }
                 >
-                  <Avatar sx={{ width: 60, height: 60 }} />
+                  <Avatar
+                    sx={{ width: 60, height: 60 }}
+                    src={`/assets/random/profile${following.picture}.png`}
+                  />
                 </Link>
                 <div className={user.info}>
                   <h4>{following.nickname}</h4>

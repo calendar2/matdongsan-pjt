@@ -9,12 +9,7 @@ import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import dayjs from 'dayjs';
-import boy0 from '../../assets/images/reviews/boy0.png';
-import boy1 from '../../assets/images/reviews/boy1.png';
-import boy2 from '../../assets/images/reviews/boy2.png';
-import girl0 from '../../assets/images/reviews/girl0.png';
-import girl1 from '../../assets/images/reviews/girl1.png';
-import girl2 from '../../assets/images/reviews/girl2.png';
+
 import styles from '../../styles/reviews/ReviewDetail.module.css';
 import reviewStore from '../../stores/reviewStore';
 import urlStore from '../../stores/urlStore';
@@ -24,7 +19,6 @@ import ghost from '../../assets/images/reviews/ghost.png';
 
 function ReviewDetail() {
   const { loginAccount } = userStore();
-  const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
   const { isMyPage } = userStore();
   const { myReviewStore, refresh, setRefresh } = reviewStore();
   const { API_URL } = urlStore();
@@ -183,7 +177,7 @@ function ReviewDetail() {
           <div className={styles.asideContent} key={i}>
             <Avatar
               alt="Remy Sharp"
-              src={icons[i]}
+              src={`/assets/random/profile${x.picture}.png`}
               sx={{ backgroundColor: 'rgba(29, 177, 119, 0.3)' }}
             />
             <p className={styles.asideItem}>{x.nickname}</p>

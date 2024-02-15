@@ -136,16 +136,19 @@ function LocationModal() {
         )}
       />
       <div className={styles.aside}>{selectedUserLocation}</div>
-
-      <button
+      <Button
         type="submit"
         onClick={() => {
           setSelectedUserLocationID(undefined);
           setSelectedUserLocation('');
         }}
+        sx={{
+          color: 'black',
+          backgroundColor: 'rgba(217, 217, 217, 0.4)',
+        }}
       >
         초기화
-      </button>
+      </Button>
     </div>
   );
 }

@@ -9,12 +9,6 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import styles from '../../styles/modals/ReviewSearchTogether.module.css';
 import reviewFilterStore from '../../stores/reviewFilterStore';
-import boy0 from '../../assets/images/reviews/boy0.png';
-import boy1 from '../../assets/images/reviews/boy1.png';
-import boy2 from '../../assets/images/reviews/boy2.png';
-import girl0 from '../../assets/images/reviews/girl0.png';
-import girl1 from '../../assets/images/reviews/girl1.png';
-import girl2 from '../../assets/images/reviews/girl2.png';
 import userStore from '../../stores/userStore';
 import urlStore from '../../stores/urlStore';
 import reviewStore from '../../stores/reviewStore';
@@ -61,7 +55,6 @@ function ReviewsSearchTogether(props) {
 function TogetherModal() {
   const { userID } = useParams();
   const { loginAccount } = userStore();
-  const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
   const {
     selectedFriend,
     setSelectedFriend,
@@ -76,7 +69,12 @@ function TogetherModal() {
   const { API_URL } = urlStore();
   const handleAutocompleteChange = (event, selectedOptions) => {
     // 선택된 항목을 setSelectedFriend 함수의 인자로 전달
-    setSelectedFriend(selectedOptions.map((option) => option.title));
+    setSelectedFriend(
+      selectedOptions.map((option) => ({
+        name: option.title,
+        picture: option.picture,
+      }))
+    );
     setSelectedFriendID(selectedOptions.map((option) => option.id));
   };
   const 계정없는친구핸들러 = (event, selectedOptions) => {
@@ -96,7 +94,11 @@ function TogetherModal() {
       .then((response) => {
         console.log('팔로워 요청 성공:', response.data);
         전체친구수정(
-          response.data?.map((x) => ({ title: x.nickname, id: x.id }))
+          response.data?.map((x) => ({
+            title: x.nickname,
+            id: x.id,
+            picture: x.picture,
+          }))
         );
 
         // 성공 시 필요한 작업 수행
@@ -181,24 +183,28 @@ function TogetherModal() {
             />
           )}
         />
-        <button
+        <Button
           type="submit"
           onClick={() => {
             setSelectedFriend([]);
             setSelectedFriendID([]);
           }}
+          sx={{
+            color: 'black',
+            backgroundColor: 'rgba(217, 217, 217, 0.4)',
+          }}
         >
           초기화
-        </button>
+        </Button>
         <div>
           {selectedFriend.map((x, i) => (
             <div className={styles.content} key={selectedFriend[i]}>
               <Avatar
                 alt="Remy Sharp"
-                src={icons[i]}
+                src={`/assets/random/profile${x.picture}.png`}
                 sx={{ backgroundColor: 'rgba(29, 177, 119, 0.3)' }}
               />
-              <p className={styles.item}>{x}</p>
+              <p className={styles.item}>{x.name}</p>
               <hr />
             </div>
           ))}
@@ -263,25 +269,24 @@ function TogetherModal() {
         <div>
           {계정없는친구선택.map((x, i) => (
             <div className={styles.content} key={계정없는친구선택[i]}>
-              <Avatar
-                alt="Remy Sharp"
-                src={icons[i]}
-                sx={{ backgroundColor: 'rgba(29, 177, 119, 0.3)' }}
-              />
               <p className={styles.item}>{x}</p>
               <hr />
             </div>
           ))}
         </div>
-        <button
+        <Button
           type="submit"
           onClick={() => {
             계정없는친구선택수정([]);
             계정없는친구ID선택수정([]);
           }}
+          sx={{
+            color: 'black',
+            backgroundColor: 'rgba(217, 217, 217, 0.4)',
+          }}
         >
           초기화
-        </button>
+        </Button>
       </div>
     </div>
   );

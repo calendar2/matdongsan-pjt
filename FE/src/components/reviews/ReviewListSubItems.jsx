@@ -65,7 +65,10 @@ function ReviewListSubItems(props) {
                 }}
               >
                 <ListItemAvatar>
-                  <Avatar alt="사진" src={x.사진} />
+                  <Avatar
+                    alt="사진"
+                    src={`/assets/random/profile${x.같이간친구[0]?.picture}.png`}
+                  />
                 </ListItemAvatar>
                 <ListItemText
                   primary={null}
@@ -82,9 +85,26 @@ function ReviewListSubItems(props) {
                         </span>
                       </span>
                       <span className={styles.info}>
-                        {x.임의친구들?.map((y) => (
-                          <div key={y.name}>{y.name}</div>
-                        ))}
+                        {x.같이간친구?.map((z, zI) =>
+                          zI < x.같이간친구.length - 1 ? (
+                            <span key={z.nickname}>
+                              {z.nickname}
+                              <span style={{ margin: '0 2px' }}>
+                                |
+                              </span>
+                            </span>
+                          ) : (
+                            <span key={z.nickname}>{z.nickname}</span>
+                          )
+                        )}
+                        {x.같이간친구.length > 0 && <span> | </span>}
+                        {x.임의친구들?.map((y, yI) =>
+                          yI < x.임의친구들.length - 1 ? (
+                            <span key={y.name}>{y.name} | </span>
+                          ) : (
+                            <span key={y.name}>{y.name}</span>
+                          )
+                        )}
                       </span>
                     </Typography>
                   }

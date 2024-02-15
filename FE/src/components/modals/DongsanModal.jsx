@@ -118,6 +118,7 @@ function DongsanModal() {
     storage.splice(index, 1);
     localStorage.setItem('DONGSAN_LIST', JSON.stringify(storage));
   };
+  console.log(dongsanUsers, '현재 동산 상태');
 
   return (
     <div>
@@ -162,6 +163,7 @@ function DongsanModal() {
                 {
                   id: loginAccount.id,
                   nickname: loginAccount.nickname,
+                  picture: loginAccount.picture,
                   filter: true,
                 }, // 로그인 기능 구현 되면 로그인 유저의 nickname, followers, id 가져오기
               ]);
@@ -190,7 +192,11 @@ function DongsanModal() {
                 )}
 
                 <img
-                  src={dongsanUser.picture}
+                  src={
+                    index === 0
+                      ? `/assets/random/profile${loginAccount.picture}.png`
+                      : `/assets/random/profile${dongsanUser.picture}.png`
+                  }
                   alt="유저 아바타"
                   className={dongsan.avatar}
                 />
@@ -205,8 +211,8 @@ function DongsanModal() {
                   color={index !== 0 ? 'error' : 'success'}
                   className={dongsan.cancel}
                   onClick={() => {
+                    console.log(dongsanUsers, '현재동산상태');
                     const copy = [...dongsanUsers];
-
                     if (index === 0) {
                       console.log('자기자신은 삭제할 수 없습니다.');
                     } else {

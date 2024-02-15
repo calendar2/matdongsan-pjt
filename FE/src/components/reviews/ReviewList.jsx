@@ -66,6 +66,13 @@ function ReviewsList() {
     selectedUserLocationID,
     계정없는친구ID선택,
     searchKeyWord,
+    setSelectedFriendID,
+    setSelectedStartDate,
+    setSelectedEndDate,
+    setSelectedBusinessTypes,
+    setSelectedUserLocationID,
+    계정없는친구ID선택수정,
+    setSearchKeyWord,
   } = reviewFilterStore();
   const [reviewListSortButton1, setReviewListSortButton1] =
     useState(true);
@@ -196,7 +203,7 @@ function ReviewsList() {
             맛: review.tasteRating,
             업종: filteredRestaurant ? filteredRestaurant.업종 : '', // 일치하는 음식점에서 업종 가져오기
             내용: review.content,
-            사진: '사진',
+            사진: filteredRestaurant?.thumUrl,
             같이간친구: review.accountReviews,
             임의친구들: review.reviewPersonTags,
             방문한날짜: review.visitDate,
@@ -278,6 +285,15 @@ function ReviewsList() {
           <IconButton
             onClick={() => {
               setRefresh(!refresh);
+              setSelectedFriendID([]);
+              setSelectedStartDate(
+                dayjs(dayjs('2024-01-01').format('YYYY-MM-DD'))
+              );
+              setSelectedEndDate(dayjs(dayjs().format('YYYY-MM-DD')));
+              setSelectedBusinessTypes([]);
+              setSelectedUserLocationID(undefined);
+              계정없는친구ID선택수정([]);
+              setSearchKeyWord('');
             }}
           >
             <RefreshIcon />

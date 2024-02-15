@@ -75,7 +75,10 @@ function ProfileModal() {
         aria-haspopup="true"
         aria-expanded={profileOpen ? 'true' : undefined}
       >
-        <Avatar sx={{ width: 32, height: 32 }} />
+        <Avatar
+          sx={{ width: 32, height: 32 }}
+          src={`/assets/random/profile${loginAccount.picture}.png`}
+        />
       </IconButton>
       <Menu
         anchorEl={anchorElProfile}
@@ -123,7 +126,10 @@ function ProfileModal() {
           style={{ color: 'black', textDecoration: 'none' }}
         >
           <MenuItem onClick={profileClose}>
-            <Avatar /> 회원정보 수정
+            <Avatar
+              src={`/assets/random/profile${loginAccount.picture}.png`}
+            />{' '}
+            회원정보 수정
           </MenuItem>
         </Link>
         <Divider />

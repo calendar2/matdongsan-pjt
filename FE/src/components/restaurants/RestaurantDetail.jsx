@@ -95,7 +95,7 @@ function RestaurantDetail() {
   }, [location]);
 
   useEffect(() => {
-    setMenuList(menus.split(' | '));
+    setMenuList(menus?.split(' | '));
     console.log(menuList);
   }, [menus]);
 
@@ -152,7 +152,7 @@ function RestaurantDetail() {
           <table>
             <caption className={detail.menuTitle}>메뉴판</caption>
             <tbody>
-              {menuList.map((menu) => (
+              {menuList?.map((menu) => (
                 <tr key={menu} className={detail.menuBody}>
                   {/* <td>{menu}</td> */}
                   <td>

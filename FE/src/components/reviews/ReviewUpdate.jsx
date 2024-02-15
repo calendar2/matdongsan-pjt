@@ -21,12 +21,7 @@ import reviewStore from '../../stores/reviewStore';
 import styles from '../../styles/reviews/ReviewRegistration.module.css';
 import content from '../../styles/foodmap/FoodMapView.module.css';
 import ReviewUpdateFriendAdd from '../modals/ReviewUpdateFriendTagModal';
-import boy0 from '../../assets/images/reviews/boy0.png';
-import boy1 from '../../assets/images/reviews/boy1.png';
-import boy2 from '../../assets/images/reviews/boy2.png';
-import girl0 from '../../assets/images/reviews/girl0.png';
-import girl1 from '../../assets/images/reviews/girl1.png';
-import girl2 from '../../assets/images/reviews/girl2.png';
+
 import urlStore from '../../stores/urlStore';
 import userStore from '../../stores/userStore';
 import angel from '../../assets/images/reviews/angel.png';
@@ -46,7 +41,10 @@ function ReviewUpdate() {
   // const [사진] = useState(filteredReview.사진);
   const [내용, 내용수정] = useState(filteredReview?.내용);
   const [같이간친구, 같이간친구수정] = useState(
-    filteredReview?.같이간친구.map((x) => x.nickname) // 나중에 x.nickname으로 수정해야함
+    filteredReview?.같이간친구.map((x) => ({
+      name: x?.nickname,
+      picture: x?.picture,
+    })) // 객체를 명시적으로 반환
   );
   console.log(같이간친구, '진짜 같이간 친구임');
   console.log(filteredReview, '진짜 같이간 친구임');
@@ -62,7 +60,6 @@ function ReviewUpdate() {
   const [방문날짜, 방문날짜수정] = useState(
     dayjs(filteredReview?.방문한날짜)
   );
-  const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
   const [전체친구, 전체친구수정] = useState([]);
   useEffect(() => {
     axios //
@@ -73,6 +70,7 @@ function ReviewUpdate() {
           response.data?.map((x) => ({
             title: x.nickname,
             id: x.id,
+            picture: x.picture,
           }))
         );
         // 성공 시 필요한 작업 수행
@@ -85,7 +83,12 @@ function ReviewUpdate() {
   const [클릭버튼, 클릭버튼수정] = useState(false);
   const handleAutocompleteChange = (event, selectedOptions) => {
     // 선택된 항목을 setSelectedFriend 함수의 인자로 전달
-    같이간친구수정(selectedOptions.map((option) => option.title));
+    같이간친구수정(
+      selectedOptions?.map((option) => ({
+        name: option.title,
+        picture: option.picture,
+      }))
+    );
     선택한계정친구들수정(
       selectedOptions?.map((option) => ({
         id: option.id,
@@ -291,12 +294,12 @@ function ReviewUpdate() {
               <div className={styles.content} key={i}>
                 <Avatar
                   alt="Remy Sharp"
-                  src={icons[i]}
+                  src={`/assets/random/profile${x.picture}.png`}
                   sx={{
                     backgroundColor: 'rgba(29, 177, 119, 0.3)',
                   }}
                 />
-                <p className={styles.item}>{x}</p>
+                <p className={styles.item}>{x.name}</p>
                 <hr />
               </div>
             ))}

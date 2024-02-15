@@ -21,18 +21,11 @@ import reviewStore from '../../stores/reviewStore';
 import styles from '../../styles/reviews/ReviewRegistration.module.css';
 import content from '../../styles/foodmap/FoodMapView.module.css';
 import ReviewRegistrationFriendTagModal from '../modals/ReviewRegistrationFriendTagModal';
-import boy0 from '../../assets/images/reviews/boy0.png';
-import boy1 from '../../assets/images/reviews/boy1.png';
-import boy2 from '../../assets/images/reviews/boy2.png';
-import girl0 from '../../assets/images/reviews/girl0.png';
-import girl1 from '../../assets/images/reviews/girl1.png';
-import girl2 from '../../assets/images/reviews/girl2.png';
 import urlStore from '../../stores/urlStore';
 import userStore from '../../stores/userStore';
 import angel from '../../assets/images/reviews/angel.png';
 
 function ReviewRegistration() {
-  const icons = [boy0, boy1, boy2, girl0, girl1, girl2];
   const { loginAccount } = userStore();
   // const [가게이름, 가게이름수정] = useState('');
   const [친절도, 친절도수정] = useState(0);
@@ -74,7 +67,13 @@ function ReviewRegistration() {
   const navigate = useNavigate();
   const handleAutocompleteChange = (event, selectedOptions) => {
     // 선택된 항목을 setSelectedFriend 함수의 인자로 전달
-    같이간친구수정(selectedOptions?.map((option) => option.title));
+    console.log(selectedOptions);
+    같이간친구수정(
+      selectedOptions?.map((option) => ({
+        name: option.title,
+        picture: option.picture,
+      }))
+    );
     선택한계정친구들수정(
       selectedOptions?.map((option) => ({
         id: option.id,
@@ -99,6 +98,7 @@ function ReviewRegistration() {
           response.data?.map((x) => ({
             title: x.nickname,
             id: x.id,
+            picture: x.picture,
           }))
         );
         // 성공 시 필요한 작업 수행
@@ -318,16 +318,16 @@ function ReviewRegistration() {
               <img src="" alt="" />
             </div>
             <div>
-              {같이간친구.map((x, i) => (
+              {같이간친구.map((x) => (
                 <div className={styles.content}>
                   <Avatar
                     alt="Remy Sharp"
-                    src={icons[i]}
+                    src={`/assets/random/profile${x.picture}.png`}
                     sx={{
                       backgroundColor: 'rgba(29, 177, 119, 0.3)',
                     }}
                   />
-                  <p className={styles.item}>{x.title}</p>
+                  <p className={styles.item}>{x.name}</p>
                   <hr />
                 </div>
               ))}

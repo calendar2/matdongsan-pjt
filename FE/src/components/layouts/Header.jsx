@@ -204,7 +204,9 @@ function Header() {
                           }, 50);
                         }}
                       >
-                        <Avatar />
+                        <Avatar
+                          src={`/assets/random/profile${info.picture}.png`}
+                        />
                       </Link>
                       <div className={header.userResultInfo}>
                         <Link
