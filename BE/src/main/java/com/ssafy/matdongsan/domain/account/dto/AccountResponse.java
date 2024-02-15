@@ -28,7 +28,7 @@ public class AccountResponse {
     private int follower;
     private char gender;
     private boolean isPassed;
-    private Integer picture;
+    private String picture;
     private List<FoodCategoryResponse> bannedFoodCategories;
     private List<RegionFindAllDto> regions;
 
