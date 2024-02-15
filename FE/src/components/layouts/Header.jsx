@@ -21,9 +21,11 @@ import urlStore from '../../stores/urlStore';
 import UserRankingModal from '../modals/UserRankingModal';
 import reviewStore from '../../stores/reviewStore';
 import globalFilterStore from '../../stores/globalFilterStore';
+import dongsanStore from '../../stores/dongsanStore';
 
 function Header() {
   const { API_URL } = urlStore();
+  const { setShowRefreshBtn } = dongsanStore();
   const [userOrLocation, setUserOrLocation] = useState('장소');
   const url = `${API_URL}/account/rank`;
   const [accountRank, setAccountRank] = useState([]);
@@ -77,6 +79,7 @@ function Header() {
   const searchBtnClick = () => {
     if (userOrLocation === '장소') {
       setLocationFilterData([]);
+      setShowRefreshBtn(true);
       navigate({
         // pathname: location.pathname,
         pathname: '/main/restaurants',

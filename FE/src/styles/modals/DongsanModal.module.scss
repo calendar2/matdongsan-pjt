@@ -25,6 +25,22 @@ $secondary-color: #b2b2b2;
     justify-content: space-between;
     align-items: center;
 
+    .refreshBtn {
+      &:hover {
+        cursor: pointer;
+      }
+
+      .tooltip {
+        position: absolute;
+        background-color: #333; /* 검은 배경색 */
+        color: #fff; /* 흰 글자색 */
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+      }      
+    }
+
     span {
       color: $primary-color;
     }

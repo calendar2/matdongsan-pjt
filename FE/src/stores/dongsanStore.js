@@ -13,6 +13,8 @@ const dongsanStore = create((set) => ({
       return { dongsanUsers: updatedUsers };
     }),
   setDongsanUsers: (value) => set({ dongsanUsers: value }),
+  showRefreshBtn: false,
+  setShowRefreshBtn: (value) => set({ showRefreshBtn: value }),
 }));
 
 export default dongsanStore;

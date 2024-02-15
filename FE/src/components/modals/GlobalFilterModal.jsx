@@ -13,6 +13,7 @@ import LocationSelect from '../select/LocationSelect';
 import globalFilter from '../../styles/modals/GlobalFilter.module.css';
 import globalFilterStore from '../../stores/globalFilterStore';
 import urlStore from '../../stores/urlStore';
+import dongsanStore from '../../stores/dongsanStore';
 
 function GlobalFilterModal() {
   // 필터 클릭
@@ -27,6 +28,7 @@ function GlobalFilterModal() {
     setSearchValue,
   } = globalFilterStore();
   const { API_URL } = urlStore();
+  const { setShowRefreshBtn } = dongsanStore();
   const navigate = useNavigate();
 
   const filterClick = (event) => {
@@ -43,6 +45,7 @@ function GlobalFilterModal() {
   };
 
   const filterBtnClick = () => {
+    setShowRefreshBtn(true);
     if (currentFilter === '장소' && location) {
       console.log('별점 높은순 1', rankSort);
       console.log('선택된 메뉴', choisedMenu);
@@ -67,6 +70,7 @@ function GlobalFilterModal() {
         .then((res) => {
           console.log('장소 필터 검색!', res);
           setLocationFilterData(res.data);
+          filterClose();
         })
         .catch((err) => {
           console.error('장소 필터 검색ㅠㅠ', err);

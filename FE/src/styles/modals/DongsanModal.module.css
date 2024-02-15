@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .box, .staticBox {
   position: absolute;
   bottom: 1.2rem;
@@ -20,6 +21,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.box .title .refreshBtn:hover, .staticBox .title .refreshBtn:hover {
+  cursor: pointer;
+}
+.box .title .refreshBtn .tooltip, .staticBox .title .refreshBtn .tooltip {
+  position: absolute;
+  background-color: #333; /* 검은 배경색 */
+  color: #fff; /* 흰 글자색 */
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
 }
 .box .title span, .staticBox .title span {
   color: #1db177;

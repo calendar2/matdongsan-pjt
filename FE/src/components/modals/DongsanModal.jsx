@@ -6,6 +6,7 @@ import DoDisturbOnOutlinedIcon from '@mui/icons-material/DoDisturbOnOutlined';
 // import Avatar from '@mui/material/Avatar';
 import axios from 'axios';
 import CloseIcon from '@mui/icons-material/Close';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import dongsan from '../../styles/modals/DongsanModal.module.css';
 import dongsanStore from '../../stores/dongsanStore';
 import urlStore from '../../stores/urlStore';
@@ -13,8 +14,13 @@ import userStore from '../../stores/userStore';
 
 function DongsanModal() {
   const location = useLocation();
-  const { dongsanUsers, setDongsanUsers, toggleDongsanUsersFilter } =
-    dongsanStore();
+  const {
+    dongsanUsers,
+    setDongsanUsers,
+    toggleDongsanUsersFilter,
+    showRefreshBtn,
+    setShowRefreshBtn,
+  } = dongsanStore();
   const { API_URL } = urlStore();
   const { loginAccount } = userStore();
   const [spicyLevel, setSpicyLevel] = useState(0);
@@ -22,6 +28,7 @@ function DongsanModal() {
   const [spicyWord, setSpicyWord] = useState('');
   const [isHidden, setIsHidden] = useState(false);
   const [bannedFood, setBannedFood] = useState('');
+  const [showTooltip, setShowTooltip] = useState(false);
 
   const dongsanStatic = () => {
     console.log('동산 상태 분석!', dongsanUsers);
@@ -120,6 +127,12 @@ function DongsanModal() {
   };
   console.log(dongsanUsers, '현재 동산 상태');
 
+  const refreshBtnClick = () => {
+    setShowRefreshBtn(false);
+    const temp = [...dongsanUsers];
+    setDongsanUsers(temp);
+  };
+
   return (
     <div>
       {isHidden ? (
@@ -146,6 +159,20 @@ function DongsanModal() {
       )}
       <div className={dongsan.box}>
         <div className={dongsan.title}>
+          {showRefreshBtn && (
+            <div
+              className={dongsan.refreshBtn}
+              onMouseEnter={() => setShowTooltip(true)}
+              onMouseLeave={() => setShowTooltip(false)}
+            >
+              <RefreshIcon onClick={() => refreshBtnClick()} />
+              {showTooltip && (
+                <div className={dongsan.tooltip}>
+                  동산 유저의 맛집으로 돌아가고 싶으면 클릭하세요
+                </div>
+              )}
+            </div>
+          )}
           <span>동산</span>
           <button
             type="button"
