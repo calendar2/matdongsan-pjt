@@ -171,13 +171,6 @@ function RestaurantDetail() {
             </tbody>
           </table>
         </div>
-        {/* <div>
-          <ul>
-            {menuList.map((menu) => (
-              <li key={menu}>{menu}</li>
-            ))}
-          </ul>
-        </div> */}
       </div>
     </div>
   );

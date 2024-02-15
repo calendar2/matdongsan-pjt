@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useLocation, useNavigate } from 'react-router-dom';
+// import VisibilityIcon from '@mui/icons-material/Visibility';
+// import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import DoDisturbOnOutlinedIcon from '@mui/icons-material/DoDisturbOnOutlined';
 // import Avatar from '@mui/material/Avatar';
 import axios from 'axios';
@@ -11,13 +11,15 @@ import dongsan from '../../styles/modals/DongsanModal.module.css';
 import dongsanStore from '../../stores/dongsanStore';
 import urlStore from '../../stores/urlStore';
 import userStore from '../../stores/userStore';
+import globalFilterStore from '../../stores/globalFilterStore';
 
 function DongsanModal() {
   const location = useLocation();
+  const navigate = useNavigate();
   const {
     dongsanUsers,
     setDongsanUsers,
-    toggleDongsanUsersFilter,
+    // toggleDongsanUsersFilter,
     showRefreshBtn,
     setShowRefreshBtn,
   } = dongsanStore();
@@ -29,6 +31,8 @@ function DongsanModal() {
   const [isHidden, setIsHidden] = useState(false);
   const [bannedFood, setBannedFood] = useState('');
   const [showTooltip, setShowTooltip] = useState(false);
+  const { setSearchValue, setLocationFilterData } =
+    globalFilterStore();
 
   const dongsanStatic = () => {
     console.log('동산 상태 분석!', dongsanUsers);
@@ -126,9 +130,13 @@ function DongsanModal() {
     localStorage.setItem('DONGSAN_LIST', JSON.stringify(storage));
   };
   console.log(dongsanUsers, '현재 동산 상태');
+  console.log('showTooltip 상태', showTooltip);
 
   const refreshBtnClick = () => {
     setShowRefreshBtn(false);
+    setSearchValue('');
+    setLocationFilterData([]);
+    navigate('/main/restaurants');
     const temp = [...dongsanUsers];
     setDongsanUsers(temp);
   };
@@ -213,7 +221,7 @@ function DongsanModal() {
           {dongsanUsers.map((dongsanUser, index) => (
             <div key={dongsanUser.nickname}>
               <div className={dongsan.profile}>
-                {dongsanUser.filter ? (
+                {/* {dongsanUser.filter ? (
                   <VisibilityIcon
                     onClick={() => {
                       toggleDongsanUsersFilter(index);
@@ -225,7 +233,7 @@ function DongsanModal() {
                       toggleDongsanUsersFilter(index);
                     }}
                   />
-                )}
+                )} */}
 
                 <img
                   src={
@@ -242,7 +250,7 @@ function DongsanModal() {
                   className={dongsan.avatar}
                 /> */}
                 <span>{dongsanUser.nickname}</span>
-                <div className={dongsan.colorCheck} />
+                {/* <div className={dongsan.colorCheck} /> */}
                 <DoDisturbOnOutlinedIcon
                   color={index !== 0 ? 'error' : 'success'}
                   className={dongsan.cancel}

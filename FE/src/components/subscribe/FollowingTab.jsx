@@ -13,10 +13,10 @@ function FollowingTab() {
     setFollowChoice(false);
   };
 
-  const followClick = () => {
-    setFollowingChoice(false);
-    setFollowChoice(true);
-  };
+  // const followClick = () => {
+  //   setFollowingChoice(false);
+  //   setFollowChoice(true);
+  // };
 
   return (
     <div className={tab.wrapper}>
@@ -29,7 +29,7 @@ function FollowingTab() {
           )}
           &nbsp;&nbsp;팔로잉
         </Link>
-        &nbsp;&nbsp;&nbsp;&nbsp;
+        {/* &nbsp;&nbsp;&nbsp;&nbsp;
         <Link to="followers" onClick={followClick}>
           {followChoice && !followingChoice ? (
             <FavoriteIcon sx={{ fontSize: 15 }} />
@@ -37,7 +37,7 @@ function FollowingTab() {
             <FavoriteBorderIcon sx={{ fontSize: 15 }} />
           )}
           &nbsp;&nbsp;팔로워
-        </Link>
+        </Link> */}
       </div>
       <div className={tab.info}>
         <p>* 동산에 담기</p>

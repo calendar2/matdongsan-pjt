@@ -11,7 +11,7 @@ import { Button, IconButton } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import GlobalFilterModal from '../modals/GlobalFilterModal';
-import NotiModal from '../modals/NotiModal';
+// import NotiModal from '../modals/NotiModal';
 import ProfileModal from '../modals/ProfileModal';
 import LoginModal from '../modals/LoginModal';
 import userStore from '../../stores/userStore';
@@ -297,9 +297,9 @@ function Header() {
                   <HomeIcon fontSize="large" color="disabled" />
                 </IconButton>
               )}
-              <li>
+              {/* <li>
                 <NotiModal />
-              </li>
+              </li> */}
               <li>
                 <ProfileModal />
               </li>
