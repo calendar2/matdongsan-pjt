@@ -17,7 +17,7 @@ import urlStore from '../../stores/urlStore';
 function GlobalFilterModal() {
   // 필터 클릭
   const [anchorElFilter, setAnchorElFilter] = useState(null);
-  const [currentFilter, setCurrentFilter] = useState('유저');
+  const [currentFilter, setCurrentFilter] = useState('장소');
   const filterOpen = Boolean(anchorElFilter);
   const {
     rankSort,
@@ -136,13 +136,13 @@ function GlobalFilterModal() {
         ) : (
           <div className={globalFilter.modalContainer}>
             <div className={globalFilter.btnContainer}>
-              <button
+              {/* <button
                 type="button"
                 className={globalFilter.unactiveBtn}
                 onClick={userTab}
               >
                 유저
-              </button>
+              </button> */}
               <button
                 type="button"
                 className={globalFilter.activeBtn}

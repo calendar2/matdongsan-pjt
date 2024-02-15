@@ -24,7 +24,7 @@ import globalFilterStore from '../../stores/globalFilterStore';
 
 function Header() {
   const { API_URL } = urlStore();
-  const [userOrLocation, setUserOrLocation] = useState('유저');
+  const [userOrLocation, setUserOrLocation] = useState('장소');
   const url = `${API_URL}/account/rank`;
   const [accountRank, setAccountRank] = useState([]);
   const { accessToken, setLoginModalOpen } = userStore();
@@ -242,21 +242,21 @@ function Header() {
               <div className={header.none} />
             )}
           </div>
-          {userOrLocation === '유저' ? (
+          {userOrLocation === '장소' ? (
             <div className={header.btnContainer}>
               <button
                 type="button"
                 className={header.activeBtn}
-                onClick={userTab}
+                onClick={locationTab}
               >
-                유저
+                장소
               </button>
               <button
                 type="button"
                 className={header.unactiveBtn}
-                onClick={locationTab}
+                onClick={userTab}
               >
-                장소
+                유저
               </button>
             </div>
           ) : (
@@ -264,16 +264,16 @@ function Header() {
               <button
                 type="button"
                 className={header.unactiveBtn}
-                onClick={userTab}
+                onClick={locationTab}
               >
-                유저
+                장소
               </button>
               <button
                 type="button"
                 className={header.activeBtn}
-                onClick={locationTab}
+                onClick={userTab}
               >
-                장소
+                유저
               </button>
             </div>
           )}

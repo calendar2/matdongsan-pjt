@@ -33,7 +33,7 @@ $secondary-color: #b2b2b2;
   .imgStyle {
     margin: 0px;
     padding: 0px;
-    border: 1px solid black;
+    // border: 1px solid black;
     display: block;
     max-width: none;
     max-height: none;
@@ -42,8 +42,8 @@ $secondary-color: #b2b2b2;
     width: 30px;
     height: 30px;
     left: 7px;
-    top: 7px;
-    border-radius: 30px;
+    top: 5px;
+    // border-radius: 30px;
     // transform: rotate(-45deg);
   }
 

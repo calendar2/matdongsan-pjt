@@ -123,7 +123,7 @@ function FoodMap() {
                   console.log('유저 정보', mapDatas.userIds[i]);
                   const markerContent = `
                       <div class=${markerStyle.wrapper}>
-                        <img src=${mapDatas.userIds[i].picture} alt="프로필 사진" class=${markerStyle.imgStyle}>
+                        <img src=/assets/random/profile${mapDatas.userIds[i].picture}.png alt="프로필 사진" class=${markerStyle.imgStyle}>
                         <div class=${markerStyle.restaurantInfo}>${mapDatas.restaurantLists[i][j].name}</div>
                       </div>
                     `;

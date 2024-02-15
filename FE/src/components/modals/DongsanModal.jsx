@@ -15,7 +15,7 @@ function DongsanModal() {
   const location = useLocation();
   const { dongsanUsers, setDongsanUsers, toggleDongsanUsersFilter } =
     dongsanStore();
-  const { KAKAO_URL, API_URL } = urlStore();
+  const { API_URL } = urlStore();
   const { loginAccount } = userStore();
   const [spicyLevel, setSpicyLevel] = useState(0);
   const [bannedFoodList, setBannedFoodList] = useState([]);
@@ -35,7 +35,7 @@ function DongsanModal() {
 
     axios({
       method: 'post',
-      url: `${KAKAO_URL}/comparison/statistics/${loginAccount.id}`,
+      url: `${API_URL}/comparison/statistics/${loginAccount.id}`,
       data: {
         comparedAccountIds,
       },
