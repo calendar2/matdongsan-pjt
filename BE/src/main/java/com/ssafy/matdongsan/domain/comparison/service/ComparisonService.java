@@ -24,18 +24,20 @@ public class ComparisonService {
     public ComparisonStatisticsResponseDto createStatistics(ComparisonStatisticsRequestDto requestDto) {
         List<Integer> comparedAccountIds = requestDto.getComparedAccountIds();
 
-        Integer spicyLevelSum = 0;
+        Integer spicyLevelSum = 3;
         List<String> allBannedFoods = new ArrayList<>();
         for(Integer accountId: comparedAccountIds){
             Account account = accountRepository.findById(accountId).orElseThrow();
             byte spicyLevel = account.getSpicyLevel();
-            spicyLevelSum += spicyLevel;
+
+            spicyLevelSum = Math.min(spicyLevelSum,spicyLevel);
+
             List<String> bannedFoods = account.getBannedFoodCategories().stream().map(
                    foodCategory -> foodCategory.getName()
             ).toList();
             allBannedFoods.addAll(bannedFoods);
         }
-        Integer averageSpicyLevel = spicyLevelSum / comparedAccountIds.size();
+        Integer averageSpicyLevel = spicyLevelSum;
 
         allBannedFoods = allBannedFoods.stream().distinct().toList();
 
