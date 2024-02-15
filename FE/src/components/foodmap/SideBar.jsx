@@ -34,10 +34,12 @@ function SideBar() {
                   src={MyDongsanIconOn}
                   alt="My동산 아이콘"
                   width={35}
+                  style={{ position: 'relative', top: '5px' }}
                 />
                 <div
                   style={{
                     color: 'white',
+                    fontSize: '14px',
                   }}
                 >
                   My동산
@@ -57,9 +59,19 @@ function SideBar() {
                     <img
                       src={FollowerIconOff}
                       alt="My동산 아이콘"
-                      width={35}
+                      width={30}
+                      style={{ position: 'relative', top: '10px' }}
                     />
-                    <div style={{ color: '#555558' }}>팔로워</div>
+                    <div
+                      style={{
+                        color: '#555558',
+                        fontSize: '14px',
+                        position: 'relative',
+                        bottom: '-4px',
+                      }}
+                    >
+                      팔로워
+                    </div>
                   </div>
                 </Link>
               </div>
@@ -81,8 +93,11 @@ function SideBar() {
                   src={MyDongsanIconOff}
                   alt="My동산 아이콘"
                   width={35}
+                  style={{ position: 'relative', top: '5px' }}
                 />
-                <div style={{ color: '#555558' }}>My동산</div>
+                <div style={{ color: '#555558', fontSize: '14px' }}>
+                  My동산
+                </div>
               </Link>
             </div>
             <div>
@@ -98,11 +113,15 @@ function SideBar() {
                     <img
                       src={FollowerIconOn}
                       alt="My동산 아이콘"
-                      width={35}
+                      width={30}
+                      style={{ position: 'relative', top: '10px' }}
                     />
                     <div
                       style={{
                         color: 'white',
+                        fontSize: '14px',
+                        position: 'relative',
+                        bottom: '-4px',
                       }}
                     >
                       팔로워

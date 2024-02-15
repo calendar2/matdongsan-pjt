@@ -97,7 +97,7 @@ function GlobalFilterModal() {
             pathname: '/main/restaurants',
           });
         }}
-        fontSize="large"
+        fontSize="medium"
         color="disabled"
       />
       <Menu

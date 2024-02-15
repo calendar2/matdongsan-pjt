@@ -1,5 +1,5 @@
 .wrapper {
-  height: calc(100vh - 245px);
+  height: calc(100vh - 231px);
   overflow-y: auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

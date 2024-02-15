@@ -1,4 +1,4 @@
-$primary-color: #1db177;
+$primary-color: rgba(29, 177, 119, 0.8);
 $secondary-color: #b2b2b2;
 
 .wrapper {
@@ -11,7 +11,8 @@ $secondary-color: #b2b2b2;
   user-select: none;
   position: absolute;
   // width: auto;
-  height: 30px;
+  font-size: 14px;
+  height: 20px;
   left: 0px;
   top: 0px;
   // border-radius: 50% 50% 0 50%;

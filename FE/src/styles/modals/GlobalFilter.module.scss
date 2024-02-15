@@ -1,5 +1,6 @@
-$primary-color: #1DB177;
-$secondary-color: #b2b2b2;
+$primary-color: rgba(29, 177, 119, 0.5);
+$secondary-color: rgba(217, 217, 217, 0.7);
+
 
 .filterBtn:hover {
   cursor: pointer;
@@ -14,15 +15,19 @@ $secondary-color: #b2b2b2;
   }
 
   .activeBtn {
+    font-family: 'KoPubWorld-Dotum-Medium';
     background-color: $primary-color;
     color: white;
     border: none;
     padding: 0.5rem 1rem;
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: 0.9rem;
+    // font-weight: bold;
+    border-radius: 50px;
     &:hover {
       cursor: pointer;
+      opacity: 0.8;
     }
+    margin-right: 4px;
   }
 
   .unactiveBtn {

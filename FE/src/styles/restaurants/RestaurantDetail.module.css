@@ -7,14 +7,21 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: auto;
+  margin: 2px;
+  margin-top: 16px;
+  padding: 0 12px;
+  border-bottom: 2px solid rgba(217, 217, 217, 0.5);
+}
+.container .storeName {
+  margin-right: 4px;
+  font-size: 20px;
+  font-weight: bold;
 }
 .container .btn:hover {
   cursor: pointer;
 }
 .container .category ul {
-  margin: 0;
-  margin-bottom: 10px;
+  margin: 5px;
   padding-left: 0;
 }
 .container .category ul li {
@@ -30,10 +37,11 @@
   height: 40px;
   display: flex;
   align-items: center;
-  padding: 0 10px;
+  padding-left: 40px;
 }
 .container .menu {
   margin-top: 1rem;
+  margin-bottom: 10px;
   width: 100%;
 }
 .container .menu table,
@@ -43,10 +51,13 @@
 }
 .container .menu .menuTitle {
   padding: 0 20px;
-  font-size: 20px;
+  padding-bottom: 4px;
+  font-size: 18px;
   text-align: start;
 }
 .container .menuBody {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 2px;
+  font-size: 14px;
 }/*# sourceMappingURL=RestaurantDetail.module.css.map */

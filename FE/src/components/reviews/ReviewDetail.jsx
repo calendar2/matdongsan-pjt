@@ -142,14 +142,16 @@ function ReviewDetail() {
           <TextField
             readOnly
             value={filteredReview?.내용}
+            multiline
             color="success"
             underline="none"
             InputProps={{
               sx: {
                 width: '20vw',
-                height: '20vh', // 원하는 높이로 설정합니다.
+                height: 'auto', // 원하는 높이로 설정합니다.
                 display: 'flex', // 내용을 위에서부터 배치하기 위해 flex를 사용합니다.
                 alignItems: 'flex-start', // 내용을 위쪽으로 정렬합니다.
+                overflowWrap: 'break-word',
               },
             }}
             sx={{

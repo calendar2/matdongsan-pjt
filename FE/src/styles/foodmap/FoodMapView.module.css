@@ -10,8 +10,7 @@
 .hiddenSpace {
   position: absolute;
   z-index: 2;
-  height: calc(100vh - 125px);
-  border-radius: 5px;
+  height: calc(100vh - 111px);
   width: 25vw;
   background-color: rgb(255, 255, 255);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 음영 추가 */

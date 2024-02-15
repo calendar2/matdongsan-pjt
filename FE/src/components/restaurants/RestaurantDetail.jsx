@@ -117,7 +117,7 @@ function RestaurantDetail() {
       />
       <div className={detail.container}>
         <div className={detail.wrapper}>
-          <h3>{name}</h3>
+          <div className={detail.storeName}>{name}</div>
           {isPresent === 1 ? (
             <StarRoundedIcon
               className={detail.btn}
@@ -136,7 +136,10 @@ function RestaurantDetail() {
           <ul>
             {categories.map((category, i) =>
               i < categories.length - 1 ? (
-                <li key={category.name}>{category.name}|</li>
+                <li key={category.name}>
+                  {category.name}
+                  <span style={{ margin: '0 3px' }}>|</span>
+                </li>
               ) : (
                 <li key={category.name}>{category.name}</li>
               )
@@ -150,7 +153,7 @@ function RestaurantDetail() {
         <div className={detail.phone}>📞 {phone}</div>
         <div className={detail.menu}>
           <table>
-            <caption className={detail.menuTitle}>메뉴판</caption>
+            <caption className={detail.menuTitle}>메뉴</caption>
             <tbody>
               {menuList?.map((menu) => (
                 <tr key={menu} className={detail.menuBody}>

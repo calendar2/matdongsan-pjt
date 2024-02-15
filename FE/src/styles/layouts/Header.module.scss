@@ -1,5 +1,5 @@
-$primary-color: #1db177;
-$secondary-color: #b2b2b2;
+$primary-color: rgba(29, 177, 119, 0.5);
+$secondary-color: rgba(217, 217, 217, 0.7);
 
 .container {
   display: flex;
@@ -10,7 +10,8 @@ $secondary-color: #b2b2b2;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
+    margin-left: 4px;
 
     a {
       text-decoration: none;
@@ -85,9 +86,13 @@ $secondary-color: #b2b2b2;
         }
 
         input {
-          border: 0px;
+          border: none;
           width: 30rem;
           font-size: 1rem;
+          font-family: 'KoPubWorld-Dotum-Medium';
+        }
+        input:focus {
+          outline: none;
         }
 
         .userResult {
@@ -131,19 +136,23 @@ $secondary-color: #b2b2b2;
       .btnContainer {
         padding-left: 8px;
       }
-    
+
       .activeBtn {
+        font-family: 'KoPubWorld-Dotum-Medium';
         background-color: $primary-color;
         color: white;
         border: none;
         padding: 0.5rem 1rem;
         font-size: 1rem;
-        font-weight: bold;
+        // font-weight: bold;
+        border-radius: 50px;
         &:hover {
           cursor: pointer;
+          opacity: 0.8;
         }
+        margin-right: 4px;
       }
-    
+
       .unactiveBtn {
         @extend .activeBtn;
         background-color: $secondary-color;
@@ -151,7 +160,7 @@ $secondary-color: #b2b2b2;
     }
   }
   .userRank {
-    margin-top: 2vh;
+    margin-top: 1vh;
     margin-bottom: 2vh;
     margin-left: 45vw;
     .userRankLogo {

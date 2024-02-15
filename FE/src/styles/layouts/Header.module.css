@@ -7,7 +7,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
+  margin-left: 4px;
 }
 .container .headline a {
   text-decoration: none;
@@ -37,7 +38,7 @@
   flex-direction: row;
   align-items: center;
   padding: 0.4rem 0.8rem;
-  border: 1px solid #b2b2b2;
+  border: 1px solid rgba(217, 217, 217, 0.7);
   border-radius: 100px;
   background-color: white;
 }
@@ -48,7 +49,7 @@
   margin-left: 1rem;
   font-size: 13px;
   font-weight: bold;
-  color: #b2b2b2;
+  color: rgba(217, 217, 217, 0.7);
 }
 .container .headline .searchBox {
   display: flex;
@@ -60,7 +61,7 @@
 }
 .container .headline .searchBox .searchWrapper {
   position: relative;
-  border: 1px solid #b2b2b2;
+  border: 1px solid rgba(217, 217, 217, 0.7);
   border-radius: 100px;
   display: flex;
   flex-direction: row;
@@ -72,15 +73,19 @@
   cursor: pointer;
 }
 .container .headline .searchBox .searchWrapper input {
-  border: 0px;
+  border: none;
   width: 30rem;
   font-size: 1rem;
+  font-family: "KoPubWorld-Dotum-Medium";
+}
+.container .headline .searchBox .searchWrapper input:focus {
+  outline: none;
 }
 .container .headline .searchBox .searchWrapper .userResult {
   position: absolute;
   top: 51.5px;
   left: 52px;
-  border: 1px solid #b2b2b2;
+  border: 1px solid rgba(217, 217, 217, 0.7);
   border-top: 0px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -111,21 +116,24 @@
   padding-left: 8px;
 }
 .container .headline .searchBox .activeBtn, .container .headline .searchBox .unactiveBtn {
-  background-color: #1db177;
+  font-family: "KoPubWorld-Dotum-Medium";
+  background-color: rgba(29, 177, 119, 0.5);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
   font-size: 1rem;
-  font-weight: bold;
+  border-radius: 50px;
+  margin-right: 4px;
 }
 .container .headline .searchBox .activeBtn:hover, .container .headline .searchBox .unactiveBtn:hover {
   cursor: pointer;
+  opacity: 0.8;
 }
 .container .headline .searchBox .unactiveBtn {
-  background-color: #b2b2b2;
+  background-color: rgba(217, 217, 217, 0.7);
 }
 .container .userRank {
-  margin-top: 2vh;
+  margin-top: 1vh;
   margin-bottom: 2vh;
   margin-left: 45vw;
 }

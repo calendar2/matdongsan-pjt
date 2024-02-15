@@ -10,18 +10,21 @@
   margin-bottom: 1rem;
 }
 .modalContainer .activeBtn, .modalContainer .unactiveBtn {
-  background-color: #1DB177;
+  font-family: "KoPubWorld-Dotum-Medium";
+  background-color: rgba(29, 177, 119, 0.5);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 0.9rem;
+  border-radius: 50px;
+  margin-right: 4px;
 }
 .modalContainer .activeBtn:hover, .modalContainer .unactiveBtn:hover {
   cursor: pointer;
+  opacity: 0.8;
 }
 .modalContainer .unactiveBtn {
-  background-color: #b2b2b2;
+  background-color: rgba(217, 217, 217, 0.7);
 }
 .modalContainer .filterMenu {
   display: flex;
@@ -29,13 +32,13 @@
 }
 .modalContainer .filterMenu .locationBtn {
   margin-left: 1rem;
-  border: 1px solid #1DB177;
+  border: 1px solid rgba(29, 177, 119, 0.5);
   border-radius: 20px;
   background-color: white;
   padding: 0.5rem 1rem;
 }
 .modalContainer .filterMenu .locationBtn:hover {
   cursor: pointer;
-  background-color: #1DB177;
+  background-color: rgba(29, 177, 119, 0.5);
   color: white;
 }/*# sourceMappingURL=GlobalFilter.module.css.map */

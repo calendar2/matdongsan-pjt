@@ -160,7 +160,7 @@ function Header() {
           <div className={header.searchWrapper}>
             <SearchTwoToneIcon
               className={header.searchIcon}
-              fontSize="large"
+              fontSize="medium"
               color="disabled"
               onClick={searchBtnClick}
             />
