@@ -167,6 +167,15 @@ function DongsanModal() {
                   filter: true,
                 }, // 로그인 기능 구현 되면 로그인 유저의 nickname, followers, id 가져오기
               ]);
+              localStorage.setItem(
+                'DONGSAN_LIST',
+                JSON.stringify([
+                  {
+                    comparedAccountId: loginAccount.id,
+                    isHidden: 0,
+                  },
+                ])
+              );
             }}
           >
             모두 비우기

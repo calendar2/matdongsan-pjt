@@ -32,6 +32,11 @@ function FoodMap() {
       ) {
         // eslint-disable-next-line max-depth
         if (localStorage.getItem('ACCESS_TOKEN')) {
+          // eslint-disable-next-line max-depth
+          if (!dongsanUsers) {
+            return;
+          }
+
           console.log('로그인한 지도');
 
           // 사용자 정보 받아오기
@@ -89,6 +94,13 @@ function FoodMap() {
                     mapDatas.restaurantLists[i][j].mapy / tenPowSeven;
                   centerLng =
                     mapDatas.restaurantLists[i][j].mapx / tenPowSeven;
+
+                  console.log(`${i}행 ${j}열`, centerLat, centerLng);
+
+                  // eslint-disable-next-line max-depth
+                  if (centerLat !== 0 && centerLng !== 0) {
+                    break;
+                  }
                 }
                 if (centerLat !== 0 && centerLng !== 0) {
                   break;
@@ -238,7 +250,7 @@ function FoodMap() {
         }
       }
     }
-  }, [currentMyLocation, localStorage.getItem('DONGSAN_LIST')]);
+  }, [currentMyLocation, dongsanUsers]);
 
   // GNB 검색창을 통해 검색할 때 지도 생성 후 마커 생성하는 코드 + 필터 검색도
   useEffect(() => {
