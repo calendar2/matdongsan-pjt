@@ -44,7 +44,7 @@ public class NaverSearchService {
                 .fromUriString("https://map.naver.com")
                 .path("/v5/api/search")
                 .queryParam("caller","pcweb")
-                .queryParam("query",query)
+                .queryParam("query",query+"+맛집")
                 .queryParam("displayCount",20)
                 .queryParam("type","all")
                 .encode(StandardCharsets.UTF_8)
