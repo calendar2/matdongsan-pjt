@@ -1,6 +1,6 @@
 import Avatar from '@mui/material/Avatar';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
@@ -71,14 +71,17 @@ function Following() {
                   }
                 >
                   <Avatar
+                    className={user.followerProfile}
                     sx={{ width: 60, height: 60 }}
                     src={`/assets/random/profile${following.picture}.png`}
                   />
                 </Link>
                 <div className={user.info}>
                   <h4>{following.nickname}</h4>
-                  <FavoriteIcon sx={{ fontSize: 15 }} />
-                  &nbsp;&nbsp;<span>{following.follower}</span>
+                  <div className={user.heartFollower}>
+                    {/* <FavoriteIcon sx={{ fontSize: 15 }} /> */}❤
+                    &nbsp;<span>{following.follower}</span>
+                  </div>
                 </div>
               </div>
               <AddCircleIcon

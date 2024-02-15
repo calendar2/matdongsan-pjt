@@ -100,6 +100,7 @@ function EditProfile() {
           (category) => category.id
         );
         setSelectedButtons(bannedFoodIds);
+        setNickname(response.data.nickname);
         console.log('받아온 알레르기??', [bannedFoodIds]);
         setProfile(response.data.picture);
         // 프로필주소 설정
@@ -197,7 +198,8 @@ function EditProfile() {
               <div className={styles.gridItem}>
                 {/* {userData.nickname} */}
                 <input
-                  placeholder={userData.nickname}
+                  value={nickname}
+                  // placeholder={userData.nickname}
                   onChange={(e) => {
                     setNickname(e.target.value);
                     console.log(
