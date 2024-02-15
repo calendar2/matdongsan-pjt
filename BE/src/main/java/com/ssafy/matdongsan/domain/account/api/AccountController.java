@@ -106,6 +106,19 @@ public class AccountController {
         return ResponseEntity.ok().body(accountResponse);
     }
 
+    @Operation(summary = "Delete an account by id", tags = { "account" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class))
+            })
+    })
+    @DeleteMapping("/{accountId}")
+    public ResponseEntity<?> deleteAccount(@PathVariable Integer accountId) {
+        log.info("id={}", accountId);
+        accountService.deleteAccount(accountId);
+        return ResponseEntity.ok().build();
+    }
+
     @Operation(summary = "Get a person tag", tags = { "account" })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = {

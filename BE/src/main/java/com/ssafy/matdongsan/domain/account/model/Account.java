@@ -54,7 +54,7 @@ public class Account extends BaseEntity {
     private char gender;
     private boolean isPassed = false;
 
-    private Integer picture;
+    private String picture;
 
     @OneToMany(mappedBy = "sender")
     private List<Notice> senders = new ArrayList<>();
