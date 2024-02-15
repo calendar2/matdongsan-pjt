@@ -30,8 +30,8 @@ public class ComparisonService {
             Account account = accountRepository.findById(accountId).orElseThrow();
             byte spicyLevel = account.getSpicyLevel();
             spicyLevelSum += spicyLevel;
-            List<String> bannedFoods = account.getBannedFoods().stream().map(
-                    food ->food.getName()
+            List<String> bannedFoods = account.getBannedFoodCategories().stream().map(
+                   foodCategory -> foodCategory.getName()
             ).toList();
             allBannedFoods.addAll(bannedFoods);
         }
