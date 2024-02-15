@@ -29,13 +29,20 @@ function StartFooter() {
         {accountRank.map((account, index) => (
           <div className={styles.topArticle} key={account.nickname}>
             <div className={styles.topRank}>{index + 1}</div>
-            <div className={styles.topContent}>
+            {/* <div className={styles.topContent}> */}
+            <div>
               <Avatar
+                className={styles.topProfile}
                 src={`/assets/random/profile${account.picture}.png`}
               />
-              <div>{account.nickname}</div>
-              <div>♥{account.follower}</div>
             </div>
+            <div className={styles.topNickname}>
+              {account.nickname}
+            </div>
+            <div className={styles.topFollower}>
+              ❤ {account.follower}
+            </div>
+            {/* </div> */}
           </div>
         ))}
       </div>

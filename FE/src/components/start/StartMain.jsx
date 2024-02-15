@@ -15,11 +15,11 @@ function StartMain() {
     // dots: true,
     // dotsClass: 'custom-dots',
     infinite: true,
-    speed: 3500,
+    speed: 4000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3500,
+    autoplaySpeed: 3000,
     arrows: false,
     pauseOnHover: false,
   };
