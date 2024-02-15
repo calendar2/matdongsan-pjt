@@ -8,6 +8,7 @@ import axios from 'axios';
 import StarOutlineRoundedIcon from '@mui/icons-material/StarOutlineRounded';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import CloseIcon from '@mui/icons-material/Close';
+import swal from 'sweetalert2';
 import urlStore from '../../stores/urlStore';
 import content from '../../styles/foodmap/FoodMapView.module.css';
 import detail from '../../styles/restaurants/RestaurantDetail.module.css';
@@ -48,21 +49,30 @@ function RestaurantDetail() {
   }, [API_URL, navigate, restaurantId]);
 
   const registerMyRestaurant = useCallback(() => {
-    axios({
-      method: 'post',
-      url: `${API_URL}/restaurant/${loginAccount.id}?restaurantId=${restaurantId}`,
-    })
-      .then((res) => {
-        console.log('내 맛집 등록', res);
-        navigate(`/main/restaurants/${restaurantId}/detail`, {
-          state: {
-            id: restaurantId,
-          },
-        });
-      })
-      .catch((err) => {
-        console.error('내 맛집 등록ㅠㅠ', err);
+    if (!loginAccount.id) {
+      swal.fire({
+        text: '로그인 후에 등록할 수 있습니다!',
+        icon: 'warning',
+        confirmButtonColor: '#1DB177',
+        confirmButtonText: '확인',
       });
+    } else {
+      axios({
+        method: 'post',
+        url: `${API_URL}/restaurant/${loginAccount.id}?restaurantId=${restaurantId}`,
+      })
+        .then((res) => {
+          console.log('내 맛집 등록', res);
+          navigate(`/main/restaurants/${restaurantId}/detail`, {
+            state: {
+              id: restaurantId,
+            },
+          });
+        })
+        .catch((err) => {
+          console.error('내 맛집 등록ㅠㅠ', err);
+        });
+    }
   }, [API_URL, navigate, restaurantId]);
 
   useEffect(() => {
