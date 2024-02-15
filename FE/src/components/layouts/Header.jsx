@@ -48,6 +48,7 @@ function Header() {
   const id = open ? 'simple-popover' : undefined;
 
   const settings = {
+    pauseOnHover: false,
     dots: true,
     vertical: true,
     infinite: true,
@@ -383,6 +384,7 @@ function Header() {
             autoplay={settings.autoplay}
             autoplaySpeed={settings.autoplaySpeed}
             vertical={settings.vertical}
+            pauseOnHover={settings.pauseOnHover}
           >
             {/* 순위 캐러셀 구현 */}
             {accountRank.map((x, index) => (

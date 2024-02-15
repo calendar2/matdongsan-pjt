@@ -74,7 +74,7 @@ function DongsanModal() {
       setBannedFood('이 모임에서 못 먹는 음식은 없어요');
     } else {
       setBannedFood(
-        `이 모임은 ${bannedFoodList.join()} 을 못 먹어요`
+        `이 모임은 ${bannedFoodList.join()}(을/를) 못 먹어요`
       );
     }
   }, [spicyLevel, bannedFoodList]);
@@ -165,63 +165,64 @@ function DongsanModal() {
       ) : (
         <div className={dongsan.none} />
       )}
-      <div className={dongsan.box}>
-        <div className={dongsan.title}>
-          {showRefreshBtn && (
-            <div
-              className={dongsan.refreshBtn}
-              onMouseEnter={() => setShowTooltip(true)}
-              onMouseLeave={() => setShowTooltip(false)}
+      {loginAccount.id !== undefined && (
+        <div className={dongsan.box}>
+          <div className={dongsan.title}>
+            {showRefreshBtn && (
+              <div
+                className={dongsan.refreshBtn}
+                onMouseEnter={() => setShowTooltip(true)}
+                onMouseLeave={() => setShowTooltip(false)}
+              >
+                <RefreshIcon onClick={() => refreshBtnClick()} />
+                {showTooltip && (
+                  <div className={dongsan.tooltip}>
+                    동산 유저의 맛집으로 돌아가고 싶으면 클릭하세요
+                  </div>
+                )}
+              </div>
+            )}
+            <span>동산</span>
+            <button
+              type="button"
+              className={dongsan.staticBtn}
+              onClick={() => {
+                dongsanStatic();
+              }}
             >
-              <RefreshIcon onClick={() => refreshBtnClick()} />
-              {showTooltip && (
-                <div className={dongsan.tooltip}>
-                  동산 유저의 맛집으로 돌아가고 싶으면 클릭하세요
-                </div>
-              )}
-            </div>
-          )}
-          <span>동산</span>
-          <button
-            type="button"
-            className={dongsan.staticBtn}
-            onClick={() => {
-              dongsanStatic();
-            }}
-          >
-            분석
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setDongsanUsers([
-                {
-                  id: loginAccount.id,
-                  nickname: loginAccount.nickname,
-                  picture: loginAccount.picture,
-                  filter: true,
-                }, // 로그인 기능 구현 되면 로그인 유저의 nickname, followers, id 가져오기
-              ]);
-              localStorage.setItem(
-                'DONGSAN_LIST',
-                JSON.stringify([
+              분석
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setDongsanUsers([
                   {
-                    comparedAccountId: loginAccount.id,
-                    isHidden: 0,
-                  },
-                ])
-              );
-            }}
-          >
-            모두 비우기
-          </button>
-        </div>
-        <hr className={dongsan.line} />
-        <div className={dongsan.content}>
-          {dongsanUsers.map((dongsanUser, index) => (
-            <div key={dongsanUser.nickname}>
-              <div className={dongsan.profile}>
-                {/* {dongsanUser.filter ? (
+                    id: loginAccount.id,
+                    nickname: loginAccount.nickname,
+                    picture: loginAccount.picture,
+                    filter: true,
+                  }, // 로그인 기능 구현 되면 로그인 유저의 nickname, followers, id 가져오기
+                ]);
+                localStorage.setItem(
+                  'DONGSAN_LIST',
+                  JSON.stringify([
+                    {
+                      comparedAccountId: loginAccount.id,
+                      isHidden: 0,
+                    },
+                  ])
+                );
+              }}
+            >
+              모두 비우기
+            </button>
+          </div>
+          <hr className={dongsan.line} />
+          <div className={dongsan.content}>
+            {dongsanUsers.map((dongsanUser, index) => (
+              <div key={dongsanUser.nickname}>
+                <div className={dongsan.profile}>
+                  {/* {dongsanUser.filter ? (
                   <VisibilityIcon
                     onClick={() => {
                       toggleDongsanUsersFilter(index);
@@ -235,46 +236,47 @@ function DongsanModal() {
                   />
                 )} */}
 
-                <img
-                  src={
-                    index === 0
-                      ? `/assets/random/profile${loginAccount.picture}.png`
-                      : `/assets/random/profile${dongsanUser.picture}.png`
-                  }
-                  alt="유저 아바타"
-                  className={dongsan.avatar}
-                />
+                  <img
+                    src={
+                      index === 0
+                        ? `/assets/random/profile${loginAccount.picture}.png`
+                        : `/assets/random/profile${dongsanUser.picture}.png`
+                    }
+                    alt="유저 아바타"
+                    className={dongsan.avatar}
+                  />
 
-                {/* <Avatar
+                  {/* <Avatar
                   sx={{ width: 24, height: 24 }}
                   className={dongsan.avatar}
                 /> */}
-                <span>{dongsanUser.nickname}</span>
-                {/* <div className={dongsan.colorCheck} /> */}
-                <DoDisturbOnOutlinedIcon
-                  color={index !== 0 ? 'error' : 'success'}
-                  className={dongsan.cancel}
-                  onClick={() => {
-                    console.log(dongsanUsers, '현재동산상태');
-                    const copy = [...dongsanUsers];
-                    if (index === 0) {
-                      console.log('자기자신은 삭제할 수 없습니다.');
-                    } else {
-                      setDongsanUsers(
-                        copy.filter(
-                          (x) => x.nickname !== dongsanUser.nickname
-                        )
-                      );
-                      storageRemove(index);
-                    }
-                  }}
-                />
+                  <span>{dongsanUser.nickname}</span>
+                  {/* <div className={dongsan.colorCheck} /> */}
+                  <DoDisturbOnOutlinedIcon
+                    color={index !== 0 ? 'error' : 'success'}
+                    className={dongsan.cancel}
+                    onClick={() => {
+                      console.log(dongsanUsers, '현재동산상태');
+                      const copy = [...dongsanUsers];
+                      if (index === 0) {
+                        console.log('자기자신은 삭제할 수 없습니다.');
+                      } else {
+                        setDongsanUsers(
+                          copy.filter(
+                            (x) => x.nickname !== dongsanUser.nickname
+                          )
+                        );
+                        storageRemove(index);
+                      }
+                    }}
+                  />
+                </div>
+                <hr className={dongsan.line} />
               </div>
-              <hr className={dongsan.line} />
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

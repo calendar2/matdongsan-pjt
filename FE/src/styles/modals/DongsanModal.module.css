@@ -102,11 +102,13 @@
 
 .staticBox {
   right: 17rem;
-  width: 20rem;
+  width: 25rem;
   height: 5rem;
   display: flex;
+  text-align: center;
   flex-direction: column;
   justify-content: center;
+  padding: 10px;
 }
 .staticBox p {
   margin: 0 auto;

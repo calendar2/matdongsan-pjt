@@ -76,7 +76,11 @@ function ProfileModal() {
         aria-expanded={profileOpen ? 'true' : undefined}
       >
         <Avatar
-          sx={{ width: 32, height: 32 }}
+          sx={{
+            backgroundColor: 'rgba(217, 217, 217, 0.4)',
+            padding: '3px',
+            border: '1px solid rgba(217, 217, 217, 0.6)',
+          }}
           src={`/assets/random/profile${loginAccount.picture}.png`}
         />
       </IconButton>
