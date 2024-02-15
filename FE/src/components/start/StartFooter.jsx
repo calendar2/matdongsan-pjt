@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Avatar } from '@mui/material';
 import styles from '../../styles/start/StartView.module.css';
 import urlStore from '../../stores/urlStore';
 
@@ -29,7 +30,9 @@ function StartFooter() {
           <div className={styles.topArticle} key={account.nickname}>
             <div className={styles.topRank}>{index + 1}</div>
             <div className={styles.topContent}>
-              <div>이미지</div>
+              <Avatar
+                src={`/assets/random/profile${account.picture}.png`}
+              />
               <div>{account.nickname}</div>
               <div>♥{account.follower}</div>
             </div>

@@ -55,7 +55,10 @@ function UserInfoModal() {
       {followButtonClick !== undefined && (
         <div className={styles.box}>
           <div className={styles.avatar}>
-            <Avatar sx={{ width: '100px', height: '100px' }} />
+            <Avatar
+              sx={{ width: '100px', height: '100px' }}
+              src={`/assets/random/profile${userInfo?.picture}.png`}
+            />
           </div>
           <div className={styles.info}>
             <div className={styles.nickname}>
