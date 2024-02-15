@@ -126,7 +126,9 @@ public class ReviewService {
         return  accountReviews.stream()
                 .map(a -> new AccountSaveReviewRequestDto(
                         a.getId(),
-                        a.getNickname()
+                        a.getNickname(),
+                        a.getPicture()
+
                 ))
                 .toList();
     }
