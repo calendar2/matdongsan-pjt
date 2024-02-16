@@ -103,7 +103,7 @@ function SocialLogin() {
             token,
             userData.passed
           );
-          navigate('/main/restaurants', { state: location }); // '/main/restaurants'로 수정
+          navigate('/signup', { state: location }); // '/main/restaurants'로 수정
         }
         return userData;
       } catch (error) {
