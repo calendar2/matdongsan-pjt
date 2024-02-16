@@ -103,11 +103,7 @@ function SocialLogin() {
             token,
             userData.passed
           );
-          navigate('/signup', { state: location }); // '/main/restaurants'로 수정
-          Toast.fire({
-            icon: 'success',
-            title: `반갑습니다😊\n 회원가입 페이지로 이동합니다.`,
-          });
+          navigate('/main/restaurants', { state: location }); // '/main/restaurants'로 수정
         }
         return userData;
       } catch (error) {
