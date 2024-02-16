@@ -93,7 +93,7 @@ function SocialLogin() {
           navigate('/signup', { state: location });
           Toast.fire({
             icon: 'success',
-            title: `반갑습니다. 회원가입 페이지로 이동합니다.`,
+            title: `반갑습니다😊\n 회원가입 페이지로 이동합니다.`,
           });
         } else if (token && userData.passed) {
           setAccessToken(token); // 토큰 설정
@@ -104,6 +104,10 @@ function SocialLogin() {
             userData.passed
           );
           navigate('/signup', { state: location }); // '/main/restaurants'로 수정
+          Toast.fire({
+            icon: 'success',
+            title: `반갑습니다😊\n 회원가입 페이지로 이동합니다.`,
+          });
         }
         return userData;
       } catch (error) {

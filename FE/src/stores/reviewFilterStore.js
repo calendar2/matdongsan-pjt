@@ -33,7 +33,7 @@ const reviewFilterStore = create((set) => ({
     { title: '양식' },
     { title: '중식' },
     { title: '아시안' },
-    { title: '치킨' },
+    { title: '치킨,닭강정' },
     { title: '백반' },
     { title: '죽' },
     { title: '국수' },
