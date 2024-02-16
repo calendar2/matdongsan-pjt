@@ -40,7 +40,7 @@ function ReviewsSearch() {
       <TextField
         id="outlined-basic"
         variant="outlined"
-        placeholder="검색"
+        placeholder="가게 이름으로 리뷰 검색"
         sx={{
           '& .MuiOutlinedInput-root': {
             borderRadius: 30,

@@ -87,6 +87,8 @@ function ReviewsList() {
     const fetchData = async () => {
       try {
         if (!currentPageID) {
+          setRestaurantStore([]);
+          setMyReviewStore([]);
           return;
         }
         const reviewResponseData = {
@@ -236,181 +238,169 @@ function ReviewsList() {
 
   return (
     <div>
-      {loginAccount.id ? (
-        <div>
-          <div className={styles.header}>
-            <div className={styles.sortBtn}>
-              <Button
-                variant="text"
-                onClick={() => {
-                  setReviewListSortButton1(true);
-                  setReviewListSortButton2(false);
-                  setReviewListSortButton3(false);
-                  sortByRecentVisitDate();
-                }}
-                sx={{
-                  color: reviewListSortButton1
-                    ? '#555558'
-                    : '#BFBFBF',
-                }}
-              >
-                • 최신순
-              </Button>
-              <Button
-                variant="text"
-                onClick={() => {
-                  setReviewListSortButton1(false);
-                  setReviewListSortButton2(true);
-                  setReviewListSortButton3(false);
-                  sortByVisitCount();
-                }}
-                sx={{
-                  color: reviewListSortButton2
-                    ? '#555558'
-                    : '#BFBFBF',
-                }}
-              >
-                • 방문순
-              </Button>
-              <Button
-                variant="text"
-                onClick={() => {
-                  setReviewListSortButton1(false);
-                  setReviewListSortButton2(false);
-                  setReviewListSortButton3(true);
-                  sortByAverageTasteAndKindness();
-                }}
-                sx={{
-                  color: reviewListSortButton3
-                    ? '#555558'
-                    : '#BFBFBF',
-                }}
-              >
-                • 별점순
-              </Button>
-            </div>
-            <div>
-              <IconButton
-                onClick={() => {
-                  setRefresh(!refresh);
-                  setSelectedFriendID([]);
-                  setSelectedStartDate(
-                    dayjs(dayjs('2024-01-01').format('YYYY-MM-DD'))
-                  );
-                  setSelectedEndDate(
-                    dayjs(dayjs().format('YYYY-MM-DD'))
-                  );
-                  setSelectedBusinessTypes([]);
-                  setSelectedUserLocationID(undefined);
-                  계정없는친구ID선택수정([]);
-                  setSearchKeyWord('');
-                }}
-              >
-                <RefreshIcon />
-              </IconButton>
-              <IconButton onClick={() => handleScrollToSection(0)}>
-                <ArrowUpwardIcon fontSize="small" />
-              </IconButton>
-              <IconButton
-                onClick={() =>
-                  handleScrollToSection(restaurantStore.length - 1)
-                }
-              >
-                <ArrowDownwardIcon fontSize="small" />
-              </IconButton>
-            </div>
+      <div>
+        <div className={styles.header}>
+          <div className={styles.sortBtn}>
+            <Button
+              variant="text"
+              onClick={() => {
+                setReviewListSortButton1(true);
+                setReviewListSortButton2(false);
+                setReviewListSortButton3(false);
+                sortByRecentVisitDate();
+              }}
+              sx={{
+                color: reviewListSortButton1 ? '#555558' : '#BFBFBF',
+              }}
+            >
+              • 최신순
+            </Button>
+            <Button
+              variant="text"
+              onClick={() => {
+                setReviewListSortButton1(false);
+                setReviewListSortButton2(true);
+                setReviewListSortButton3(false);
+                sortByVisitCount();
+              }}
+              sx={{
+                color: reviewListSortButton2 ? '#555558' : '#BFBFBF',
+              }}
+            >
+              • 방문순
+            </Button>
+            <Button
+              variant="text"
+              onClick={() => {
+                setReviewListSortButton1(false);
+                setReviewListSortButton2(false);
+                setReviewListSortButton3(true);
+                sortByAverageTasteAndKindness();
+              }}
+              sx={{
+                color: reviewListSortButton3 ? '#555558' : '#BFBFBF',
+              }}
+            >
+              • 별점순
+            </Button>
           </div>
+          <div>
+            <IconButton
+              onClick={() => {
+                setRefresh(!refresh);
+                setSelectedFriendID([]);
+                setSelectedStartDate(
+                  dayjs(dayjs('2024-01-01').format('YYYY-MM-DD'))
+                );
+                setSelectedEndDate(
+                  dayjs(dayjs().format('YYYY-MM-DD'))
+                );
+                setSelectedBusinessTypes([]);
+                setSelectedUserLocationID(undefined);
+                계정없는친구ID선택수정([]);
+                setSearchKeyWord('');
+              }}
+            >
+              <RefreshIcon />
+            </IconButton>
+            <IconButton onClick={() => handleScrollToSection(0)}>
+              <ArrowUpwardIcon fontSize="small" />
+            </IconButton>
+            <IconButton
+              onClick={() =>
+                handleScrollToSection(restaurantStore.length - 1)
+              }
+            >
+              <ArrowDownwardIcon fontSize="small" />
+            </IconButton>
+          </div>
+        </div>
 
-          <List className={styles.container}>
-            {restaurantStore?.map((item, i) => (
-              <ListItem
-                key={restaurantStore[i].id}
-                onClick={() => {
-                  navigate(`${item.id}/detail`, {
-                    state: {
-                      id: item.id,
-                    },
-                  });
-                  setSelectedList(item.id);
-                }}
-                className={styles.content}
-                button
-                id={i}
-              >
-                <ListItemText
-                  className={`${styles.contentList} ${item.id === selectedList ? styles.selected : ''}`}
-                  primary={null}
-                  secondary={
-                    <Typography component="div">
-                      <ListItemAvatar>
-                        <Avatar
-                          src={restaurantStore[i]?.가게사진}
-                          alt="사진"
-                        />
-                        {/* 사진 */}
-                      </ListItemAvatar>
-                      <span className={styles.itemInfo}>
-                        <span className={styles.itemTitle}>
-                          {restaurantStore[i]?.가게이름}
-                        </span>
+        <List className={styles.container}>
+          {restaurantStore?.map((item, i) => (
+            <ListItem
+              key={restaurantStore[i].id}
+              onClick={() => {
+                navigate(`${item.id}/detail`, {
+                  state: {
+                    id: item.id,
+                  },
+                });
+                setSelectedList(item.id);
+              }}
+              className={styles.content}
+              button
+              id={i}
+            >
+              <ListItemText
+                className={`${styles.contentList} ${item.id === selectedList ? styles.selected : ''}`}
+                primary={null}
+                secondary={
+                  <Typography component="div">
+                    <ListItemAvatar>
+                      <Avatar
+                        src={restaurantStore[i]?.가게사진}
+                        alt="사진"
+                      />
+                      {/* 사진 */}
+                    </ListItemAvatar>
+                    <span className={styles.itemInfo}>
+                      <span className={styles.itemTitle}>
+                        {restaurantStore[i]?.가게이름}
+                      </span>
+                      <span>
                         <span>
-                          <span>
-                            친절
-                            <StarIcon
-                              sx={{
-                                fontSize: '10px',
-                                color: 'rgba(29, 177, 119, 0.7)',
-                              }}
-                            />
-                            {restaurantStore[i].친절도}
-                          </span>
-                          <span>|</span>
-                          <span>
-                            맛
-                            <StarIcon
-                              sx={{
-                                fontSize: '10px',
-                                color: 'rgba(29, 177, 119, 0.7)',
-                              }}
-                            />
-                            {restaurantStore[i].맛}
-                          </span>
+                          친절
+                          <StarIcon
+                            sx={{
+                              fontSize: '10px',
+                              color: 'rgba(29, 177, 119, 0.7)',
+                            }}
+                          />
+                          {restaurantStore[i].친절도}
+                        </span>
+                        <span>|</span>
+                        <span>
+                          맛
+                          <StarIcon
+                            sx={{
+                              fontSize: '10px',
+                              color: 'rgba(29, 177, 119, 0.7)',
+                            }}
+                          />
+                          {restaurantStore[i].맛}
                         </span>
                       </span>
-                      <span className={styles.itemInfo}>
-                        <span>
-                          <span>{restaurantStore[i].위치}</span>
-                          <span>|</span>
-                          <span>{restaurantStore[i].업종}</span>
-                        </span>
-                        <span>
-                          <span>
-                            {restaurantStore[i].방문횟수}번 방문
-                          </span>
-                          {/* <span>|</span> */}
-                          {/* <span>{restaurantStore[i].최근방문날짜}</span> */}
-                        </span>
+                    </span>
+                    <span className={styles.itemInfo}>
+                      <span>
+                        <span>{restaurantStore[i].위치}</span>
+                        <span>|</span>
+                        <span>{restaurantStore[i].업종}</span>
                       </span>
-                    </Typography>
-                  }
+                      <span>
+                        <span>
+                          {restaurantStore[i].방문횟수}번 방문
+                        </span>
+                        {/* <span>|</span> */}
+                        {/* <span>{restaurantStore[i].최근방문날짜}</span> */}
+                      </span>
+                    </span>
+                  </Typography>
+                }
+              />
+              <Divider />
+              <Routes>
+                <Route
+                  path={`${item.id}/*`}
+                  key={item.id}
+                  element={<ReviewsListSubItems id={item.id} />}
                 />
-                <Divider />
-                <Routes>
-                  <Route
-                    path={`${item.id}/*`}
-                    key={item.id}
-                    element={<ReviewsListSubItems id={item.id} />}
-                  />
-                </Routes>
-              </ListItem>
-            ))}
-          </List>
-        </div>
-      ) : (
-        <div style={{ height: 'calc(100vh - 230px)' }}>
-          로그인이 필요합니다!
-        </div>
-      )}
+              </Routes>
+            </ListItem>
+          ))}
+        </List>
+      </div>
     </div>
   );
 }

@@ -98,7 +98,7 @@ function LocationModal() {
               // borderBottom: '1px solid rgba(0, 0, 0, 0.5)',
             },
             fontSize: '14px',
-            color: 'rgba(255, 255, 255)',
+            color: 'rgba(29, 177, 119, 0.5)',
             // border: '1px dashed red',
           },
           '& .MuiOutlinedInput-notchedOutline': {
