@@ -51,6 +51,7 @@
 <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white">
 <img src="https://img.shields.io/badge/JAVASCRIPT-F7DF1E?style=flat-square&logo=javascript&logoColor=white">
 <img src="https://img.shields.io/badge/REACT-61DAFB?style=flat-square&logo=react&logoColor=white">
+<img src="https://img.shields.io/badge/Zustand-FFD000?style=flat-square&logo=zustand&logoColor=white">
 <img src="https://img.shields.io/badge/REACTQUERY-FF4154?style=flat-square&logo=reactquery&logoColor=white">
 
 **Backend**
